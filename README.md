@@ -1,17 +1,23 @@
-# Getting Started with Create React App
+# Instructions for Building my Website Using React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Using Docker (Deployment-ready)
 
-## Available Scripts
+```
+npm run build
+mv build .docker/
+cd .docker
+docker build -t react-app ./
+docker run -p 8080:8080 react-app
+```
 
-In the project directory, you can run:
+## Using NodeJS (Development Server)
 
 ### `npm start`
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
+
 You will also see any lint errors in the console.
 
 ### `npm test`

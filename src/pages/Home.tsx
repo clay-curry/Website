@@ -45,8 +45,8 @@ function References()
    <p>
    These proceedings are from conferences most aligned with my research interests.   
       <ul>
-        <li><a href="https://www.auai.org/uai2022/" target="_blank">Conference on Uncertainty in Artificial Intelligence</a></li>
-        <li><a href="https://www.auai.org/uai2022/" target="_blank">IEEE/CVF Conference on Computer Vision and Pattern Recognition</a></li>
+        <li><a href="https://www.auai.org/uai2022/" rel={'noreferrer'} target="_blank">Conference on Uncertainty in Artificial Intelligence</a></li>
+        <li><a href="https://www.auai.org/uai2022/" rel={'noreferrer'} target="_blank">IEEE/CVF Conference on Computer Vision and Pattern Recognition</a></li>
       </ul>
     A more complete list of conference proceedings in mathematics and computer science is provided by <a href="https://research.com/conference-rankings/computer-science/">Research.com</a>
   </p>

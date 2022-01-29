@@ -16,7 +16,7 @@ class TitleBar extends React.Component {
                         Research
                         </div>
                     </a>
-                    <a className='flex-button' target='_self' href='https://www.jezzamon.com/fourier/index.html'>
+                    <a className='flex-button' target='_blank' rel={'noreferrer'} href='https://www.jezzamon.com/fourier/index.html'>
                         <div> 
                         Interesting Stuff
                         </div>

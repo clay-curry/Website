@@ -1,13 +1,16 @@
-.home-body {
-  margin-left: 3%;
+.body {
+  width: min(700px, 100vw);
+  margin-left: auto;
+  margin-right: auto;
   outline-style: 1px solid black;
   font: 1.2em "Fira Sans", sans-serif;
-}
-
-.home-body > p {
-  margin-left: 3px;
+  justify-content: left;
 }
 
 .Home-link {
   color: #61dafb;
+}
+
+.middle {
+  text-align: center;
 }

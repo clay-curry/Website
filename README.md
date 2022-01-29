@@ -10,7 +10,7 @@ docker build -t react-app ./
 docker run -p 8080:8080 react-app
 ```
 
-## Using NodeJS (Development Server)
+## Using NodeJS (Localhost Server)
 
 ### `npm start`
 

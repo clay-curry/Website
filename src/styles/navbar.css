@@ -1,0 +1,62 @@
+/* 
+Useful for debugging
+border: 1px solid green; 
+*/
+
+.bar {
+  margin: 0px;
+  width: 100%;
+  background: linear-gradient(45deg, red, blue);
+  color: #fff;
+  height: auto;
+  /* Flex settings */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar > * {
+  border: 1px solid green;
+}
+
+.profile-pic {
+  height: 100px;
+  width: 100px;
+  border-radius: 75px;
+}
+
+.author-name {
+  font: italic small-caps bold 16px/2;
+  margin-left: 3%;
+}
+
+.button-container {
+  height: 80px;
+  width: 50%;
+  border: 1px solid green;
+  margin-right: 3%;
+  /* Flex settings*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-button > * {
+  height: max-content;
+  font: italic small-caps bold 16px/2;
+  font-size: larger;
+  text-align: center;
+  border: 1px solid green;
+}
+
+a {
+  text-emphasis: none;
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}

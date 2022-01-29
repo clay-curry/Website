@@ -1,0 +1,13 @@
+.home-body {
+  margin-left: 3%;
+  outline-style: 1px solid black;
+  font: 1.2em "Fira Sans", sans-serif;
+}
+
+.home-body > p {
+  margin-left: 3px;
+}
+
+.Home-link {
+  color: #61dafb;
+}

@@ -1,40 +1,65 @@
 import React from 'react';
-import '../styles/Home.css';
-
-import logo from '../logo.svg';
-import TitleBar from '../components/TitleBar';
+import '../styles/style.css';
+import NavBar from '../components/NavBar';
 
 function Home() {
   return (
-    <div className='Home'>
-      <TitleBar /> {/* Component Class Import */}
-      <h1>
-        Welcome To My Website
-      </h1> 
-      <h2>
-        About Me
-      </h2>
-      <h2>
-        Research Statement
-      </h2>
-      <h2>
-        Past Work
-      </h2>
-      <h2>
-        References  
-      </h2>
+    <>
+      <NavBar /> {/* Component Class Import */}
+      <Body />
+    </>
+  );
+}
 
-
-
-      <footer>
-      <img src={logo} className="Home-logo" alt="logo" />
-      </footer>
-
-      
+function Body() {
+  return (
+    <div className={ 'home-body' }>
+      <AboutMe />
+      <GenericSection title="Research Statement" />
+      <GenericSection title="Past Work" />
+      <References />
     </div>
   );
 }
 
+function AboutMe()
+{
+  return (<>
+  <h1>About Me</h1>
+  <p><b>I am a</b> final year computer science and mathematics student at the University of Oklahoma.</p>
+  </>);
+}
 
+
+
+function References()
+{
+  return (<>
+  <h2>Useful References</h2>
+  <h3>
+  Conference Proceedings
+  </h3>
+  <p>
+    Conference proceedings are a complete written record of the work presented to fellow researchers at academic conferences. Works are typically organized in the order of presentation at the conference.
+   </p>
+   <p>
+   These proceedings are from conferences most aligned with my research interests.   
+      <ul>
+        <li><a href="https://www.auai.org/uai2022/" target="_blank">Conference on Uncertainty in Artificial Intelligence</a></li>
+        <li><a href="https://www.auai.org/uai2022/" target="_blank">IEEE/CVF Conference on Computer Vision and Pattern Recognition</a></li>
+      </ul>
+    A more complete list of conference proceedings in mathematics and computer science is provided by <a href="https://research.com/conference-rankings/computer-science/">Research.com</a>
+  </p>
+  </>
+  );
+}
+
+function GenericSection(props: { title: string; body?: string })
+{
+  return (<div>
+  <h2>{props.title}</h2>
+  <p>{props.body}</p>
+  </div>);
+}
 
 export default Home;

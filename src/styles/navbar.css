@@ -42,6 +42,7 @@
 
 .nav-item .profile-pic {
   text-align: center;
+  align-items: center;
 }
 
 .nav .profile-pic .img {

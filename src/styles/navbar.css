@@ -1,8 +1,8 @@
-/* Debugging On */
-.nav * {
+/* Debugging Off */
+/*.nav * {
   border: 1px solid green;
   flex-grow: 1;
-}
+}*/
 
 .nav {
   margin: 0px;

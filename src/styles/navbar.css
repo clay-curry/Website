@@ -1,71 +1,72 @@
 /* Debugging Off */
-/*.nav * {
+.nav * {
   border: 1px solid green;
-  flex-grow: 1;
-}*/
+}
 
 .nav {
   margin: 0px;
   width: 100%;
-  background: linear-gradient(45deg, red, blue);
-  color: #fff;
-  height: auto;
-  position: sticky;
-  top: 0;
-
+  height: 7em;
+  max-height: 7em;  
+  background: linear-gradient(45deg, red, black);
+  
   /* Flex settings */
   display: flex;
   align-items: center; /* horizontal alignment */
 }
 
-.nav-item {
+.nav > * {
   flex: 1;
-  display: flex;
-  justify-content: center;
+  
 }
 
-.nav-item.author-name {
+.author-name {
+  display: flex;
+  justify-content: center;
   margin-right: auto;
   width: auto;
 }
 
-.nav-item.author-name h1 {
-  margin-left: 3%;
+h1 {
+  margin-left: max(3%);
   font: italic bold 16px/2;
   font-variant: small-caps;
 }
 
-.nav-item:last-child > * {
-  margin-left: auto;
-  margin-right: 3%;
-}
 
-.nav-item .profile-pic {
+.profile-pic {
   text-align: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+img {
+  width: auto;
+  height: 100%;
 }
 
-.nav .profile-pic .img {
-  height: 100px;
-  width: 100px;
-  border-radius: 75px;
-}
 
 .nav .buttons-container {
   height: 90px;
+  margin-left: auto;
+  margin-right: 3%;
   /* Flex settings*/
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-
 .nav .button {
   font: italic bold 16px/2;
   font-variant: small-caps;
   font-size: larger;
   text-align: center;
 }
+.buttons-container:last-child > * {
+  margin-left: auto;
+  margin-right: 3%;
+}
+
 
 /* Link Styling */
 .nav a {

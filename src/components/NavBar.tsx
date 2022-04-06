@@ -5,19 +5,12 @@ class TitleBar extends React.Component {
     state = {}
     render() {
         return (
-            <div className='nav'>
-
-                <div className='author-name'>
-                    <h1><a href="/">Clayton Curry</a></h1>
-                </div>
-
-
-                <div className='profile-pic'>
-                    <img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" />
-                </div>
-
+            <div id='nav'>
 
                 <div className='buttons-container'>
+                    
+                    <h1 className='author-name'><a href="/">Clayton Curry</a></h1>
+                
                     <a target='_self' href='/'>
                         <div className='button'>
                             Research

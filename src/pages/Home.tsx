@@ -58,20 +58,28 @@ function References() {
     <h2>Useful References (useful to me)</h2>
     <p>The list of conference proceedings and journals at <a href="https://research.com/conference-rankings/computer-science/">Research.com</a> gives complete list of conference proceedings in mathematics and computer science. </p>
     <h3>
-      Mandatory Reading for ML
+      Readings on Machine Learning
     </h3>
     <p>
       For anyone interested, the following papers are the sources that helped me find my own frame of thinking on machine learning algorithms. 
-      Some of these papers are intermittently math heavy, and understanding every detail at first is not necessary.
-      <h4>Theory</h4>
+      Some of these papers are intermittently math heavy, and understanding every detail at first is not necessary. Familarity with key ideas is a requirement.
+      <h4>Mandatory Mathematics for ML</h4>
       <ul>
-        <li><a href="https://storage.googleapis.com/clayc-storage/ml.pdf" rel={'noreferrer'} target="_blank">The Mathematics of Learning: Dealing with Data</a></li>
+        <li><a href="https://www.ams.org/notices/200305/fea-smale.pdf" rel={'noreferrer'} target="_blank">The Mathematics of Learning: Dealing with Data</a></li>
         <li><a href="https://ieeexplore.ieee.org/document/80230" rel={'noreferrer'} target="_blank">Perceptron Based Learning Algorithms</a></li>
-      </ul>
-      <h4>Research</h4>
+        <li><a href="https://storage.googleapis.com/clayc-storage/Linear%20Algebra%20Review%20and%20Reference.pdf">Linear Algebra</a></li>
+        <li><a href="https://storage.googleapis.com/clayc-storage/multilinear.pdf">Advanced linear algebra (optional, but useful)</a></li>      </ul>
+      <h4>Applications for Research</h4>
       <ul>
-        <li><a href="https://www.ams.org/notices/200305/fea-smale.pdf" rel={'noreferrer'} target="_blank">A Few Useful Things to Know about Machine Learning</a></li>
         <li><a href="http://www.diochnos.com/teaching/CS4033/2022S/ML_that_Matters.pdf" rel={'noreferrer'} target="_blank">Machine Learning that Matters</a></li>
+        <li><a href="https://storage.googleapis.com/clayc-storage/ml.pdf" rel={'noreferrer'} target="_blank">A Few Useful Things to Know about Machine Learning</a></li>      
+      </ul>
+      <h4>Computational Learning Theory</h4>
+      <ul>
+        <li><a href="https://dl.acm.org/doi/pdf/10.1145/1968.1972">A Theory of the Learnable</a></li>
+        <li><a href="http://www.diochnos.com/teaching/CS5970/2021F/Tools.pdf" rel={'noreferrer'} target="_blank">Tools for Bounding Probabilities</a></li>
+        <li><a href="http://www.diochnos.com/teaching/CS5970/2021F/essentials.pdf">Essentials on the Analysis of Randomized Algorithms</a></li>
+        <li><a href="http://www.diochnos.com/teaching/CS4033/2022S/IntroLearning.pdf">Basic Tools and Techniques for Algorithms in Learning Theory</a></li>
       </ul>
     </p>
     <br />

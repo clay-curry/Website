@@ -2,6 +2,8 @@
   margin-top: 15vh;
 }
 
+/* TODO: Implement conditional styling for smaller width screens*/
+
 #nav {
   position:fixed;
   top: 0;

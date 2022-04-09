@@ -8,6 +8,8 @@
   margin-right: auto;
 }
 
+/* TODO: Implement conditional styling for smaller width screens*/
+
 #me {
   height: max(300px, 15vw);
   float: right;
@@ -16,7 +18,8 @@
   padding-bottom: 20px;
   z-index: 0;
 }
-#me > img {
+
+#me>img {
   height: 100%;
   border-radius: 10%;
 }
@@ -36,26 +39,27 @@ p {
 }
 
 b {
-    font-family: Georgia, serif;
-    font-size: 36px;
-    letter-spacing: 3px;
-    word-spacing: 3px;
-    color: #000000;
-    font-weight: 700;
-    text-decoration: none;
-    font-style: italic;
-    font-variant: small-caps;
-    text-transform: none;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  letter-spacing: 3px;
+  word-spacing: 3px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: italic;
+  font-variant: small-caps;
+  text-transform: none;
 }
 
-#body a:link, #body a:visited {
+#body a:link,
+#body a:visited {
   text-emphasis: none;
   text-decoration: none;
   font-style: bold;
   color: #0808de;
 }
 
-#body a:hover{
+#body a:hover {
   color: #0808de;
   text-decoration: underline;
 }

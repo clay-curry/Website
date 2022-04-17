@@ -37,15 +37,15 @@ function AboutMe() {
 
     <h2>Research</h2>
       <div>
-        <p>Together with sofware engineers at the OKC Air Logistics Complex, my research focuses on modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">Trajectory Based Operations</a> by leveraging recent advancements in big data processing.
-        Currently, we are attacking the problem of <a href="https://en.wikipedia.org/wiki/Data_fusion">data fusion</a>&#8212;combining multiple signals into one coherent picture&#8212;for <a href="https://en.wikipedia.org/wiki/Radiodetermination">distributed radiodetermination systems</a> using cutting-edge <a href="https://storage.googleapis.com/clayc-storage/ml.pdf">Machine Learning algorithms</a>. 
+        <p>Together with sofware engineers at the OKC Air Logistics Complex, my research focuses on modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">trajectory based operations</a> by leveraging recent advancements in big data processing.
+        Currently, we are attacking the problem of <a href="https://en.wikipedia.org/wiki/Data_fusion">data fusion</a>&#8212;combining multiple sources of information into one coherent picture&#8212;for <a href="https://en.wikipedia.org/wiki/Radiodetermination">distributed radiodetermination systems</a> using cutting-edge <a href="https://storage.googleapis.com/clayc-storage/ml.pdf">Machine Learning algorithms</a>. 
         Such algorithms are favored for their ability continuously improve from examples by effectively self-learning patterns in data. 
         For producing this data, we developed our own physics simulator and web scraping tools for aggregating histoical position data in the form of millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a>, equipped in every aircraft.
         Some open theoretical problems most important to our work are interpretability for sequential data, robustness, and learning under noise and class imbalance.
         </p>
 
         <p>Aside from my current research, I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms.
-        Two areas that ignite me are methods for adversarially robust learning and methods for learning tasks charactarized by maps that are <a href='https://arxiv.org/abs/2203.06153'>equivariance with respect to symmetry groups</a> of identity-preserving transformations acting on the instance space.
+        Two areas that ignite me are methods for robust learning and methods for learning tasks charactarized by maps that are <a href='https://arxiv.org/abs/2203.06153'>equivariance with respect to symmetry groups</a> of identity-preserving transformations acting on the instance space.
         </p>
       </div>
   </Fragment>);
@@ -62,14 +62,13 @@ function References() {
     </h3>
     <p>
       For anyone interested, the following papers are the sources that helped me find my own frame of thinking on machine learning algorithms. 
-      Some of these papers are intermittently math heavy, and understanding every detail at first is not necessary. Familarity with key ideas is a requirement.
-      <h4>Mandatory Mathematics for ML</h4>
+      Some of these papers are intermittently math heavy, and understanding every detail at first is not necessary to gain useful insight.
+      <h4>Mathematics for ML</h4>
       <ul>
         <li><a href="https://www.ams.org/notices/200305/fea-smale.pdf" rel={'noreferrer'} target="_blank">The Mathematics of Learning: Dealing with Data</a></li>
-        <li><a href="https://ieeexplore.ieee.org/document/80230" rel={'noreferrer'} target="_blank">Perceptron Based Learning Algorithms</a></li>
         <li><a href="https://storage.googleapis.com/clayc-storage/Linear%20Algebra%20Review%20and%20Reference.pdf">Linear Algebra</a></li>
         <li><a href="https://storage.googleapis.com/clayc-storage/multilinear.pdf">Advanced linear algebra (optional, but useful)</a></li>      </ul>
-      <h4>Applications for Research</h4>
+      <h4>Research Rules-of-Thumb</h4>
       <ul>
         <li><a href="http://www.diochnos.com/teaching/CS4033/2022S/ML_that_Matters.pdf" rel={'noreferrer'} target="_blank">Machine Learning that Matters</a></li>
         <li><a href="https://storage.googleapis.com/clayc-storage/ml.pdf" rel={'noreferrer'} target="_blank">A Few Useful Things to Know about Machine Learning</a></li>      
@@ -80,6 +79,14 @@ function References() {
         <li><a href="http://www.diochnos.com/teaching/CS5970/2021F/Tools.pdf" rel={'noreferrer'} target="_blank">Tools for Bounding Probabilities</a></li>
         <li><a href="http://www.diochnos.com/teaching/CS5970/2021F/essentials.pdf">Essentials on the Analysis of Randomized Algorithms</a></li>
         <li><a href="http://www.diochnos.com/teaching/CS4033/2022S/IntroLearning.pdf">Basic Tools and Techniques for Algorithms in Learning Theory</a></li>
+      </ul>
+      <h4>Artificial Neural Networks</h4>
+      <ul>
+        <li><a href="https://ieeexplore.ieee.org/document/80230" rel={'noreferrer'} target="_blank">Perceptron Based Learning Algorithms</a></li>
+      </ul>
+      <h4>Neuroevolution (ANN optimization using Evolutionary Computation)</h4>
+      <ul>
+        <li><a href="http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">Evolving Neural Networks through Augmenting Topologies</a></li>
       </ul>
     </p>
     <br />

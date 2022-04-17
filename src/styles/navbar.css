@@ -65,3 +65,24 @@
 .buttons-container a:focus {
   text-decoration: underline;
 }
+
+
+
+/*IPhone x adapter*/
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .fixed-bottom{
+  bottom: 37px;
+  }
+ }
+ /*IPhone XS Max adapter*/
+ @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:3) {
+  .fixed-bottom{
+  bottom: 37px;
+  }
+ }
+ /*IPhone XR Max adapter*/
+ @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+  .fixed-bottom{
+  bottom: 37px;
+  }
+ }

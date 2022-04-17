@@ -45,7 +45,7 @@ function AboutMe() {
         </p>
 
         <p>Aside from my current research, I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms.
-        Two areas that ignite me are methods for robust learning and methods for learning tasks charactarized by maps that are <a href='https://arxiv.org/abs/2203.06153'>equivariance with respect to symmetry groups</a> of identity-preserving transformations acting on the instance space.
+        Two areas that ignite me are methods for robust learning and methods for learning tasks charactarized by maps that are <a href='https://arxiv.org/abs/2004.05154'>equivariance with respect to symmetry groups</a> of identity-preserving transformations acting on the instance space.
         </p>
       </div>
   </Fragment>);
@@ -67,7 +67,9 @@ function References() {
       <ul>
         <li><a href="https://www.ams.org/notices/200305/fea-smale.pdf" rel={'noreferrer'} target="_blank">The Mathematics of Learning: Dealing with Data</a></li>
         <li><a href="https://storage.googleapis.com/clayc-storage/Linear%20Algebra%20Review%20and%20Reference.pdf">Linear Algebra</a></li>
-        <li><a href="https://storage.googleapis.com/clayc-storage/multilinear.pdf">Advanced linear algebra (optional, but useful)</a></li>      </ul>
+        <li><a href="https://storage.googleapis.com/clayc-storage/multilinear.pdf">Advanced linear algebra (optional, but useful)</a></li>      
+        <li><a href="https://arxiv.org/abs/2004.05154">Theoretical Aspects of Group Equivariant Neural Networks</a></li>
+      </ul>      
       <h4>Research Rules-of-Thumb</h4>
       <ul>
         <li><a href="http://www.diochnos.com/teaching/CS4033/2022S/ML_that_Matters.pdf" rel={'noreferrer'} target="_blank">Machine Learning that Matters</a></li>

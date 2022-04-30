@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import Home from './pages/Home';
 import reportWebVitals from './reportWebVitals';
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NavBar from './components/NavBar';
+import { Home, Research } from './components';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Router>
+    <NavBar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/research" element={<Research />} />
+    </Routes>
+  </Router>,
   </React.StrictMode>,
   document.getElementById('root')
 );

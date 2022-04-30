@@ -1,53 +1,52 @@
 import React, { Fragment } from 'react';
-import '../styles/home.css';
-import NavBar from '../components/NavBar';
+import '../styles/style.css';
+import '../styles/research.css'
 
-function Home() {
+function Research() {
   return (
-    <>
-      <NavBar />
-      <div id='body'>
-        <AboutMe />
+    <div id='body'>
+      <h2>Research</h2>
+        <Statement />
+        <Work />
         <References />  
-      </div>
-    </>
+    </div>
   );
 }
 
-function AboutMe() {
+function Statement() {
   return (<Fragment>
-    <h2>About Me</h2>
-    <div>
-      <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
-      
-      <p>
-        <b>I</b> am an undergraduate at the University of Oklahoma with plans to graduate in December 2022 with a B.A. in Mathematics and a B.S. in Computer Science.
-      </p>
-      
-      <p>
-        My highest priority at the moment is getting funding for a masters or PhD program though grants or work opportunity.
-        With this, I would love love to explore the mathematical roots of my previous work (or similar work), to provide solid proofs about robustness and expected performance.
+      <h3>Statement of Interest</h3>
+        <p>
+        Aside from my current research, I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms.
+        Two areas that ignite me are methods for quantifying robustness and the general topic of symmetry, invariance and equivariance in artificial neural networks
         </p>
 
-      <p>
-        This website is still very much in progress, and wrapping up two degrees often restricts my ability for web-dev to intermittent bursts of productivity.
-        Feel free to snoop the place.
-       </p>
-    </div>
+      <h4>Key Words</h4>
+      
+      <div className='keywords'>
+      <div>Learning Algorithms</div>
+      <div>Hierarchical Feature Learning</div>
+      <div>Symmetry, Invariance and Equivariance</div>
+      </div>
 
-    <h2>Research</h2>
-      <div>
-        <p>Together with sofware engineers at the OKC Air Logistics Complex, my research focuses on modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">trajectory based operations</a> by leveraging recent advancements in big data processing.
-        Currently, we are attacking the problem of <a href="https://en.wikipedia.org/wiki/Data_fusion">data fusion</a>&#8212;combining multiple sources of information into one coherent picture&#8212;for <a href="https://en.wikipedia.org/wiki/Radiodetermination">distributed radiodetermination systems</a> using cutting-edge <a href="https://storage.googleapis.com/clayc-storage/ml.pdf">Machine Learning algorithms</a>. 
+        
+  </Fragment>);
+}
+function Work() {
+  return (<Fragment>
+      <h3>Prior Research</h3>
+      <h4>United States Air Force Research Lab : Sustainment and Modernization : </h4>
+        <p>Together with sofware engineers at the <a href="https://www.ou.edu/oadii/news-events/2022/ou-oc-alc-strengthen-partnership-with-cooperative-research-and-development-agreement">OKC Air Logistics Complex</a>, my research focuses on modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">trajectory based operations</a> by leveraging recent advancements in big data processing.
+        Currently, we are attacking the problem of <a href="https://en.wikipedia.org/wiki/Data_fusion">data fusion</a>&#8212;combining multiple sources of information into one coherent picture&#8212;for <a href="https://en.wikipedia.org/wiki/Radiodetermination">distributed radiodetermination systems</a> using cutting-edge <a href="https://storage.googleapis.com/clayc-storage/ml.pdf">machine learning algorithms</a>. 
+        </p>
+
+        <p>
         Such algorithms are favored for their ability continuously improve from examples by effectively self-learning patterns in data. 
-        For producing this data, we developed our own physics simulator and web scraping tools for aggregating histoical position data in the form of millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a>, equipped in every aircraft.
+        For producing this data, we developed our own physics simulator and tools for aggregating histoical position data in the form of millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a>, equipped in every aircraft.
         Some open theoretical problems most important to our work are interpretability for sequential data, robustness, and learning under noise and class imbalance.
         </p>
 
-        <p>Aside from my current research, I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms.
-        Two areas that ignite me are methods for robust learning and methods for learning tasks charactarized by maps that are <a href='https://arxiv.org/abs/2004.05154'>equivariance with respect to symmetry groups</a> of identity-preserving transformations acting on the instance space.
-        </p>
-      </div>
+        
   </Fragment>);
 }
 
@@ -55,14 +54,18 @@ function AboutMe() {
 
 function References() {
   return (<>
-    <h2>Useful References (useful to me)</h2>
+    <h3>Useful References (useful to me)</h3>
     <p>The list of conference proceedings and journals at <a href="https://research.com/conference-rankings/computer-science/">Research.com</a> gives complete list of conference proceedings in mathematics and computer science. </p>
     <h3>
       Readings on Machine Learning
     </h3>
     <p>
       For anyone interested, the following papers are the sources that helped me find my own frame of thinking on machine learning algorithms. 
+      There are also several related papers that I hope to have the time to read.
+      <br />
+      <br />
       Some of these papers are intermittently math heavy, and understanding every detail at first is not necessary to gain useful insight.
+      
       <h4>Mathematics for ML</h4>
       <ul>
         <li><a href="https://www.ams.org/notices/200305/fea-smale.pdf" rel={'noreferrer'} target="_blank">The Mathematics of Learning: Dealing with Data</a></li>
@@ -92,9 +95,9 @@ function References() {
       </ul>
     </p>
     <br />
-    <h3>
+    <h4>
       Conference Proceedings
-    </h3>
+    </h4>
     <p>
       Conference proceedings are a complete written record of the work presented to fellow researchers at academic conferences. Works are typically organized in the order of presentation at the conference.
     </p>
@@ -110,4 +113,4 @@ function References() {
   );
 }
 
-export default Home;
+export default Research;

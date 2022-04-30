@@ -1,0 +1,12 @@
+.keywords {
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    margin-top: 25pt;
+    margin-bottom: 80pt;
+}
+.keywords > * {
+    font-size: 15pt;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}

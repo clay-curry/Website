@@ -1,7 +1,8 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/navbar.css';
 
-class TitleBar extends React.Component {
+class NavBar extends React.Component {
     state = {}
     render() {
         return (
@@ -11,11 +12,11 @@ class TitleBar extends React.Component {
                     
                     <h1 className='author-name'><a href="/">Clayton Curry</a></h1>
                 
-                    <a target='_self' href='/'>
+                    <NavLink to='/research'>
                         <div className='button'>
                             Research
                         </div>
-                    </a>
+                    </NavLink>
                     <a target='_blank' rel={'noreferrer'} href='https://www.jezzamon.com/fourier/index.html'>
                         <div className='button'>
                             Interesting Stuff
@@ -36,4 +37,4 @@ class TitleBar extends React.Component {
 
 
 
-export default TitleBar;
+export default NavBar;

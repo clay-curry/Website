@@ -1,19 +1,20 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 
-function Home() {
-  return (
-    <>
-      <div id='body'>
-        <AboutMe />  
-      </div>
-    </>
-  );
+class Home extends React.Component {
+    
+  render(): React.ReactNode {
+    return (
+        <div id='body'>
+          <AboutMe />  
+        </div>
+    );   
+  }
 }
 
 function AboutMe() {
   return (<Fragment>
-    <h2>Hi</h2>
+    <h2>Hello</h2>
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       

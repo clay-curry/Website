@@ -2,15 +2,17 @@ import React, { Fragment } from 'react';
 import '../styles/style.css';
 import '../styles/research.css'
 
-function Research() {
-  return (
-    <div id='body'>
-      <h2>Research</h2>
-        <Statement />
-        <Work />
-        <References />  
-    </div>
-  );
+class Research extends React.Component {
+  render() {
+    return (
+      <div id='body'>
+        <h2>Research</h2>
+          <Statement />
+          <Work />
+          <References />  
+      </div>
+    );
+  }
 }
 
 function Statement() {

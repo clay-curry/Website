@@ -10,7 +10,7 @@ class NavBar extends React.Component {
 
                 <div className='buttons-container'>
                     
-                    <h1 className='author-name'><a href="/">Clayton Curry</a></h1>
+                    <h1 className='author-name'><a href="/">Clayton B. Curry</a></h1>
                 
                     <NavLink to='/research'>
                         <div className='button'>

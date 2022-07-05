@@ -12,9 +12,9 @@ class NavBar extends React.Component {
                     
                     <h1 className='author-name'><a href="/">Clayton B. Curry</a></h1>
                 
-                    <NavLink to='/research'>
+                    <NavLink to='/about'>
                         <div className='button'>
-                            Research
+                            About Me
                         </div>
                     </NavLink>
                     <a target='_blank' rel={'noreferrer'} href='https://www.jezzamon.com/fourier/index.html'>
@@ -22,7 +22,7 @@ class NavBar extends React.Component {
                             Interesting Stuff
                         </div>
                     </a>
-                    <a target='_self' href='/'>
+                    <a target='_self' href='https://www.jezzamon.com/fourier/index.html'>
                         <div className='button'>
                             Projects
                         </div>

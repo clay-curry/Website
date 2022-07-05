@@ -18,12 +18,12 @@ function AboutMe() {
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       
       <p>
-      Thank you for your interest in my personal portfolio. Here you will find my favorite research, interests, and personal projects including talks and demos.
+        Thank you for your interest in my personal portfolio. Here you will find my favorite research, interests, and personal projects including talks and demos.
       </p>
 
       <p>
-        This website is still very much in progress, and wrapping up what feels like two degrees often restricts my ability for web-dev to intermittent bursts of productivity.
-        Feel free to snoop the place.
+        If anything here seem out of place or dry, please note that the website&#8212;and my sometimes distracted brain&#8212;is a work in progress. Wrapping up 
+        this degree often restricts my availability for web-dev to intermittent bursts of productivity. Still, feel free to snoop the place.
        </p>
     </div>
   </Fragment>);

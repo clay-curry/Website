@@ -4,7 +4,7 @@ import './styles/index.css';
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from './components/NavBar';
-import { Home, Research } from './pages';
+import { Home, About } from './pages';
 
 
 
@@ -15,7 +15,7 @@ ReactDOM.render(
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/research" element={<Research />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>,
   </React.StrictMode>,

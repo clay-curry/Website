@@ -17,10 +17,19 @@ function Statement() {
   return (<Fragment>
       <h3>Statement of Interest</h3>
         <p>
-        Aside from my current research, I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms.
-        Two areas that ignite me are methods for quantifying robustness and the general topic of symmetry, invariance and equivariance in artificial neural networks
+        I am deeply interested in all open problems in the mathematical foundations of self-learning algorithms, particularly the axiomatizaion of <a href="https://www.deeplearningbook.org/">Deep Learning</a>.
+
+        Two research areas that ignite me are practical and theoreical methods for quantifying expected performance (generalization) on unseen data, and systemetizing the use inductive biases that allow for learning with fewer training examples. 
+        
+        learning functions guaranteed to respect some symmetry, expressed by the property of invariance (or, more generally equivariance) to a group of symmetries.
         </p>
 
+      <h3>About me</h3>
+      <p>
+        I am an undergraduate at the University of Oklahoma with plans to graduate in December 2022 with a B.S. in Computer Science.
+        My highest priority at the moment is getting funding for a masters program in Mathematics though grants or work opportunity.
+        With this, I would love to explore the mathematical roots of my previous work (or similar work), to provide solid proofs about robustness and expected performance.
+      </p>
       <h4>Key Words</h4>
       
       <div className='keywords'>
@@ -34,17 +43,16 @@ function Statement() {
 }
 function Work() {
   return (<Fragment>
-      <h3>Prior Research</h3>
-      <h4>United States Air Force Research Lab : Sustainment and Modernization : </h4>
-        <p>Together with sofware engineers at the <a href="https://www.ou.edu/oadii/news-events/2022/ou-oc-alc-strengthen-partnership-with-cooperative-research-and-development-agreement">OKC Air Logistics Complex</a>, my research focuses on modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">trajectory based operations</a> by leveraging recent advancements in big data processing.
-        Currently, we are attacking the problem of <a href="https://en.wikipedia.org/wiki/Data_fusion">data fusion</a>&#8212;combining multiple sources of information into one coherent picture&#8212;for <a href="https://en.wikipedia.org/wiki/Radiodetermination">distributed radiodetermination systems</a> using cutting-edge <a href="https://storage.googleapis.com/clayc-storage/ml.pdf">machine learning algorithms</a>. 
-        </p>
-
+      <h3>Research</h3>
+      <h4>United States <a href="https://www.ou.edu/oadii/news-events/2022/ou-oc-alc-strengthen-partnership-with-cooperative-research-and-development-agreement">OKC Air Logistics Complex</a> : Sustainment and Modernization : </h4>
         <p>
-        Such algorithms are favored for their ability continuously improve from examples by effectively self-learning patterns in data. 
-        For producing this data, we developed our own physics simulator and tools for aggregating histoical position data in the form of millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a>, equipped in every aircraft.
-        Some open theoretical problems most important to our work are interpretability for sequential data, robustness, and learning under noise and class imbalance.
+          With sofware engineers at the OKC ALC, I helped with various tasks related to modernizing <a href="https://www.faa.gov/air_traffic/technology/tbo/">multisource-multitarget information fusion</a>, employing a class of algorithms and tools collectively known as "deep learning."
+        
+          Such algorithms are favored for their ability continuously improve from examples by effectively self-learning patterns in data.
+          For producing this data, we developed our own physics simulator (I had little role in making this) and we created data-scraping tools capable of storing millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a> (this was my baby).
+          Our work touched some of the most important areas in deep learning, including interpretability (explanation generation), human-computer interaction (quantifying uncertainty), extracting information from sequential data, robustness, and learning under noise and class imbalance (recognizing uncommon aircraft types).
         </p>
+        
 
         
   </Fragment>);

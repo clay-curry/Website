@@ -18,7 +18,7 @@ function AboutMe() {
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       
       <p>
-      Thank you for your interest in my personal portfolio. Here you will find my favorite research, interests, personal projects.
+      Thank you for your interest in my personal portfolio. Here you will find my favorite research, interests, and personal projects including talks and demos.
       </p>
 
       <p>

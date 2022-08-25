@@ -1,16 +1,10 @@
-# Instructions for Building my Website Using NodeJS
+# My Portfolio in React
 
-## Using Docker (Deployment-ready)
+Here is the source code to my website, as well as instructions for running it locally. My website is programmed to load pages dynamically using the Google Docs REST API (spell check sucks in HTML). 
 
-```
-npm run build
-mv build .docker/
-cd .docker
-docker build -t react-app ./
-docker run -p 8080:8080 react-app
-```
 
-## Using NodeJS (Localhost Server)
+
+## Running a Localhost Server using NodeJS
 
 ### `npm start`
 

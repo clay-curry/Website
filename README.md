@@ -1,6 +1,6 @@
 # My Website in React (+ GCP Cloud Run + Drive API + Docker)
 
-This repo contains the source code to my website, as well as instructions for running it locally. My website runs on a GCP Cloud Run instance and loads pages dynamically using the Google Docs REST API because spell check sucks in HTML.  
+This repo contains the source code to my website, as well as instructions for running it locally. My website runs on a GCP Cloud Run instance and loads pages dynamically using the Google Docs REST API because spell checkers suck with HTML.  
 
 ## Running a Localhost Server using NodeJS
 

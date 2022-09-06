@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
-import '../styles/research.css'
 
 function Research() {
   return (
@@ -21,11 +20,7 @@ function Statement() {
       </p>
       <p>
         My most recent work has focused on applications of deep learning for multiple object tracking in aerial monitoring.
-      </p>
-      
-      
-
-        
+      </p>  
   </Fragment>);
 }
 
@@ -43,7 +38,6 @@ function Keywords() {
 
   </Fragment>)
 }
-
 
 
 export default Research;

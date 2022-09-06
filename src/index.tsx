@@ -1,10 +1,9 @@
 import React from 'react';
-import { useAsync } from "react-async";
 import ReactDOM from 'react-dom';
-import './styles/index.css';
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import { Home, About, Projects, Contact } from './pages';
 
 
@@ -19,7 +18,8 @@ ReactDOM.render(
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />        
       </Routes>
-    </Router>,
+      <Footer />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

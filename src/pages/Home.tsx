@@ -5,6 +5,7 @@ function Home() {
   return (
     <>
       <div id='body'>
+      <h2>Welcome</h2>
         <AboutMe />  
       </div>
     </>
@@ -13,7 +14,7 @@ function Home() {
 
 function AboutMe() {
   return (<Fragment>
-    <h2>Welcome</h2>
+
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       <p>

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 
-function Research() {
+function About() {
   return (
     <div id='body'>
-      <h2>Research</h2>
+      <h2>About me</h2>
         <Statement />
         <Keywords />
     </div>
@@ -13,7 +13,7 @@ function Research() {
 
 function Statement() {
   return (<Fragment>
-      <h3>About me</h3>
+
       <p>
         I am an undergraduate Computer Science student at the University of Oklahoma with plans to graduate in December 2022.
         I have a serious passion for all open problems in the mathematical foundations of learning algorithms and particularly in the subject of robustness and generalization of novel deep learning architectures.
@@ -40,4 +40,4 @@ function Keywords() {
 }
 
 
-export default Research;
+export default About;

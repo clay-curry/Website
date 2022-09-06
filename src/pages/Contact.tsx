@@ -5,6 +5,7 @@ function Contact() {
   return (
     <>
       <div id='body'>
+      <h2>Contact</h2>
         <Details />  
       </div>
     </>
@@ -13,7 +14,7 @@ function Contact() {
 
 function Details() {
   return (<Fragment>
-    <h2>Contact</h2>
+
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       <h4>Location</h4>

@@ -22,28 +22,38 @@ function Statement() {
       </p>
       
       <p>
-      Through a PhD program, I would like to explore the design space of physics-informed machine learning algorithms that <a href="">incorporate knowledge of physical laws</a> with prior knowledge of a group of 
-      <a href="https://geometricdeeplearning.com/">symmetry transformations</a> of the governing equations. These two elements give a sufficient framework for using experimental data to model thediscrepency modeling of control systems to estimate physically consistent
+      Through a PhD program, I would like to explore the space of physics-informed machine learning algorithms that combine <a href="">a set of governing equations</a> together with knowledge
+      <a href="https://geometricdeeplearning.com/"> symmetries</a> (tranlations, rotations) of the system. These two elements give a sufficient framework for using experimental data to model thediscrepency modeling of control systems to estimate physically consistent
       solutions to problems that are either too difficult to model exactly or in situations where training end-to-end is too costly.
 
       My interest in physics-informed learning algorithms started with my mathematical interst in <a href="https://proceedings.mlr.press/v48/cohenc16.html">group equivariant convolutional networks</a>.
-      More recently, several constructions of equivariant neural networks have been proposed, notably, for the class of models known as Graph Neural Networks (GNNs).
+      More recently, some constructions of <a href="">graph neural networks equivariant under the action of E(3)</a> (rotations and translations), extending group equivariance for Graph Neural Networks (GNNs), 
+      which are interesting in their own right.
       In object-detecting radar, for instance, a set of detections can form temporal graph wherein edges contain structure suffienct for modeling kinematic features, wherein kinematic features contain 
       structure suffienct for modeling the aircraft type, mesoscale meteorology, or even intentions of the pilot.
       </p>
 
       <p>
       Being with the <a href="https://www.ou.edu/oadii">Oklahoma Aerospace and Defense Innovation Institute</a> for the last year has allowed me to develop an understanding of the fundamentals of equivariant neural
-      networks passion while also gaining domain knowledge of air-space monitoring systems and the many interesting nuances of multiple object tracking. These are topics I am highly interested in bringing to future 
-      research and sharing with colleagues. I'm currently seeking full-time career positions post-graduation, particularly in the area of sensors, so please reach out for inquiries!
+      networks while simultaneously learning fundamentals of dynamical systems in the domain of air-space monitoring systems with its many interesting Bayesian nuances of multiple object tracking. I would be exicited
+      to pursue further applications of these things and sharing my work with colleagues. I'm currently seeking full-time career positions post-graduation, particularly in the area of sensors, so please reach out with any requests!
       </p>
+      <a rel="contact" href="/contact/" className="contact-button">
+        <div> 
+        <span className="bg"></span> 
+        <span className="base"></span> 
+        <span className="text">
+          Contact me!
+        </span>
+        </div> 
+      </a>
       
   </Fragment>);
 }
 
 function Keywords() {
   return(<Fragment>
-      <h4>Key Words</h4>
+      <h3>Key Words</h3>
       <div className='keywords'>
       <div>Physics Informed ML</div>
       <div>Symmetry Informed ML</div>
@@ -59,14 +69,15 @@ function Keywords() {
 function OKC_ALC() {
   return (<Fragment>
       <hr />
-      <h3>Undergraduate Research Assistant with <a href="https://www.ou.edu/oadii">SW-76</a></h3>
+      <h3>Prior Experience</h3>
+      <h4>Undergraduate Research Assistant with <a href="https://www.ou.edu/oadii">SWEG-76</a></h4>
         <p>
           Early on, I helped with various tasks related to data fusion, namely by creating data-scraping tools capable of storing millions of <a href="https://www.faa.gov/nextgen/programs/adsb/">ADS-B messages</a> (this was my baby).
-          Our work touched some of the most important areas in deep learning, including interpretability (explanation generation), human-computer interaction (quantifying uncertainty), extracting information from sequential data, robustness, and learning under noise and class imbalance (recognizing uncommon aircraft types).
+          Our work touched some interesting areas in deep learning, such as explanation generation, human-computer interaction, under random markovian jumps (where the motion model undergoes abrupt changes).
         </p>
       <hr />
       <h4>More Coming</h4>
-    <p>I'm just getting started (and extremely busy with my last sememster), but more is on its way. If you want to see more, you can follow me on GitHub!</p>
+      <p>I'm just getting started (and extremely busy with acually getting my degree), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
   </Fragment>);
 }
 

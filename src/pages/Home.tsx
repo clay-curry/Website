@@ -14,30 +14,21 @@ function Home() {
 
 function AboutMe() {
   return (<Fragment>
-
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       <p>
-      Thank you for your interest in my personal website. I am an undergraduate Computer Science research assistant in OU's School 
-      of Computer Science collaborating with software engineers from the <a href="https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement">OC-ALC's 76th Software Engineering Group</a> working under the supervision 
-      of Interim Director Dr. Dean Hougen.
+      Thank you for your interest in my personal website. I am an undergraduate research assistant in the School 
+      of Computer Science at the University of Oklahoma collaborating with software engineers from the 
+      <a href="https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement">OC-ALC's 76th Software Engineering Group</a> 
+      working under the supervision of Interim Director Dr. Dean Hougen.
       </p>
 
-      
-      <p>
-      I'm just getting started on this website, but more is on the way.
-      </p>
-      </div>
-      <a rel="contact" href="/contact/" className="contact-button">
-      <div> 
-      <span className="bg"></span> 
-      <span className="base"></span> 
-      <span className="text">
-        Contact me!
-      </span>
-      </div> 
-    </a>
-  </Fragment>);
+      <hr />
+      <h4>More Coming</h4>
+      <p>I'm just getting started (and extremely busy with acually getting my degree), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
+    </div>
+    </Fragment>
+  );
 }
 
 

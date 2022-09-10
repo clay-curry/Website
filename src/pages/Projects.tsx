@@ -15,7 +15,7 @@ function Projects() {
 function Work() {
     return (<Fragment>
       <h4>More Coming</h4>
-      <p>I'm just getting started (and extremely busy with my last sememster), but more is on its way. If you want to see more, you can follow me on GitHub!</p>
+      <p>I'm just getting started (and extremely busy with acually getting my degree), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
     </Fragment>);
   }
 

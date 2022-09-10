@@ -14,7 +14,6 @@ function Contact() {
 
 function Details() {
   return (<Fragment>
-
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       <h4>Location</h4>

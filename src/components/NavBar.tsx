@@ -14,9 +14,9 @@ class NavBar extends React.Component {
                             About
                         </div>
                     </NavLink>
-                    <NavLink to='/projects'>
+                    <NavLink to='/research'>
                         <div className='button'>
-                            Projects
+                            Research
                         </div>
                     </NavLink>
                     <NavLink to='/contact'>

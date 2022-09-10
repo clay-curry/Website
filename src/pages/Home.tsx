@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <div id='body'>
-      <h2>Welcome</h2>
+      <h2>Hello</h2>
         <AboutMe />  
       </div>
     </>
@@ -18,17 +18,17 @@ function AboutMe() {
     <div>
       <div id='me'><img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" /></div>
       <p>
-        Thank you for your interest in my personal portfolio. Here you will find my favorite research, interests, and personal projects including talks and demos.
+      Thank you for your interest in my personal website. I am an undergraduate Computer Science research assistant in OU's School 
+      of Computer Science collaborating with software engineers from the <a href="https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement">OC-ALC's 76th Software Engineering Group</a> working under the supervision 
+      of Interim Director Dr. Dean Hougen.
       </p>
 
+      
       <p>
-      I'm just getting started, but more is on its way.
-      If you want to stay up to date, you can follow me on twitter (I mostly retweet computer science memes)!
-      In the meantime, I'm currently looking for jobs, so <b>please</b> contact me if you're looking to hire!
-
+      I'm just getting started on this website, but more is on the way.
       </p>
-    </div>
-    <a rel="contact" href="/contact/" className="contact-button">
+      </div>
+      <a rel="contact" href="/contact/" className="contact-button">
       <div> 
       <span className="bg"></span> 
       <span className="base"></span> 

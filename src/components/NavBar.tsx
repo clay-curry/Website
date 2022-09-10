@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/navbar.css';
+import '../styles/style.css';
 
 class NavBar extends React.Component {
     render() {
@@ -24,9 +24,7 @@ class NavBar extends React.Component {
                             Contact
                         </div>
                     </NavLink>
-
                 </div>
-
             </div>
         );
     }

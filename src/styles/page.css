@@ -19,66 +19,6 @@ div#root {
   gap: 50px;
 }
 
-
-#nav {
-  position:fixed;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(45deg, red, black);
-  
-  /* Flex settings */
-  display: flex;
-  align-items: center; /* horizontal alignment */
-  z-index: 1000;
-}
-#nav > * {
-  flex: 1;
-}
-.my-name {
-  display: flex;
-  justify-content: center;
-  margin-right: auto;
-  width: auto;
-  height: auto;
-  margin-left: max(3%);
-  font: italic bold 17px/2;
-  font-variant: small-caps;
-}
-#nav .buttons-container {
-  height: auto;
-  margin-left: auto;
-  margin-right: 3%;
-  /* Flex settings*/
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-#nav .button {
-  font: italic 700 16px/2;
-  font-variant: small-caps;
-  font-size: larger;
-  text-align: center;
-  padding: 10pt;
-}
-.buttons-container:last-child > * {
-  margin-left: auto;
-  margin-right: 3%;
-}
-
-
-/* Link Styling */
-#nav a {
-  text-emphasis: none;
-  text-decoration: none;
-  color: white;
-}
-.buttons-container a:hover,
-.buttons-container a:focus {
-  text-decoration: underline;
-}
-
-
 #body {
   width: min(1000px, 95%);
   margin-top: 100px;

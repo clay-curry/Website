@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import '../styles/style.css';
+import '../styles/page.css';
 
 function Research() {
   return (

@@ -1,57 +1,62 @@
 #nav {
-    position:fixed;
+    /* as an item */
     top: 0;
     width: 100%;
+    position:fixed;
     background: linear-gradient(45deg, red, black);
     
-    /* Flex settings */
+    /* as a container */
+    padding: 5px;
     display: flex;
-    align-items: center; /* horizontal alignment */
+    align-content: center;
+    flex-wrap: wrap;
     z-index: 1000;
   }
-  #nav > * {
-    flex: 1;
-  }
-  .my-name {
+
+.buttons-container li:hover,
+.buttons-container li:focus {
+    text-decoration: underline;
+}
+
+.name-container {
+    /* as an item */
+    order: 1;
+    flex: 1 0 auto;
+    
+    /* as a container */
+
     display: flex;
     justify-content: center;
-    margin-right: auto;
-    width: auto;
-    height: auto;
-    margin-left: max(3%);
-    font: italic bold 17px/2;
-    font-variant: small-caps;
   }
-  #nav .buttons-container {
-    height: auto;
-    margin-left: auto;
-    margin-right: 3%;
-    /* Flex settings*/
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-  #nav .button {
-    font: italic 700 16px/2;
-    font-variant: small-caps;
-    font-size: larger;
-    text-align: center;
-    padding: 10pt;
-  }
-  .buttons-container:last-child > * {
-    margin-left: auto;
-    margin-right: 3%;
-  }
-  
-  
-  /* Link Styling */
-  #nav a {
+.name-container .my-name{
+    display: block;
+    font: small-caps bold 17px/2 sans-serif;
+    font-size: 2em;
     text-emphasis: none;
     text-decoration: none;
     color: white;
-  }
-  .buttons-container a:hover,
-  .buttons-container a:focus {
-    text-decoration: underline;
-  }
+}
+
+.buttons-container {
+    /* as an item */
+    order: 2;
+    flex: 3 3 auto;
+    
+    /* as a container */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.buttons-container button {
+    background-color: transparent;
+    border: none;
+    font-variant: small-caps;
+    font-size: larger;
+    color: white;
+}
+
+
+
+/* Link Styling */
+

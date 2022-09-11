@@ -6,14 +6,13 @@ function Home() {
   return (
     <>
       <div id='body'>
-      
-        <AboutMe />  
+        <Paragraph />  
       </div>
     </>
   );
 }
 
-function AboutMe() {
+function Paragraph() {
   const partnership = "https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement";
   return (<Fragment>
     <h2>Hello</h2>
@@ -37,7 +36,8 @@ function AboutMe() {
 
     <hr />
     <h4>More Coming</h4>
-    <p>I'm just getting started with this website (and extremely busy with classes), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
+    <p>I'm just getting started with this website (and extremely busy with classes), but more is on its way. I will be open-sourcing a some personal 
+      projects for demonstration on GitHub, so follow me on GitHub!</p>
 
     </Fragment>
   );

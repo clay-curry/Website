@@ -1,0 +1,28 @@
+.keywords {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    column-gap: 10%;
+    margin-top: 25pt;
+    margin-bottom: 80pt;
+}
+.keywords > * {
+    font-size: 15pt;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+.date {
+    padding-right: 6px;
+    border-right: 6px solid grey;
+    height: 40px;
+  }
+  .job {
+    font-family: Arial, serif;
+    line-height: 155%;
+    font-size: 25px;
+    padding: 10px;
+  }
+  

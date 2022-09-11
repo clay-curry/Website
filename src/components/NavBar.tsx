@@ -9,29 +9,22 @@ class NavBar extends React.Component {
                 <div className='name-container'>
                     <a className='my-name' href="/">Clayton B. Curry</a>
                 </div>
-                <div className='buttons-container'>
-                    <NavLink to='/research'>
-                        <button className='button'>
-                            Research
-                        </button>
-                    </NavLink>
-                    <NavLink to='/projects'>
-                        <button className='button'>
-                            Projects
-                        </button>
-                    </NavLink>
-                    <NavLink to='/contact'>
-                        <button className='button'>
-                            Contact
-                        </button>
-                    </NavLink>
-                </div>
+                <ul className='buttons-container'>
+                    <li className='button'>
+                        <NavLink to='/research'>Research</NavLink>
+                    </li>
+
+                    <li className='button'>
+                        <NavLink to='/projects'>Projects</NavLink>
+                    </li>
+
+                    <li className='button'>
+                        <NavLink to='/contact'>Contact</NavLink>
+                    </li>
+                </ul>
             </div>
         );
     }
 }
-
-
-
 
 export default NavBar;

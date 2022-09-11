@@ -7,16 +7,16 @@ class NavBar extends React.Component {
         return (
             <div id='nav'>
                 <div className='buttons-container'>
-                    <h1 className='author-name'><a href="/">Clayton B. Curry</a></h1>
+                    <h1 className='my-name'><a href="/">Clayton B. Curry</a></h1>
                 
-                    <NavLink to='/about'>
-                        <div className='button'>
-                            About
-                        </div>
-                    </NavLink>
                     <NavLink to='/research'>
                         <div className='button'>
                             Research
+                        </div>
+                    </NavLink>
+                    <NavLink to='/projects'>
+                        <div className='button'>
+                            Projects
                         </div>
                     </NavLink>
                     <NavLink to='/contact'>

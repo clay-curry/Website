@@ -34,7 +34,7 @@ div#root {
 #nav > * {
   flex: 1;
 }
-.author-name {
+.my-name {
   display: flex;
   justify-content: center;
   margin-right: auto;
@@ -146,15 +146,8 @@ p {
 
 b {
   font-family: Georgia, serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  word-spacing: 3px;
   color: #000000;
   font-weight: 700;
-  text-decoration: none;
-  font-style: italic;
-  font-variant: small-caps;
-  text-transform: none;
 }
 
 #body a:link,

@@ -4,7 +4,7 @@ import '../styles/style.css';
 function Research() {
   return (
     <div id='body'>
-      <h2>Statement of Purpose</h2>
+      <h2>Research</h2>
         <Statement />
         <hr></hr>
         <Keywords />
@@ -14,40 +14,34 @@ function Research() {
 }
 
 function Statement() {
+  const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
+  
   return (<Fragment>
-
-      <p>
-      To dedicate one's life to research is to add a stanza of consecrate Truth to <a href="https://www.haydenplanetarium.org/tyson/essays/1998-03-the-greatest-story-ever-told.php">the greatest story ever told</a>, 
-      to fulfill the aim of the giants whose names never even made the list, and (at times) give up one's own interests (usually sleep) for an uncertain chance of bringing value to the lives of people we will never meet.
-      </p>
+      <h3>Statement of Purpose (summary)</h3>
       
       <p>
-      Through a PhD program, I would like to explore the space of physics-informed machine learning algorithms that combine <a href="">a set of governing equations</a> together with knowledge
-      <a href="https://geometricdeeplearning.com/"> symmetries</a> (tranlations, rotations) of the system. These two elements give a sufficient framework for using experimental data to model thediscrepency modeling of control systems to estimate physically consistent
-      solutions to problems that are either too difficult to model exactly or in situations where training end-to-end is too costly.
+      Through a masters or PhD program, I would like to explore the space of <b>physics-informed machine learning</b>(PIML) and <b>geometric deep learning</b>(GDL) in partially observable, uncertain and/or high-dimensional contexts. Applications of interest 
+      include: multiple object tracking, automotive radar, biomedical sensor, remote sensing, weather/atmospheric radars.
 
-      My interest in physics-informed learning algorithms started with my mathematical interst in <a href="https://proceedings.mlr.press/v48/cohenc16.html">group equivariant convolutional networks</a>.
-      More recently, some constructions of <a href="">graph neural networks equivariant under the action of E(3)</a> (rotations and translations), extending group equivariance for Graph Neural Networks (GNNs), 
+      My interest in GDL started with my mathematical interest in Abstract Algebra. then Artificial Neural Networks and Evolution. 
+      To put it simply, equivariance is a property of any operator function
+
+      More recently, these ideas have been extended for Graph Neural Networks (GNNs) in the <a href="">graph neural networks equivariant under the action of E(3)</a> (rotations and translations), extending group equivariance 
       which are interesting in their own right.
       In object-detecting radar, for instance, a set of detections can form temporal graph wherein edges contain structure suffienct for modeling kinematic features, wherein kinematic features contain 
       structure suffienct for modeling the aircraft type, mesoscale meteorology, or even intentions of the pilot.
       </p>
 
       <p>
-      Being with the <a href="https://www.ou.edu/oadii">Oklahoma Aerospace and Defense Innovation Institute</a> for the last year has allowed me to develop an understanding of the fundamentals of equivariant neural
-      networks while simultaneously learning fundamentals of dynamical systems in the domain of air-space monitoring systems with its many interesting Bayesian nuances of multiple object tracking. I would be exicited
-      to pursue further applications of these things and sharing my work with colleagues. I'm currently seeking full-time career positions post-graduation, particularly in the area of sensors, so please reach out with any requests!
+      To dedicate one's life to research is to add a stanza of consecrate Truth to <a href="https://www.haydenplanetarium.org/tyson/essays/1998-03-the-greatest-story-ever-told.php">the greatest story ever told</a>, 
+      to fulfill the aim of the giants whose names never even made the list, and (at times) give up one's own interests (usually sleep) for an uncertain chance of bringing value to the lives of people we will never meet.
       </p>
-      <a rel="contact" href="/contact/" className="contact-button">
-        <div> 
-        <span className="bg"></span> 
-        <span className="base"></span> 
-        <span className="text">
-          Contact me!
-        </span>
-        </div> 
-      </a>
-      
+
+      <p>
+      Being with the <a href="https://www.ou.edu/oadii">Oklahoma Aerospace and Defense Innovation Institute</a> for the last year has allowed me to develop an understanding of the fundamentals of equivariant neural
+      networks while simultaneously learning fundamentals of dynamical systems applied the domain of air-space monitoring systems. I would be exicited to pursue further applications of these things and exchange ideas
+      with colleagues. </p>
+          
   </Fragment>);
 }
 

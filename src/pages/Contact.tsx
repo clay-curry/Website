@@ -3,14 +3,13 @@ import '../styles/style.css';
 
 function Contact() {
   return (
-    <>
-      <div id='body'>
-      <h2>Contact</h2>
-        <Details />  
-      </div>
-    </>
+    <div id='body'>
+      <h2>Research</h2>
+        <Details />
+    </div>
   );
 }
+
 
 function Details() {
   return (<Fragment>

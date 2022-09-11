@@ -23,9 +23,20 @@ function AboutMe() {
       working under the supervision of Interim Director Dr. Dean Hougen.
       </p>
 
+      <p>I'm currently seeking full-time positions, which are likely to be stepping stones into graduate school, preferrably in a position that intersects machine learning and sensor networks. Please reach out with any requests!</p>
+      <a rel="contact" href="/contact/" className="contact-button">
+        <div> 
+        <span className="bg"></span> 
+        <span className="base"></span> 
+        <span className="text">
+          Contact me!
+        </span>
+        </div> 
+      </a>
+
       <hr />
       <h4>More Coming</h4>
-      <p>I'm just getting started (and extremely busy with acually getting my degree), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
+      <p>I'm just getting started with this website (and extremely busy with classes), but more is on its way. If you want to see it sooner, follow me on GitHub!</p>
     </div>
     </Fragment>
   );

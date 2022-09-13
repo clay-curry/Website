@@ -88,4 +88,8 @@ b {
   text-decoration: underline;
 }
 
-
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

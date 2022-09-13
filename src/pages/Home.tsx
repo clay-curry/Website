@@ -25,8 +25,8 @@ function Paragraph() {
     of Interim Director Dr. Dean Hougen.
     </p>
 
-    <p>I'm currently seeking full-time opportunities for a start date in December, which are likely to be stepping stones into 
-      graduate school, preferrably in a position that intersects machine learning and sensor networks. Please reach out with any 
+    <p>I'm currently seeking full-time opportunities for a start date in December (my expected graduation date), which are likely to be stepping stones into 
+      graduate school, preferrably in a position intersecting with machine learning and sensor networks. Please reach out with any 
       requests!</p>
 
     <ContactMe />

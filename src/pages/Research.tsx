@@ -9,7 +9,6 @@ function Research() {
         <Statement />
         <hr></hr>
         <Keywords />
-        <OKC_ALC />
     </div>
   );
 }
@@ -23,10 +22,9 @@ function Statement() {
   return (<Fragment>
       <h3>Interests</h3>
       <p>
-        Through a masters or PhD program, I would like to explore the space of  <b>geometric deep learning</b> and 
-        <b> physics-informed machine learning</b> (PIML) in partially observable, uncertain and/or high-dimensional contexts. 
-        Some (nowhere near all) applications where these two fields overlap include multiple object tracking, dynamical and
-        control systems, automotive radar, biomedical sensor, remote sensing, weather/atmospheric radars.
+        I would love to explore the intersection of  <b> physics-informed machine learning </b> and  <b> geometric deep learning </b> in uncertain, partially observable, 
+        and/or high-dimensional contexts. Topics include weather/atmospheric modeling, radar signal processing, remote sensing, and object tracking under heavy clutter and/or 
+        highly non-linear dynamics.
       </p>
       <p>
       I found my interest in <a href={gdl}>Geometric Deep Learning</a> in the semester following my first encounter with Group Theory (MATH 4323), i.e. the mathematical study of symmetry,
@@ -56,25 +54,6 @@ function Keywords() {
   </Fragment>)
 }
 
-function OKC_ALC() {
-  const adsb="https://www.faa.gov/nextgen/programs/adsb/"
-  const oadii="https://www.ou.edu/oadii"
-  return (<Fragment>
-      <hr />
-      <h3>Prior Experience</h3>
-      <ul className='experience-item'>
-        <tr><span className='date'>Nov 2021 - Present</span></tr>
-        <tr></tr>
-        <span className='job'>Undergraduate Research Assistant with <a href={oadii}>SWEG-76</a></span>
-      </ul>
-      <p>
-        Being with the Oklahoma Aerospace and Defense Innovation Institute for the last year has allowed me to explore the fundamentals of 
-        dynamical systems for modeling single maneuvering objects. Early on, I helped with various tasks related to data fusion, namely by
-        creating data-scraping tools capable of storing millions of <a href={adsb}>ADS-B messages</a>. Our work touched some interesting 
-        areas early areas in deep learning, including single object state esimation under random markovian jumps (where the motion model
-        undergoes abrupt changes).
-      </p>
-  </Fragment>);
-}
+
 
 export default Research;

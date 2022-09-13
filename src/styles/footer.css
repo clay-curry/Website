@@ -1,7 +1,7 @@
 #foot {
     position: relative;
     bottom: 0px;
-    width: 100%;
+    width: 100vw;
     height: max(4vh, auto); 
     background: grey;
     margin-top: 40px;

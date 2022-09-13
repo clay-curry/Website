@@ -2,7 +2,7 @@
 .contact-button {
     -webkit-text-size-adjust: 100%;
     background-color: transparent;
-    margin: 5vh;
+    margin: 5vh 2vh 5vh 2vh;
     position: relative;
     width: 100%;
     display: block;

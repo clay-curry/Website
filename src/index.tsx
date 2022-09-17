@@ -6,8 +6,6 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import { Home, Research, Projects, Contact } from './pages';
 
-
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>

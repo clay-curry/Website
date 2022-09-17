@@ -25,6 +25,13 @@
     margin-right: auto;
 }
 
+.pheader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1000;
+    margin: -100%;
+  }
 
 .site-info {
     display: flex;
@@ -37,18 +44,35 @@
 .site-info p {
     margin-block: 5px;
     width: 210px;
-    color: white;
+    color: darkgrey;
     line-height: 100%;
     font-size: 15px;
 }
 
-.social-media {
+.site-info a {
+    margin-block: 5px;
+    width: 210px;
+    color: white;
+    line-height: 100%;
+    font-size: 15px;
+    text-decoration: none;
+}
+.site-info a:hover {
+    margin-block: 5px;
+    width: 210px;
+    color: white;
+    line-height: 100%;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.footer-container .social-media {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
 }
-.social-media p {
+.footer-container .social-media p {
     font-size: 16pt;
     font-weight: 700;
     font-family: 'Courier New', Courier, monospace;

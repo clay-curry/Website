@@ -1,20 +1,11 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
+import { Footer, MoreComing, NavBar, PageContent } from '../components';
 
 function Contact() {
-  
-  return (
-    <>
-      <div id='body'>
-        <AboutMe />  
-      </div>
-    </>
-  );
-}
-
-function AboutMe() {
-  const partnership = "https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement";
-  return (<Fragment>
+  return (<>
+    <NavBar/>
+    <PageContent>
     <h2>Contact</h2>
     <div className='contact-info'>
       <div>
@@ -24,6 +15,8 @@ function AboutMe() {
           <div>206 W Johnson St</div>
           <div>Norman, OK 73069</div>     
         </p>
+      </div>
+      <div>
         <h4>Electronic</h4>
         <p>
           Email:
@@ -32,17 +25,13 @@ function AboutMe() {
           <div><a href="tel:405-301-1055">405-301-1055</a></div>
         </p>
       </div>
-      <div id='me'>
-        
-      </div>
-    </div>
-    
-    
-    
-    </Fragment>
-  );
-}
 
+    </div>
+    </PageContent>
+    <div className="gap"></div>
+    <Footer />
+    </>);
+}
 
 
 export default Contact;

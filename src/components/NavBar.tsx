@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 
 import { NavLink } from 'react-router-dom';
-import '../styles/navbar.css';
+import '../styles/component.css';
 
 function NavBar(){
-
     return (
-        <div id='nav'>
-            
+        <div className='nav-bar'>
             <div className='name-container'>
                 <a className='my-name' href="/">Clayton B. Curry</a>
             </div>

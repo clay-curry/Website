@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import '../styles/button.css'
+import '../styles/component.css'
 
-function ContactMe() {
+function ContactBtn() {
     return (
         <a rel="contact" href="/contact/" className="contact-button">
             <div> 
@@ -15,4 +15,4 @@ function ContactMe() {
     );
 }
 
-export default ContactMe
+export default ContactBtn

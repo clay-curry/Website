@@ -5,70 +5,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
   height: 100%;
-  height: 100%;
+  width: 100%;
   display: flex;
-  align-content: space-between;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 50px;
-}
-
-
-.me {
-  margin-top: 100px;
-  gap: 50px;
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
-  justify-content: center;
+  justify-content:  space-between;
+  justify-items:  space-between;
   align-content: center;
   align-items: center;
-  justify-items: center;
+  flex-direction: column;
+  gap: 30px;
 }
-
-.me > img {
-  margin-bottom: 10px;
-  width: max(30px, 30vw); 
-  height: max(30px, 30vw);
-  border-radius: 50%;
-}
-
-.me .social-media{
-  padding: 5pt 10pt 5pt 10pt;
-  background-color: black;
-  border-radius: 10pt;
-  width: fit-content;
-}
-
-.me .social-media p {
-  text-align: center;
-  margin: auto;
-  font-family: Arial, serif;
-  color: aliceblue;
-}
-
-#body {
-  width: min(800px, 70%);
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 2.5%;
-  padding-right: 2.5%;
-  background-color: azure;
-  border-radius: 25px;
-}
-
-
-
-.break {
-    flex-basis: 100%;
-    height: 0;
-  }
 
 h2 {
   font-size: 40px;
@@ -80,11 +28,14 @@ h3 {
 h4 {
   font-size: 20px;
   margin-left: 1%;
-
 }
 
+b {
+  font-family: Georgia, serif;
+  color: #000000;
+  font-weight: 700;
+}
 p {
-  padding-left: 2%;
   font-family: Arial, serif;
   line-height: 155%;
   font-size: 18px;
@@ -93,27 +44,27 @@ p {
   text-align: justify;
 }
 
-b {
-  font-family: Georgia, serif;
-  color: #000000;
-  font-weight: 700;
+svg {
+  height: 40px;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-#body a:link,
-#body a:visited {
+a:link,
+a:visited {
   text-emphasis: none;
   text-decoration: none;
   font-style: bold;
-  color: #0808de;
+  color: red;
+  font-weight: 500;
 }
-
-#body a:hover {
-  color: #0808de;
+.body a:hover {
+  color: red;
+  font-weight: 500;
   text-decoration: underline;
 }
 
-.contact-info {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.gap {
+  margin: 15vh;
 }

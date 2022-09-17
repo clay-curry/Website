@@ -1,16 +1,20 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 import '../styles/research.css';
+import { Footer, MoreComing, NavBar, PageContent } from '../components';
 
 function Projects() {
   return (
-    <>
-      <div id='body'>
+  
+  <>
+    <NavBar/>
+    <PageContent>
       <h2>Projects</h2>
        <Work />  
-      </div>
-    </>
-  );
+      <MoreComing />
+    </PageContent>
+    <Footer />
+    </>);
 }
 
 function Work() {

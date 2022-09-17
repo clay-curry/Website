@@ -1,39 +1,47 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 import '../styles/research.css'
+import '../styles/component.css'
+
+import { Footer, MoreComing, NavBar, PageContent } from '../components';
 
 function Research() {
-  return (
-    <div id='body'>
+  return (<>
+    <NavBar/>
+    <PageContent>
       <h2>Research</h2>
-        <Statement />
-        <hr></hr>
-        <Keywords />
-    </div>
-  );
+      <Statement />
+      <hr></hr>
+      <Keywords />
+      <Longer />
+      <MoreComing />
+    </PageContent>
+    <Footer />
+    </>);
 }
-
+const gdl="https://geometricdeeplearning.com/"
+const risi="https://arxiv.org/abs/2203.06153"
+const mlst="https://youtu.be/bIZB1hIJ4u8"
+const pde="https://arxiv.org/abs/2209.04934"
+const brunton="https://www.youtube.com/watch?v=7n7xaviepKM"
+const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
+const follow_on="https://scholar.google.com/scholar?start=0&q=networks+equivariance,+OR+equivariant&hl=en&as_sdt=0,37"
+const geoff="https://twitter.com/geoffreyhinton/status/1469842971721965568?s=20&t=6n-544KdFG1aKZRuWgN-lQ"
+const architectures="https://arxiv.org/pdf/2203.06153.pdf"
+const object_representation="https://yilundu.github.io/ndf/"
+  
 function Statement() {
-  const gdl="https://geometricdeeplearning.com/"
-  const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
-  const follow_on="https://scholar.google.com/scholar?start=0&q=networks+equivariance,+OR+equivariant&hl=en&as_sdt=0,37"
-  const geoff="https://twitter.com/geoffreyhinton/status/1469842971721965568?s=20&t=6n-544KdFG1aKZRuWgN-lQ"
-  const architectures="https://arxiv.org/pdf/2203.06153.pdf"
+  
+  
   return (<Fragment>
-      <h3>Interests</h3>
+      <h3>Interest Statement</h3>
       <p>
-        I would love to explore the intersection of  <b> physics-informed machine learning </b> and  <b> geometric deep learning </b> in uncertain, partially observable, 
-        and/or high-dimensional contexts. Topics include weather/atmospheric modeling, radar signal processing, remote sensing, and object tracking under heavy clutter and/or 
-        highly non-linear dynamics.
+        I take strong interest in all work at the intersection of <b><a href={gdl}>Geometric Deep Learning</a></b> and  <a href={risi}>Physics-Informed Machine Learning</a>, especially in contexts where variables of interest are uncertain, 
+        partially observable, difficult (or impossible) to model in closed-form, in too high-dimensional spaces for traditional learning methods to work efficiently. Topics in this area include using data to model (non-ideal) <a href={pde}>physical 
+        systems described (in the ideal) by some PDE</a> which lack known closed-form expressions, virtual screening of small-molecule <a href={architectures}>drugs by predicting their binding properties with target proteins</a>, 
+        learning <a href={brunton}>optimal control in dynamical systems</a> outperforming assumption-based closed-form solutions, learning <a href={object_representation}>object representations</a> from few training examples, tracking objects in heavy 
+        clutter (my current research), and <a href={follow_on}>much much more</a>.
       </p>
-      <p>
-      I found my interest in <a href={gdl}>Geometric Deep Learning</a> in the semester following my first encounter with Group Theory (MATH 4323), i.e. the mathematical study of symmetry,
-      through the works of Cohen and Welling's, "<a href={gcnn}>Group Equivariant Convolutional Networks</a>."  Since their publication, a number of <a href={follow_on}> follow-on works</a> on equivariant networks extended the traditional convolutional networks to arbitrary symmetry-aware neural networks, with applications particularly 
-      in robotics and <a href={architectures}>the physical sciences</a>. In remote-sensing radar, for instance, a temporal graph can be used to model problems involving a set of detections where edges represent distances between detections, suffienct for modeling kinematic features 
-      useful for modeling the aircraft type, mesoscale meteorology, or even intentions of the pilot. If that wasn't convincing enough, equivariance is also 
-      <a href={geoff}> Geoff approved</a>.
-      </p>
-      <br />
       <br />
 
   </Fragment>);
@@ -43,17 +51,31 @@ function Keywords() {
   return(<Fragment>
       <h3>Key Words</h3>
       <div className='keywords'>
+      <div>Geometry</div>
+      <div>Symmetry</div>
+      <div>Algebra</div>
+      <div>Multiple Object Tracking</div>
       <div>Physics Informed ML</div>
-      <div>Symmetry Aware ML</div>
       <div>Data Efficient ML</div>
-      <div>Control and Robotics</div>
-      <div>Control and Robotics</div>
-      <div>Object Tracking</div>
+      <div>Dynamical Systems and Optimal Control</div>
+      <div>Robotics</div>
       <div>Graph Neural Networks</div>
       </div>
   </Fragment>)
 }
 
+
+function Longer(){
+  return (<><h3>My Interests (longer version)</h3>
+  <p>
+  I developed my interest in <a href={mlst}>GDL</a> in the semester following my first encounter with group theory (the mathematical study of symmetry), through an assigned technical report on Cohen and Welling's, <i><a href={gcnn}>Group 
+  Equivariant Convolutional Networks</a></i>. Since their publication, a number of follow-on works have pushed the deep learning community closer to the goal of 
+  general (universally approximating) equivariant models capable of respecting arbitrary symmetries (e.g. <i>SO(3)</i>, <i>SE(3)</i>, <i>E(n)</i>, and other Lie groups) of arbitrary data (tensor-valued graphs) living in almost-arbitrary manifolds (e.g. vector space of R^n, the n-dimensional 
+  sphere) called homogenous spaces. In the current literature, "Steerable Networks" are used to denote equivariant networks which operate on data in the Fourier-basis using symmetries of the data expressed in their irreducible representations. If these don't grab your interest, equivariant networks are also <a href={geoff}>Hinton approved</a>.
+  </p>
+  <br />
+  </>);
+}
 
 
 export default Research;

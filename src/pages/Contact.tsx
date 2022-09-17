@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import '../styles/page.css';
+import '../styles/style.css';
 
 function Contact() {
   

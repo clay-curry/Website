@@ -1,25 +1,21 @@
 body {
-  margin-left: 0;
-  margin-right: 0;
-  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  margin-left: 0;
+  margin-right: 0;
+  height: 100%;
+  height: 100%;
   display: flex;
   align-content: space-between;
   justify-content: space-between;
-}
-
-div#root {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
   flex-direction: column;
   gap: 50px;
-  
 }
+
 
 .me {
   margin-top: 100px;
@@ -51,7 +47,7 @@ div#root {
 
 .me .social-media p {
   text-align: center;
-  width: 200pt;
+  margin: auto;
   font-family: Arial, serif;
   color: aliceblue;
 }

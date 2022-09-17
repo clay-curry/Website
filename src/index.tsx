@@ -9,7 +9,7 @@ import { Home, Research, Projects, Contact } from './pages';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <NavBar />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/research" element={<Research />} />

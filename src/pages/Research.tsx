@@ -70,10 +70,14 @@ function Keywords() {
 function Longer(){
   return (<><h3>My Interests (longer version)</h3>
   <p>
-  I developed my interest in <a href={gdl}>GDL</a> in the semester following my first encounter with group theory (the mathematical study of symmetry), through an assigned technical report on Cohen and Welling's, <i><a href={gcnn}>Group 
-  Equivariant Convolutional Networks</a></i>. Since their publication, a number of follow-on works have pushed the deep learning community closer to the goal of 
-  general (universally approximating) equivariant models capable of respecting arbitrary symmetries (e.g. <i>SO(3)</i>, <i>SE(3)</i>, <i>E(n)</i>, and other Lie groups) of arbitrary data (multi-vector valued graphs) living in almost-arbitrary manifolds (e.g. vector space of R^n, the n-dimensional 
-  sphere) called homogenous spaces. In the current literature, equivariant networks which operate on data in the Fourier-basis using symmetries of the data expressed in their irreducible representations. If these don't grab your interest, equivariant networks are also <a href={geoff}>Hinton approved</a>.
+  I developed my interest in <a href={gdl}>GDL</a> in the semester following my first encounter with group theory (the mathematical
+  study of symmetry), through an assigned technical report on Cohen and Welling's, <i><a href={gcnn}>Group Equivariant Convolutional
+  Networks</a></i>. Since their publication, a number of follow-on works have pushed the deep learning community closer to the goal 
+  of general (universally approximating) equivariant models capable of respecting arbitrary symmetries (e.g. <i>SO(3)</i>, <i>SE(3)</i>, 
+  <i>E(n)</i>, and other Lie groups) of arbitrary data (multi-vector valued graphs) living in almost-arbitrary manifolds (e.g. vector 
+  space of R^n, the n-dimensional sphere) called homogenous spaces. Equivariant networks which operate on data projected onto a harmonic 
+  basis with symmetries of the data expressed in their irreducible representations are, in recent literature, called "Steerable Neural 
+  Networks". If these don't grab your interest, equivariant networks are also <a href={geoff}>Hinton approved</a>.
   </p>
   <br />
   </>);

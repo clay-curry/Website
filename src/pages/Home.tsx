@@ -16,7 +16,7 @@ function Home() {
           democratizing technologies and systems that maximize human wellbeing, scientific discovery, national security, environmental quality, and economic prosperity.
         </p>
         <p>
-          Right now, I am an undergraduate research assistant for <a href="https://www.ou.edu/coe/cs/people/hougen">Dr. Dean Hougen</a>, director of the School of Computer Science at the University of Oklahoma.
+          Right now, I am an undergraduate research assistant under the wing of <a href="https://www.ou.edu/coe/cs/people/hougen">Dr. Dean Hougen</a>, director of the School of Computer Science at the University of Oklahoma.
           Lately we have been working with engineers from the <a href={partnership}>Oklahoma City Air Logistics Complex (76 SWEG)</a> on projects
           geared towards information fusion in object-tracking sensor networks.
         </p>

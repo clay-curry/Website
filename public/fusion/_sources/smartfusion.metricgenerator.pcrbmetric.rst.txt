@@ -1,0 +1,5 @@
+Posterior Cramér-Rao Bound (PCRB) Metric
+========================================
+
+.. automodule:: smartfusion.metricgenerator.pcrbmetric
+    :show-inheritance:

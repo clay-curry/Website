@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulators &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Trackers" href="smartfusion.tracker.html" />
+    <link rel="prev" title="Sensor Managers" href="smartfusion.sensormanager.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Simulators</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.simulator.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.simulator">
+<span id="simulators"></span><h1>Simulators<a class="headerlink" href="#module-smartfusion.simulator" title="Permalink to this heading"></a></h1>
+<p>Simulators for data input into SMART FUSION.</p>
+<p>SMART FUSION can make use of simulators to generate ground truth tracks, sensor
+data and detections. These are similar to <code class="xref py py-class docutils literal notranslate"><span class="pre">reader.Reader</span></code>, but data is
+generated, rather than read from a file, etc. They should come with various
+configuration options to allow customisation of the simulation.</p>
+<span class="target" id="module-smartfusion.simulator.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.base.Simulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.base.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><a class="reference internal" href="_modules/smartfusion/simulator/base.html#Simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.base.Simulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BufferedGenerator</span></code></p>
+<p>Simulator base class</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.base.DetectionSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.base.</span></span><span class="sig-name descname"><span class="pre">DetectionSimulator</span></span><a class="reference internal" href="_modules/smartfusion/simulator/base.html#DetectionSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.base.DetectionSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.Simulator" title="smartfusion.simulator.base.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulator</span></code></a>, <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a></p>
+<p>Detection Simulator base class</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.base.GroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.base.</span></span><span class="sig-name descname"><span class="pre">GroundTruthSimulator</span></span><a class="reference internal" href="_modules/smartfusion/simulator/base.html#GroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.base.GroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.Simulator" title="smartfusion.simulator.base.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulator</span></code></a>, <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a></p>
+<p>Ground truth simulator</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.base.SensorSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.base.</span></span><span class="sig-name descname"><span class="pre">SensorSimulator</span></span><a class="reference internal" href="_modules/smartfusion/simulator/base.html#SensorSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.base.SensorSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.Simulator" title="smartfusion.simulator.base.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulator</span></code></a>, <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a></p>
+<p>Sensor Simulator base class</p>
+</dd></dl>
+
+<section id="module-smartfusion.simulator.simple">
+<span id="simple-simulators"></span><h2>Simple Simulators<a class="headerlink" href="#module-smartfusion.simulator.simple" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">SingleTargetGroundTruthSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SingleTargetGroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.GroundTruthSimulator" title="smartfusion.simulator.base.GroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthSimulator</span></code></a></p>
+<p>Target simulator that produces a single target</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – Transition Model used as propagator for track.</p></li>
+<li><p><strong>initial_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Initial state to use to generate ground truth</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time step between each state. Default one second.</p></li>
+<li><p><strong>number_steps</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of time steps to run for</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Transition Model used as propagator for track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.initial_state">
+<span class="sig-name descname"><span class="pre">initial_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.initial_state" title="Permalink to this definition"></a></dt>
+<dd><p>Initial state to use to generate ground truth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.timestep">
+<span class="sig-name descname"><span class="pre">timestep</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.timestep" title="Permalink to this definition"></a></dt>
+<dd><p>Time step between each state. Default one second.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.number_steps">
+<span class="sig-name descname"><span class="pre">number_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.number_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Number of time steps to run for</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SingleTargetGroundTruthSimulator.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">SwitchOneTargetGroundTruthSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_probs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SwitchOneTargetGroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator" title="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleTargetGroundTruthSimulator</span></code></a></p>
+<p>Target simulator that produces a single target. This target switches
+between multiple transition models based on a markov matrix
+(<a class="reference internal" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.model_probs" title="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.model_probs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">model_probs</span></code></a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Initial state to use to generate ground truth</p></li>
+<li><p><strong>transition_models</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[TransitionModel]</span></code>) – List of transition models to be used, ensure that they all have the same dimensions.</p></li>
+<li><p><strong>model_probs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A matrix of probabilities.    The element in the ith row and the jth column is the probability of     switching from the ith transition model in <a class="reference internal" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models" title="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models"><code class="xref py py-attr docutils literal notranslate"><span class="pre">transition_models</span></code></a>     to the jth</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time step between each state. Default one second.</p></li>
+<li><p><strong>number_steps</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of time steps to run for</p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional[int]</span></code>, optional) – Seed for random number generation. Default None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models">
+<span class="sig-name descname"><span class="pre">transition_models</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models" title="Permalink to this definition"></a></dt>
+<dd><p>List of transition models to be used, ensure that they all have the same dimensions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.model_probs">
+<span class="sig-name descname"><span class="pre">model_probs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.model_probs" title="Permalink to this definition"></a></dt>
+<dd><p>A matrix of probabilities.    The element in the ith row and the jth column is the probability of     switching from the ith transition model in <a class="reference internal" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models" title="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_models"><code class="xref py py-attr docutils literal notranslate"><span class="pre">transition_models</span></code></a>     to the jth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.seed" title="Permalink to this definition"></a></dt>
+<dd><p>Seed for random number generation. Default None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transition_model</span></span><a class="headerlink" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Transition Model used as propagator for track.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">MultiTargetGroundTruthSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState"><span class="pre">GaussianState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birth_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">death_probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preexisting_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_number_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#MultiTargetGroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.simple.SingleTargetGroundTruthSimulator" title="smartfusion.simulator.simple.SingleTargetGroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleTargetGroundTruthSimulator</span></code></a></p>
+<p>Target simulator that produces multiple targets.</p>
+<p>Targets are created and destroyed randomly, as defined by the birth rate
+and death probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – Transition Model used as propagator for track.</p></li>
+<li><p><strong>initial_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianState</span></code></a>) – Initial state to use to generate states</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time step between each state. Default one second.</p></li>
+<li><p><strong>number_steps</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of time steps to run for</p></li>
+<li><p><strong>birth_rate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Rate at which tracks are born. Expected number of occurrences (λ) in Poisson distribution. Default 1.0.</p></li>
+<li><p><strong>death_probability</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Probability of track dying in each time step. Default 0.1.</p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional[int]</span></code>, optional) – Seed for random number generation. Default None</p></li>
+<li><p><strong>preexisting_states</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[StateVector]</span></code>, optional) – State vectors at time 0 for groundtruths which should exist at the start of simulation.</p></li>
+<li><p><strong>initial_number_targets</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Initial number of targets to be simulated. These simulated targets will be made in addition to those defined by <a class="reference internal" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states" title="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states"><code class="xref py py-attr docutils literal notranslate"><span class="pre">preexisting_states</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Transition Model used as propagator for track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.initial_state">
+<span class="sig-name descname"><span class="pre">initial_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState"><span class="pre">GaussianState</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.initial_state" title="Permalink to this definition"></a></dt>
+<dd><p>Initial state to use to generate states</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.birth_rate">
+<span class="sig-name descname"><span class="pre">birth_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.birth_rate" title="Permalink to this definition"></a></dt>
+<dd><p>Rate at which tracks are born. Expected number of occurrences (λ) in Poisson distribution. Default 1.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.death_probability">
+<span class="sig-name descname"><span class="pre">death_probability</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.death_probability" title="Permalink to this definition"></a></dt>
+<dd><p>Probability of track dying in each time step. Default 0.1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.seed" title="Permalink to this definition"></a></dt>
+<dd><p>Seed for random number generation. Default None</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states">
+<span class="sig-name descname"><span class="pre">preexisting_states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states" title="Permalink to this definition"></a></dt>
+<dd><p>State vectors at time 0 for groundtruths which should exist at the start of simulation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.initial_number_targets">
+<span class="sig-name descname"><span class="pre">initial_number_targets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.initial_number_targets" title="Permalink to this definition"></a></dt>
+<dd><p>Initial number of targets to be simulated. These simulated targets will be made in addition to those defined by <a class="reference internal" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states" title="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.preexisting_states"><code class="xref py py-attr docutils literal notranslate"><span class="pre">preexisting_states</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#MultiTargetGroundTruthSimulator.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">SwitchMultiTargetGroundTruthSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState"><span class="pre">GaussianState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_probs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birth_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">death_probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preexisting_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_number_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SwitchMultiTargetGroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator" title="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTargetGroundTruthSimulator</span></code></a></p>
+<p>Functions identically to <a class="reference internal" href="#smartfusion.simulator.simple.MultiTargetGroundTruthSimulator" title="smartfusion.simulator.simple.MultiTargetGroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTargetGroundTruthSimulator</span></code></a>,
+but has the transition model switching ability from
+<a class="reference internal" href="#smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator" title="smartfusion.simulator.simple.SwitchOneTargetGroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchOneTargetGroundTruthSimulator</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianState</span></code></a>) – Initial state to use to generate states</p></li>
+<li><p><strong>transition_models</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[TransitionModel]</span></code>) – List of transition models to be used, ensure that they all have the same dimensions.</p></li>
+<li><p><strong>model_probs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A matrix of probabilities.        The element in the ith row and the jth column is the probability of         switching from the ith transition model in <a class="reference internal" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models" title="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models"><code class="xref py py-attr docutils literal notranslate"><span class="pre">transition_models</span></code></a>         to the jth</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time step between each state. Default one second.</p></li>
+<li><p><strong>number_steps</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of time steps to run for</p></li>
+<li><p><strong>birth_rate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Rate at which tracks are born. Expected number of occurrences (λ) in Poisson distribution. Default 1.0.</p></li>
+<li><p><strong>death_probability</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Probability of track dying in each time step. Default 0.1.</p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional[int]</span></code>, optional) – Seed for random number generation. Default None</p></li>
+<li><p><strong>preexisting_states</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[StateVector]</span></code>, optional) – State vectors at time 0 for groundtruths which should exist at the start of simulation.</p></li>
+<li><p><strong>initial_number_targets</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Initial number of targets to be simulated. These simulated targets will be made in addition to those defined by <code class="xref py py-attr docutils literal notranslate"><span class="pre">preexisting_states</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models">
+<span class="sig-name descname"><span class="pre">transition_models</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models" title="Permalink to this definition"></a></dt>
+<dd><p>List of transition models to be used, ensure that they all have the same dimensions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.model_probs">
+<span class="sig-name descname"><span class="pre">model_probs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.model_probs" title="Permalink to this definition"></a></dt>
+<dd><p>A matrix of probabilities.        The element in the ith row and the jth column is the probability of         switching from the ith transition model in <a class="reference internal" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models" title="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_models"><code class="xref py py-attr docutils literal notranslate"><span class="pre">transition_models</span></code></a>         to the jth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.seed" title="Permalink to this definition"></a></dt>
+<dd><p>Seed for random number generation. Default None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transition_model</span></span><a class="headerlink" href="#smartfusion.simulator.simple.SwitchMultiTargetGroundTruthSimulator.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Transition Model used as propagator for track.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SimpleDetectionSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">SimpleDetectionSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groundtruth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><span class="pre">GroundTruthReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SimpleDetectionSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SimpleDetectionSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.DetectionSimulator" title="smartfusion.simulator.base.DetectionSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionSimulator</span></code></a></p>
+<p>A simple detection simulator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groundtruth</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><em>GroundTruthReader</em></a>) – </p></li>
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><em>MeasurementModel</em></a>) – </p></li>
+<li><p><strong>meas_range</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – </p></li>
+<li><p><strong>detection_probability</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – </p></li>
+<li><p><strong>clutter_rate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – </p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional[int]</span></code>, optional) – Seed for random number generation. Default None</p></li>
+<li><p><strong>groundtruth</strong> – Source of ground truth tracks used to generate detections for.</p></li>
+<li><p><strong>measurement_model</strong> – Measurement model used in generating detections.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SimpleDetectionSimulator.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SimpleDetectionSimulator.seed" title="Permalink to this definition"></a></dt>
+<dd><p>Seed for random number generation. Default None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SimpleDetectionSimulator.clutter_spatial_density">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clutter_spatial_density</span></span><a class="headerlink" href="#smartfusion.simulator.simple.SimpleDetectionSimulator.clutter_spatial_density" title="Permalink to this definition"></a></dt>
+<dd><p>returns the clutter spatial density of the measurement space - num
+clutter detections per unit volume per timestep</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SimpleDetectionSimulator.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SimpleDetectionSimulator.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SimpleDetectionSimulator.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchDetectionSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">SwitchDetectionSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groundtruth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><span class="pre">GroundTruthReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_probabilities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#SwitchDetectionSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.SwitchDetectionSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.simple.SimpleDetectionSimulator" title="smartfusion.simulator.simple.SimpleDetectionSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleDetectionSimulator</span></code></a></p>
+<p>Functions identically as the <a class="reference internal" href="#smartfusion.simulator.simple.SimpleDetectionSimulator" title="smartfusion.simulator.simple.SimpleDetectionSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleDetectionSimulator</span></code></a>, but for
+ground truth paths formed using multiple transition models it allows the
+user to assign a detection probability to each transition models.
+For example, if you wanted a higher detection probability when the
+simulated object makes a turn</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groundtruth</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a>) – </p></li>
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasurementModel</span></code></a>) – </p></li>
+<li><p><strong>meas_range</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – </p></li>
+<li><p><strong>detection_probabilities</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Probability]</span></code>) – List of probabilities that correspond to the detection probability of the simulated object while undergoing each transition model</p></li>
+<li><p><strong>clutter_rate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – </p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional[int]</span></code>, optional) – Seed for random number generation. Default None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.SwitchDetectionSimulator.detection_probabilities">
+<span class="sig-name descname"><span class="pre">detection_probabilities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.SwitchDetectionSimulator.detection_probabilities" title="Permalink to this definition"></a></dt>
+<dd><p>List of probabilities that correspond to the detection probability of the simulated object while undergoing each transition model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.DummyGroundTruthSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.simple.</span></span><span class="sig-name descname"><span class="pre">DummyGroundTruthSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#DummyGroundTruthSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.DummyGroundTruthSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.GroundTruthSimulator" title="smartfusion.simulator.base.GroundTruthSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthSimulator</span></code></a></p>
+<p>A Dummy Ground Truth Simulator which allows simulations to be built
+where platform, rather than ground truth objects, motions are simulated.</p>
+<p>It returns an empty set at each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>times</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[datetime.datetime]</span></code>) – list of times to return</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.DummyGroundTruthSimulator.times">
+<span class="sig-name descname"><span class="pre">times</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.simple.DummyGroundTruthSimulator.times" title="Permalink to this definition"></a></dt>
+<dd><p>list of times to return</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.simple.DummyGroundTruthSimulator.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/simple.html#DummyGroundTruthSimulator.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.simple.DummyGroundTruthSimulator.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.simulator.platform">
+<span id="platform-simulator"></span><h2>Platform Simulator<a class="headerlink" href="#module-smartfusion.simulator.platform" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.platform.PlatformDetectionSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.platform.</span></span><span class="sig-name descname"><span class="pre">PlatformDetectionSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groundtruth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><span class="pre">GroundTruthReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">platforms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.platform.html#smartfusion.platform.base.Platform" title="smartfusion.platform.base.Platform"><span class="pre">Platform</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/platform.html#PlatformDetectionSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.platform.PlatformDetectionSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.simulator.base.DetectionSimulator" title="smartfusion.simulator.base.DetectionSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionSimulator</span></code></a></p>
+<p>A simple platform detection simulator.</p>
+<p>Processes ground truth data and generates <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> data
+according to a list of platforms by calling each sensor in these platforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groundtruth</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a>) – Source of ground truth tracks used to generate detections for.</p></li>
+<li><p><strong>platforms</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Platform]</span></code>) – List of platforms in <a class="reference internal" href="smartfusion.platform.html#smartfusion.platform.base.Platform" title="smartfusion.platform.base.Platform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Platform</span></code></a> to generate sensor detections from.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.platform.PlatformDetectionSimulator.groundtruth">
+<span class="sig-name descname"><span class="pre">groundtruth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><span class="pre">GroundTruthReader</span></a></em><a class="headerlink" href="#smartfusion.simulator.platform.PlatformDetectionSimulator.groundtruth" title="Permalink to this definition"></a></dt>
+<dd><p>Source of ground truth tracks used to generate detections for.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.platform.PlatformDetectionSimulator.platforms">
+<span class="sig-name descname"><span class="pre">platforms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.platform.html#smartfusion.platform.base.Platform" title="smartfusion.platform.base.Platform"><span class="pre">Platform</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.platform.PlatformDetectionSimulator.platforms" title="Permalink to this definition"></a></dt>
+<dd><p>List of platforms in <a class="reference internal" href="smartfusion.platform.html#smartfusion.platform.base.Platform" title="smartfusion.platform.base.Platform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Platform</span></code></a> to generate sensor detections from.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.platform.PlatformDetectionSimulator.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/platform.html#PlatformDetectionSimulator.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.platform.PlatformDetectionSimulator.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.simulator.transition">
+<span id="transition-simulator"></span><h2>Transition Simulator<a class="headerlink" href="#module-smartfusion.simulator.transition" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.create_smooth_transition_models">
+<span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.transition.</span></span><span class="sig-name descname"><span class="pre">create_smooth_transition_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turn_rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#create_smooth_transition_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.create_smooth_transition_models" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a list of constant-turn and constant acceleration transition models alongside a
+list of transition times to provide smooth transitions between 2D cartesian coordinates and
+time pairs.
+An assumption is that the initial_state’s x, y coordinates are the first elements of x_ccords
+and y_coords respectively. Ie. The platform starts at the first coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – The initial state of the platform.</p></li>
+<li><p><strong>x_coords</strong> – A list of int/float x-coordinates (cartesian) in the order that the target must follow.</p></li>
+<li><p><strong>y_coords</strong> – A list of int/float y-coordinates (cartesian) in the order that the target must follow.</p></li>
+<li><p><strong>times</strong> – A list of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> dictating the times at which the target must be at
+each corresponding coordinate.</p></li>
+<li><p><strong>turn_rate</strong> (<em>Float</em>) – Angular turn rate (radians/second) measured anti-clockwise from positive x-axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>transition_models</em> – A list of <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.KnownTurnRate" title="smartfusion.models.transition.linear.KnownTurnRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">KnownTurnRate</span></code></a> and <a class="reference internal" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration" title="smartfusion.simulator.transition.Point2PointConstantAcceleration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point2PointConstantAcceleration</span></code></a>
+transition models.</p></li>
+<li><p><em>transition_times</em> – A list of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">timedelta</span></code></a> dictating the transition time for each
+corresponding transition model in transition_models.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>x_coords, y_coords and times must be of same length.
+This method assumes a cartesian state space with velocities eg.
+<span class="math notranslate nohighlight">\((x, \dot{x}, y, \dot{y})\)</span>. It returns transition models for 2 cartesian coordinates and
+their corresponding velocities.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.OvershootError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.transition.</span></span><span class="sig-name descname"><span class="pre">OvershootError</span></span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#OvershootError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.OvershootError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.transition.</span></span><span class="sig-name descname"><span class="pre">Point2PointConstantAcceleration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointConstantAcceleration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a></p>
+<p>Constant acceleration transition model for 2D cartesian coordinates</p>
+<p>The platform is assumed to move with constant acceleration between two given cartesian
+coordinates.
+Motion is determined by the kinematic formulae:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}v &amp;= u + at \\
+s &amp;= ut + \frac{1}{2} at^2\end{split}\]</div>
+</div></blockquote>
+<p>Where <span class="math notranslate nohighlight">\(u, v, a, t, s\)</span> are initial speed, final speed, acceleration, transition time and
+distance travelled respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – The initial state, assumed to have x and y cartesian position andvelocities</p></li>
+<li><p><strong>destination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float]</span></code>) – Destination coordinates in 2D cartesiancoordinates (x, y)</p></li>
+<li><p><strong>duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>) – Duration of transition in seconds</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.state">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.state" title="Permalink to this definition"></a></dt>
+<dd><p>The initial state, assumed to have x and y cartesian position andvelocities</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.destination">
+<span class="sig-name descname"><span class="pre">destination</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.destination" title="Permalink to this definition"></a></dt>
+<dd><p>Destination coordinates in 2D cartesiancoordinates (x, y)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.duration" title="Permalink to this definition"></a></dt>
+<dd><p>Duration of transition in seconds</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.ndim_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim_state</span></span><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointConstantAcceleration.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.pdf" title="Permalink to this definition"></a></dt>
+<dd><p>Model pdf/likelihood evaluation function</p>
+<p>Evaluates the pdf/likelihood of <code class="docutils literal notranslate"><span class="pre">state1</span></code>, given the state
+<code class="docutils literal notranslate"><span class="pre">state2</span></code> which is passed to <a class="reference internal" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.function" title="smartfusion.simulator.transition.Point2PointConstantAcceleration.function"><code class="xref py py-meth docutils literal notranslate"><span class="pre">function()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state1</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – </p></li>
+<li><p><strong>state2</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The likelihood of <code class="docutils literal notranslate"><span class="pre">state1</span></code>, given <code class="docutils literal notranslate"><span class="pre">state2</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.rvs">
+<span class="sig-name descname"><span class="pre">rvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointConstantAcceleration.rvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.rvs" title="Permalink to this definition"></a></dt>
+<dd><p>Model noise/sample generation function</p>
+<p>Generates noise samples from the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_samples</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The number of samples to be generated (the default is 1)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>noise</strong> – A set of Np samples, generated from the model’s noise
+distribution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>2-D array of shape (<code class="xref py py-attr docutils literal notranslate"><span class="pre">ndim</span></code>, <code class="docutils literal notranslate"><span class="pre">num_samples</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointConstantAcceleration.function">
+<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointConstantAcceleration.function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointConstantAcceleration.function" title="Permalink to this definition"></a></dt>
+<dd><p>Model function <span class="math notranslate nohighlight">\(f_k(x(k),w(k))\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – An input state</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is
+<cite>False</cite>, in which case no noise will be added
+if ‘True’, the output of <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The StateVector(s) with the model function evaluated.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">StateVectors</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.transition.</span></span><span class="sig-name descname"><span class="pre">Point2PointStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a></p>
+<p>Constant acceleration transition model for 2D cartesian coordinates</p>
+<p>The platform is assumed to move with constant acceleration between two given cartesian
+coordinates.
+Motion is determined by the kinematic formulae:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}v &amp;= u + at \\
+v^2 &amp;= u^2 + 2as\end{split}\]</div>
+</div></blockquote>
+<p>Where <span class="math notranslate nohighlight">\(u, v, a, t, s\)</span> are initial speed, final speed, acceleration, transition time and
+distance travelled respectively.
+The platform is decelerated to 0 velocity at the destination point and waits for the remaining
+duration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – The initial state, assumed to have x and y cartesian position andvelocities</p></li>
+<li><p><strong>destination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float]</span></code>) – Destination coordinates in 2D cartesiancoordinates (x, y)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.state">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.state" title="Permalink to this definition"></a></dt>
+<dd><p>The initial state, assumed to have x and y cartesian position andvelocities</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.destination">
+<span class="sig-name descname"><span class="pre">destination</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.destination" title="Permalink to this definition"></a></dt>
+<dd><p>Destination coordinates in 2D cartesiancoordinates (x, y)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.ndim_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim_state</span></span><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointStop.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.pdf" title="Permalink to this definition"></a></dt>
+<dd><p>Model pdf/likelihood evaluation function</p>
+<p>Evaluates the pdf/likelihood of <code class="docutils literal notranslate"><span class="pre">state1</span></code>, given the state
+<code class="docutils literal notranslate"><span class="pre">state2</span></code> which is passed to <a class="reference internal" href="#smartfusion.simulator.transition.Point2PointStop.function" title="smartfusion.simulator.transition.Point2PointStop.function"><code class="xref py py-meth docutils literal notranslate"><span class="pre">function()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state1</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – </p></li>
+<li><p><strong>state2</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The likelihood of <code class="docutils literal notranslate"><span class="pre">state1</span></code>, given <code class="docutils literal notranslate"><span class="pre">state2</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.rvs">
+<span class="sig-name descname"><span class="pre">rvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointStop.rvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.rvs" title="Permalink to this definition"></a></dt>
+<dd><p>Model noise/sample generation function</p>
+<p>Generates noise samples from the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_samples</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The number of samples to be generated (the default is 1)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>noise</strong> – A set of Np samples, generated from the model’s noise
+distribution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>2-D array of shape (<code class="xref py py-attr docutils literal notranslate"><span class="pre">ndim</span></code>, <code class="docutils literal notranslate"><span class="pre">num_samples</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.Point2PointStop.function">
+<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#Point2PointStop.function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.Point2PointStop.function" title="Permalink to this definition"></a></dt>
+<dd><p>Model function <span class="math notranslate nohighlight">\(f_k(x(k),w(k))\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><em>State</em></a>) – An input state</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is
+<cite>False</cite>, in which case no noise will be added
+if ‘True’, the output of <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The StateVector(s) with the model function evaluated.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">StateVectors</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.simulator.transition.</span></span><span class="sig-name descname"><span class="pre">ConstantJerkSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a></p>
+<p>Constant, noiseless, jerk transition model for cartesian space.</p>
+<p>The state space has no acceleration or jerk elements. I.E. the only kinematic components are
+position and velocity.</p>
+<p>Solution given by <span class="math notranslate nohighlight">\(\vec{\ddddot{x}} = \vec{0}\)</span></p>
+<p>The user will provide an initial and final state, each of which containing initial cartesian
+position and velocities. For example, <span class="math notranslate nohighlight">\((x, \dot{x}, y, \dot{y})\)</span>.</p>
+<p>Components of the state vector that are not position or velocity are kept constant.
+Initial and final accelerations are uniquely defined by this input.</p>
+<p class="rubric">Notes</p>
+<p>Acceleration instantaneously changes at each target state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>) – Mapping between platform position and state vector.</p></li>
+<li><p><strong>init_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Initial state to move from. Must be <cite>ndim_state</cite> dimensions.</p></li>
+<li><p><strong>final_state</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Final state to move to. Must be <cite>ndim_state</cite> dimensions.</p></li>
+<li><p><strong>velocity_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>, optional) – Mapping between platform velocity and state vector. Defaults to <cite>[m+1 for m in position_mapping]</cite></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.position_mapping">
+<span class="sig-name descname"><span class="pre">position_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.position_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between platform position and state vector.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.init_state">
+<span class="sig-name descname"><span class="pre">init_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.init_state" title="Permalink to this definition"></a></dt>
+<dd><p>Initial state to move from. Must be <cite>ndim_state</cite> dimensions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.final_state">
+<span class="sig-name descname"><span class="pre">final_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.final_state" title="Permalink to this definition"></a></dt>
+<dd><p>Final state to move to. Must be <cite>ndim_state</cite> dimensions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.velocity_mapping">
+<span class="sig-name descname"><span class="pre">velocity_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.velocity_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between platform velocity and state vector. Defaults to <cite>[m+1 for m in position_mapping]</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.ndim_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim_state</span></span><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state space dimensions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.covar">
+<span class="sig-name descname"><span class="pre">covar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.covar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.covar" title="Permalink to this definition"></a></dt>
+<dd><p>Must be added due to inheritance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.pdf" title="Permalink to this definition"></a></dt>
+<dd><p>Must be added due to inheritance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.rvs">
+<span class="sig-name descname"><span class="pre">rvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.rvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.rvs" title="Permalink to this definition"></a></dt>
+<dd><p>Must be added due to inheritance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.function">
+<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.function" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a constant jerk transition to <cite>state</cite>, for <cite>time_interval</cite> duration, keeping
+elements of state vector that are not position or velocity constant.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.calculate_pos">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jerk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.calculate_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.calculate_pos" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate position, along a particular axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Initial position along axis</p></li>
+<li><p><strong>init_v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Initial velocity along axis</p></li>
+<li><p><strong>init_a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Initial acceleration along axis</p></li>
+<li><p><strong>jerk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Constant jerk value along axis</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Number for seconds to carry-out jerk transition</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New position along axis, given by:
+<span class="math notranslate nohighlight">\(X' = \frac{J_0 T^3}{6} + \frac{A_0 T^2}{2} + V_0 T + X_0\)</span></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.simulator.transition.ConstantJerkSimulator.create_models">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><span class="pre">State</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/simulator/transition.html#ConstantJerkSimulator.create_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.simulator.transition.ConstantJerkSimulator.create_models" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a list of <a class="reference internal" href="#smartfusion.simulator.transition.ConstantJerkSimulator" title="smartfusion.simulator.transition.ConstantJerkSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConstantJerkSimulator</span></code></a> and transition durations, given a
+list of states.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.sensormanager.html" class="btn btn-neutral float-left" title="Sensor Managers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.tracker.html" class="btn btn-neutral float-right" title="Trackers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

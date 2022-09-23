@@ -1,0 +1,33 @@
+Sensors
+=======
+
+.. toctree::
+    smartfusion.sensor.radar
+
+.. toctree::
+    smartfusion.sensor.action
+
+.. automodule:: smartfusion.sensor
+    :no-members:
+
+.. automodule:: smartfusion.sensor.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.sensor.sensor
+    :show-inheritance:
+
+
+Passive
+-------
+.. automodule:: smartfusion.sensor.passive
+    :show-inheritance:
+
+Categorical
+-----------
+.. automodule:: smartfusion.sensor.categorical
+    :show-inheritance:
+
+Actionable
+----------
+.. automodule:: smartfusion.sensor.actionable
+    :show-inheritance:

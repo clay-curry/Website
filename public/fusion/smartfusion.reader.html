@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Readers &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Sensors" href="smartfusion.sensor.html" />
+    <link rel="prev" title="Platforms" href="smartfusion.platform.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Readers</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.reader.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.reader">
+<span id="readers"></span><h1>Readers<a class="headerlink" href="#module-smartfusion.reader" title="Permalink to this heading"></a></h1>
+<p>Reader classes are used for getting data into the framework.</p>
+<span class="target" id="module-smartfusion.reader.base"></span><p>Base classes for different Readers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.base.Reader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.base.</span></span><span class="sig-name descname"><span class="pre">Reader</span></span><a class="reference internal" href="_modules/smartfusion/reader/base.html#Reader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.Reader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BufferedGenerator</span></code></p>
+<p>Reader base class</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.base.DetectionReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.base.</span></span><span class="sig-name descname"><span class="pre">DetectionReader</span></span><a class="reference internal" href="_modules/smartfusion/reader/base.html#DetectionReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.DetectionReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a></p>
+<p>Detection Reader base class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.base.DetectionReader.detections_gen">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/base.html#DetectionReader.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.DetectionReader.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.base.GroundTruthReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.base.</span></span><span class="sig-name descname"><span class="pre">GroundTruthReader</span></span><a class="reference internal" href="_modules/smartfusion/reader/base.html#GroundTruthReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.GroundTruthReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a></p>
+<p>Ground Truth Reader base class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.base.GroundTruthReader.groundtruth_paths_gen">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/base.html#GroundTruthReader.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.GroundTruthReader.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.base.SensorDataReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.base.</span></span><span class="sig-name descname"><span class="pre">SensorDataReader</span></span><a class="reference internal" href="_modules/smartfusion/reader/base.html#SensorDataReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.SensorDataReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a></p>
+<p>Sensor Data Reader base class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.base.SensorDataReader.sensor_data_gen">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sensor_data_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/base.html#SensorDataReader.sensor_data_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.SensorDataReader.sensor_data_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of sensor data for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.SensorData" title="smartfusion.types.sensordata.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a> – Sensor data generated in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.base.FrameReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.base.</span></span><span class="sig-name descname"><span class="pre">FrameReader</span></span><a class="reference internal" href="_modules/smartfusion/reader/base.html#FrameReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.FrameReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a></p>
+<p>FrameReader base class</p>
+<p>A FrameReader produces <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.SensorData" title="smartfusion.types.sensordata.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a> in the form of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code> objects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.base.FrameReader.frames_gen">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frames_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/base.html#FrameReader.frames_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.FrameReader.frames_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of frames for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a> – Generated frame in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.base.FrameReader.sensor_data_gen">
+<span class="sig-name descname"><span class="pre">sensor_data_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/base.html#FrameReader.sensor_data_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.base.FrameReader.sensor_data_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of frames for each time step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is just a wrapper around (and therefore performs identically
+to) <a class="reference internal" href="#smartfusion.reader.base.FrameReader.frames_gen" title="smartfusion.reader.base.FrameReader.frames_gen"><code class="xref py py-meth docutils literal notranslate"><span class="pre">frames_gen()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a> – Generated frame in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-smartfusion.reader.file"></span><p>Base classes for use with File based readers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.file.FileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.file.</span></span><span class="sig-name descname"><span class="pre">FileReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/file.html#FileReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.file.FileReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a></p>
+<p>Base class for file based readers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.file.FileReader.path">
+<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></em><a class="headerlink" href="#smartfusion.reader.file.FileReader.path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to file to be opened. Str will be converted to path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.file.BinaryFileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.file.</span></span><span class="sig-name descname"><span class="pre">BinaryFileReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/file.html#BinaryFileReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.file.BinaryFileReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.file.FileReader" title="smartfusion.reader.file.FileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileReader</span></code></a></p>
+<p>Base class for binary file readers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.file.TextFileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.file.</span></span><span class="sig-name descname"><span class="pre">TextFileReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/file.html#TextFileReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.file.TextFileReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.file.FileReader" title="smartfusion.reader.file.FileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileReader</span></code></a></p>
+<p>Base class for text file readers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>encoding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – File encoding. Must be valid coding. Default ‘utf-8’.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.file.TextFileReader.encoding">
+<span class="sig-name descname"><span class="pre">encoding</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#smartfusion.reader.file.TextFileReader.encoding" title="Permalink to this definition"></a></dt>
+<dd><p>File encoding. Must be valid coding. Default ‘utf-8’.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.reader.generic">
+<span id="generic"></span><h2>Generic<a class="headerlink" href="#module-smartfusion.reader.generic" title="Permalink to this heading"></a></h2>
+<p>Generic readers for SMART FUSION.</p>
+<p>This is a collection of generic readers for SMART FUSION, allowing quick reading
+of data that is in common formats.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.generic.CSVGroundTruthReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.generic.</span></span><span class="sig-name descname"><span class="pre">CSVGroundTruthReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_vector_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_id_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_field_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/generic.html#CSVGroundTruthReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.generic.CSVGroundTruthReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_CSVReader</span></code></p>
+<p>A simple reader for csv files of truth data.</p>
+<p>CSV file must have headers, as these are used to determine which fields
+to use to generate the ground truth state. Those states with the same ID will be put into
+a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> in sequence, and all paths that are updated at the same time
+are yielded together, and such assumes file is in time order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>state_vector_fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[str]</span></code>) – List of columns names to be used in state vector</p></li>
+<li><p><strong>time_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of column to be used as time field</p></li>
+<li><p><strong>path_id_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of column to be used as path ID</p></li>
+<li><p><strong>encoding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – File encoding. Must be valid coding. Default ‘utf-8’.</p></li>
+<li><p><strong>time_field_format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – Optional datetime format</p></li>
+<li><p><strong>timestamp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Treat time field as a timestamp from epoch</p></li>
+<li><p><strong>metadata_fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[str]</span></code>, optional) – List of columns to be saved as metadata, default all</p></li>
+<li><p><strong>csv_options</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>, optional) – Keyword arguments for the underlying csv reader</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.generic.CSVGroundTruthReader.path_id_field">
+<span class="sig-name descname"><span class="pre">path_id_field</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#smartfusion.reader.generic.CSVGroundTruthReader.path_id_field" title="Permalink to this definition"></a></dt>
+<dd><p>Name of column to be used as path ID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.generic.CSVGroundTruthReader.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/generic.html#CSVGroundTruthReader.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.generic.CSVGroundTruthReader.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.generic.CSVDetectionReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.generic.</span></span><span class="sig-name descname"><span class="pre">CSVDetectionReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_vector_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_field_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/generic.html#CSVDetectionReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.generic.CSVDetectionReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_CSVReader</span></code></p>
+<p>A simple detection reader for csv files of detections.</p>
+<p>CSV file must have headers, as these are used to determine which fields to use to generate
+the detection. Detections at the same time are yielded together, and such assume file is in
+time order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>state_vector_fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[str]</span></code>) – List of columns names to be used in state vector</p></li>
+<li><p><strong>time_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of column to be used as time field</p></li>
+<li><p><strong>encoding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – File encoding. Must be valid coding. Default ‘utf-8’.</p></li>
+<li><p><strong>time_field_format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – Optional datetime format</p></li>
+<li><p><strong>timestamp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Treat time field as a timestamp from epoch</p></li>
+<li><p><strong>metadata_fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[str]</span></code>, optional) – List of columns to be saved as metadata, default all</p></li>
+<li><p><strong>csv_options</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>, optional) – Keyword arguments for the underlying csv reader</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.generic.CSVDetectionReader.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/generic.html#CSVDetectionReader.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.generic.CSVDetectionReader.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.reader.yaml">
+<span id="yaml"></span><h2>YAML<a class="headerlink" href="#module-smartfusion.reader.yaml" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.yaml.</span></span><span class="sig-name descname"><span class="pre">YAMLReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.file.FileReader" title="smartfusion.reader.file.FileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileReader</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BufferedGenerator</span></code></p>
+<p>YAML Reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – File to read data from</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLReader.path">
+<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></em><a class="headerlink" href="#smartfusion.reader.yaml.YAMLReader.path" title="Permalink to this definition"></a></dt>
+<dd><p>File to read data from</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLDetectionReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.yaml.</span></span><span class="sig-name descname"><span class="pre">YAMLDetectionReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLDetectionReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLDetectionReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.yaml.YAMLReader" title="smartfusion.reader.yaml.YAMLReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a></p>
+<p>YAML Detection Reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – File to read data from</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLDetectionReader.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLDetectionReader.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLDetectionReader.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLGroundTruthReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.yaml.</span></span><span class="sig-name descname"><span class="pre">YAMLGroundTruthReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLGroundTruthReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLGroundTruthReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.yaml.YAMLReader" title="smartfusion.reader.yaml.YAMLReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a></p>
+<p>YAML Ground Truth Reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – File to read data from</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLGroundTruthReader.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLGroundTruthReader.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLGroundTruthReader.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLSensorDataReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.yaml.</span></span><span class="sig-name descname"><span class="pre">YAMLSensorDataReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLSensorDataReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLSensorDataReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.yaml.YAMLReader" title="smartfusion.reader.yaml.YAMLReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a></p>
+<p>YAML Sensor Data Reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – File to read data from</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLSensorDataReader.sensor_data_gen">
+<span class="sig-name descname"><span class="pre">sensor_data_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLSensorDataReader.sensor_data_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLSensorDataReader.sensor_data_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of sensor data for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.SensorData" title="smartfusion.types.sensordata.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a> – Sensor data generated in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.yaml.YAMLTrackReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.yaml.</span></span><span class="sig-name descname"><span class="pre">YAMLTrackReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/yaml.html#YAMLTrackReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.yaml.YAMLTrackReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.yaml.YAMLReader" title="smartfusion.reader.yaml.YAMLReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLReader</span></code></a>, <a class="reference internal" href="smartfusion.tracker.html#smartfusion.tracker.base.Tracker" title="smartfusion.tracker.base.Tracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tracker</span></code></a></p>
+<p>YAML Track Reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – File to read data from</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.reader.aishub">
+<span id="aishub"></span><h2>AISHub<a class="headerlink" href="#module-smartfusion.reader.aishub" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.aishub.JSON_AISDetectionReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.aishub.</span></span><span class="sig-name descname"><span class="pre">JSON_AISDetectionReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/aishub.html#JSON_AISDetectionReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.aishub.JSON_AISDetectionReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.file.TextFileReader" title="smartfusion.reader.file.TextFileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextFileReader</span></code></a></p>
+<p>A simple detection reader for JSON files of AIS (maritime
+transponder) detections.</p>
+<p>This particular JSON AIS reader is written to read the JSON format
+used by files downloaded from ‘www.aishub.net’ (must be a contributor
+to their AIS database to download their files).</p>
+<p>JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s2">&quot;ERROR&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">},</span>
+<span class="p">[{</span><span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;MARTCILINO&quot;</span><span class="p">,</span> <span class="s2">&quot;MMSI&quot;</span><span class="p">:</span> <span class="mi">205466990</span><span class="p">,</span> <span class="s2">&quot;LONGITUDE&quot;</span><span class="p">:</span> <span class="mi">3078401</span><span class="p">,</span>
+<span class="s2">&quot;TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;1516233686&quot;</span><span class="p">,</span> <span class="s2">&quot;LATITUDE&quot;</span><span class="p">:</span> <span class="mi">31215032</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+<span class="p">{</span><span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;MARTCILINO&quot;</span><span class="p">,</span> <span class="s2">&quot;MMSI&quot;</span><span class="p">:</span> <span class="mi">205466990</span><span class="p">,</span> <span class="s2">&quot;LONGITUDE&quot;</span><span class="p">:</span> <span class="mi">3064592</span><span class="p">,</span>
+<span class="s2">&quot;TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;1516234275&quot;</span><span class="p">,</span> <span class="s2">&quot;LATITUDE&quot;</span><span class="p">:</span> <span class="mi">31227463</span><span class="p">,</span> <span class="o">...</span><span class="p">}]]</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>TIME is in Linux Epoch format</p></li>
+<li><p>LONGITUDE and LATITUDE are (long/lat degrees)*(600,000)</p></li>
+<li><p>MMSI is unique ship identifier</p></li>
+<li><p>The AIS detection attributes for lattitude, longitude, and timestamp are
+saved as the attributes of a ‘Detection’; the other attributes are saved
+as the dictionary ‘metadata’ attribute of a ‘Detection’.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>encoding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, optional) – File encoding. Must be valid coding. Default ‘utf-8’.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.aishub.JSON_AISDetectionReader.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/aishub.html#JSON_AISDetectionReader.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.aishub.JSON_AISDetectionReader.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.reader.image">
+<span id="image"></span><h2>Image<a class="headerlink" href="#module-smartfusion.reader.image" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.image.SingleImageFileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.image.</span></span><span class="sig-name descname"><span class="pre">SingleImageFileReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/image.html#SingleImageFileReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.image.SingleImageFileReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.file.FileReader" title="smartfusion.reader.file.FileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.base.FrameReader" title="smartfusion.reader.base.FrameReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameReader</span></code></a></p>
+<p>ImageFileReader
+A reader that reads a single image file from a given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – Timestamp given to the returned frame</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.image.SingleImageFileReader.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></em><a class="headerlink" href="#smartfusion.reader.image.SingleImageFileReader.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Timestamp given to the returned frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.image.SingleImageFileReader.frames_gen">
+<span class="sig-name descname"><span class="pre">frames_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/image.html#SingleImageFileReader.frames_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.image.SingleImageFileReader.frames_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of frames for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a> – Generated frame in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.reader.video">
+<span id="video"></span><h2>Video<a class="headerlink" href="#module-smartfusion.reader.video" title="Permalink to this heading"></a></h2>
+<p>Video readers for SMART FUSION.</p>
+<p>This is a collection of video readers for SMART FUSION, allowing quick reading
+of video data/streams.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.video.VideoClipReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.video.</span></span><span class="sig-name descname"><span class="pre">VideoClipReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/video.html#VideoClipReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.video.VideoClipReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.reader.file.FileReader" title="smartfusion.reader.file.FileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileReader</span></code></a>, <a class="reference internal" href="#smartfusion.reader.base.FrameReader" title="smartfusion.reader.base.FrameReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameReader</span></code></a></p>
+<p>A simple reader that uses <a class="reference external" href="https://zulko.github.io/moviepy/index.html">MoviePy</a> to read video frames from a file.</p>
+<p>Usage of MoviePy allows for the application of clip transformations
+and effects, as per the MoviePy <a class="reference external" href="https://zulko.github.io/moviepy/getting_started/effects.html">documentation</a>. Upon instantiation,
+the underlying MoviePy <cite>VideoFileClip</cite> instance can be accessed
+through the <code class="xref py py-attr docutils literal notranslate"><span class="pre">clip</span></code> class property. This can then be used
+as expected, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rearrange RGB to BGR</span>
+<span class="k">def</span> <span class="nf">arrange_bgr</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+
+<span class="n">reader</span> <span class="o">=</span> <span class="n">VideoClipReader</span><span class="p">(</span><span class="s2">&quot;path_to_file&quot;</span><span class="p">)</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">clip</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">fl_image</span><span class="p">(</span><span class="n">arrange_bgr</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+    <span class="c1"># The generated frame.pixels will now</span>
+    <span class="c1"># be arranged in BGR format.</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to file to be opened. Str will be converted to path.</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Start time expressed as duration from the start of the clip</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – End time expressed as duration from the start of the clip</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – Timestamp given to the first frame</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.VideoClipReader.start_time">
+<span class="sig-name descname"><span class="pre">start_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.reader.video.VideoClipReader.start_time" title="Permalink to this definition"></a></dt>
+<dd><p>Start time expressed as duration from the start of the clip</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.VideoClipReader.end_time">
+<span class="sig-name descname"><span class="pre">end_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.reader.video.VideoClipReader.end_time" title="Permalink to this definition"></a></dt>
+<dd><p>End time expressed as duration from the start of the clip</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.VideoClipReader.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></em><a class="headerlink" href="#smartfusion.reader.video.VideoClipReader.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Timestamp given to the first frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.video.VideoClipReader.frames_gen">
+<span class="sig-name descname"><span class="pre">frames_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/video.html#VideoClipReader.frames_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.video.VideoClipReader.frames_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of frames for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a> – Generated frame in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.video.</span></span><span class="sig-name descname"><span class="pre">FFmpegVideoStreamReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult" title="(in Python v3.10)"><span class="pre">ParseResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_opts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/video.html#FFmpegVideoStreamReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UrlReader</span></code>, <a class="reference internal" href="#smartfusion.reader.base.FrameReader" title="smartfusion.reader.base.FrameReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameReader</span></code></a></p>
+<p>A threaded reader that uses <a class="reference external" href="https://github.com/kkroening/ffmpeg-python">ffmpeg-python</a> to read frames from video
+streams (e.g. RTSP) in real-time.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Use of this class requires that <a class="reference external" href="https://www.ffmpeg.org/download.html">FFmpeg</a> is installed on the host machine.</p></li>
+<li><p>By default, FFmpeg performs internal buffering of frames leading to a     slight delay in the incoming frames (0.5-1 sec). To remove the delay it     is recommended to set <code class="docutils literal notranslate"><span class="pre">input_opts={'threads':</span> <span class="pre">1,</span> <span class="pre">'fflags':</span> <span class="pre">'nobuffer'}</span></code>     when instantiating a reader, e.g: .</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">video_reader</span> <span class="o">=</span> <span class="n">FFmpegVideoStreamReader</span><span class="p">(</span><span class="s1">&#39;rtsp://192.168.0.10:554/1/h264minor&#39;</span><span class="p">,</span>
+                                       <span class="n">input_opts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;threads&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fflags&#39;</span><span class="p">:</span> <span class="s1">&#39;nobuffer&#39;</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">video_reader</span><span class="p">:</span>
+    <span class="o">....</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">urllib.parse.ParseResult</span></code></a>) – Input source to read video stream from, passed as input url argument. This can include any valid FFmpeg input e.g. rtsp URL, device name when using ‘dshow’/’v4l2’</p></li>
+<li><p><strong>buffer_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Size of the frame buffer. The frame buffer is used to cache frames in cases where the stream generates frames faster than they are ingested by the reader. If <cite>buffer_size</cite> is less than or equal to zero, the buffer size is infinite.</p></li>
+<li><p><strong>input_opts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>, optional) – FFmpeg input options, provided in the form of a dictionary, whose keys correspond to option names. (e.g. <code class="docutils literal notranslate"><span class="pre">{'fflags':</span> <span class="pre">'nobuffer'}</span></code>). The default is <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p></li>
+<li><p><strong>output_opts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>, optional) – FFmpeg output options, provided in the form of a dictionary, whose keys correspond to option names. The default is <code class="docutils literal notranslate"><span class="pre">{'f':</span> <span class="pre">'rawvideo',</span> <span class="pre">'pix_fmt':</span> <span class="pre">'rgb24'}</span></code>.</p></li>
+<li><p><strong>filters</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Tuple[str,</span> <span class="pre">Sequence[Any],</span> <span class="pre">Mapping[Any,</span> <span class="pre">Any]]]</span></code>, optional) – FFmpeg filters, provided in the form of a list of filter name, sequence of arguments, mapping of key/value pairs (e.g. <code class="docutils literal notranslate"><span class="pre">[('scale',</span> <span class="pre">('320',</span> <span class="pre">'240'),</span> <span class="pre">{})]</span></code>). Default <cite>None</cite> where no filter will be applied. Note that <a class="reference internal" href="#smartfusion.reader.video.FFmpegVideoStreamReader.frame_size" title="smartfusion.reader.video.FFmpegVideoStreamReader.frame_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">frame_size</span></code></a> may need to be set in when video size changed by filter.</p></li>
+<li><p><strong>frame_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>, optional) – Tuple of frame width and height. Default <cite>None</cite> where it will be detected using <cite>ffprobe</cite> against the input, but this may yield wrong width/height (e.g. when filters are applied), and such this option can be used to override.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult" title="(in Python v3.10)"><span class="pre">ParseResult</span></a></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.url" title="Permalink to this definition"></a></dt>
+<dd><p>Input source to read video stream from, passed as input url argument. This can include any valid FFmpeg input e.g. rtsp URL, device name when using ‘dshow’/’v4l2’</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.buffer_size">
+<span class="sig-name descname"><span class="pre">buffer_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.buffer_size" title="Permalink to this definition"></a></dt>
+<dd><p>Size of the frame buffer. The frame buffer is used to cache frames in cases where the stream generates frames faster than they are ingested by the reader. If <cite>buffer_size</cite> is less than or equal to zero, the buffer size is infinite.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.frame_size">
+<span class="sig-name descname"><span class="pre">frame_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.frame_size" title="Permalink to this definition"></a></dt>
+<dd><p>Tuple of frame width and height. Default <cite>None</cite> where it will be detected using <cite>ffprobe</cite> against the input, but this may yield wrong width/height (e.g. when filters are applied), and such this option can be used to override.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.input_opts">
+<span class="sig-name descname"><span class="pre">input_opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.input_opts" title="Permalink to this definition"></a></dt>
+<dd><p>FFmpeg input options, provided in the form of a dictionary, whose keys correspond to option names. (e.g. <code class="docutils literal notranslate"><span class="pre">{'fflags':</span> <span class="pre">'nobuffer'}</span></code>). The default is <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.output_opts">
+<span class="sig-name descname"><span class="pre">output_opts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.output_opts" title="Permalink to this definition"></a></dt>
+<dd><p>FFmpeg output options, provided in the form of a dictionary, whose keys correspond to option names. The default is <code class="docutils literal notranslate"><span class="pre">{'f':</span> <span class="pre">'rawvideo',</span> <span class="pre">'pix_fmt':</span> <span class="pre">'rgb24'}</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.filters">
+<span class="sig-name descname"><span class="pre">filters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.filters" title="Permalink to this definition"></a></dt>
+<dd><p>FFmpeg filters, provided in the form of a list of filter name, sequence of arguments, mapping of key/value pairs (e.g. <code class="docutils literal notranslate"><span class="pre">[('scale',</span> <span class="pre">('320',</span> <span class="pre">'240'),</span> <span class="pre">{})]</span></code>). Default <cite>None</cite> where no filter will be applied. Note that <a class="reference internal" href="#smartfusion.reader.video.FFmpegVideoStreamReader.frame_size" title="smartfusion.reader.video.FFmpegVideoStreamReader.frame_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">frame_size</span></code></a> may need to be set in when video size changed by filter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.video.FFmpegVideoStreamReader.frames_gen">
+<span class="sig-name descname"><span class="pre">frames_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/video.html#FFmpegVideoStreamReader.frames_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.video.FFmpegVideoStreamReader.frames_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of frames for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a> – Generated frame in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.reader.opensky">
+<span id="opensky-network"></span><h2>OpenSky Network<a class="headerlink" href="#module-smartfusion.reader.opensky" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.opensky.OpenSkyNetworkDetectionReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.opensky.</span></span><span class="sig-name descname"><span class="pre">OpenSkyNetworkDetectionReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=15)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/opensky.html#OpenSkyNetworkDetectionReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.opensky.OpenSkyNetworkDetectionReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_OpenSkyNetworkReader</span></code>, <a class="reference internal" href="#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a></p>
+<p>OpenSky Network detection reader</p>
+<p>This reader uses the <a class="reference external" href="https://opensky-network.org/">OpenSky Network</a> REST
+API to fetch air traffic control data.</p>
+<p>The detection state vector consists of longitude, latitude
+(in decimal degrees) and altitude (in meters).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By using this reader, you are agreeing to <a class="reference external" href="https://opensky-network.org/about/terms-of-use">OpenSky Network’s terms of
+use</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bbox</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code>, optional) – Bounding box to filter data to (left, bottom, right, top). Default <cite>None</cite> which will include global data.</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time of each poll after reported time from OpenSky. Must be greater than 10 seconds. Default 15 seconds.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.opensky.OpenSkyNetworkDetectionReader.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/opensky.html#OpenSkyNetworkDetectionReader.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.opensky.OpenSkyNetworkDetectionReader.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.reader.opensky.</span></span><span class="sig-name descname"><span class="pre">OpenSkyNetworkGroundTruthReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=15)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/opensky.html#OpenSkyNetworkGroundTruthReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_OpenSkyNetworkReader</span></code>, <a class="reference internal" href="#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a></p>
+<p>OpenSky Network groundtruth reader</p>
+<p>This reader uses the <a class="reference external" href="https://opensky-network.org/">OpenSky Network</a> REST
+API to fetch air traffic control data.</p>
+<p>The groundtruth state vector consists of longitude, latitude
+(in decimal degrees) and altitude (in meters).</p>
+<p>Paths that are yielded are grouped based on the International Civil Aviation
+Organisation (ICAO) 24-bit address.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By using this reader, you are agreeing to <a class="reference external" href="https://opensky-network.org/about/terms-of-use">OpenSky Network’s terms of
+use</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bbox</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code>, optional) – Bounding box to filter data to (left, bottom, right, top). Default <cite>None</cite> which will include global data.</p></li>
+<li><p><strong>timestep</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time of each poll after reported time from OpenSky. Must be greater than 10 seconds. Default 15 seconds.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/reader/opensky.html#OpenSkyNetworkGroundTruthReader.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.platform.html" class="btn btn-neutral float-left" title="Platforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.sensor.html" class="btn btn-neutral float-right" title="Sensors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+Radars
+======
+
+.. automodule:: smartfusion.sensor.radar
+    :no-members:
+
+.. automodule:: smartfusion.sensor.radar.radar
+    :show-inheritance:
+
+Beam Patterns
+-------------
+.. automodule:: smartfusion.sensor.radar.beam_pattern
+    :show-inheritance:
+
+Beam Shapes
+-----------
+.. automodule:: smartfusion.sensor.radar.beam_shape
+    :show-inheritance:

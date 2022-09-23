@@ -1,0 +1,345 @@
+:orphan:
+
+Tutorials
+=========
+
+Here are some tutorials on using SMART FUSION that also introduce some topics
+of state estimation and tracking.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="1 - An introduction to SMART FUSION: using the Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_01_KalmanFilterTutorial_thumb.png
+    :alt: 1 - An introduction to SMART FUSION: using the Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_01_KalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1 - An introduction to SMART FUSION: using the Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="2 - Non-linear models: extended Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_02_ExtendedKalmanFilterTutorial_thumb.png
+    :alt: 2 - Non-linear models: extended Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_02_ExtendedKalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">2 - Non-linear models: extended Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="3 - Non-linear models: unscented Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_03_UnscentedKalmanFilterTutorial_thumb.png
+    :alt: 3 - Non-linear models: unscented Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_03_UnscentedKalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3 - Non-linear models: unscented Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="4 - Sampling methods: particle filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_04_ParticleFilter_thumb.png
+    :alt: 4 - Sampling methods: particle filter
+
+  :ref:`sphx_glr_auto_tutorials_04_ParticleFilter.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">4 - Sampling methods: particle filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="5 - Data association - clutter tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_05_DataAssociation-Clutter_thumb.png
+    :alt: 5 - Data association - clutter tutorial
+
+  :ref:`sphx_glr_auto_tutorials_05_DataAssociation-Clutter.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">5 - Data association - clutter tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="6 - Data association - multi-target tracking tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_06_DataAssociation-MultiTargetTutorial_thumb.png
+    :alt: 6 - Data association - multi-target tracking tutorial
+
+  :ref:`sphx_glr_auto_tutorials_06_DataAssociation-MultiTargetTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6 - Data association - multi-target tracking tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="7 - Probabilistic data association tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_07_PDATutorial_thumb.png
+    :alt: 7 - Probabilistic data association tutorial
+
+  :ref:`sphx_glr_auto_tutorials_07_PDATutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">7 - Probabilistic data association tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="8 - Joint probabilistic data association tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_08_JPDATutorial_thumb.png
+    :alt: 8 - Joint probabilistic data association tutorial
+
+  :ref:`sphx_glr_auto_tutorials_08_JPDATutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">8 - Joint probabilistic data association tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9 - Initiators &amp; Deleters">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_09_Initiators_&_Deleters_thumb.png
+    :alt: 9 - Initiators & Deleters
+
+  :ref:`sphx_glr_auto_tutorials_09_Initiators_&_Deleters.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9 - Initiators & Deleters</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="10 - Tracking in simulation: bringing all components together">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/images/thumb/sphx_glr_10_Simulation_&_Tracking_Components_thumb.png
+    :alt: 10 - Tracking in simulation: bringing all components together
+
+  :ref:`sphx_glr_auto_tutorials_10_Simulation_&_Tracking_Components.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">10 - Tracking in simulation: bringing all components together</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/01_KalmanFilterTutorial
+   /auto_tutorials/02_ExtendedKalmanFilterTutorial
+   /auto_tutorials/03_UnscentedKalmanFilterTutorial
+   /auto_tutorials/04_ParticleFilter
+   /auto_tutorials/05_DataAssociation-Clutter
+   /auto_tutorials/06_DataAssociation-MultiTargetTutorial
+   /auto_tutorials/07_PDATutorial
+   /auto_tutorials/08_JPDATutorial
+   /auto_tutorials/09_Initiators_&_Deleters
+   /auto_tutorials/10_Simulation_&_Tracking_Components
+
+Filters
+-------
+Here are some tutorials which cover additional filtering techniques.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Gaussian mixture PHD tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/filters/images/thumb/sphx_glr_GMPHDTutorial_thumb.png
+    :alt: Gaussian mixture PHD tutorial
+
+  :ref:`sphx_glr_auto_tutorials_filters_GMPHDTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gaussian mixture PHD tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Information filter tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/filters/images/thumb/sphx_glr_InformationFilterTutorial_thumb.png
+    :alt: Information filter tutorial
+
+  :ref:`sphx_glr_auto_tutorials_filters_InformationFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Information filter tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+Sensor Management
+-----------------
+Here are some tutorials that introduce sensor management using SMART FUSION classes.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="1 - Single Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_01_SingleSensorManagement_thumb.png
+    :alt: 1 - Single Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_01_SingleSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1 - Single Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="2 - Multiple Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_02_MultiSensorManagement_thumb.png
+    :alt: 2 - Multiple Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_02_MultiSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">2 - Multiple Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="3 - Optimised Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_03_OptimisedSensorManagement_thumb.png
+    :alt: 3 - Optimised Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_03_OptimisedSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3 - Optimised Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+
+   /auto_tutorials/filters/index.rst
+   /auto_tutorials/sensormanagement/index.rst
+
+
+.. only:: html
+
+  .. container:: sphx-glr-footer sphx-glr-footer-gallery
+
+    .. container:: sphx-glr-download sphx-glr-download-python
+
+      :download:`Download all examples in Python source code: auto_tutorials_python.zip </auto_tutorials/auto_tutorials_python.zip>`
+
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download all examples in Jupyter notebooks: auto_tutorials_jupyter.zip </auto_tutorials/auto_tutorials_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

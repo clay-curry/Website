@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sensor Managers &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Simulators" href="smartfusion.simulator.html" />
+    <link rel="prev" title="Actions" href="smartfusion.sensor.action.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Sensor Managers</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.sensormanager.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.sensormanager">
+<span id="sensor-managers"></span><h1>Sensor Managers<a class="headerlink" href="#module-smartfusion.sensormanager" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.sensormanager.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.SensorManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.base.</span></span><span class="sig-name descname"><span class="pre">SensorManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#SensorManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.SensorManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>The sensor manager base class.</p>
+<p>The purpose of a sensor manager is to return a mapping of sensors and sensor actions
+appropriate to a specific
+scenario and with a particular objective, or objectives, in mind. This involves using
+estimates of the situation and knowledge of the sensor system to calculate metrics associated
+with actions, and then determine optimal, or near optimal, actions to take.</p>
+<p>There is considerable freedom in both the theory and practice of sensor management and these
+classes do not enforce a particular solution. A sensor manager may be ‘centralised’ in that
+it controls the actions of multiple sensors, or individual sensors may have their own managers
+which communicate with other sensor managers in a networked fashion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[Sensor]</span></code>) – The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p></li>
+<li><p><strong>reward_function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>, optional) – A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.SensorManager.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensormanager.base.SensorManager.sensors" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.SensorManager.reward_function">
+<span class="sig-name descname"><span class="pre">reward_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.base.SensorManager.reward_function" title="Permalink to this definition"></a></dt>
+<dd><p>A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.SensorManager.choose_actions">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choose_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nchoose</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#SensorManager.choose_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.SensorManager.choose_actions" title="Permalink to this definition"></a></dt>
+<dd><p>A method which returns a set of actions, designed to be enacted by a sensor, or
+sensors, chosen by some means. This will likely make use of optimisation algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Key-value pairs of the form ‘sensor: actions’. In the general case a sensor may be
+given a single action, or a list. The actions themselves are objects which must be
+interpretable by the sensor to which they are assigned.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict {<a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>: [<a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>]}</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.RandomSensorManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.base.</span></span><span class="sig-name descname"><span class="pre">RandomSensorManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#RandomSensorManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.RandomSensorManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensormanager.base.SensorManager" title="smartfusion.sensormanager.base.SensorManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorManager</span></code></a></p>
+<p>As the name suggests, a sensor manager which returns a random choice of action or actions
+from the list available. Its practical purpose is to serve as a baseline to test against.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[Sensor]</span></code>) – The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p></li>
+<li><p><strong>reward_function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>, optional) – A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.RandomSensorManager.choose_actions">
+<span class="sig-name descname"><span class="pre">choose_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nchoose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#RandomSensorManager.choose_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.RandomSensorManager.choose_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a randomly chosen [list of] action(s) from the action set for each sensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – Set of tracks at given time. Used in reward function.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Time at which the actions are carried out until</p></li>
+<li><p><strong>nchoose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of actions from the set to choose (default is 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pairs of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>: [<a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>] selected</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.BruteForceSensorManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.base.</span></span><span class="sig-name descname"><span class="pre">BruteForceSensorManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#BruteForceSensorManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.BruteForceSensorManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensormanager.base.SensorManager" title="smartfusion.sensormanager.base.SensorManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorManager</span></code></a></p>
+<p>A sensor manager which returns a choice of action from those available. The sensor manager
+iterates through every possible configuration of sensors and actions and
+selects the configuration which returns the maximum reward as calculated by a reward function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[Sensor]</span></code>) – The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p></li>
+<li><p><strong>reward_function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>, optional) – A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.base.BruteForceSensorManager.choose_actions">
+<span class="sig-name descname"><span class="pre">choose_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nchoose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/base.html#BruteForceSensorManager.choose_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.base.BruteForceSensorManager.choose_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a chosen [list of] action(s) from the action set for each sensor.
+Chosen action(s) is selected by finding the configuration of sensors: actions which returns
+the maximum reward, as calculated by a reward function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – Set of tracks at given time. Used in reward function.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Time at which the actions are carried out until</p></li>
+<li><p><strong>nchoose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of actions from the set to choose (default is 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pairs of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>: [<a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>] selected</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-smartfusion.sensormanager.optimise"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.optimise.</span></span><span class="sig-name descname"><span class="pre">OptimizeBruteSensorManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_grid_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generate_full_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/optimise.html#OptimizeBruteSensorManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_OptimizeSensorManager</span></code></p>
+<p>A sensor manager built around the SciPy <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html#scipy.optimize.brute" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">brute()</span></code></a> method.
+The sensor manager
+takes all possible configurations of sensors and actions and
+uses
+the optimising function to optimise a given reward function,
+returning the optimal configuration.</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#utilities">Scipy optimize</a> provides
+functions which can minimize or maximize functions using a variety
+of algorithms. The <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html#scipy.optimize.brute" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">brute()</span></code></a> minimizes a function over a given range,
+using a brute force method. This is done by computing the function’s value at each point of
+a multidimensional grid of points, to find the global minimum.</p>
+<p>A default version of the optimiser is used, or on initiation the sensor manager can be passed
+some parameters to alter the configuration of the optimiser.
+Please see the Scipy documentation site for full details on what each parameter does.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[Sensor]</span></code>) – The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p></li>
+<li><p><strong>reward_function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>, optional) – A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p></li>
+<li><p><strong>n_grid_points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of grid points to search along axis. See Ns in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html#scipy.optimize.brute" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">brute()</span></code></a>. Default is 10.</p></li>
+<li><p><strong>generate_full_output</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If True, returns the evaluation grid and the objective function’s values on it.</p></li>
+<li><p><strong>finish</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – A polishing function can be applied to the result of brute force minimisation. If True this is set as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin.html#scipy.optimize.fmin" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">fmin()</span></code></a> which minimizes a function using the downhill simplex algorithm.As a default no polishing function is applied.</p></li>
+<li><p><strong>disp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Set to True to print convergence messages from the finish callable.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.n_grid_points">
+<span class="sig-name descname"><span class="pre">n_grid_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.n_grid_points" title="Permalink to this definition"></a></dt>
+<dd><p>Number of grid points to search along axis. See Ns in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html#scipy.optimize.brute" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">brute()</span></code></a>. Default is 10.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.generate_full_output">
+<span class="sig-name descname"><span class="pre">generate_full_output</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.generate_full_output" title="Permalink to this definition"></a></dt>
+<dd><p>If True, returns the evaluation grid and the objective function’s values on it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.finish" title="Permalink to this definition"></a></dt>
+<dd><p>A polishing function can be applied to the result of brute force minimisation. If True this is set as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin.html#scipy.optimize.fmin" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">fmin()</span></code></a> which minimizes a function using the downhill simplex algorithm.As a default no polishing function is applied.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.disp">
+<span class="sig-name descname"><span class="pre">disp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.disp" title="Permalink to this definition"></a></dt>
+<dd><p>Set to True to print convergence messages from the finish callable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.get_full_output">
+<span class="sig-name descname"><span class="pre">get_full_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/optimise.html#OptimizeBruteSensorManager.get_full_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.get_full_output" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the output generated when <cite>generate_full_output=True</cite> for the most recent
+time step.
+This returns the evaluation grid and reward function’s values on it, as generated by the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">optimize.brute()</span></code> method.
+See
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brute.html#scipy.optimize.brute">Scipy documentation</a>
+for full details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>full_output</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.choose_actions">
+<span class="sig-name descname"><span class="pre">choose_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nchoose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.choose_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a chosen [list of] action(s) from the action set for each sensor.
+Chosen action(s) is selected by finding the configuration of sensors: actions which returns
+the maximum reward, as calculated by a reward function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – Set of tracks at given time. Used in reward function.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Time at which the actions are carried out until</p></li>
+<li><p><strong>nchoose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of actions from the set to choose (default is 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pairs of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>: [<a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>] selected</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.reward_function">
+<span class="sig-name descname"><span class="pre">reward_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.reward_function" title="Permalink to this definition"></a></dt>
+<dd><p>A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBruteSensorManager.sensors" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.optimise.</span></span><span class="sig-name descname"><span class="pre">OptimizeBasinHoppingSensorManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stepsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter_success</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/optimise.html#OptimizeBasinHoppingSensorManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_OptimizeSensorManager</span></code></p>
+<p>A sensor manager built around the SciPy <code class="xref py py-meth docutils literal notranslate"><span class="pre">optimize.basinhopping()</span></code> method.
+The sensor manager
+takes all possible configurations of sensors and actions and
+uses
+the optimising function to optimise a given reward function,
+returning the optimal configuration for the sensing system.</p>
+<p>The <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.basinhopping.html#scipy.optimize.basinhopping" title="(in SciPy v1.9.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">basinhopping()</span></code></a> finds the global minimum of a function using the
+basin-hopping algorithm. This is a combination of a global stepping algorithm and local
+minimization at each step.</p>
+<p>A default version of the optimiser is used, or on initiation the sensor manager can be passed
+some parameters to alter the configuration of the optimiser.
+Please see the Scipy documentation site for full details on what each parameter does.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[Sensor]</span></code>) – The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p></li>
+<li><p><strong>reward_function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>, optional) – A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p></li>
+<li><p><strong>n_iter</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – The number of basin hopping iterations.</p></li>
+<li><p><strong>T</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The “temperature” parameter for the accept or reject criterion. Higher temperatures mean larger jumps in function value will be accepted.</p></li>
+<li><p><strong>stepsize</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Maximum step size for use in the random displacement.</p></li>
+<li><p><strong>interval</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Interval for how often to update the stepsize.</p></li>
+<li><p><strong>disp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Set to True to print status messages.</p></li>
+<li><p><strong>niter_success</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Stop the run if the global minimum candidate remains the same for this number of iterations.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.n_iter">
+<span class="sig-name descname"><span class="pre">n_iter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.n_iter" title="Permalink to this definition"></a></dt>
+<dd><p>The number of basin hopping iterations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.T">
+<span class="sig-name descname"><span class="pre">T</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.T" title="Permalink to this definition"></a></dt>
+<dd><p>The “temperature” parameter for the accept or reject criterion. Higher temperatures mean larger jumps in function value will be accepted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.stepsize">
+<span class="sig-name descname"><span class="pre">stepsize</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.stepsize" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum step size for use in the random displacement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.interval">
+<span class="sig-name descname"><span class="pre">interval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.interval" title="Permalink to this definition"></a></dt>
+<dd><p>Interval for how often to update the stepsize.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.disp">
+<span class="sig-name descname"><span class="pre">disp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.disp" title="Permalink to this definition"></a></dt>
+<dd><p>Set to True to print status messages.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.niter_success">
+<span class="sig-name descname"><span class="pre">niter_success</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.niter_success" title="Permalink to this definition"></a></dt>
+<dd><p>Stop the run if the global minimum candidate remains the same for this number of iterations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.choose_actions">
+<span class="sig-name descname"><span class="pre">choose_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nchoose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.choose_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a chosen [list of] action(s) from the action set for each sensor.
+Chosen action(s) is selected by finding the configuration of sensors: actions which returns
+the maximum reward, as calculated by a reward function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – Set of tracks at given time. Used in reward function.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Time at which the actions are carried out until</p></li>
+<li><p><strong>nchoose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of actions from the set to choose (default is 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pairs of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>: [<a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>] selected</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.reward_function">
+<span class="sig-name descname"><span class="pre">reward_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.reward_function" title="Permalink to this definition"></a></dt>
+<dd><p>A function or class designed to work out the reward associated with an action or set of actions. For an example see <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a>. This may also incorporate a notion of the cost of making a measurement. The values returned may be scalar or vector in the case of multi-objective optimisation. Metrics may be of any type and in any units.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensormanager.optimise.OptimizeBasinHoppingSensorManager.sensors" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor(s) which the sensor manager is managing. These must be capable of returning available actions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.sensormanager.reward">
+<span id="reward-functions"></span><h2>Reward Functions<a class="headerlink" href="#module-smartfusion.sensormanager.reward" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.RewardFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.reward.</span></span><span class="sig-name descname"><span class="pre">RewardFunction</span></span><a class="reference internal" href="_modules/smartfusion/sensormanager/reward.html#RewardFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.reward.RewardFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>The reward function base class.</p>
+<p>A reward function is a callable used by a sensor manager to determine the best choice of
+action(s) for a sensor or group of sensors to take. For a given configuration of sensors
+and actions the reward function calculates a metric to evaluate how useful that choice
+of actions would be with a particular objective or objectives in mind.
+The sensor manager algorithm compares this metric for different possible configurations
+and chooses the appropriate sensing configuration to use at that time step.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.RewardFunction.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><span class="pre">Action</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/reward.html#RewardFunction.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.reward.RewardFunction.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>A method which returns a reward metric based on information about the state of the
+system, sensors and possible actions they can take. This requires a mapping of
+sensors to action(s) to be evaluated by reward function, a set of tracks at given
+time and the time at which the actions would be carried out until.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Calculated metric</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.RewardFunction.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartfusion.sensormanager.reward.RewardFunction.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.UncertaintyRewardFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensormanager.reward.</span></span><span class="sig-name descname"><span class="pre">UncertaintyRewardFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><span class="pre">KalmanPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater"><span class="pre">ExtendedKalmanUpdater</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/reward.html#UncertaintyRewardFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.reward.UncertaintyRewardFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensormanager.reward.RewardFunction" title="smartfusion.sensormanager.reward.RewardFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">RewardFunction</span></code></a></p>
+<p>A reward function which calculates the potential reduction in the uncertainty of track estimates
+if a particular action is taken by a sensor or group of sensors.</p>
+<p>Given a configuration of sensors and actions, a metric is calculated for the potential
+reduction in the uncertainty of the tracks that would occur if the sensing configuration
+were used to make an observation. A larger value indicates a greater reduction in
+uncertainty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a>) – Predictor used to predict the track to a new state</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExtendedKalmanUpdater</span></code></a>) – Updater used to update the track to the new state.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.UncertaintyRewardFunction.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><span class="pre">KalmanPredictor</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.reward.UncertaintyRewardFunction.predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Predictor used to predict the track to a new state</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.UncertaintyRewardFunction.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater"><span class="pre">ExtendedKalmanUpdater</span></a></em><a class="headerlink" href="#smartfusion.sensormanager.reward.UncertaintyRewardFunction.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to update the track to the new state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.UncertaintyRewardFunction.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><span class="pre">Action</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensormanager/reward.html#UncertaintyRewardFunction.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensormanager.reward.UncertaintyRewardFunction.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>For a given configuration of sensors and actions this reward function calculates the
+potential uncertainty reduction of each track by
+computing the difference between the covariance matrix norms of the prediction
+and the posterior assuming a predicted measurement corresponding to that prediction.</p>
+<p>This requires a mapping of sensors to action(s)
+to be evaluated by reward function, a set of tracks at given time and the time at which
+the actions would be carried out until.</p>
+<p>The metric returned is the total potential reduction in uncertainty across all tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Metric of uncertainty for given configuration</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensormanager.reward.UncertaintyRewardFunction.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><span class="pre">KalmanPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater"><span class="pre">ExtendedKalmanUpdater</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartfusion.sensormanager.reward.UncertaintyRewardFunction.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.sensor.action.html" class="btn btn-neutral float-left" title="Actions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.simulator.html" class="btn btn-neutral float-right" title="Simulators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

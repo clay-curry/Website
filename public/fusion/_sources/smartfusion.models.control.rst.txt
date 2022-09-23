@@ -1,0 +1,11 @@
+Control Models
+==============
+
+.. automodule:: smartfusion.models.control
+    :no-members:
+
+.. automodule:: smartfusion.models.control.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.models.control.linear
+	:show-inheritance:

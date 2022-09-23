@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.types.numeric &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.types.numeric</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/types/numeric" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.types.numeric</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">log1p</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">trunc</span><span class="p">,</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span>
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Real</span><span class="p">,</span> <span class="n">Integral</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Probability"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.numeric.Probability">[docs]</a><span class="k">class</span> <span class="nc">Probability</span><span class="p">(</span><span class="n">Real</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Probability class.</span>
+
+<span class="sd">    Similar to a float, but value stored as natural log value internally.</span>
+<span class="sd">    All operations are attempted with log values where possible, and failing</span>
+<span class="sd">    that a float will be returned instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">log_value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log_value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;value must be greater than 0&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_value</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_log</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Probability</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">log_value</span>
+        <span class="k">elif</span> <span class="n">other</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Too close to zero</span>
+            <span class="c1"># Add string so doesn&#39;t have same hash as the log value itself.</span>
+            <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_value</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span> <span class="o">-</span> <span class="o">-</span><span class="n">other</span>
+
+        <span class="n">log_other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&gt;</span> <span class="n">log_other</span><span class="p">:</span>
+            <span class="n">log_l</span><span class="p">,</span> <span class="n">log_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">,</span> <span class="n">log_other</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&lt;</span> <span class="n">log_other</span><span class="p">:</span>
+            <span class="n">log_l</span><span class="p">,</span> <span class="n">log_s</span> <span class="o">=</span> <span class="n">log_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Must be equal, so just double value</span>
+            <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="n">log_s</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Just return largest value</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span> <span class="o">+</span> <span class="n">log1p</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">log_s</span> <span class="o">-</span> <span class="n">log_l</span><span class="p">)),</span>
+                           <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="o">-</span><span class="n">other</span>
+
+        <span class="n">log_other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&gt;</span> <span class="n">log_other</span><span class="p">:</span>
+            <span class="n">log_l</span><span class="p">,</span> <span class="n">log_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">,</span> <span class="n">log_other</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">&lt;</span> <span class="n">log_other</span><span class="p">:</span>  <span class="c1"># Result will be negative</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="n">other</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Must be equal, so return 0</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">log_s</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Just return largest value</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">exp_diff</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">log_s</span> <span class="o">-</span> <span class="n">log_l</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exp_diff</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Diff too small, so result is effectively zero</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span> <span class="o">+</span> <span class="n">log1p</span><span class="p">(</span><span class="o">-</span><span class="n">exp_diff</span><span class="p">),</span>
+                           <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Result will be negative</span>
+            <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">log_other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">log_other</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">:</span>
+            <span class="n">log_l</span><span class="p">,</span> <span class="n">log_s</span> <span class="o">=</span> <span class="n">log_other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span>
+        <span class="k">elif</span> <span class="n">log_other</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">:</span>  <span class="c1"># Result will be negative</span>
+            <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Must be equal, so return 0</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">log_s</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Just return largest value</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">exp_diff</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">log_s</span> <span class="o">-</span> <span class="n">log_l</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exp_diff</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Diff too small, so result is effectively zero</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">log_l</span> <span class="o">+</span> <span class="n">log1p</span><span class="p">(</span><span class="o">-</span><span class="n">exp_diff</span><span class="p">),</span>
+                           <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">),</span>
+                               <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">),</span>
+                               <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">,</span>
+                               <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">other</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">floor</span><span class="p">(</span><span class="bp">self</span> <span class="o">/</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">floor</span><span class="p">(</span><span class="n">other</span> <span class="o">/</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">%</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">%</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__rmod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">other</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exponent</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exponent</span><span class="p">,</span> <span class="n">Probability</span><span class="p">):</span>
+            <span class="n">exponent</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">exponent</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">base</span> <span class="o">**</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ndigits</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__trunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">trunc</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__floor__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">floor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__ceil__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ceil</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Too close to zero</span>
+            <span class="k">return</span> <span class="s2">&quot;Probability(</span><span class="si">{!r}</span><span class="s2">, log_value=True)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Probability(</span><span class="si">{!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>  <span class="c1"># Too close to zero</span>
+            <span class="k">return</span> <span class="s2">&quot;exp(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Probability.sqrt"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.numeric.Probability.sqrt">[docs]</a>    <span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Square root which can be called by NumPy&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">**</span> <span class="mf">0.5</span></div>
+
+<div class="viewcode-block" id="Probability.log"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.numeric.Probability.log">[docs]</a>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Log which can be called by NumPy&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_value</span></div>
+
+<div class="viewcode-block" id="Probability.sum"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.numeric.Probability.sum">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Carry out LogSumExp&quot;&quot;&quot;</span>
+        <span class="n">log_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">cls</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">max_log_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">log_values</span><span class="p">)</span>
+        <span class="c1"># Check if all values are zero</span>
+        <span class="k">if</span> <span class="n">max_log_value</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">value_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_values</span> <span class="o">-</span> <span class="n">max_log_value</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">value_sum</span><span class="p">)</span> <span class="o">+</span> <span class="n">max_log_value</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feeders &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Metric Generators" href="smartfusion.metricgenerator.html" />
+    <link rel="prev" title="Detectors" href="smartfusion.detector.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Feeders</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.feeder.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.feeder">
+<span id="feeders"></span><h1>Feeders<a class="headerlink" href="#module-smartfusion.feeder" title="Permalink to this heading"></a></h1>
+<p>Feeder classes are for manipulating data going into the tracker.</p>
+<p>A feeder’s primary role is to take detection data from inputs into the
+framework, and feed them into the tracking algorithms. These can then
+optionally be used to drop detections, deliver detections out of sequence,
+synchronise out of sequence detections, etc.</p>
+<span class="target" id="module-smartfusion.feeder.base"></span><p>Base classes for SMART FUSION feeder</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.Feeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.base.</span></span><span class="sig-name descname"><span class="pre">Feeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/base.html#Feeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.base.Feeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a></p>
+<p>Feeder base class</p>
+<p>Feeder consumes and outputs <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> data and can be used to
+modify the sequence, duplicate or drop data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.Feeder.reader">
+<span class="sig-name descname"><span class="pre">reader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></em><a class="headerlink" href="#smartfusion.feeder.base.Feeder.reader" title="Permalink to this definition"></a></dt>
+<dd><p>Source of detections</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.DetectionFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.base.</span></span><span class="sig-name descname"><span class="pre">DetectionFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/base.html#DetectionFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.base.DetectionFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.Feeder" title="smartfusion.feeder.base.Feeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code></a>, <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a></p>
+<p>Detection feeder base class</p>
+<p>Feeder consumes and outputs <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> data and can be used to
+modify the sequence, duplicate or drop data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.DetectionFeeder.detections_gen">
+<span class="sig-name descname"><span class="pre">detections_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/base.html#DetectionFeeder.detections_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.base.DetectionFeeder.detections_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of detections for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a> – Detections generate in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.GroundTruthFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.base.</span></span><span class="sig-name descname"><span class="pre">GroundTruthFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/base.html#GroundTruthFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.base.GroundTruthFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.Feeder" title="smartfusion.feeder.base.Feeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code></a>, <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.GroundTruthReader" title="smartfusion.reader.base.GroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthReader</span></code></a></p>
+<p>Ground truth feeder base class</p>
+<p>Feeder consumes and outputs <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> data and can be used to
+modify the sequence, duplicate or drop data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.feeder.base.GroundTruthFeeder.groundtruth_paths_gen">
+<span class="sig-name descname"><span class="pre">groundtruth_paths_gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/base.html#GroundTruthFeeder.groundtruth_paths_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.base.GroundTruthFeeder.groundtruth_paths_gen" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a generator of ground truth paths for each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> – Datetime of current time step</p></li>
+<li><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> – Ground truth paths existing in the time step</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.feeder.filter">
+<span id="filter"></span><h2>Filter<a class="headerlink" href="#module-smartfusion.feeder.filter" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.MetadataReducer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.filter.</span></span><span class="sig-name descname"><span class="pre">MetadataReducer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/filter.html#MetadataReducer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.filter.MetadataReducer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a></p>
+<p>Reduce detections so unique metadata value present at each time step.</p>
+<p>This allows to reduce detections so a single detection is returned, based
+on a particular metadata value, for example a unique identity. The most
+recent detection will be yielded for each unique metadata value at each
+time step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> type is extended to have a metadata attribute, this class
+will be applicable to this type.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>metadata_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Field used to reduce set of detections</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.MetadataReducer.metadata_field">
+<span class="sig-name descname"><span class="pre">metadata_field</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#smartfusion.feeder.filter.MetadataReducer.metadata_field" title="Permalink to this definition"></a></dt>
+<dd><p>Field used to reduce set of detections</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.MetadataValueFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.filter.</span></span><span class="sig-name descname"><span class="pre">MetadataValueFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_unmatched</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/filter.html#MetadataValueFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.filter.MetadataValueFilter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.filter.MetadataReducer" title="smartfusion.feeder.filter.MetadataReducer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataReducer</span></code></a></p>
+<p>Reduce detections by filtering out objects based on whether the value
+of a particular metadata field conforms to a given condition.</p>
+<p>The MetadataValueFilter provides an easy way of reducing detections in
+cases where an informative metadata field exists (e.g. MMSI, SNR, etc.)
+, that can be used to identify and filter out unwanted detections.</p>
+<p>Once provided with a <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code> name and a suitable
+<a class="reference internal" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="smartfusion.feeder.filter.MetadataValueFilter.operator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">operator</span></code></a> function, the feeder will filter the incoming
+detections by evaluating the <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code> field value
+using the desired <a class="reference internal" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="smartfusion.feeder.filter.MetadataValueFilter.operator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">operator</span></code></a> function. Only detections
+that satisfy the operator condition (i.e. cause the
+<a class="reference internal" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="smartfusion.feeder.filter.MetadataValueFilter.operator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">operator</span></code></a> to return <code class="code docutils literal notranslate"><span class="pre">True</span></code>) are allowed through the
+filter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> type is extended to have a metadata attribute, this class
+will be applicable to this type.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>metadata_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Field used to reduce set of detections</p></li>
+<li><p><strong>operator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">function</span></code>) – A unary operator/function of the form <code class="code docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">f(val)</span></code>, where <code class="code docutils literal notranslate"><span class="pre">val</span></code> is the value of the selected <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code>. The function MUST return a <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> type that evaluates to <code class="code docutils literal notranslate"><span class="pre">True</span></code> when a particular object satisfies the condition(s) set by the operator, and thus should be allowed through the filter. Detections that cause the operator to return <code class="code docutils literal notranslate"><span class="pre">False</span></code> will be filtered out. Any custom function that conforms to the above specifications can be used as an operator, e.g. <code class="code docutils literal notranslate"><span class="pre">operator=lambda</span> <span class="pre">x:</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.1</span></code></p></li>
+<li><p><strong>keep_unmatched</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If set to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, any detections that do not have a metadata field matching the name <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code> (meaning they also cannot be processed by the <a class="reference internal" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="smartfusion.feeder.filter.MetadataValueFilter.operator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">operator</span></code></a>), will be allowed through the filter. The default is <code class="code docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.MetadataValueFilter.operator">
+<span class="sig-name descname"><span class="pre">operator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">function</span></em><a class="headerlink" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="Permalink to this definition"></a></dt>
+<dd><p>A unary operator/function of the form <code class="code docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">f(val)</span></code>, where <code class="code docutils literal notranslate"><span class="pre">val</span></code> is the value of the selected <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code>. The function MUST return a <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> type that evaluates to <code class="code docutils literal notranslate"><span class="pre">True</span></code> when a particular object satisfies the condition(s) set by the operator, and thus should be allowed through the filter. Detections that cause the operator to return <code class="code docutils literal notranslate"><span class="pre">False</span></code> will be filtered out. Any custom function that conforms to the above specifications can be used as an operator, e.g. <code class="code docutils literal notranslate"><span class="pre">operator=lambda</span> <span class="pre">x:</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.1</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.MetadataValueFilter.keep_unmatched">
+<span class="sig-name descname"><span class="pre">keep_unmatched</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.feeder.filter.MetadataValueFilter.keep_unmatched" title="Permalink to this definition"></a></dt>
+<dd><p>If set to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, any detections that do not have a metadata field matching the name <code class="xref py py-attr docutils literal notranslate"><span class="pre">metadata_field</span></code> (meaning they also cannot be processed by the <a class="reference internal" href="#smartfusion.feeder.filter.MetadataValueFilter.operator" title="smartfusion.feeder.filter.MetadataValueFilter.operator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">operator</span></code></a>), will be allowed through the filter. The default is <code class="code docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.BoundingBoxReducer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.filter.</span></span><span class="sig-name descname"><span class="pre">BoundingBoxReducer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/filter.html#BoundingBoxReducer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.filter.BoundingBoxReducer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a>, <a class="reference internal" href="#smartfusion.feeder.base.GroundTruthFeeder" title="smartfusion.feeder.base.GroundTruthFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthFeeder</span></code></a></p>
+<p>Reduce data by selecting only data placed within the limits of a
+n-dimensional bounding box, defined on the data coordinate space.</p>
+<p>When provided with the limit coordinates of a given n-dimensional
+bounding box (expressed in the form of min/max bounds on each
+dimension), the feeder will apply a filter to the incoming data,
+allowing to pass through only data that falls within the desired
+limits, and discarding the rest.</p>
+<p>Assuming a 2D Cartesian data space, the feeder operation is
+equivalent to drawing an imaginary bounding box tangential to the plane
+defined by the XY axes, and only feeding data whose state vector
+falls within the bounds of the box.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For the time being, the bounding box limits must be defined on
+the same coordinate axes as the received data, which is in
+turn assumed to all share a common coordinate frame.</p></li>
+<li><p>For example, assume we are tracking some targets in Lat/Lon, but
+receive detections in the form of polar coordinates (e.g. relative to
+a single Radar sensor), then the bounding box MUST be defined
+on (a subset of) the polar coordinate system, and NOT the
+geo-spatial.</p></li>
+<li><p>Thus, it is worth noting that in its current version the feeder is
+not recommended for use in filtering data coming from multiple
+sources/sensors, unless a common coordinate frame is guaranteed.</p></li>
+<li><p>Finally, for simplicity purposes, the bounding box is not allowed to
+rotate around any axis.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>limits</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Tuple[float,</span> <span class="pre">float]]</span></code>) – Array of points that define the bounds of the desired bounding box. Expressed as a 2D array of min/max coordinate pairs (e.g. <code class="code docutils literal notranslate"><span class="pre">limits</span> <span class="pre">=</span> <span class="pre">[[x_min,</span> <span class="pre">x_max],</span> <span class="pre">[y_min,</span> <span class="pre">y_max],</span> <span class="pre">...]</span></code>), where the n-th row corresponds to the n-th bounding box dimension limits. Points that fall ON or WITHIN the box’s bounds are considered as valid and are thus forwarded through the feeder, whereas points that fall OUTSIDE the box will be filtered out.</p></li>
+<li><p><strong>mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>, optional) – Mapping between the state and bounding box coordinates. Should be specified as a vector of length equal to the number of bounding box dimensions, whose elements correspond to row indices in the state vector. E.g. <code class="code docutils literal notranslate"><span class="pre">mapping</span> <span class="pre">=</span> <span class="pre">[2,</span> <span class="pre">0]</span></code> dictates that the first bounding box dimension (i.e. row 0 in <a class="reference internal" href="#smartfusion.feeder.filter.BoundingBoxReducer.limits" title="smartfusion.feeder.filter.BoundingBoxReducer.limits"><code class="xref py py-attr docutils literal notranslate"><span class="pre">limits</span></code></a>), defines the limits that correspond to the element with (row) index 2 in the data state vector, while the second row (i.e. row 1) in <a class="reference internal" href="#smartfusion.feeder.filter.BoundingBoxReducer.limits" title="smartfusion.feeder.filter.BoundingBoxReducer.limits"><code class="xref py py-attr docutils literal notranslate"><span class="pre">limits</span></code></a> relates to the element with index 0. Default is <cite>None</cite>, where the dimensions of the state vector will be used in order, up to length to limits.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.BoundingBoxReducer.limits">
+<span class="sig-name descname"><span class="pre">limits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.feeder.filter.BoundingBoxReducer.limits" title="Permalink to this definition"></a></dt>
+<dd><p>Array of points that define the bounds of the desired bounding box. Expressed as a 2D array of min/max coordinate pairs (e.g. <code class="code docutils literal notranslate"><span class="pre">limits</span> <span class="pre">=</span> <span class="pre">[[x_min,</span> <span class="pre">x_max],</span> <span class="pre">[y_min,</span> <span class="pre">y_max],</span> <span class="pre">...]</span></code>), where the n-th row corresponds to the n-th bounding box dimension limits. Points that fall ON or WITHIN the box’s bounds are considered as valid and are thus forwarded through the feeder, whereas points that fall OUTSIDE the box will be filtered out.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.filter.BoundingBoxReducer.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.feeder.filter.BoundingBoxReducer.mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between the state and bounding box coordinates. Should be specified as a vector of length equal to the number of bounding box dimensions, whose elements correspond to row indices in the state vector. E.g. <code class="code docutils literal notranslate"><span class="pre">mapping</span> <span class="pre">=</span> <span class="pre">[2,</span> <span class="pre">0]</span></code> dictates that the first bounding box dimension (i.e. row 0 in <a class="reference internal" href="#smartfusion.feeder.filter.BoundingBoxReducer.limits" title="smartfusion.feeder.filter.BoundingBoxReducer.limits"><code class="xref py py-attr docutils literal notranslate"><span class="pre">limits</span></code></a>), defines the limits that correspond to the element with (row) index 2 in the data state vector, while the second row (i.e. row 1) in <a class="reference internal" href="#smartfusion.feeder.filter.BoundingBoxReducer.limits" title="smartfusion.feeder.filter.BoundingBoxReducer.limits"><code class="xref py py-attr docutils literal notranslate"><span class="pre">limits</span></code></a> relates to the element with index 0. Default is <cite>None</cite>, where the dimensions of the state vector will be used in order, up to length to limits.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.feeder.geo">
+<span id="geo"></span><h2>Geo<a class="headerlink" href="#module-smartfusion.feeder.geo" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LLAtoENUConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.geo.</span></span><span class="sig-name descname"><span class="pre">LLAtoENUConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/geo.html#LLAtoENUConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.geo.LLAtoENUConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LLARefConverter</span></code></p>
+<p>Converts Long., Lat., Alt. to East, North, Up coordinate space.</p>
+<p>This replaces Longitude (°), Latitude (°) and Altitude (m) of a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> with East (m),
+North (m) and Up (m) coordinate space from a defined <code class="xref py py-attr docutils literal notranslate"><span class="pre">reference_point</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>reference_point</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code>) – (Long, Lat, Altitude)</p></li>
+<li><p><strong>mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code>, optional) – Indexes of long, lat, altitude. Default (0, 1, 2)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LLAtoNEDConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.geo.</span></span><span class="sig-name descname"><span class="pre">LLAtoNEDConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/geo.html#LLAtoNEDConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.geo.LLAtoNEDConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LLARefConverter</span></code></p>
+<p>Converts Long., Lat., Alt. to North, East, Down coordinate space.</p>
+<p>This replaces Longitude (°), Latitude (°) and Altitude (m) of a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> with North
+(m), East (m) and Down (m) coordinate space from a defined <code class="xref py py-attr docutils literal notranslate"><span class="pre">reference_point</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>reference_point</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code>) – (Long, Lat, Altitude)</p></li>
+<li><p><strong>mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code>, optional) – Indexes of long, lat, altitude. Default (0, 1, 2)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LongLatToUTMConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.geo.</span></span><span class="sig-name descname"><span class="pre">LongLatToUTMConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">northern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/geo.html#LongLatToUTMConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.geo.LongLatToUTMConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a>, <a class="reference internal" href="#smartfusion.feeder.base.GroundTruthFeeder" title="smartfusion.feeder.base.GroundTruthFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthFeeder</span></code></a></p>
+<p>Converts long. and lat. to UTM easting and northing.</p>
+<p>This replaces Longitude (°), Latitude (°) of a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> with East (m), North (m)
+coordinate space in a Universal Transverse Mercator zone.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Whilst this allows for data to be converted even if it is outside of the set zone, the errors
+will increase the further the position is from the zone being used.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>, optional) – Indexes of long, lat. Default (0, 1)</p></li>
+<li><p><strong>zone_number</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – UTM zone number to carry out conversion. Default <cite>None</cite>, where it will select the zone based on the first yielded data.</p></li>
+<li><p><strong>northern</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – UTM northern for northern or southern grid. Default <cite>None</cite>, where it will be based on the first yielded data.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LongLatToUTMConverter.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.feeder.geo.LongLatToUTMConverter.mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Indexes of long, lat. Default (0, 1)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LongLatToUTMConverter.zone_number">
+<span class="sig-name descname"><span class="pre">zone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.feeder.geo.LongLatToUTMConverter.zone_number" title="Permalink to this definition"></a></dt>
+<dd><p>UTM zone number to carry out conversion. Default <cite>None</cite>, where it will select the zone based on the first yielded data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.geo.LongLatToUTMConverter.northern">
+<span class="sig-name descname"><span class="pre">northern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.feeder.geo.LongLatToUTMConverter.northern" title="Permalink to this definition"></a></dt>
+<dd><p>UTM northern for northern or southern grid. Default <cite>None</cite>, where it will be based on the first yielded data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.feeder.multi">
+<span id="multi"></span><h2>Multi<a class="headerlink" href="#module-smartfusion.feeder.multi" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.multi.MultiDataFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.multi.</span></span><span class="sig-name descname"><span class="pre">MultiDataFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">readers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/multi.html#MultiDataFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.multi.MultiDataFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a>, <a class="reference internal" href="#smartfusion.feeder.base.GroundTruthFeeder" title="smartfusion.feeder.base.GroundTruthFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthFeeder</span></code></a></p>
+<p>Multi-data Feeder</p>
+<p>This returns states from multiple data readers as a single stream,
+yielding from the reader yielding the lowest timestamp first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>readers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[Reader]</span></code>) – Readers to yield from</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.multi.MultiDataFeeder.reader">
+<span class="sig-name descname"><span class="pre">reader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#smartfusion.feeder.multi.MultiDataFeeder.reader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.multi.MultiDataFeeder.readers">
+<span class="sig-name descname"><span class="pre">readers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.feeder.multi.MultiDataFeeder.readers" title="Permalink to this definition"></a></dt>
+<dd><p>Readers to yield from</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.feeder.time">
+<span id="time-based"></span><h2>Time Based<a class="headerlink" href="#module-smartfusion.feeder.time" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.time.TimeBufferedFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.time.</span></span><span class="sig-name descname"><span class="pre">TimeBufferedFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/time.html#TimeBufferedFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.time.TimeBufferedFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a>, <a class="reference internal" href="#smartfusion.feeder.base.GroundTruthFeeder" title="smartfusion.feeder.base.GroundTruthFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthFeeder</span></code></a></p>
+<p>Buffer data so it can be yielded in time order.</p>
+<p>Any “old” data (where the time is earlier than the head of the
+buffer) shall be dropped, producing a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#UserWarning" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserWarning</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>buffer_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Max size of buffer</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.time.TimeBufferedFeeder.buffer_size">
+<span class="sig-name descname"><span class="pre">buffer_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.feeder.time.TimeBufferedFeeder.buffer_size" title="Permalink to this definition"></a></dt>
+<dd><p>Max size of buffer</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.time.TimeSyncFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.time.</span></span><span class="sig-name descname"><span class="pre">TimeSyncFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.timedelta(seconds=1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/time.html#TimeSyncFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.time.TimeSyncFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a>, <a class="reference internal" href="#smartfusion.feeder.base.GroundTruthFeeder" title="smartfusion.feeder.base.GroundTruthFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthFeeder</span></code></a></p>
+<p>Synchronise the data into selected time window.</p>
+<p>Assumes that states from <code class="xref py py-attr docutils literal notranslate"><span class="pre">Reader</span></code> are in time order. The
+<a class="reference internal" href="#smartfusion.feeder.time.TimeBufferedFeeder" title="smartfusion.feeder.time.TimeBufferedFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeBufferedFeeder</span></code></a> can be used in conjunction to ensure this is
+the case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>time_window</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>, optional) – Time window to group detections</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.time.TimeSyncFeeder.time_window">
+<span class="sig-name descname"><span class="pre">time_window</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.feeder.time.TimeSyncFeeder.time_window" title="Permalink to this definition"></a></dt>
+<dd><p>Time window to group detections</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.feeder.image">
+<span id="image"></span><h2>Image<a class="headerlink" href="#module-smartfusion.feeder.image" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.image.</span></span><span class="sig-name descname"><span class="pre">CFAR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guard_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/image.html#CFAR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.image.CFAR" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.Feeder" title="smartfusion.feeder.base.Feeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code></a></p>
+<p>Cell-averaging (CA) Constant False Alarm Rate (CFAR) image data feeder</p>
+<p>The CFAR feeder reads grayscale frames from an appropriate <code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code> and outputs binary frames whose pixel values are either 0 or 255,
+indicating the lack or presence of a detection, respectively.</p>
+<p>See <a class="reference external" href="https://en.wikipedia.org/wiki/Constant_false_alarm_rate#Cell-averaging_CFAR">here</a> for
+more information on CA-CFAR.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The frames forwarded by the <code class="xref py py-attr docutils literal notranslate"><span class="pre">reader</span></code> must be grayscale <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a>
+objects. As such <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame.pixels" title="smartfusion.types.sensordata.ImageFrame.pixels"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pixels</span></code></a> for all frames must be 2-D arrays, containing
+grayscale intensity values.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p></li>
+<li><p><strong>train_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – The number of train pixels</p></li>
+<li><p><strong>guard_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – The number of guard pixels</p></li>
+<li><p><strong>alpha</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The threshold value</p></li>
+<li><p><strong>squared</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If set to True, the threshold will be computed as a function of the sum of squares. The default is False, in which case a simple sum will be evaluated.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR.train_size">
+<span class="sig-name descname"><span class="pre">train_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.feeder.image.CFAR.train_size" title="Permalink to this definition"></a></dt>
+<dd><p>The number of train pixels</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR.guard_size">
+<span class="sig-name descname"><span class="pre">guard_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.feeder.image.CFAR.guard_size" title="Permalink to this definition"></a></dt>
+<dd><p>The number of guard pixels</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.feeder.image.CFAR.alpha" title="Permalink to this definition"></a></dt>
+<dd><p>The threshold value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR.squared">
+<span class="sig-name descname"><span class="pre">squared</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.feeder.image.CFAR.squared" title="Permalink to this definition"></a></dt>
+<dd><p>If set to True, the threshold will be computed as a function of the sum of squares. The default is False, in which case a simple sum will be evaluated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CFAR.cfar">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cfar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guard_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/image.html#CFAR.cfar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.image.CFAR.cfar" title="Permalink to this definition"></a></dt>
+<dd><p>Perform Constant False Alarm Rate (CFAR) detection on an input image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_img</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a>) – The input grayscale image.</p></li>
+<li><p><strong>train_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of train pixels.</p></li>
+<li><p><strong>guard_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of guard pixels.</p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The threshold value.</p></li>
+<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If set to True, the threshold will be computed as a function of the sum of squares.
+The default is False, in which case a simple sum will be evaluated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Output image containing 255 for pixels where a target is detected and 0 otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.image.CCL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.image.</span></span><span class="sig-name descname"><span class="pre">CCL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/image.html#CCL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.image.CCL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.Feeder" title="smartfusion.feeder.base.Feeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code></a></p>
+<p>Connected Component Labelling (CCL) image data feeder</p>
+<p>The CCL feeder reads binary frames from an appropriate <code class="xref py py-class docutils literal notranslate"><span class="pre">Feeder</span></code> and outputs labelled frames whose pixel values contain the label of the
+connected component to which each pixel is has been assigned.</p>
+<p>See <a class="reference external" href="https://en.wikipedia.org/wiki/Connected-component_labeling#Graphical_example_of_two-pass_algorithm">here</a> for more information on and example applications of CCL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The frames forwarded by the <code class="xref py py-attr docutils literal notranslate"><span class="pre">reader</span></code> must be binary <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame" title="smartfusion.types.sensordata.ImageFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageFrame</span></code></a>
+objects. As such <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.ImageFrame.pixels" title="smartfusion.types.sensordata.ImageFrame.pixels"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pixels</span></code></a> for all frames must be 2-D arrays, where each
+element can take only 1 of 2 possible values (e.g. [0 or 1], [0 or 255], etc.).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.feeder.track">
+<span id="track"></span><h2>Track<a class="headerlink" href="#module-smartfusion.feeder.track" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.feeder.track.Tracks2GaussianDetectionFeeder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.feeder.track.</span></span><span class="sig-name descname"><span class="pre">Tracks2GaussianDetectionFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><span class="pre">Reader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/feeder/track.html#Tracks2GaussianDetectionFeeder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.feeder.track.Tracks2GaussianDetectionFeeder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.feeder.base.DetectionFeeder" title="smartfusion.feeder.base.DetectionFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionFeeder</span></code></a></p>
+<p>Feeder consumes Track objects and outputs GaussianDetection objects.</p>
+<p>At each time step, the <code class="xref py py-attr docutils literal notranslate"><span class="pre">Reader</span></code> feeds in a set of live tracks. The feeder takes the most
+recent state from each of those tracks, and turn them into a set of
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.GaussianDetection" title="smartfusion.types.detection.GaussianDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianDetection</span></code></a> objects. Each detection is given a <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.linear.LinearGaussian" title="smartfusion.models.measurement.linear.LinearGaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearGaussian</span></code></a>
+measurement model whose covariance is equal to the state covariance. The feeder assumes that
+the tracks are all live, that is each track has a state at the most recent time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reader</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.Reader" title="smartfusion.reader.base.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>) – Source of detections</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.detector.html" class="btn btn-neutral float-left" title="Detectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.metricgenerator.html" class="btn btn-neutral float-right" title="Metric Generators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.tracker.pointprocess &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.tracker.pointprocess</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/tracker/pointprocess" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.tracker.pointprocess</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Tracker</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..reader</span> <span class="kn">import</span> <span class="n">DetectionReader</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">TaggedWeightedGaussianState</span>
+<span class="kn">from</span> <span class="nn">..types.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">from</span> <span class="nn">..types.numeric</span> <span class="kn">import</span> <span class="n">Probability</span>
+<span class="kn">from</span> <span class="nn">..types.track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">..updater</span> <span class="kn">import</span> <span class="n">Updater</span>
+<span class="kn">from</span> <span class="nn">..hypothesiser.gaussianmixture</span> <span class="kn">import</span> <span class="n">GaussianMixtureHypothesiser</span>
+<span class="kn">from</span> <span class="nn">..mixturereducer.gaussianmixture</span> <span class="kn">import</span> <span class="n">GaussianMixtureReducer</span>
+
+
+<div class="viewcode-block" id="PointProcessMultiTargetTracker"><a class="viewcode-back" href="../../../smartfusion.tracker.html#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker">[docs]</a><span class="k">class</span> <span class="nc">PointProcessMultiTargetTracker</span><span class="p">(</span><span class="n">Tracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for Gaussian Mixture (GM) style implementations of</span>
+<span class="sd">    point process derived filters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">detector</span><span class="p">:</span> <span class="n">DetectionReader</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Detector used to generate detection objects.&quot;</span><span class="p">)</span>
+    <span class="n">updater</span><span class="p">:</span> <span class="n">Updater</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Updater used to update the objects to their new state.&quot;</span><span class="p">)</span>
+    <span class="n">hypothesiser</span><span class="p">:</span> <span class="n">GaussianMixtureHypothesiser</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Association algorithm to pair predictions to detections&quot;</span><span class="p">)</span>
+    <span class="n">reducer</span><span class="p">:</span> <span class="n">GaussianMixtureReducer</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Reducer used to reduce the number of components in the mixture.&quot;</span><span class="p">)</span>
+    <span class="n">extraction_threshold</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Threshold to extract components from the mixture.&quot;</span><span class="p">)</span>
+    <span class="n">birth_component</span><span class="p">:</span> <span class="n">TaggedWeightedGaussianState</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The birth component. The weight should be &quot;</span>
+            <span class="s2">&quot;equal to the mean of the expected number of &quot;</span>
+            <span class="s2">&quot;births per timestep (Poission distributed). &quot;</span>
+            <span class="s2">&quot;The tag should be &quot;</span>
+            <span class="s2">&quot;:attr:`TaggedWeightedGaussianState.BIRTH`&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">tracks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tracks</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PointProcessMultiTargetTracker.update_tracks"><a class="viewcode-back" href="../../../smartfusion.tracker.html#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.update_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">update_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the tracks (:class:`Track`) associated with the filter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        self : :class:`GaussianMixtureMultiTargetTracker`</span>
+<span class="sd">            Current GM Multi Target Tracker at time :math:`k`</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ======</span>
+<span class="sd">        Each track shares a unique tag with its associated component</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="p">:</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">tag</span>
+            <span class="k">if</span> <span class="n">tag</span> <span class="o">!=</span> <span class="n">component</span><span class="o">.</span><span class="n">BIRTH</span><span class="p">:</span>  <span class="c1"># Sanity check for birth component</span>
+                <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="p">:</span>
+                    <span class="c1"># Track found, so update it</span>
+                    <span class="n">track</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># No Track found, so create a new one only if we are</span>
+                    <span class="c1"># reasonably confident its a target</span>
+                    <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">extraction_threshold</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">Track</span><span class="p">([</span><span class="n">component</span><span class="p">],</span> <span class="nb">id</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">time</span><span class="p">,</span> <span class="n">detections</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_iter</span><span class="p">)</span>
+        <span class="c1"># Add birth component</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">birth_component</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">birth_component</span><span class="p">)</span>
+        <span class="c1"># Perform GM Prediction and generate hypotheses</span>
+        <span class="n">hypotheses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypothesiser</span><span class="o">.</span><span class="n">hypothesise</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="o">.</span><span class="n">components</span><span class="p">,</span>
+                    <span class="n">detections</span><span class="p">,</span>
+                    <span class="n">time</span>
+                    <span class="p">)</span>
+        <span class="c1"># Perform GM Update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span>
+        <span class="c1"># Reduce mixture - Pruning and Merging</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">reducer</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="o">.</span><span class="n">components</span><span class="p">)</span>
+        <span class="c1"># Update the tracks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_tracks</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_tracks</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span>
+
+<div class="viewcode-block" id="PointProcessMultiTargetTracker.end_tracks"><a class="viewcode-back" href="../../../smartfusion.tracker.html#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.end_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">end_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ends the tracks (:class:`Track`) that do not have an associated</span>
+<span class="sd">        component within the filter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        self : :class:`GaussianMixtureMultiTargetTracker`</span>
+<span class="sd">            Current GM Multi Target Tracker at time :math:`k`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">component_tags</span> <span class="o">=</span> <span class="p">{</span><span class="n">component</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="p">}</span>
+        <span class="c1"># Delete the track</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">-</span> <span class="n">component_tags</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_tracks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extracted_target_states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract all target states from the Gaussian Mixture that</span>
+<span class="sd">        are above an extraction threshold.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">component</span>
+                <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span>
+                <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">extraction_threshold</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">estimated_number_of_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of hypothesised targets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="p">:</span>
+            <span class="n">estimated_number_of_targets</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">gaussian_mixture</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">estimated_number_of_targets</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">estimated_number_of_targets</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

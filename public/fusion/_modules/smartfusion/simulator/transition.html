@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.simulator.transition &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.simulator.transition</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/simulator/transition" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.simulator.transition</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..models.transition.base</span> <span class="kn">import</span> <span class="n">TransitionModel</span>
+<span class="kn">from</span> <span class="nn">..models.transition.linear</span> <span class="kn">import</span> <span class="n">KnownTurnRate</span><span class="p">,</span> <span class="n">ConstantVelocity</span><span class="p">,</span> \
+    <span class="n">CombinedLinearGaussianTransitionModel</span>
+<span class="kn">from</span> <span class="nn">..types.array</span> <span class="kn">import</span> <span class="n">StateVector</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">State</span>
+
+
+<div class="viewcode-block" id="create_smooth_transition_models"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.create_smooth_transition_models">[docs]</a><span class="k">def</span> <span class="nf">create_smooth_transition_models</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">turn_rate</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate a list of constant-turn and constant acceleration transition models alongside a</span>
+<span class="sd">    list of transition times to provide smooth transitions between 2D cartesian coordinates and</span>
+<span class="sd">    time pairs.</span>
+<span class="sd">    An assumption is that the initial_state&#39;s x, y coordinates are the first elements of x_ccords</span>
+<span class="sd">    and y_coords respectively. Ie. The platform starts at the first coordinates.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_state: :class:`~.State`</span>
+<span class="sd">        The initial state of the platform.</span>
+<span class="sd">    x_coords:</span>
+<span class="sd">        A list of int/float x-coordinates (cartesian) in the order that the target must follow.</span>
+<span class="sd">    y_coords:</span>
+<span class="sd">        A list of int/float y-coordinates (cartesian) in the order that the target must follow.</span>
+<span class="sd">    times:</span>
+<span class="sd">        A list of :class:`~.datetime.datetime` dictating the times at which the target must be at</span>
+<span class="sd">        each corresponding coordinate.</span>
+<span class="sd">    turn_rate: Float</span>
+<span class="sd">        Angular turn rate (radians/second) measured anti-clockwise from positive x-axis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    transition_models:</span>
+<span class="sd">        A list of :class:`~.KnownTurnRate` and :class:`~.Point2PointConstantAcceleration`</span>
+<span class="sd">        transition models.</span>
+<span class="sd">    transition_times:</span>
+<span class="sd">        A list of :class:`~.datetime.timedelta` dictating the transition time for each</span>
+<span class="sd">        corresponding transition model in transition_models.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    x_coords, y_coords and times must be of same length.</span>
+<span class="sd">    This method assumes a cartesian state space with velocities eg.</span>
+<span class="sd">    :math:`(x, \dot{x}, y, \dot{y})`. It returns transition models for 2 cartesian coordinates and</span>
+<span class="sd">    their corresponding velocities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>  <span class="c1"># don&#39;t alter platform state with calculations</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_coords</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_coords</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;x_coords, y_coords and times must be same length&#39;</span><span class="p">)</span>
+
+    <span class="n">transition_models</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">transition_times</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">x_coord</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># distance to next x-coord</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># distance to next y-coord</span>
+
+        <span class="k">if</span> <span class="n">dx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># if initial and second target coordinates are same, set arbitrary bearing of 0</span>
+
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># initial x-speed</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># initial y-speed</span>
+
+        <span class="k">if</span> <span class="n">vx</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">vy</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if velocity is 0, keep previous bearing</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">vy</span><span class="p">,</span> <span class="n">vx</span><span class="p">)</span>  <span class="c1"># initial bearing</span>
+
+        <span class="k">if</span> <span class="n">dx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">vx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">vy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if at destination with 0 speed, stay</span>
+            <span class="n">transition_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">times</span><span class="p">[</span><span class="n">times</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">transition_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CombinedLinearGaussianTransitionModel</span><span class="p">((</span><span class="n">ConstantVelocity</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                                                                            <span class="n">ConstantVelocity</span><span class="p">(</span><span class="mi">0</span><span class="p">))))</span>
+            <span class="k">continue</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># distance to next coord</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">vy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># initial speed</span>
+
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span>  <span class="c1"># bearing to next coord (anti-clockwise from positive x-axis)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">turn_rate</span>  <span class="c1"># turn rate (anti-clockwise from positive x-axis)</span>
+
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">-=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># get bearing in (0, 180) instead</span>
+        <span class="k">elif</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># get bearing in (-180, 0] instead</span>
+
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="o">-</span><span class="n">w</span>  <span class="c1"># if bearing is in [-180, 0), turn right instead</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  <span class="c1"># radius of turn</span>
+
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># actual angle turned</span>
+
+        <span class="k">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># quadrant adjustment</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">/</span> <span class="n">w</span>  <span class="c1"># turn time</span>
+
+        <span class="k">if</span> <span class="n">t1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># make turn model and add to list</span>
+            <span class="n">turn_model</span> <span class="o">=</span> <span class="n">KnownTurnRate</span><span class="p">(</span><span class="n">turn_noise_diff_coeffs</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">turn_rate</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">turn_model</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span> <span class="n">time_interval</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">t1</span><span class="p">))</span>  <span class="c1"># move platform through turn</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t1</span><span class="p">)</span>
+            <span class="n">transition_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t1</span><span class="p">))</span>
+            <span class="n">transition_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">turn_model</span><span class="p">)</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">x_coord</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># get remaining distance to next x-coord</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># get remaining distance to next y-coord</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># remaining distance to next coord</span>
+
+        <span class="n">t2</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>  <span class="c1"># time remaining before platform should</span>
+        <span class="c1"># be at next coord</span>
+
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># if platform is not already at target coord, add linear acceleration model</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">accel_model</span> <span class="o">=</span> <span class="n">Point2PointConstantAcceleration</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">state</span><span class="p">),</span>
+                                                              <span class="n">destination</span><span class="o">=</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">),</span>
+                                                              <span class="n">duration</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t2</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">OvershootError</span><span class="p">:</span>
+                <span class="c1"># if linear accel leads to overshoot, apply model to stop at target coord instead</span>
+                <span class="n">accel_model</span> <span class="o">=</span> <span class="n">Point2PointStop</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">state</span><span class="p">),</span>
+                                              <span class="n">destination</span><span class="o">=</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">accel_model</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
+                                                      <span class="n">time_interval</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t2</span><span class="p">))</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t2</span><span class="p">)</span>
+            <span class="n">transition_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">t2</span><span class="p">))</span>
+            <span class="n">transition_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accel_model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">transition_models</span><span class="p">,</span> <span class="n">transition_times</span></div>
+
+
+<div class="viewcode-block" id="OvershootError"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.OvershootError">[docs]</a><span class="k">class</span> <span class="nc">OvershootError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Point2PointConstantAcceleration"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointConstantAcceleration">[docs]</a><span class="k">class</span> <span class="nc">Point2PointConstantAcceleration</span><span class="p">(</span><span class="n">TransitionModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Constant acceleration transition model for 2D cartesian coordinates</span>
+
+<span class="sd">    The platform is assumed to move with constant acceleration between two given cartesian</span>
+<span class="sd">    coordinates.</span>
+<span class="sd">    Motion is determined by the kinematic formulae:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            v &amp;= u + at \\</span>
+<span class="sd">            s &amp;= ut + \frac{1}{2} at^2</span>
+
+<span class="sd">    Where :math:`u, v, a, t, s` are initial speed, final speed, acceleration, transition time and</span>
+<span class="sd">    distance travelled respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The initial state, assumed to have x and y cartesian position and&quot;</span>
+                                <span class="s2">&quot;velocities&quot;</span><span class="p">)</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Destination coordinates in 2D cartesian&quot;</span>
+                                                    <span class="s2">&quot;coordinates (x, y)&quot;</span><span class="p">)</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Duration of transition in seconds&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># x-distance to destination</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># y-distance to destination</span>
+        <span class="n">ux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># initial x-speed</span>
+        <span class="n">uy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># initial y-speed</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>  <span class="c1"># duration of acceleration</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">dx</span> <span class="o">-</span> <span class="n">ux</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># x-acceleration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">dy</span> <span class="o">-</span> <span class="n">uy</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># y-acceleration</span>
+
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">ux</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">*</span><span class="n">t</span>  <span class="c1"># final x-speed</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">uy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="o">*</span><span class="n">t</span>  <span class="c1"># final y-speed</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">ux</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">vx</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">uy</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">vy</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">OvershootError</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">4</span>
+
+    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Covariance not defined&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Point2PointConstantAcceleration.pdf"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointConstantAcceleration.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;pdf not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Point2PointConstantAcceleration.rvs"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointConstantAcceleration.rvs">[docs]</a>    <span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;rvs not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Point2PointConstantAcceleration.function"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointConstantAcceleration.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">ux</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># initial x-speed</span>
+        <span class="n">uy</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># initial y-speed</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">ux</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># x-distance travelled</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">uy</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># y-distance travelled</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">ux</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">*</span><span class="n">t</span>  <span class="c1"># resultant x-speed</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">uy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="o">*</span><span class="n">t</span>  <span class="c1"># resultant y-speed</span>
+
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">([</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">,</span> <span class="n">vy</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="Point2PointStop"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointStop">[docs]</a><span class="k">class</span> <span class="nc">Point2PointStop</span><span class="p">(</span><span class="n">TransitionModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Constant acceleration transition model for 2D cartesian coordinates</span>
+
+<span class="sd">    The platform is assumed to move with constant acceleration between two given cartesian</span>
+<span class="sd">    coordinates.</span>
+<span class="sd">    Motion is determined by the kinematic formulae:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            v &amp;= u + at \\</span>
+<span class="sd">            v^2 &amp;= u^2 + 2as</span>
+
+<span class="sd">    Where :math:`u, v, a, t, s` are initial speed, final speed, acceleration, transition time and</span>
+<span class="sd">    distance travelled respectively.</span>
+<span class="sd">    The platform is decelerated to 0 velocity at the destination point and waits for the remaining</span>
+<span class="sd">    duration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The initial state, assumed to have x and y cartesian position and&quot;</span>
+                                <span class="s2">&quot;velocities&quot;</span><span class="p">)</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Destination coordinates in 2D cartesian&quot;</span>
+                                                    <span class="s2">&quot;coordinates (x, y)&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># x-distance to destination</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># y-distance to destination</span>
+        <span class="n">ux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># initial x-speed</span>
+        <span class="n">uy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># initial y-speed</span>
+
+        <span class="k">if</span> <span class="n">dx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># x-acceleration (0 if already at destination x-coord)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">ux</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># y-acceleration (0 if already at destination y-coord)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">uy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">ux</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span>  <span class="c1"># deceleration time</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">uy</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span>  <span class="c1"># deceleration time (if already at x-coord)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># at destination so acceleration time is 0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">4</span>
+
+    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Covariance not defined&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Point2PointStop.pdf"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointStop.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;pdf not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Point2PointStop.rvs"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointStop.rvs">[docs]</a>    <span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;rvs not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Point2PointStop.function"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.Point2PointStop.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="n">decel_time_remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ux</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># initial x-speed</span>
+        <span class="n">uy</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># initial y-speed</span>
+
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">decel_time_remaining</span><span class="p">:</span>  <span class="c1"># still some deceleration needed</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">ux</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">uy</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">vx</span> <span class="o">=</span> <span class="n">ux</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">*</span><span class="n">t</span>
+            <span class="n">vy</span> <span class="o">=</span> <span class="n">uy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="o">*</span><span class="n">t</span>
+            <span class="k">return</span> <span class="n">StateVector</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="n">vy</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">decel_time_remaining</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># otherwise decelerate for rest of time needed, and stay</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">ux</span><span class="o">*</span><span class="n">decel_time_remaining</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">decel_time_remaining</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">uy</span><span class="o">*</span><span class="n">decel_time_remaining</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">decel_time_remaining</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">vx</span> <span class="o">=</span> <span class="n">ux</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">*</span><span class="n">decel_time_remaining</span>
+            <span class="n">vy</span> <span class="o">=</span> <span class="n">uy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="o">*</span><span class="n">decel_time_remaining</span>
+            <span class="k">return</span> <span class="n">StateVector</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="n">vy</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span>  <span class="c1"># if already at destination, stay</span></div></div>
+
+
+<div class="viewcode-block" id="ConstantJerkSimulator"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator">[docs]</a><span class="k">class</span> <span class="nc">ConstantJerkSimulator</span><span class="p">(</span><span class="n">TransitionModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Constant, noiseless, jerk transition model for cartesian space.</span>
+
+<span class="sd">    The state space has no acceleration or jerk elements. I.E. the only kinematic components are</span>
+<span class="sd">    position and velocity.</span>
+
+<span class="sd">    Solution given by :math:`\vec{\ddddot{x}} = \vec{0}`</span>
+
+<span class="sd">    The user will provide an initial and final state, each of which containing initial cartesian</span>
+<span class="sd">    position and velocities. For example, :math:`(x, \dot{x}, y, \dot{y})`.</span>
+
+<span class="sd">    Components of the state vector that are not position or velocity are kept constant.</span>
+<span class="sd">    Initial and final accelerations are uniquely defined by this input.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Acceleration instantaneously changes at each target state</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position_mapping</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Mapping between platform position and state vector.&quot;</span><span class="p">)</span>
+    <span class="n">velocity_mapping</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Mapping between platform velocity and state vector. Defaults to `[m+1 for m in &quot;</span>
+            <span class="s2">&quot;position_mapping]`&quot;</span><span class="p">)</span>
+    <span class="n">init_state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Initial state to move from. Must be `ndim_state` dimensions.&quot;</span><span class="p">)</span>
+    <span class="n">final_state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Final state to move to. Must be `ndim_state` dimensions.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Initial and final states must share the same number of dimensions. Initial &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;state has ndim = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> but final state has &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;ndim = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity_mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">velocity_mapping</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_mapping</span><span class="p">]</span>
+
+        <span class="c1"># Full duration of transition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="c1"># Initial position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">position_mapping</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="c1"># Initial velocity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">velocity_mapping</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Final position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final_X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">position_mapping</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="c1"># Final velocity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final_V</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">velocity_mapping</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jerk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(),</span> <span class="nb">list</span><span class="p">(),</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">init_x</span><span class="p">,</span> <span class="n">init_v</span><span class="p">,</span> <span class="n">final_x</span><span class="p">,</span> <span class="n">final_v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_V</span><span class="p">,</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">final_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_V</span><span class="p">):</span>
+            <span class="n">init_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_init_accel</span><span class="p">(</span><span class="n">init_x</span><span class="p">,</span> <span class="n">final_x</span><span class="p">,</span>
+                                               <span class="n">init_v</span><span class="p">,</span> <span class="n">final_v</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">init_a</span><span class="p">)</span>
+
+            <span class="n">final_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_final_accel</span><span class="p">(</span><span class="n">init_v</span><span class="p">,</span> <span class="n">final_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">final_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final_a</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">jerk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate_jerk</span><span class="p">(</span><span class="n">init_a</span><span class="p">,</span> <span class="n">final_a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Number of state space dimensions.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.covar"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Must be added due to inheritance.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Covariance not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.pdf"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Must be added due to inheritance.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;pdf not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.rvs"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.rvs">[docs]</a>    <span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Must be added due to inheritance.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;rvs not defined&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.function"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply a constant jerk transition to `state`, for `time_interval` duration, keeping</span>
+<span class="sd">        elements of state vector that are not position or velocity constant.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Total time that will have passed since initial state up until transition is complete</span>
+        <span class="n">delta_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">time_interval</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="c1"># New position and velocity calculated only from `delta_t`</span>
+        <span class="c1"># Assumed that `state` lies on the constant jerk path connecting `initial_state` with</span>
+        <span class="c1"># `final_state`</span>
+
+        <span class="n">new_position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">new_velocity</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">init_x</span><span class="p">,</span> <span class="n">init_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">jerk</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jerk</span><span class="p">):</span>
+            <span class="n">new_position</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate_pos</span><span class="p">(</span><span class="n">init_x</span><span class="p">,</span> <span class="n">init_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">jerk</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">))</span>
+            <span class="n">new_velocity</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate_vel</span><span class="p">(</span><span class="n">init_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">jerk</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">))</span>
+
+        <span class="c1"># Non-kinematic components remain constant</span>
+        <span class="n">new_sv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># May initiate with integers</span>
+        <span class="n">new_sv</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">position_mapping</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_position</span>
+        <span class="n">new_sv</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">velocity_mapping</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_velocity</span>
+
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="n">new_sv</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.calculate_pos"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.calculate_pos">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_pos</span><span class="p">(</span><span class="n">init_x</span><span class="p">,</span> <span class="n">init_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">jerk</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate position, along a particular axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        init_x: float</span>
+<span class="sd">            Initial position along axis</span>
+<span class="sd">        init_v: float</span>
+<span class="sd">            Initial velocity along axis</span>
+<span class="sd">        init_a: float</span>
+<span class="sd">            Initial acceleration along axis</span>
+<span class="sd">        jerk: float</span>
+<span class="sd">            Constant jerk value along axis</span>
+<span class="sd">        T: float</span>
+<span class="sd">            Number for seconds to carry-out jerk transition</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            New position along axis, given by:</span>
+<span class="sd">            :math:`X&#39; = \frac{J_0 T^3}{6} + \frac{A_0 T^2}{2} + V_0 T + X_0`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">jerk</span> <span class="o">*</span> <span class="n">T</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">(</span><span class="n">init_a</span> <span class="o">*</span> <span class="n">T</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">init_v</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">init_x</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_vel</span><span class="p">(</span><span class="n">init_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">jerk</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">jerk</span> <span class="o">*</span> <span class="n">T</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">init_a</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">init_v</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_init_accel</span><span class="p">(</span><span class="n">init_x</span><span class="p">,</span> <span class="n">final_x</span><span class="p">,</span> <span class="n">init_v</span><span class="p">,</span> <span class="n">final_v</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">6</span> <span class="o">/</span> <span class="n">T</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">final_x</span> <span class="o">-</span> <span class="n">init_x</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">init_v</span> <span class="o">*</span> <span class="n">T</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">final_v</span> <span class="o">*</span> <span class="n">T</span> <span class="o">/</span> <span class="mi">3</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_final_accel</span><span class="p">(</span><span class="n">init_v</span><span class="p">,</span> <span class="n">final_v</span><span class="p">,</span> <span class="n">init_a</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">final_v</span> <span class="o">-</span> <span class="n">init_v</span><span class="p">)</span> <span class="o">-</span> <span class="n">init_a</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_jerk</span><span class="p">(</span><span class="n">init_a</span><span class="p">,</span> <span class="n">final_a</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">final_a</span> <span class="o">-</span> <span class="n">init_a</span><span class="p">)</span> <span class="o">/</span> <span class="n">T</span>
+
+<div class="viewcode-block" id="ConstantJerkSimulator.create_models"><a class="viewcode-back" href="../../../smartfusion.simulator.html#smartfusion.simulator.transition.ConstantJerkSimulator.create_models">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_models</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">State</span><span class="p">],</span> <span class="n">position_mapping</span><span class="p">,</span> <span class="n">velocity_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate a list of :class:`~.ConstantJerkSimulator` and transition durations, given a</span>
+<span class="sd">        list of states.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="n">state2</span><span class="o">.</span><span class="n">ndim</span> <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">state2</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All states must have the same ndim&quot;</span><span class="p">)</span>
+
+        <span class="n">transition_models</span><span class="p">,</span> <span class="n">transition_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(),</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">current_state</span><span class="p">,</span> <span class="n">next_state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">states</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+
+            <span class="n">transition_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">current_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+
+            <span class="n">transition_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="p">(</span><span class="n">position_mapping</span><span class="o">=</span><span class="n">position_mapping</span><span class="p">,</span>
+                    <span class="n">velocity_mapping</span><span class="o">=</span><span class="n">velocity_mapping</span><span class="p">,</span>
+                    <span class="n">init_state</span><span class="o">=</span><span class="n">current_state</span><span class="p">,</span>
+                    <span class="n">final_state</span><span class="o">=</span><span class="n">next_state</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">transition_models</span><span class="p">,</span> <span class="n">transition_times</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

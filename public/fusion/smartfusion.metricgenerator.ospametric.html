@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Optimal Sub-Pattern Assignment (OSPA) Metric &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Posterior Cramér-Rao Bound (PCRB) Metric" href="smartfusion.metricgenerator.pcrbmetric.html" />
+    <link rel="prev" title="Track-to-truth metrics" href="smartfusion.metricgenerator.tracktotruthmetrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+          <li><a href="smartfusion.metricgenerator.html">Metric Generators</a> &raquo;</li>
+      <li>Optimal Sub-Pattern Assignment (OSPA) Metric</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.metricgenerator.ospametric.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.metricgenerator.ospametric">
+<span id="optimal-sub-pattern-assignment-ospa-metric"></span><h1>Optimal Sub-Pattern Assignment (OSPA) Metric<a class="headerlink" href="#module-smartfusion.metricgenerator.ospametric" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.metricgenerator.ospametric.</span></span><span class="sig-name descname"><span class="pre">GOSPAMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Euclidean(mapping=None,</span> <span class="pre">mapping2=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.metricgenerator.html#smartfusion.metricgenerator.base.MetricGenerator" title="smartfusion.metricgenerator.base.MetricGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricGenerator</span></code></a></p>
+<p>Computes the Generalized Optimal SubPattern Assignment (GOPSA) metric
+for two sets of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects. This implementation of GOSPA
+is based on the auction algorithm.</p>
+<p>The GOPSA metric is calculated at each time step in which a
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> object is present</p>
+<dl class="simple">
+<dt>Reference:</dt><dd><p>[1] A. S. Rahmathullah, A. F. García-Fernández, L. Svensson,
+Generalized optimal sub-pattern assignment metric, 2016,
+[online] Available: <a class="reference external" href="http://arxiv.org/abs/1601.05585">http://arxiv.org/abs/1601.05585</a>.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – 1&lt;=p&lt;infty, exponent.</p></li>
+<li><p><strong>c</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – c&gt;0, cutoff distance.</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>, optional) – Distance measure to use. Default <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean"><code class="xref py py-class docutils literal notranslate"><span class="pre">Euclidean()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.p">
+<span class="sig-name descname"><span class="pre">p</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.p" title="Permalink to this definition"></a></dt>
+<dd><p>1&lt;=p&lt;infty, exponent.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.c">
+<span class="sig-name descname"><span class="pre">c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.c" title="Permalink to this definition"></a></dt>
+<dd><p>c&gt;0, cutoff distance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></em><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Distance measure to use. Default <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean"><code class="xref py py-class docutils literal notranslate"><span class="pre">Euclidean()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_metric">
+<span class="sig-name descname"><span class="pre">compute_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.compute_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_metric" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the metric using the data in the metric manager</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>manager</strong> (<a class="reference internal" href="smartfusion.metricgenerator.html#smartfusion.metricgenerator.base.MetricManager" title="smartfusion.metricgenerator.base.MetricManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricManager</span></code></a>) – contains the data to be used to create the metric(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>metric</strong> – Containing the metric information. The value of the metric is a
+list of metrics at each timestamp</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list <a class="reference internal" href="smartfusion.types.html#smartfusion.types.metric.Metric" title="smartfusion.types.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.extract_states">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_with_states</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.extract_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.extract_states" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts a list of states from a list of (or single) objects
+containing states. This method is defined to handle <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.StateMutableSequence" title="smartfusion.types.state.StateMutableSequence"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateMutableSequence</span></code></a>
+and <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>object_with_states</strong> (<em>object containing a list of states</em>) – Method of state extraction depends on the type of the object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_over_time">
+<span class="sig-name descname"><span class="pre">compute_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measured_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_states</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.compute_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_over_time" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the GOSPA metric at every timestep from a list of measured
+states and truth states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measured_states</strong> (<em>List of states created by a filter</em>) – </p></li>
+<li><p><strong>truth_states</strong> (<em>List of truth states to compare against</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>metric</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.metric.TimeRangeMetric" title="smartfusion.types.metric.TimeRangeMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeRangeMetric</span></code></a> covering the duration that states)</p></li>
+<li><p><em>exist for in the parameters. metric.value contains a list of metrics</em></p></li>
+<li><p><em>for the GOSPA metric at each timestamp</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_assignments">
+<span class="sig-name descname"><span class="pre">compute_assignments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cost_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.compute_assignments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_assignments" title="Permalink to this definition"></a></dt>
+<dd><p>Compute assignments using Auction Algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cost_matrix</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.Matrix" title="smartfusion.types.array.Matrix"><em>Matrix</em></a><em> (</em><em>size mxn</em><em>) </em><em>that denotes the cost of assigning</em>) – mth truth state to each of the n measured states.</p></li>
+<li><p><strong>max_iter</strong> (<em>Maximum number of iterations to perform</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>truth_to_measured</strong> (<em>np.ndarray</em>) – Vector of size m, which has indices of the measured objects or ‘-1’ if unassigned.</p></li>
+<li><p><strong>measured_to_truth</strong> (<em>np.ndarray</em>) – Vector of size n, which has indices of the truth objects or ‘-1’ if unassigned.</p></li>
+<li><p><strong>opt_cost</strong> (<em>float</em>) – Scalar value of the optimal assignment</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_cost_matrix">
+<span class="sig-name descname"><span class="pre">compute_cost_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.compute_cost_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_cost_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Creates the cost matrix between two lists of states</p>
+<p>This distance measure here will return distances minimum of either
+<a class="reference internal" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.c" title="smartfusion.metricgenerator.ospametric.GOSPAMetric.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> or the distance calculated from <code class="xref py py-attr docutils literal notranslate"><span class="pre">Measure</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track_states</strong> (<em>list of states</em>) – </p></li>
+<li><p><strong>truth_states</strong> (<em>list of states</em>) – </p></li>
+<li><p><strong>complete</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Cost matrix will be square, with <a class="reference internal" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.c" title="smartfusion.metricgenerator.ospametric.GOSPAMetric.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> present for where
+there is a mismatch in cardinality</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>cost_matrix</strong> – Matrix of distance between each element in each list of states</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_gospa_metric">
+<span class="sig-name descname"><span class="pre">compute_gospa_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measured_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_states</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#GOSPAMetric.compute_gospa_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_gospa_metric" title="Permalink to this definition"></a></dt>
+<dd><p>Computes GOSPA metric between measured and truth states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measured_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – list of state objects to be assigned to the truth</p></li>
+<li><p><strong>truth_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – list of state objects for the truth points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>gospa_metric</strong> (<em>Dictionary containing GOSPA metric for alpha = 2.</em>) – GOSPA metric is divided into four components:
+1. distance, 2. localisation, 3. missed, and 4. false.
+Note that distance = (localisation + missed + false)^1/p</p></li>
+<li><p><strong>truth_to_measured_assignment</strong> (<em>Assignment matrix.</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.OSPAMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.metricgenerator.ospametric.</span></span><span class="sig-name descname"><span class="pre">OSPAMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Euclidean(mapping=None,</span> <span class="pre">mapping2=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#OSPAMetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.OSPAMetric" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.metricgenerator.ospametric.GOSPAMetric" title="smartfusion.metricgenerator.ospametric.GOSPAMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">GOSPAMetric</span></code></a></p>
+<p>Computes the Optimal SubPattern Assignment (OPSA) distance [1] for two sets
+of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects. The OSPA distance is measured between two
+point patterns.</p>
+<p>The OPSA metric is calculated at each time step in which a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>
+object is present</p>
+<dl class="simple">
+<dt>Reference:</dt><dd><p>[1] A Consistent Metric for Performance Evaluation of Multi-Object
+Filters, D. Schuhmacher, B. Vo and B. Vo, IEEE Trans. Signal Processing
+2008</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – norm associated to distance</p></li>
+<li><p><strong>c</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Maximum distance for possible association</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>, optional) – Distance measure to use. Default <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean"><code class="xref py py-class docutils literal notranslate"><span class="pre">Euclidean()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.OSPAMetric.c">
+<span class="sig-name descname"><span class="pre">c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.OSPAMetric.c" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum distance for possible association</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.OSPAMetric.p">
+<span class="sig-name descname"><span class="pre">p</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.OSPAMetric.p" title="Permalink to this definition"></a></dt>
+<dd><p>norm associated to distance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.OSPAMetric.compute_over_time">
+<span class="sig-name descname"><span class="pre">compute_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measured_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_states</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#OSPAMetric.compute_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.OSPAMetric.compute_over_time" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the OSPA metric at every timestep from a list of measured
+states and truth states</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measured_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Created by a filter</p></li>
+<li><p><strong>truth_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Truth states to compare against</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Covering the duration that states exist for in the parameters.
+Metric.value contains a list of metrics for the OSPA distance at
+each timestamp</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.metric.TimeRangeMetric" title="smartfusion.types.metric.TimeRangeMetric">TimeRangeMetric</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.metricgenerator.ospametric.OSPAMetric.compute_OSPA_distance">
+<span class="sig-name descname"><span class="pre">compute_OSPA_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_states</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/metricgenerator/ospametric.html#OSPAMetric.compute_OSPA_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.metricgenerator.ospametric.OSPAMetric.compute_OSPA_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the Optimal SubPattern Assignment (OPSA) metric for a single
+time step between two point patterns. Each point pattern consisting of
+a list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> objects.</p>
+<p>The function <span class="math notranslate nohighlight">\(\bar{d}_{p}^{(c)}\)</span> is the OSPA metric of order
+<span class="math notranslate nohighlight">\(p\)</span> with cut-off <span class="math notranslate nohighlight">\(c\)</span>. The OSPA metric is defined as:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{equation*}
+    \bar{d}_{p}^{(c)}({X},{Y}) :=
+    \Biggl( \frac{1}{n}
+    \Bigl({min}_{\substack{
+        \pi\in\Pi_{n}}}
+            \sum_{i=1}^{m}
+                d^{(c)}(x_{i},y_{\pi(i)})^{p}+
+                c^{p}(n-m)\Bigr)
+        \Biggr)^{ \frac{1}{p} }
+\end{equation*}\]</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – </p></li>
+<li><p><strong>truth_states</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The OSPA distance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.metric.SingleTimeMetric" title="smartfusion.types.metric.SingleTimeMetric">SingleTimeMetric</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.metricgenerator.tracktotruthmetrics.html" class="btn btn-neutral float-left" title="Track-to-truth metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.metricgenerator.pcrbmetric.html" class="btn btn-neutral float-right" title="Posterior Cramér-Rao Bound (PCRB) Metric" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

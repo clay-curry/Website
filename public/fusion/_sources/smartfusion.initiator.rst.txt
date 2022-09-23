@@ -1,0 +1,27 @@
+Initiators
+==========
+
+.. automodule:: smartfusion.initiator
+    :no-members:
+
+.. automodule:: smartfusion.initiator.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.initiator.simple
+    :show-inheritance:
+
+Wrappers
+--------
+.. automodule:: smartfusion.initiator.wrapper
+    :show-inheritance:
+
+Categorical
+-----------
+.. automodule:: smartfusion.initiator.categorical
+    :show-inheritance:
+
+Composite
+---------
+
+.. automodule:: smartfusion.initiator.composite
+    :show-inheritance:

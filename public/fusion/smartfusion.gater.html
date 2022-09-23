@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gater &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Hypothesiser" href="smartfusion.hypothesiser.html" />
+    <link rel="prev" title="Deleters" href="smartfusion.deleter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Gater</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.gater.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.gater">
+<span id="gater"></span><h1>Gater<a class="headerlink" href="#module-smartfusion.gater" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.gater.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.gater.base.Gater">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.gater.base.</span></span><span class="sig-name descname"><span class="pre">Gater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><span class="pre">Gater</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/gater/base.html#Gater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.gater.base.Gater" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Gater base class</p>
+<p>Gaters wrap <a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a> objects and can be used to modify (typically reduce) the
+returned hypotheses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[Hypothesiser,</span> <span class="pre">ForwardRef('Gater')]</span></code>) – Hypothesiser or Gater that is being wrapped.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.gater.base.Gater.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><span class="pre">Gater</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.gater.base.Gater.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Hypothesiser or Gater that is being wrapped.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.gater.distance">
+<span id="distance"></span><h2>Distance<a class="headerlink" href="#module-smartfusion.gater.distance" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.gater.distance.DistanceGater">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.gater.distance.</span></span><span class="sig-name descname"><span class="pre">DistanceGater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><span class="pre">Gater</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/gater/distance.html#DistanceGater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.gater.distance.DistanceGater" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gater</span></code></a></p>
+<p>Distance based gater</p>
+<p>Uses a measure to calculate the distance between a hypothesis’ measurement prediction and the
+hypothised measurement, then removes any hypotheses whose calculated distance exceeds the
+specified gate threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[Hypothesiser,</span> <span class="pre">ForwardRef('Gater')]</span></code>) – Hypothesiser or Gater that is being wrapped.</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>) – Measure class used to calculate the distance between the measurement prediction and the hypothesised measurement.</p></li>
+<li><p><strong>gate_threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The gate threshold. Hypotheses whose calculated distance exceeds this threshold will be filtered out.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.gater.distance.DistanceGater.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></em><a class="headerlink" href="#smartfusion.gater.distance.DistanceGater.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Measure class used to calculate the distance between the measurement prediction and the hypothesised measurement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.gater.distance.DistanceGater.gate_threshold">
+<span class="sig-name descname"><span class="pre">gate_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.gater.distance.DistanceGater.gate_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>The gate threshold. Hypotheses whose calculated distance exceeds this threshold will be filtered out.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.gater.distance.DistanceGater.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/gater/distance.html#DistanceGater.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.gater.distance.DistanceGater.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Hypothesise track and detection association</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – Track which hypotheses will be generated for.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections used to generate hypotheses.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – A timestamp used when evaluating the state and measurement
+predictions. Note that if a given detection has a non empty
+timestamp, then prediction will be performed according to
+the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ordered sequence of “best” to “worse” hypothesis.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sequence of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.gater.filtered">
+<span id="filtered"></span><h2>Filtered<a class="headerlink" href="#module-smartfusion.gater.filtered" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.gater.filtered.FilteredDetectionsGater">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.gater.filtered.</span></span><span class="sig-name descname"><span class="pre">FilteredDetectionsGater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><span class="pre">Gater</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/gater/filtered.html#FilteredDetectionsGater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.gater.filtered.FilteredDetectionsGater" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.gater.base.Gater" title="smartfusion.gater.base.Gater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gater</span></code></a></p>
+<p>Wrapper for Hypothesisers - filters input data</p>
+<p>Wrapper for any type of hypothesiser - filters the ‘detections’ before
+they are fed into the hypothesiser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[Hypothesiser,</span> <span class="pre">ForwardRef('Gater')]</span></code>) – Hypothesiser or Gater that is being wrapped.</p></li>
+<li><p><strong>metadata_filter</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Metadata attribute used to filter which detections tracks are valid for association.</p></li>
+<li><p><strong>match_missing</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Match detections with missing metadata. Default ‘True’.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.gater.filtered.FilteredDetectionsGater.metadata_filter">
+<span class="sig-name descname"><span class="pre">metadata_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#smartfusion.gater.filtered.FilteredDetectionsGater.metadata_filter" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata attribute used to filter which detections tracks are valid for association.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.gater.filtered.FilteredDetectionsGater.match_missing">
+<span class="sig-name descname"><span class="pre">match_missing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.gater.filtered.FilteredDetectionsGater.match_missing" title="Permalink to this definition"></a></dt>
+<dd><p>Match detections with missing metadata. Default ‘True’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.gater.filtered.FilteredDetectionsGater.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/gater/filtered.html#FilteredDetectionsGater.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.gater.filtered.FilteredDetectionsGater.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – A track that contains the target’s state</p></li>
+<li><p><strong>detections</strong> (list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code>) – Retrieved measurements</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code> – A list containing the hypotheses between each prediction-detections
+pair.</p></li>
+<li><p><strong>Note</strong> (The specific subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">SingleHypothesis</span></code> returned) – depends on the <code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code> used.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.deleter.html" class="btn btn-neutral float-left" title="Deleters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.hypothesiser.html" class="btn btn-neutral float-right" title="Hypothesiser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

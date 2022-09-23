@@ -1,0 +1,44 @@
+Feeders
+=======
+
+.. automodule:: smartfusion.feeder
+    :no-members:
+
+.. automodule:: smartfusion.feeder.base
+    :show-inheritance:
+
+Filter
+------
+
+.. automodule:: smartfusion.feeder.filter
+    :show-inheritance:
+
+Geo
+---
+
+.. automodule:: smartfusion.feeder.geo
+    :show-inheritance:
+
+Multi
+-----
+
+.. automodule:: smartfusion.feeder.multi
+    :show-inheritance:
+
+Time Based
+----------
+
+.. automodule:: smartfusion.feeder.time
+    :show-inheritance:
+
+Image
+-----
+
+.. automodule:: smartfusion.feeder.image
+    :show-inheritance:
+
+Track
+-----
+
+.. automodule:: smartfusion.feeder.track
+    :show-inheritance:

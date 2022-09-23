@@ -1,0 +1,26 @@
+Measurement Models
+==================
+
+.. automodule:: smartfusion.models.measurement
+    :no-members:
+
+.. automodule:: smartfusion.models.measurement.base
+    :show-inheritance:
+
+Linear
+------
+.. automodule:: smartfusion.models.measurement.linear
+    :show-inheritance:
+    :inherited-members:
+
+NonLinear
+---------
+.. automodule:: smartfusion.models.measurement.nonlinear
+    :show-inheritance:
+    :inherited-members:
+
+Categorical
+-----------
+.. automodule:: smartfusion.models.measurement.categorical
+    :show-inheritance:
+    :inherited-members:

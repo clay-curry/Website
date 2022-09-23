@@ -27,3 +27,6 @@ app_auth.json
 
 # Local configuation file
 package-lock.json
+
+
+auto_demos/

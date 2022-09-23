@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.feeder.filter &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.feeder.filter</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/feeder/filter" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.feeder.filter</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">DetectionFeeder</span><span class="p">,</span> <span class="n">GroundTruthFeeder</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..buffered_generator</span> <span class="kn">import</span> <span class="n">BufferedGenerator</span>
+
+
+<div class="viewcode-block" id="MetadataReducer"><a class="viewcode-back" href="../../../smartfusion.feeder.html#smartfusion.feeder.filter.MetadataReducer">[docs]</a><span class="k">class</span> <span class="nc">MetadataReducer</span><span class="p">(</span><span class="n">DetectionFeeder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reduce detections so unique metadata value present at each time step.</span>
+
+<span class="sd">    This allows to reduce detections so a single detection is returned, based</span>
+<span class="sd">    on a particular metadata value, for example a unique identity. The most</span>
+<span class="sd">    recent detection will be yielded for each unique metadata value at each</span>
+<span class="sd">    time step.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ====</span>
+<span class="sd">    * If :class:`~.GroundTruthPath` type is extended to have a metadata attribute, this class</span>
+<span class="sd">      will be applicable to this type.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">metadata_field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Field used to reduce set of detections&quot;</span><span class="p">)</span>
+
+    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">detections</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="p">:</span>
+            <span class="n">unique_detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">sorted_detections</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">detections</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">meta_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">sorted_detections</span><span class="p">:</span>
+                <span class="n">meta_value</span> <span class="o">=</span> <span class="n">detection</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_field</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">meta_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">meta_values</span><span class="p">:</span>
+                    <span class="n">unique_detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">detection</span><span class="p">)</span>
+                    <span class="c1"># Ignore those without meta data value</span>
+                    <span class="k">if</span> <span class="n">meta_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">meta_values</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">meta_value</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="n">unique_detections</span></div>
+
+
+<div class="viewcode-block" id="MetadataValueFilter"><a class="viewcode-back" href="../../../smartfusion.feeder.html#smartfusion.feeder.filter.MetadataValueFilter">[docs]</a><span class="k">class</span> <span class="nc">MetadataValueFilter</span><span class="p">(</span><span class="n">MetadataReducer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Reduce detections by filtering out objects based on whether the value</span>
+<span class="sd">        of a particular metadata field conforms to a given condition.</span>
+
+<span class="sd">        The MetadataValueFilter provides an easy way of reducing detections in</span>
+<span class="sd">        cases where an informative metadata field exists (e.g. MMSI, SNR, etc.)</span>
+<span class="sd">        , that can be used to identify and filter out unwanted detections.</span>
+
+<span class="sd">        Once provided with a :py:attr:`~metadata_field` name and a suitable</span>
+<span class="sd">        :py:attr:`~operator` function, the feeder will filter the incoming</span>
+<span class="sd">        detections by evaluating the :py:attr:`~metadata_field` field value</span>
+<span class="sd">        using the desired :py:attr:`~operator` function. Only detections</span>
+<span class="sd">        that satisfy the operator condition (i.e. cause the</span>
+<span class="sd">        :py:attr:`~operator` to return :code:`True`) are allowed through the</span>
+<span class="sd">        filter.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ====</span>
+<span class="sd">        * If :class:`~.GroundTruthPath` type is extended to have a metadata attribute, this class</span>
+<span class="sd">          will be applicable to this type.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">operator</span><span class="p">:</span> <span class="n">FunctionType</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;A unary operator/function of the form :code:`b = f(val)`, &quot;</span>
+            <span class="s2">&quot;where :code:`val` is the value of the selected &quot;</span>
+            <span class="s2">&quot;:py:attr:`~metadata_field`. The function MUST return a &quot;</span>
+            <span class="s2">&quot;:py:class:`~bool` type that evaluates to :code:`True` when a &quot;</span>
+            <span class="s2">&quot;particular object satisfies the condition(s) set by the operator,&quot;</span>
+            <span class="s2">&quot; and thus should be allowed through the filter. Detections that &quot;</span>
+            <span class="s2">&quot;cause the operator to return :code:`False` will be filtered out. &quot;</span>
+            <span class="s2">&quot;Any custom function that conforms to the above specifications can&quot;</span>
+            <span class="s2">&quot; be used as an operator, e.g. :code:`operator=lambda x: x &lt; 0.1`&quot;</span><span class="p">)</span>
+
+    <span class="n">keep_unmatched</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;If set to :code:`True`, any detections that do not have a &quot;</span>
+            <span class="s2">&quot;metadata field matching the name :py:attr:`~metadata_field` &quot;</span>
+            <span class="s2">&quot;(meaning they also cannot be processed by the &quot;</span>
+            <span class="s2">&quot;:py:attr:`~operator`), will be allowed through the filter. The &quot;</span>
+            <span class="s2">&quot;default is :code:`False`.&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">detections</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="p">:</span>
+            <span class="n">filtered_detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">detection</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_field</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_unmatched</span><span class="p">:</span>
+                    <span class="n">filtered_detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">detection</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                    <span class="n">filtered_detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">detection</span><span class="p">)</span>
+
+            <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="n">filtered_detections</span></div>
+
+
+<div class="viewcode-block" id="BoundingBoxReducer"><a class="viewcode-back" href="../../../smartfusion.feeder.html#smartfusion.feeder.filter.BoundingBoxReducer">[docs]</a><span class="k">class</span> <span class="nc">BoundingBoxReducer</span><span class="p">(</span><span class="n">DetectionFeeder</span><span class="p">,</span> <span class="n">GroundTruthFeeder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Reduce data by selecting only data placed within the limits of a</span>
+<span class="sd">        n-dimensional bounding box, defined on the data coordinate space.</span>
+
+<span class="sd">        When provided with the limit coordinates of a given n-dimensional</span>
+<span class="sd">        bounding box (expressed in the form of min/max bounds on each</span>
+<span class="sd">        dimension), the feeder will apply a filter to the incoming data,</span>
+<span class="sd">        allowing to pass through only data that falls within the desired</span>
+<span class="sd">        limits, and discarding the rest.</span>
+
+<span class="sd">        Assuming a 2D Cartesian data space, the feeder operation is</span>
+<span class="sd">        equivalent to drawing an imaginary bounding box tangential to the plane</span>
+<span class="sd">        defined by the XY axes, and only feeding data whose state vector</span>
+<span class="sd">        falls within the bounds of the box.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ====</span>
+<span class="sd">        * For the time being, the bounding box limits must be defined on</span>
+<span class="sd">          the same coordinate axes as the received data, which is in</span>
+<span class="sd">          turn assumed to all share a common coordinate frame.</span>
+<span class="sd">        * For example, assume we are tracking some targets in Lat/Lon, but</span>
+<span class="sd">          receive detections in the form of polar coordinates (e.g. relative to</span>
+<span class="sd">          a single Radar sensor), then the bounding box MUST be defined</span>
+<span class="sd">          on (a subset of) the polar coordinate system, and NOT the</span>
+<span class="sd">          geo-spatial.</span>
+<span class="sd">        * Thus, it is worth noting that in its current version the feeder is</span>
+<span class="sd">          not recommended for use in filtering data coming from multiple</span>
+<span class="sd">          sources/sensors, unless a common coordinate frame is guaranteed.</span>
+<span class="sd">        * Finally, for simplicity purposes, the bounding box is not allowed to</span>
+<span class="sd">          rotate around any axis.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">limits</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Array of points that define the bounds of the desired bounding &quot;</span>
+            <span class="s2">&quot;box. Expressed as a 2D array of min/max coordinate pairs (e.g. &quot;</span>
+            <span class="s2">&quot;:code:`limits = [[x_min, x_max], [y_min, y_max], ...]`), where &quot;</span>
+            <span class="s2">&quot;the n-th row corresponds to the n-th bounding box dimension &quot;</span>
+            <span class="s2">&quot;limits. Points that fall ON or WITHIN the box&#39;s bounds are &quot;</span>
+            <span class="s2">&quot;considered as valid and are thus forwarded through the feeder, &quot;</span>
+            <span class="s2">&quot;whereas points that fall OUTSIDE the box will be filtered out.&quot;</span><span class="p">)</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Mapping between the state and bounding box coordinates. &quot;</span>
+            <span class="s2">&quot;Should be specified as a vector of length equal to the number of &quot;</span>
+            <span class="s2">&quot;bounding box dimensions, whose elements correspond to row indices&quot;</span>
+            <span class="s2">&quot; in the state vector. E.g. :code:`mapping = [2, 0]` &quot;</span>
+            <span class="s2">&quot;dictates that the first bounding box dimension (i.e. row 0 in &quot;</span>
+            <span class="s2">&quot;:py:attr:`~limits`), defines the limits that correspond to the &quot;</span>
+            <span class="s2">&quot;element with (row) index 2 in the data state vector, while &quot;</span>
+            <span class="s2">&quot;the second row (i.e. row 1) in :py:attr:`~limits` relates to the &quot;</span>
+            <span class="s2">&quot;element with index 0. Default is `None`, where the dimensions of &quot;</span>
+            <span class="s2">&quot;the state vector will be used in order, up to length to limits.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limits</span><span class="p">)))</span>
+
+    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">num_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limits</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">states</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="p">:</span>
+            <span class="n">outlier_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+                <span class="n">state_vector</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_dims</span><span class="p">):</span>
+                    <span class="nb">min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="nb">max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">state_vector</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="nb">min</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">:</span>
+                        <span class="n">outlier_data</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+                        <span class="k">break</span>
+            <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="n">states</span> <span class="o">-</span> <span class="n">outlier_data</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

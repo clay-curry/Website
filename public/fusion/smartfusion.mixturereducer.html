@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mixture Reducers &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Models" href="smartfusion.models.html" />
+    <link rel="prev" title="Initiators" href="smartfusion.initiator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Mixture Reducers</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.mixturereducer.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.mixturereducer">
+<span id="mixture-reducers"></span><h1>Mixture Reducers<a class="headerlink" href="#module-smartfusion.mixturereducer" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.mixturereducer.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.base.MixtureReducer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.mixturereducer.base.</span></span><span class="sig-name descname"><span class="pre">MixtureReducer</span></span><a class="reference internal" href="_modules/smartfusion/mixturereducer/base.html#MixtureReducer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.base.MixtureReducer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Mixture Reducer base class</p>
+</dd></dl>
+
+<span class="target" id="module-smartfusion.mixturereducer.gaussianmixture"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.mixturereducer.gaussianmixture.</span></span><span class="sig-name descname"><span class="pre">GaussianMixtureReducer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prune_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_number_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pruning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kdtree_max_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.mixturereducer.base.MixtureReducer" title="smartfusion.mixturereducer.base.MixtureReducer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MixtureReducer</span></code></a></p>
+<p>Gaussian Mixture Reducer class:</p>
+<p>Reduces the number of components in a Gaussian mixture to increase
+computational efficiency. See [1] for details.
+Achieved in three ways: pruning, merging, and truncating.
+Pruning is the act of removing low weight components from the mixture
+that fall below a pruning threshold.
+Merging is the act of combining similar components in the mixture
+that fall with a distance threshold into a single component.
+Truncating is the act of removing low weight components from the
+mixture so that the number of components in the mixture stays below a
+given threshold. Truncating is performed after the pruning and merging.</p>
+<p class="rubric">References</p>
+<p>[1] B.-N. Vo and W.-K. Ma, “The Gaussian Mixture Probability Hypothesis
+Density Filter,” Signal Processing,IEEE Transactions on, vol. 54, no. 11,
+pp. 4091–4104, 2006..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prune_threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Threshold for pruning</p></li>
+<li><p><strong>merge_threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Threshold for merging</p></li>
+<li><p><strong>max_number_components</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Maximum number of components to keep in the Gaussian mixture</p></li>
+<li><p><strong>merging</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Flag for merging</p></li>
+<li><p><strong>pruning</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Flag for pruning components whose weight is below <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">prune_threshold</span></code></a></p></li>
+<li><p><strong>truncating</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Flag for truncating components, keeping a maximum of <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_number_components</span></code></a> components</p></li>
+<li><p><strong>kdtree_max_distance</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – This defines the max Euclidean search distance for a kd-tree, used as part of the merge process as a coarse gate. Default <cite>None</cite> where tree isn’t used and all components are checked against the merge threshold.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold">
+<span class="sig-name descname"><span class="pre">prune_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold for pruning</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_threshold">
+<span class="sig-name descname"><span class="pre">merge_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold for merging</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components">
+<span class="sig-name descname"><span class="pre">max_number_components</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of components to keep in the Gaussian mixture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merging">
+<span class="sig-name descname"><span class="pre">merging</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merging" title="Permalink to this definition"></a></dt>
+<dd><p>Flag for merging</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.pruning">
+<span class="sig-name descname"><span class="pre">pruning</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.pruning" title="Permalink to this definition"></a></dt>
+<dd><p>Flag for pruning components whose weight is below <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">prune_threshold</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.truncating">
+<span class="sig-name descname"><span class="pre">truncating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.truncating" title="Permalink to this definition"></a></dt>
+<dd><p>Flag for truncating components, keeping a maximum of <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_number_components</span></code></a> components</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.kdtree_max_distance">
+<span class="sig-name descname"><span class="pre">kdtree_max_distance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.kdtree_max_distance" title="Permalink to this definition"></a></dt>
+<dd><p>This defines the max Euclidean search distance for a kd-tree, used as part of the merge process as a coarse gate. Default <cite>None</cite> where tree isn’t used and all components are checked against the merge threshold.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.reduce">
+<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer.reduce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.reduce" title="Permalink to this definition"></a></dt>
+<dd><p>Reduce the components of Gaussian Mixture <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>
+through pruning, merging, and truncating</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – The components of Gaussian Mixture</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reduced components</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune">
+<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune" title="Permalink to this definition"></a></dt>
+<dd><p>Pruning is the act of removing low weight components from the mixture
+that fall below a pruning threshold <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.prune_threshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">prune_threshold</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – The components of Gaussian Mixture to be pruned</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>remaining_components</strong> – Components that remain after pruning</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureState</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_components">
+<span class="sig-name descname"><span class="pre">merge_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer.merge_components"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_components" title="Permalink to this definition"></a></dt>
+<dd><p>Merge two similar components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>component_1</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.WeightedGaussianState" title="smartfusion.types.state.WeightedGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGaussianState</span></code></a>) – First component to be merged</p></li>
+<li><p><strong>component_2</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.WeightedGaussianState" title="smartfusion.types.state.WeightedGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGaussianState</span></code></a>) – Second component to be merged</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>merged_component</strong> – Merged Gaussian component</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.WeightedGaussianState" title="smartfusion.types.state.WeightedGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGaussianState</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge" title="Permalink to this definition"></a></dt>
+<dd><p>Merging is the act of combining similar components in the mixture
+that fall with a distance threshold <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_threshold" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.merge_threshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">merge_threshold</span></code></a> into
+a single component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – Components of the Gaussian Mixture to be merged</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Merged components</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.truncate">
+<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/mixturereducer/gaussianmixture.html#GaussianMixtureReducer.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.truncate" title="Permalink to this definition"></a></dt>
+<dd><p>Truncating is the act of removing low-weight components from the mixture
+so that the size of the mixture (number of components) stays within the given
+threshold <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_number_components</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – Components of the Gaussian Mixture to be truncated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The <a class="reference internal" href="#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer.max_number_components"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_number_components</span></code></a> components with the highest weights</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.initiator.html" class="btn btn-neutral float-left" title="Initiators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.models.html" class="btn btn-neutral float-right" title="Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

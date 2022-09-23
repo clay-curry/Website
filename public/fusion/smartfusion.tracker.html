@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trackers &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Writers" href="smartfusion.writer.html" />
+    <link rel="prev" title="Simulators" href="smartfusion.simulator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Trackers</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.tracker.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.tracker">
+<span id="trackers"></span><h1>Trackers<a class="headerlink" href="#module-smartfusion.tracker" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.tracker.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.tracker.base.Tracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.tracker.base.</span></span><span class="sig-name descname"><span class="pre">Tracker</span></span><a class="reference internal" href="_modules/smartfusion/tracker/base.html#Tracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.base.Tracker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Tracker base class</p>
+</dd></dl>
+
+<span class="target" id="module-smartfusion.tracker.simple"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.tracker.simple.</span></span><span class="sig-name descname"><span class="pre">SingleTargetTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initiator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_associator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/simple.html#SingleTargetTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.tracker.base.Tracker" title="smartfusion.tracker.base.Tracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tracker</span></code></a></p>
+<p>A simple single target tracker.</p>
+<p>Track a single object using SMART FUSION components. The tracker works by
+first calling the <a class="reference internal" href="#smartfusion.tracker.simple.SingleTargetTracker.data_associator" title="smartfusion.tracker.simple.SingleTargetTracker.data_associator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_associator</span></code></a> with the active track, and then
+either updating the track state with the result of the <a class="reference internal" href="#smartfusion.tracker.simple.SingleTargetTracker.updater" title="smartfusion.tracker.simple.SingleTargetTracker.updater"><code class="xref py py-attr docutils literal notranslate"><span class="pre">updater</span></code></a> if
+a detection is associated, or with the prediction if no detection is
+associated to the track. The track is then checked for deletion by the
+<a class="reference internal" href="#smartfusion.tracker.simple.SingleTargetTracker.deleter" title="smartfusion.tracker.simple.SingleTargetTracker.deleter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deleter</span></code></a>, and if deleted the <a class="reference internal" href="#smartfusion.tracker.simple.SingleTargetTracker.initiator" title="smartfusion.tracker.simple.SingleTargetTracker.initiator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">initiator</span></code></a> is called to generate
+a new track. Similarly if no track is present (i.e. tracker is initialised
+or deleted in previous iteration), only the <a class="reference internal" href="#smartfusion.tracker.simple.SingleTargetTracker.initiator" title="smartfusion.tracker.simple.SingleTargetTracker.initiator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">initiator</span></code></a> is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initiator</strong> (<a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Initiator</span></code></a>) – Initiator used to initialise the track.</p></li>
+<li><p><strong>deleter</strong> (<a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a>) – Deleter used to delete the track</p></li>
+<li><p><strong>detector</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>) – Detector used to generate detection objects.</p></li>
+<li><p><strong>data_associator</strong> (<a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a>) – Association algorithm to pair predictions to detections</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to update the track object to the new state.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.track">
+<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.track" title="Permalink to this definition"></a></dt>
+<dd><p>Current track being maintained. Also accessible as the sole item in
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">tracks</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.initiator">
+<span class="sig-name descname"><span class="pre">initiator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.initiator" title="Permalink to this definition"></a></dt>
+<dd><p>Initiator used to initialise the track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.deleter">
+<span class="sig-name descname"><span class="pre">deleter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.deleter" title="Permalink to this definition"></a></dt>
+<dd><p>Deleter used to delete the track</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.detector">
+<span class="sig-name descname"><span class="pre">detector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.detector" title="Permalink to this definition"></a></dt>
+<dd><p>Detector used to generate detection objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.data_associator">
+<span class="sig-name descname"><span class="pre">data_associator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.data_associator" title="Permalink to this definition"></a></dt>
+<dd><p>Association algorithm to pair predictions to detections</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.SingleTargetTracker.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.SingleTargetTracker.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to update the track object to the new state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.tracker.simple.</span></span><span class="sig-name descname"><span class="pre">MultiTargetTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initiator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_associator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/simple.html#MultiTargetTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.tracker.base.Tracker" title="smartfusion.tracker.base.Tracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tracker</span></code></a></p>
+<p>A simple multi target tracker.</p>
+<p>Track multiple objects using SMART FUSION components. The tracker works by
+first calling the <a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetTracker.data_associator" title="smartfusion.tracker.simple.MultiTargetTracker.data_associator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_associator</span></code></a> with the active tracks, and then
+either updating the track state with the result of the <a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetTracker.updater" title="smartfusion.tracker.simple.MultiTargetTracker.updater"><code class="xref py py-attr docutils literal notranslate"><span class="pre">updater</span></code></a> if
+a detection is associated, or with the prediction if no detection is
+associated to the track. Tracks are then checked for deletion by the
+<a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetTracker.deleter" title="smartfusion.tracker.simple.MultiTargetTracker.deleter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deleter</span></code></a>, and remaining unassociated detections are passed to the
+<a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetTracker.initiator" title="smartfusion.tracker.simple.MultiTargetTracker.initiator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">initiator</span></code></a> to generate new tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initiator</strong> (<a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Initiator</span></code></a>) – Initiator used to initialise the track.</p></li>
+<li><p><strong>deleter</strong> (<a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a>) – Initiator used to initialise the track.</p></li>
+<li><p><strong>detector</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>) – Detector used to generate detection objects.</p></li>
+<li><p><strong>data_associator</strong> (<a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a>) – Association algorithm to pair predictions to detections</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to update the track object to the new state.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker.initiator">
+<span class="sig-name descname"><span class="pre">initiator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker.initiator" title="Permalink to this definition"></a></dt>
+<dd><p>Initiator used to initialise the track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker.deleter">
+<span class="sig-name descname"><span class="pre">deleter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker.deleter" title="Permalink to this definition"></a></dt>
+<dd><p>Initiator used to initialise the track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker.detector">
+<span class="sig-name descname"><span class="pre">detector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker.detector" title="Permalink to this definition"></a></dt>
+<dd><p>Detector used to generate detection objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker.data_associator">
+<span class="sig-name descname"><span class="pre">data_associator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker.data_associator" title="Permalink to this definition"></a></dt>
+<dd><p>Association algorithm to pair predictions to detections</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetTracker.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetTracker.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to update the track object to the new state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.tracker.simple.</span></span><span class="sig-name descname"><span class="pre">MultiTargetMixtureTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initiator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_associator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/simple.html#MultiTargetMixtureTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.tracker.base.Tracker" title="smartfusion.tracker.base.Tracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tracker</span></code></a></p>
+<p>A simple multi target tracker that receives associations from a
+(Gaussian) Mixture associator.</p>
+<p>Track multiple objects using SMART FUSION components. The tracker works by
+first calling the <a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator" title="smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_associator</span></code></a> with the active tracks, and then
+either updating the track state with the result of the
+<a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator" title="smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_associator</span></code></a> that reduces the (Gaussian) Mixture of all
+possible track-detection associations, or with the prediction if no
+detection is associated to the track. Tracks are then checked for deletion
+by the <a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.deleter" title="smartfusion.tracker.simple.MultiTargetMixtureTracker.deleter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deleter</span></code></a>, and remaining unassociated detections are passed
+to the <a class="reference internal" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.initiator" title="smartfusion.tracker.simple.MultiTargetMixtureTracker.initiator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">initiator</span></code></a> to generate new tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initiator</strong> (<a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Initiator</span></code></a>) – Initiator used to initialise the track.</p></li>
+<li><p><strong>deleter</strong> (<a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a>) – Initiator used to initialise the track.</p></li>
+<li><p><strong>detector</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>) – Detector used to generate detection objects.</p></li>
+<li><p><strong>data_associator</strong> (<a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a>) – Association algorithm to pair predictions to detections</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to update the track object to the new state.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker.initiator">
+<span class="sig-name descname"><span class="pre">initiator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.initiator.html#smartfusion.initiator.base.Initiator" title="smartfusion.initiator.base.Initiator"><span class="pre">Initiator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.initiator" title="Permalink to this definition"></a></dt>
+<dd><p>Initiator used to initialise the track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker.deleter">
+<span class="sig-name descname"><span class="pre">deleter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.deleter.html#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.deleter" title="Permalink to this definition"></a></dt>
+<dd><p>Initiator used to initialise the track.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker.detector">
+<span class="sig-name descname"><span class="pre">detector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.detector" title="Permalink to this definition"></a></dt>
+<dd><p>Detector used to generate detection objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator">
+<span class="sig-name descname"><span class="pre">data_associator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><span class="pre">DataAssociator</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.data_associator" title="Permalink to this definition"></a></dt>
+<dd><p>Association algorithm to pair predictions to detections</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.simple.MultiTargetMixtureTracker.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.tracker.simple.MultiTargetMixtureTracker.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to update the track object to the new state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.tracker.pointprocess">
+<span id="point-process"></span><h2>Point Process<a class="headerlink" href="#module-smartfusion.tracker.pointprocess" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.tracker.pointprocess.</span></span><span class="sig-name descname"><span class="pre">PointProcessMultiTargetTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser" title="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser"><span class="pre">GaussianMixtureHypothesiser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reducer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.mixturereducer.html#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer"><span class="pre">GaussianMixtureReducer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">extraction_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birth_component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.TaggedWeightedGaussianState" title="smartfusion.types.state.TaggedWeightedGaussianState"><span class="pre">TaggedWeightedGaussianState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/pointprocess.html#PointProcessMultiTargetTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.tracker.base.Tracker" title="smartfusion.tracker.base.Tracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tracker</span></code></a></p>
+<p>Base class for Gaussian Mixture (GM) style implementations of
+point process derived filters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>detector</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a>) – Detector used to generate detection objects.</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to update the objects to their new state.</p></li>
+<li><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser" title="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureHypothesiser</span></code></a>) – Association algorithm to pair predictions to detections</p></li>
+<li><p><strong>reducer</strong> (<a class="reference internal" href="smartfusion.mixturereducer.html#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureReducer</span></code></a>) – Reducer used to reduce the number of components in the mixture.</p></li>
+<li><p><strong>extraction_threshold</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Threshold to extract components from the mixture.</p></li>
+<li><p><strong>birth_component</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.TaggedWeightedGaussianState" title="smartfusion.types.state.TaggedWeightedGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaggedWeightedGaussianState</span></code></a>, optional) – The birth component. The weight should be equal to the mean of the expected number of births per timestep (Poission distributed). The tag should be <code class="xref py py-attr docutils literal notranslate"><span class="pre">TaggedWeightedGaussianState.BIRTH</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.detector">
+<span class="sig-name descname"><span class="pre">detector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><span class="pre">DetectionReader</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.detector" title="Permalink to this definition"></a></dt>
+<dd><p>Detector used to generate detection objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to update the objects to their new state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser" title="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser"><span class="pre">GaussianMixtureHypothesiser</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Association algorithm to pair predictions to detections</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.reducer">
+<span class="sig-name descname"><span class="pre">reducer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.mixturereducer.html#smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer" title="smartfusion.mixturereducer.gaussianmixture.GaussianMixtureReducer"><span class="pre">GaussianMixtureReducer</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.reducer" title="Permalink to this definition"></a></dt>
+<dd><p>Reducer used to reduce the number of components in the mixture.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.extraction_threshold">
+<span class="sig-name descname"><span class="pre">extraction_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.extraction_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold to extract components from the mixture.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.birth_component">
+<span class="sig-name descname"><span class="pre">birth_component</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.TaggedWeightedGaussianState" title="smartfusion.types.state.TaggedWeightedGaussianState"><span class="pre">TaggedWeightedGaussianState</span></a></em><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.birth_component" title="Permalink to this definition"></a></dt>
+<dd><p>The birth component. The weight should be equal to the mean of the expected number of births per timestep (Poission distributed). The tag should be <code class="xref py py-attr docutils literal notranslate"><span class="pre">TaggedWeightedGaussianState.BIRTH</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.update_tracks">
+<span class="sig-name descname"><span class="pre">update_tracks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/pointprocess.html#PointProcessMultiTargetTracker.update_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.update_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the tracks (<code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) associated with the filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureMultiTargetTracker</span></code>) – Current GM Multi Target Tracker at time <span class="math notranslate nohighlight">\(k\)</span></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each track shares a unique tag with its associated component</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.end_tracks">
+<span class="sig-name descname"><span class="pre">end_tracks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/tracker/pointprocess.html#PointProcessMultiTargetTracker.end_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.end_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Ends the tracks (<code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) that do not have an associated
+component within the filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureMultiTargetTracker</span></code>) – Current GM Multi Target Tracker at time <span class="math notranslate nohighlight">\(k\)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.extracted_target_states">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extracted_target_states</span></span><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.extracted_target_states" title="Permalink to this definition"></a></dt>
+<dd><p>Extract all target states from the Gaussian Mixture that
+are above an extraction threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.estimated_number_of_targets">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">estimated_number_of_targets</span></span><a class="headerlink" href="#smartfusion.tracker.pointprocess.PointProcessMultiTargetTracker.estimated_number_of_targets" title="Permalink to this definition"></a></dt>
+<dd><p>The number of hypothesised targets.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.simulator.html" class="btn btn-neutral float-left" title="Simulators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.writer.html" class="btn btn-neutral float-right" title="Writers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

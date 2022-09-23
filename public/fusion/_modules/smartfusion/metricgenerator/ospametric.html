@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.metricgenerator.ospametric &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.metricgenerator.ospametric</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/metricgenerator/ospametric" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.metricgenerator.ospametric</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">zip_longest</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">linear_sum_assignment</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">MetricGenerator</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..measures</span> <span class="kn">import</span> <span class="n">Measure</span><span class="p">,</span> <span class="n">Euclidean</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateMutableSequence</span>
+<span class="kn">from</span> <span class="nn">..types.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">..types.metric</span> <span class="kn">import</span> <span class="n">SingleTimeMetric</span><span class="p">,</span> <span class="n">TimeRangeMetric</span>
+
+
+<div class="viewcode-block" id="GOSPAMetric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric">[docs]</a><span class="k">class</span> <span class="nc">GOSPAMetric</span><span class="p">(</span><span class="n">MetricGenerator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Generalized Optimal SubPattern Assignment (GOPSA) metric</span>
+<span class="sd">    for two sets of :class:`~.Track` objects. This implementation of GOSPA</span>
+<span class="sd">    is based on the auction algorithm.</span>
+
+<span class="sd">    The GOPSA metric is calculated at each time step in which a</span>
+<span class="sd">    :class:`~.Track` object is present</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        [1] A. S. Rahmathullah, A. F. García-Fernández, L. Svensson,</span>
+<span class="sd">        Generalized optimal sub-pattern assignment metric, 2016,</span>
+<span class="sd">        [online] Available: http://arxiv.org/abs/1601.05585.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;1&lt;=p&lt;infty, exponent.&quot;</span><span class="p">)</span>
+    <span class="n">c</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;c&gt;0, cutoff distance.&quot;</span><span class="p">)</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="n">Measure</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Euclidean</span><span class="p">(),</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance measure to use. Default :class:`~.measures.Euclidean()`&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">2</span>
+
+<div class="viewcode-block" id="GOSPAMetric.compute_metric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_metric">[docs]</a>    <span class="k">def</span> <span class="nf">compute_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the metric using the data in the metric manager</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager : :class:`~.MetricManager`</span>
+<span class="sd">            contains the data to be used to create the metric(s)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        metric : list :class:`~.Metric`</span>
+<span class="sd">            Containing the metric information. The value of the metric is a</span>
+<span class="sd">            list of metrics at each timestamp</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_over_time</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extract_states</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">tracks</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_states</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="GOSPAMetric.extract_states"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.extract_states">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">extract_states</span><span class="p">(</span><span class="n">object_with_states</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts a list of states from a list of (or single) objects</span>
+<span class="sd">        containing states. This method is defined to handle :class:`~.StateMutableSequence`</span>
+<span class="sd">        and :class:`~.State` types.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        object_with_states: object containing a list of states</span>
+<span class="sd">            Method of state extraction depends on the type of the object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : list of :class:`~.State`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">state_list</span> <span class="o">=</span> <span class="n">StateMutableSequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">object_with_states</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">StateMutableSequence</span><span class="p">):</span>
+                <span class="n">state_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">states</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">State</span><span class="p">):</span>
+                <span class="n">state_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">{!r}</span><span class="s2"> has no state extraction method&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">state_list</span></div>
+
+<div class="viewcode-block" id="GOSPAMetric.compute_over_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_over_time">[docs]</a>    <span class="k">def</span> <span class="nf">compute_over_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the GOSPA metric at every timestep from a list of measured</span>
+<span class="sd">        states and truth states.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        measured_states: List of states created by a filter</span>
+<span class="sd">        truth_states: List of truth states to compare against</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        metric: :class:`~.TimeRangeMetric` covering the duration that states</span>
+<span class="sd">        exist for in the parameters. metric.value contains a list of metrics</span>
+<span class="sd">        for the GOSPA metric at each timestamp</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Make a list of all the unique timestamps used</span>
+        <span class="c1"># Make a sorted list of all the unique timestamps used</span>
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">)})</span>
+
+        <span class="n">gospa_metrics</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+            <span class="n">meas_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span>
+                           <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">measured_states</span>
+                           <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">==</span> <span class="n">timestamp</span><span class="p">]</span>
+            <span class="n">truth_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span>
+                            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">truth_states</span>
+                            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">==</span> <span class="n">timestamp</span><span class="p">]</span>
+            <span class="n">metric</span><span class="p">,</span> <span class="n">truth_to_measured_assignment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_gospa_metric</span><span class="p">(</span>
+                    <span class="n">meas_points</span><span class="p">,</span> <span class="n">truth_points</span><span class="p">)</span>
+            <span class="n">gospa_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+        <span class="c1"># If only one timestamp is present then return a SingleTimeMetric</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">gospa_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TimeRangeMetric</span><span class="p">(</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GOSPA Metrics&#39;</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">gospa_metrics</span><span class="p">,</span>
+                <span class="n">time_range</span><span class="o">=</span><span class="n">TimeRange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">timestamps</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)),</span>
+                <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GOSPAMetric.compute_assignments"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_assignments">[docs]</a>    <span class="k">def</span> <span class="nf">compute_assignments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cost_matrix</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute assignments using Auction Algorithm.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cost_matrix: Matrix (size mxn) that denotes the cost of assigning</span>
+<span class="sd">                            mth truth state to each of the n measured states.</span>
+<span class="sd">        max_iter: Maximum number of iterations to perform</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        truth_to_measured: np.ndarray</span>
+<span class="sd">            Vector of size m, which has indices of the measured objects or &#39;-1&#39; if unassigned.</span>
+<span class="sd">        measured_to_truth: np.ndarray</span>
+<span class="sd">            Vector of size n, which has indices of the truth objects or &#39;-1&#39; if unassigned.</span>
+<span class="sd">        opt_cost: float</span>
+<span class="sd">            Scalar value of the optimal assignment</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">m_truth</span><span class="p">,</span> <span class="n">n_measured</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="o">.</span><span class="n">shape</span>
+        <span class="c1"># Index for objects that will be left un-assigned.</span>
+        <span class="n">unassigned_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">opt_cost</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">measured_to_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_measured</span><span class="p">,</span> <span class="p">),</span> <span class="n">unassigned_idx</span><span class="p">)</span>
+        <span class="n">truth_to_measured</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">m_truth</span><span class="p">,</span> <span class="p">),</span> <span class="n">unassigned_idx</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">m_truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Corner case 1: if there is only one truth state.</span>
+            <span class="n">max_cost_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">opt_cost</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_cost_idx</span><span class="p">]</span>
+            <span class="n">truth_to_measured</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_cost_idx</span>
+            <span class="n">measured_to_truth</span><span class="p">[</span><span class="n">max_cost_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="n">truth_to_measured</span><span class="p">,</span> <span class="n">measured_to_truth</span><span class="p">,</span> <span class="n">opt_cost</span>
+
+        <span class="k">if</span> <span class="n">n_measured</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Corner case 1: if there is only one measured state.</span>
+            <span class="n">max_cost_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">opt_cost</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">max_cost_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">measured_to_truth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_cost_idx</span>
+            <span class="n">truth_to_measured</span><span class="p">[</span><span class="n">max_cost_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="n">truth_to_measured</span><span class="p">,</span> <span class="n">measured_to_truth</span><span class="p">,</span> <span class="n">opt_cost</span>
+
+        <span class="n">swap_dim_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">epsil</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">m_truth</span><span class="p">,</span> <span class="n">n_measured</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">n_measured</span> <span class="o">&lt;</span> <span class="n">m_truth</span><span class="p">:</span>
+            <span class="c1"># The implementation only works when</span>
+            <span class="c1"># m_truth &lt;= n_measured</span>
+            <span class="c1"># So swap cost matrix</span>
+            <span class="n">cost_matrix</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">m_truth</span><span class="p">,</span> <span class="n">n_measured</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">measured_to_truth</span><span class="p">,</span> <span class="n">truth_to_measured</span> <span class="o">=</span> <span class="n">truth_to_measured</span><span class="p">,</span> <span class="n">measured_to_truth</span>
+            <span class="n">swap_dim_flag</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Initial cost for each measured state</span>
+        <span class="n">c_measured</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_measured</span><span class="p">,</span> <span class="p">))</span>
+        <span class="n">k_iter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">truth_to_measured</span> <span class="o">!=</span> <span class="n">unassigned_idx</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k_iter</span> <span class="o">&lt;=</span> <span class="n">max_iter</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m_truth</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">truth_to_measured</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">unassigned_idx</span><span class="p">:</span>
+                    <span class="c1"># Unassigned truth object &#39;i&#39; bids for the best</span>
+                    <span class="c1"># measured object j_star</span>
+
+                    <span class="c1"># Value for each measured object for truth &#39;i&#39;</span>
+                    <span class="n">tmp_mat</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">c_measured</span>
+                    <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">tmp_mat</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="c1"># Best measurement for truth &#39;i&#39;</span>
+                    <span class="n">j_star</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># 1st and 2nd best value for truth &#39;i&#39;</span>
+                    <span class="n">v_i_j_star</span><span class="p">,</span> <span class="n">w_i_j_star</span> <span class="o">=</span> <span class="n">tmp_mat</span><span class="p">[</span><span class="n">j</span><span class="p">[:</span><span class="mi">2</span><span class="p">]]</span>
+
+                    <span class="c1"># Bid for measured j_star</span>
+                    <span class="k">if</span> <span class="n">w_i_j_star</span> <span class="o">!=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                        <span class="n">c_measured</span><span class="p">[</span><span class="n">j_star</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v_i_j_star</span> <span class="o">-</span> <span class="n">w_i_j_star</span> <span class="o">+</span> <span class="n">epsil</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">c_measured</span><span class="p">[</span><span class="n">j_star</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v_i_j_star</span> <span class="o">+</span> <span class="n">epsil</span>
+
+                    <span class="c1"># If j_star is unassigned</span>
+                    <span class="k">if</span> <span class="n">measured_to_truth</span><span class="p">[</span><span class="n">j_star</span><span class="p">]</span> <span class="o">!=</span> <span class="n">unassigned_idx</span><span class="p">:</span>
+                        <span class="n">opt_cost</span> <span class="o">-=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">measured_to_truth</span><span class="p">[</span><span class="n">j_star</span><span class="p">],</span> <span class="n">j_star</span><span class="p">]</span>
+                        <span class="n">truth_to_measured</span><span class="p">[</span><span class="n">measured_to_truth</span><span class="p">[</span><span class="n">j_star</span><span class="p">]]</span> <span class="o">=</span> <span class="n">unassigned_idx</span>
+
+                    <span class="n">measured_to_truth</span><span class="p">[</span><span class="n">j_star</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="n">truth_to_measured</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j_star</span>
+
+                    <span class="c1"># update the cost of new assignment</span>
+                    <span class="n">opt_cost</span> <span class="o">+=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j_star</span><span class="p">]</span>
+            <span class="n">k_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">swap_dim_flag</span><span class="p">:</span>
+            <span class="n">measured_to_truth</span><span class="p">,</span> <span class="n">truth_to_measured</span> <span class="o">=</span> <span class="n">truth_to_measured</span><span class="p">,</span> <span class="n">measured_to_truth</span>
+
+        <span class="k">return</span> <span class="n">truth_to_measured</span><span class="p">,</span> <span class="n">measured_to_truth</span><span class="p">,</span> <span class="n">opt_cost</span></div>
+
+<div class="viewcode-block" id="GOSPAMetric.compute_cost_matrix"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_cost_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">compute_cost_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">,</span> <span class="n">complete</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates the cost matrix between two lists of states</span>
+
+<span class="sd">        This distance measure here will return distances minimum of either</span>
+<span class="sd">        :attr:`~.c` or the distance calculated from :attr:`~.Measure`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track_states: list of states</span>
+<span class="sd">        truth_states: list of states</span>
+<span class="sd">        complete: bool</span>
+<span class="sd">            Cost matrix will be square, with :attr:`~.c` present for where</span>
+<span class="sd">            there is a mismatch in cardinality</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cost_matrix: np.ndarray</span>
+<span class="sd">            Matrix of distance between each element in each list of states</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">complete</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">track_states</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_states</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track_states</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_states</span><span class="p">)</span>
+
+        <span class="n">cost_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">)</span>  <span class="c1"># c could be int, so force to float</span>
+
+        <span class="k">for</span> <span class="n">i_track</span><span class="p">,</span> <span class="n">track_state</span><span class="p">,</span> <span class="ow">in</span> <span class="n">zip_longest</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">track_states</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i_truth</span><span class="p">,</span> <span class="n">truth_state</span> <span class="ow">in</span> <span class="n">zip_longest</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">truth_states</span><span class="p">):</span>
+                <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="p">(</span><span class="n">track_state</span><span class="p">,</span> <span class="n">truth_state</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">track_state</span><span class="p">,</span> <span class="n">truth_state</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">:</span>
+                    <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i_track</span><span class="p">,</span> <span class="n">i_truth</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
+
+        <span class="k">return</span> <span class="n">cost_matrix</span></div>
+
+<div class="viewcode-block" id="GOSPAMetric.compute_gospa_metric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.GOSPAMetric.compute_gospa_metric">[docs]</a>    <span class="k">def</span> <span class="nf">compute_gospa_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Computes GOSPA metric between measured and truth states.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        measured_states: list of :class:`~.State`</span>
+<span class="sd">            list of state objects to be assigned to the truth</span>
+<span class="sd">        truth_states: list of :class:`~.State`</span>
+<span class="sd">            list of state objects for the truth points</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        gospa_metric: Dictionary containing GOSPA metric for alpha = 2.</span>
+<span class="sd">                      GOSPA metric is divided into four components:</span>
+<span class="sd">                      1. distance, 2. localisation, 3. missed, and 4. false.</span>
+<span class="sd">                      Note that distance = (localisation + missed + false)^1/p</span>
+<span class="sd">        truth_to_measured_assignment: Assignment matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">truth_states</span><span class="p">,</span> <span class="n">measured_states</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;All states must be from the same time to compute GOSPA&#39;</span><span class="p">)</span>
+
+        <span class="n">gospa_metric</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                        <span class="s1">&#39;localisation&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                        <span class="s1">&#39;missed&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s1">&#39;false&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="n">num_truth_states</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_states</span><span class="p">)</span>
+        <span class="n">num_measured_states</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">measured_states</span><span class="p">)</span>
+        <span class="n">truth_to_measured_assignment</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cost_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_cost_matrix</span><span class="p">(</span><span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">)</span>
+        <span class="n">cost_matrix</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+        <span class="n">opt_cost</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">dummy_cost</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+        <span class="n">unassigned_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">num_truth_states</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># When truth states are empty all measured states are false</span>
+            <span class="n">opt_cost</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">num_measured_states</span> <span class="o">*</span> <span class="n">dummy_cost</span>
+        <span class="k">elif</span> <span class="n">num_measured_states</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># When measured states are empty all truth</span>
+            <span class="c1"># states are missed</span>
+            <span class="n">opt_cost</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">num_truth_states</span> <span class="o">*</span> <span class="n">dummy_cost</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;missed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt_cost</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use auction algorithm when both truth_states</span>
+            <span class="c1"># and measured_states are non-empty</span>
+            <span class="n">cost_matrix</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">truth_to_measured_assignment</span><span class="p">,</span> <span class="n">measured_to_truth_assignment</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span>\
+                <span class="bp">self</span><span class="o">.</span><span class="n">compute_assignments</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">,</span>
+                                         <span class="mi">10</span> <span class="o">*</span> <span class="n">num_truth_states</span> <span class="o">*</span> <span class="n">num_measured_states</span><span class="p">)</span>
+            <span class="c1"># Now use assignments to compute bids</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_truth_states</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">truth_to_measured_assignment</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">unassigned_index</span><span class="p">:</span>
+                    <span class="n">opt_cost</span> <span class="o">+=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">truth_to_measured_assignment</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">const_assign</span> <span class="o">=</span> <span class="n">truth_to_measured_assignment</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">const_cmp</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+
+                        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;localisation&#39;</span><span class="p">]</span> <span class="o">+=</span> \
+                            <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">const_assign</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">const_assign</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">const_cmp</span><span class="p">)</span>
+
+                        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;missed&#39;</span><span class="p">]</span> <span class="o">-=</span> \
+                            <span class="n">dummy_cost</span><span class="o">*</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">const_assign</span><span class="p">]</span> <span class="o">==</span> <span class="n">const_cmp</span><span class="p">)</span>
+
+                        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;false&#39;</span><span class="p">]</span> <span class="o">-=</span> \
+                            <span class="n">dummy_cost</span><span class="o">*</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">const_assign</span><span class="p">]</span> <span class="o">==</span> <span class="n">const_cmp</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">opt_cost</span> <span class="o">=</span> <span class="n">opt_cost</span> <span class="o">-</span> <span class="n">dummy_cost</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;missed&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">dummy_cost</span>
+
+            <span class="n">opt_cost</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">measured_to_truth_assignment</span> <span class="o">==</span> <span class="n">unassigned_index</span><span class="p">)</span> <span class="o">*</span> <span class="n">dummy_cost</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;false&#39;</span><span class="p">]</span> <span class="o">-=</span> \
+                    <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">measured_to_truth_assignment</span> <span class="o">==</span> <span class="n">unassigned_index</span><span class="p">)</span><span class="o">*</span><span class="n">dummy_cost</span>
+        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">opt_cost</span><span class="p">),</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;localisation&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
+        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;missed&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
+        <span class="n">gospa_metric</span><span class="p">[</span><span class="s1">&#39;false&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
+
+        <span class="n">single_time_gospa_metric</span> <span class="o">=</span> <span class="n">SingleTimeMetric</span><span class="p">(</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GOSPA Metric&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">gospa_metric</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamps</span><span class="o">.</span><span class="n">pop</span><span class="p">(),</span> <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">single_time_gospa_metric</span><span class="p">,</span> <span class="n">truth_to_measured_assignment</span></div></div>
+
+
+<div class="viewcode-block" id="OSPAMetric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.OSPAMetric">[docs]</a><span class="k">class</span> <span class="nc">OSPAMetric</span><span class="p">(</span><span class="n">GOSPAMetric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Optimal SubPattern Assignment (OPSA) distance [1] for two sets</span>
+<span class="sd">    of :class:`~.Track` objects. The OSPA distance is measured between two</span>
+<span class="sd">    point patterns.</span>
+
+<span class="sd">    The OPSA metric is calculated at each time step in which a :class:`~.Track`</span>
+<span class="sd">    object is present</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        [1] A Consistent Metric for Performance Evaluation of Multi-Object</span>
+<span class="sd">        Filters, D. Schuhmacher, B. Vo and B. Vo, IEEE Trans. Signal Processing</span>
+<span class="sd">        2008</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">c</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximum distance for possible association&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;norm associated to distance&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="OSPAMetric.compute_over_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.OSPAMetric.compute_over_time">[docs]</a>    <span class="k">def</span> <span class="nf">compute_over_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the OSPA metric at every timestep from a list of measured</span>
+<span class="sd">        states and truth states</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        measured_states: list of :class:`~.State`</span>
+<span class="sd">            Created by a filter</span>
+<span class="sd">        truth_states: list of :class:`~.State`</span>
+<span class="sd">            Truth states to compare against</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        TimeRangeMetric</span>
+<span class="sd">            Covering the duration that states exist for in the parameters.</span>
+<span class="sd">            Metric.value contains a list of metrics for the OSPA distance at</span>
+<span class="sd">            each timestamp</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Make a sorted list of all the unique timestamps used</span>
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">measured_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">)})</span>
+
+        <span class="n">ospa_distances</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+            <span class="n">meas_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span>
+                           <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">measured_states</span>
+                           <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">==</span> <span class="n">timestamp</span><span class="p">]</span>
+            <span class="n">truth_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span>
+                            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">truth_states</span>
+                            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">==</span> <span class="n">timestamp</span><span class="p">]</span>
+            <span class="n">ospa_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">compute_OSPA_distance</span><span class="p">(</span><span class="n">meas_points</span><span class="p">,</span> <span class="n">truth_points</span><span class="p">))</span>
+
+        <span class="c1"># If only one timestamp is present then return a SingleTimeMetric</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ospa_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TimeRangeMetric</span><span class="p">(</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;OSPA distances&#39;</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">ospa_distances</span><span class="p">,</span>
+                <span class="n">time_range</span><span class="o">=</span><span class="n">TimeRange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">timestamps</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)),</span>
+                <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OSPAMetric.compute_OSPA_distance"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.ospametric.html#smartfusion.metricgenerator.ospametric.OSPAMetric.compute_OSPA_distance">[docs]</a>    <span class="k">def</span> <span class="nf">compute_OSPA_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the Optimal SubPattern Assignment (OPSA) metric for a single</span>
+<span class="sd">        time step between two point patterns. Each point pattern consisting of</span>
+<span class="sd">        a list of :class:`~.State` objects.</span>
+
+<span class="sd">        The function :math:`\bar{d}_{p}^{(c)}` is the OSPA metric of order</span>
+<span class="sd">        :math:`p` with cut-off :math:`c`. The OSPA metric is defined as:</span>
+
+<span class="sd">            .. math::</span>
+<span class="sd">                \begin{equation*}</span>
+<span class="sd">                    \bar{d}_{p}^{(c)}({X},{Y}) :=</span>
+<span class="sd">                    \Biggl( \frac{1}{n}</span>
+<span class="sd">                    \Bigl({min}_{\substack{</span>
+<span class="sd">                        \pi\in\Pi_{n}}}</span>
+<span class="sd">                            \sum_{i=1}^{m}</span>
+<span class="sd">                                d^{(c)}(x_{i},y_{\pi(i)})^{p}+</span>
+<span class="sd">                                c^{p}(n-m)\Bigr)</span>
+<span class="sd">                        \Biggr)^{ \frac{1}{p} }</span>
+<span class="sd">                \end{equation*}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track_states: list of :class:`~.State`</span>
+<span class="sd">        truth_states: list of :class:`~.State`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SingleTimeMetric</span>
+<span class="sd">            The OSPA distance</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">truth_states</span><span class="p">,</span> <span class="n">track_states</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;All states must be from the same time to perform OSPA&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">track_states</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">truth_states</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="c1"># For completeness, but can&#39;t generate metric without timestamp.</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+            <span class="n">cost_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_cost_matrix</span><span class="p">(</span><span class="n">track_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">,</span> <span class="n">complete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Solve cost matrix with Hungarian/Munkres using</span>
+            <span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">=</span> <span class="n">linear_sum_assignment</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">)</span>
+            <span class="c1"># Length of longest set of states</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track_states</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_states</span><span class="p">))</span>
+            <span class="c1"># Calculate metric</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">]</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># self.p == np.inf</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track_states</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_states</span><span class="p">):</span>
+                <span class="n">cost_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_cost_matrix</span><span class="p">(</span><span class="n">track_states</span><span class="p">,</span> <span class="n">truth_states</span><span class="p">)</span>
+                <span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">=</span> <span class="n">linear_sum_assignment</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">)</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+
+        <span class="k">return</span> <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;OSPA distance&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
+                                <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamps</span><span class="o">.</span><span class="n">pop</span><span class="p">(),</span> <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

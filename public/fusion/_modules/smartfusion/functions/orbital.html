@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.functions.orbital &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../functions.html">smartfusion.functions</a> &raquo;</li>
+      <li>smartfusion.functions.orbital</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/functions/orbital" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.functions.orbital</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Orbital functions</span>
+<span class="sd">-----------------</span>
+
+<span class="sd">Functions used within multiple orbital classes in SMART FUSION</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dotproduct</span>
+<span class="kn">from</span> <span class="nn">..types.array</span> <span class="kn">import</span> <span class="n">StateVector</span>
+
+
+<div class="viewcode-block" id="stumpff_s"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.stumpff_s">[docs]</a><span class="k">def</span> <span class="nf">stumpff_s</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The Stumpff S function</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        S(z) = \begin{cases}\frac{\sqrt(z) - \sin{\sqrt(z)}}{(\sqrt(z))^{3}}, &amp; (z &gt; 0)\\</span>
+<span class="sd">                     \frac{\sinh(\sqrt(-z)) - \sqrt(-z)}{(\sqrt(-z))^{3}}, &amp; (z &lt; 0) \\</span>
+<span class="sd">                     \frac{1}{6}, &amp; (z = 0)\end{cases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    z : float</span>
+<span class="sd">        input parameter, :math:`z`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float</span>
+<span class="sd">        Output value, :math:`S(z)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sqz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">sqz</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">sqz</span><span class="p">))</span> <span class="o">/</span> <span class="n">sqz</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="k">elif</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sqz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">sqz</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqz</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqz</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># which means z== 0:</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">6</span></div>
+
+
+<div class="viewcode-block" id="stumpff_c"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.stumpff_c">[docs]</a><span class="k">def</span> <span class="nf">stumpff_c</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The Stumpff C function</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        C(z) = \begin{cases}\frac{1 - \cos{\sqrt(z)}}{z}, &amp; (z &gt; 0)\\</span>
+<span class="sd">                     \frac{\cosh{\sqrt(-z)} - 1}{-z}, &amp; (z &lt; 0) \\</span>
+<span class="sd">                     \frac{1}{2}, &amp; (z = 0)\end{cases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    z : float</span>
+<span class="sd">        input parameter, :math:`z`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float</span>
+<span class="sd">        Output value, :math:`C(z)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sqz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sqz</span><span class="p">))</span> <span class="o">/</span> <span class="n">sqz</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sqz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">sqz</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqz</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># which means z == 0:</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="universal_anomaly_newton"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.universal_anomaly_newton">[docs]</a><span class="k">def</span> <span class="nf">universal_anomaly_newton</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span>
+                             <span class="n">grav_parameter</span><span class="o">=</span><span class="mf">3.986004418e14</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mf">1e5</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate the universal anomaly via Newton&#39;s method. Algorithm 3.3 in [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o_state_vector : :class:`~StateVector`</span>
+<span class="sd">        The orbital state vector formed as</span>
+<span class="sd">        :math:`[r_x, r_y, r_z, \dot{r}_x, \dot{r}_y, \dot{r}_z]^T`</span>
+<span class="sd">    delta_t : timedelta</span>
+<span class="sd">        The time interval over which to estimate the universal anomaly</span>
+<span class="sd">    grav_parameter : float, optional</span>
+<span class="sd">        The universal gravitational parameter. Defaults to that of the</span>
+<span class="sd">        Earth, :math:`3.986004418 \times 10^{14} \ \mathrm{m}^{3} \</span>
+<span class="sd">        \mathrm{s}^{-2}`</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        For Newton&#39;s method, the difference between new and old estimates of the universal anomaly</span>
+<span class="sd">        below which the iteration stops and the answer is returned, (default = 1e-8)</span>
+<span class="sd">    max_iterations : float, optional</span>
+<span class="sd">        Maximum number of iterations allowed in while loop (default = 1e5)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float</span>
+<span class="sd">        The universal anomaly, :math:`\chi`</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Curtis H.D. 2010, Orbital Mechanics for Engineering Students, 3rd Ed., Elsevier</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># For convenience</span>
+    <span class="n">mag_r_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dotproduct</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">o_state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">mag_v_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dotproduct</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">o_state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]))</span>
+    <span class="n">v_rad_0</span> <span class="o">=</span> <span class="n">dotproduct</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">o_state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="n">mag_r_0</span>
+    <span class="n">root_mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grav_parameter</span><span class="p">)</span>
+    <span class="n">inv_sma</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="n">mag_r_0</span> <span class="o">-</span> <span class="p">(</span><span class="n">mag_v_0</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">grav_parameter</span>
+
+    <span class="c1"># Initial estimate of Chi</span>
+    <span class="n">chi_i</span> <span class="o">=</span> <span class="n">root_mu</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">inv_sma</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta_t</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Do Newton&#39;s method</span>
+    <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">precision</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">max_iterations</span><span class="p">:</span>
+        <span class="n">z_i</span> <span class="o">=</span> <span class="n">inv_sma</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">f_chi_i</span> <span class="o">=</span> <span class="n">mag_r_0</span> <span class="o">*</span> <span class="n">v_rad_0</span> <span class="o">/</span> <span class="n">root_mu</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> \
+            <span class="n">stumpff_c</span><span class="p">(</span><span class="n">z_i</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_sma</span> <span class="o">*</span> <span class="n">mag_r_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> \
+            <span class="n">stumpff_s</span><span class="p">(</span><span class="n">z_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">mag_r_0</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">-</span> <span class="n">root_mu</span> <span class="o">*</span> \
+            <span class="n">delta_t</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">fp_chi_i</span> <span class="o">=</span> <span class="n">mag_r_0</span> <span class="o">*</span> <span class="n">v_rad_0</span> <span class="o">/</span> <span class="n">root_mu</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_sma</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">stumpff_s</span><span class="p">(</span><span class="n">z_i</span><span class="p">))</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_sma</span> <span class="o">*</span> <span class="n">mag_r_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">chi_i</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">stumpff_c</span><span class="p">(</span><span class="n">z_i</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="n">mag_r_0</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">f_chi_i</span> <span class="o">/</span> <span class="n">fp_chi_i</span>
+        <span class="n">chi_i</span> <span class="o">=</span> <span class="n">chi_i</span> <span class="o">-</span> <span class="n">ratio</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">chi_i</span></div>
+
+
+<div class="viewcode-block" id="lagrange_coefficients_from_universal_anomaly"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.lagrange_coefficients_from_universal_anomaly">[docs]</a><span class="k">def</span> <span class="nf">lagrange_coefficients_from_universal_anomaly</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span>
+                                                 <span class="n">grav_parameter</span><span class="o">=</span><span class="mf">3.986004418e14</span><span class="p">,</span>
+                                                 <span class="n">precision</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mf">1e5</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot; Calculate the Lagrangian coefficients, f and g, and their time derivatives, by way of the</span>
+<span class="sd">    universal anomaly and the Stumpff functions [2]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    o_state_vector : StateVector</span>
+<span class="sd">        The (Cartesian) orbital state vector,</span>
+<span class="sd">        :math:`[r_x, r_y, r_z, \dot{r}_x, \dot{r}_y, \dot{r}_z]^T`</span>
+<span class="sd">    delta_t : timedelta</span>
+<span class="sd">        The time interval over which to calculate</span>
+<span class="sd">    grav_parameter : float, optional</span>
+<span class="sd">        The universal gravitational parameter. Defaults to that of the</span>
+<span class="sd">        Earth, :math:`3.986004418 \times 10^{14} \ \mathrm{m}^{3} \</span>
+<span class="sd">        \mathrm{s}^{-2}`. Note that the units of time must be seconds.</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        Precision to which to calculate the :meth:`universal anomaly` (default = 1e-8). See the doc</span>
+<span class="sd">        section for that function</span>
+<span class="sd">    max_iterations : float, optional</span>
+<span class="sd">        Maximum number of iterations in determining universal anomaly (default = 1e5)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float, float, float, float</span>
+<span class="sd">        The Lagrange coefficients, :math:`f, g, \dot{f}, \dot{g}`, in that order.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [2] Bond V.R., Allman M.C. 1996, Modern Astrodynamics: Fundamentals and Perturbation</span>
+<span class="sd">            Methods, Princeton University Press</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First get the universal anomaly using Newton&#39;s method</span>
+    <span class="n">chii</span> <span class="o">=</span> <span class="n">universal_anomaly_newton</span><span class="p">(</span><span class="n">o_state_vector</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span>
+                                    <span class="n">grav_parameter</span><span class="o">=</span><span class="n">grav_parameter</span><span class="p">,</span>
+                                    <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">)</span>
+
+    <span class="c1"># Get the position and velocity vectors</span>
+    <span class="n">bold_r_0</span> <span class="o">=</span> <span class="n">o_state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">bold_v_0</span> <span class="o">=</span> <span class="n">o_state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="c1"># Calculate the magnitude of the position and velocity vectors</span>
+    <span class="n">r_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dotproduct</span><span class="p">(</span><span class="n">bold_r_0</span><span class="p">,</span> <span class="n">bold_r_0</span><span class="p">))</span>
+    <span class="n">v_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dotproduct</span><span class="p">(</span><span class="n">bold_v_0</span><span class="p">,</span> <span class="n">bold_v_0</span><span class="p">))</span>
+
+    <span class="c1"># For convenience</span>
+    <span class="n">root_mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grav_parameter</span><span class="p">)</span>
+    <span class="n">inv_sma</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">r_0</span> <span class="o">-</span> <span class="p">(</span><span class="n">v_0</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">grav_parameter</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">inv_sma</span> <span class="o">*</span> <span class="n">chii</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="c1"># Get the Lagrange coefficients using Stumpf</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">chii</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">r_0</span> <span class="o">*</span> <span class="n">stumpff_c</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">delta_t</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">root_mu</span> <span class="o">*</span> <span class="n">chii</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> \
+        <span class="n">stumpff_s</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+    <span class="c1"># Get the position vector and magnitude of that vector</span>
+    <span class="n">bold_r</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">bold_r_0</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">bold_v_0</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dotproduct</span><span class="p">(</span><span class="n">bold_r</span><span class="p">,</span> <span class="n">bold_r</span><span class="p">))</span>
+
+    <span class="c1"># and the Lagrange (time) derivatives also using Stumpf</span>
+    <span class="n">fdot</span> <span class="o">=</span> <span class="n">root_mu</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">r_0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">inv_sma</span> <span class="o">*</span> <span class="n">chii</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">stumpff_s</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span> <span class="n">chii</span><span class="p">)</span>
+    <span class="n">gdot</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">chii</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">stumpff_c</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">fdot</span><span class="p">,</span> <span class="n">gdot</span></div>
+
+
+<div class="viewcode-block" id="eccentric_anomaly_from_mean_anomaly"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.eccentric_anomaly_from_mean_anomaly">[docs]</a><span class="k">def</span> <span class="nf">eccentric_anomaly_from_mean_anomaly</span><span class="p">(</span><span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">,</span>
+                                        <span class="n">precision</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mf">1e5</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Approximately solve the transcendental equation :math:`E - e sin E = M_e` for E. This is</span>
+<span class="sd">    an iterative process using Newton&#39;s method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mean_anomaly : float</span>
+<span class="sd">        Current mean anomaly</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        Orbital eccentricity</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        Precision used for the stopping point in determining eccentric anomaly from mean anomaly,</span>
+<span class="sd">        (default = 1e-8)</span>
+<span class="sd">    max_iterations : float, optional</span>
+<span class="sd">        Maximum number of iterations for the while loop, (default = 1e5)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float</span>
+<span class="sd">        Eccentric anomaly of the orbit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">mean_anomaly</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
+        <span class="n">ecc_anomaly</span> <span class="o">=</span> <span class="n">mean_anomaly</span> <span class="o">+</span> <span class="n">eccentricity</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ecc_anomaly</span> <span class="o">=</span> <span class="n">mean_anomaly</span> <span class="o">-</span> <span class="n">eccentricity</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">precision</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">max_iterations</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">ecc_anomaly</span> <span class="o">-</span> <span class="n">eccentricity</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ecc_anomaly</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean_anomaly</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">eccentricity</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ecc_anomaly</span><span class="p">)</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">f</span> <span class="o">/</span> <span class="n">fp</span>  <span class="c1"># Need to check conditioning</span>
+        <span class="n">ecc_anomaly</span> <span class="o">=</span> <span class="n">ecc_anomaly</span> <span class="o">-</span> <span class="n">ratio</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">ecc_anomaly</span>  <span class="c1"># Check whether this ever goes outside 0 &lt; 2pi</span></div>
+
+
+<div class="viewcode-block" id="tru_anom_from_mean_anom"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.tru_anom_from_mean_anom">[docs]</a><span class="k">def</span> <span class="nf">tru_anom_from_mean_anom</span><span class="p">(</span><span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mf">1e5</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the true anomaly from the mean anomaly via the eccentric anomaly</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mean_anomaly : float</span>
+<span class="sd">        The mean anomaly</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        Eccentricity</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        Precision used for the stopping point in determining eccentric anomaly from mean anomaly,</span>
+<span class="sd">        (default = 1e-8)</span>
+<span class="sd">    max_iterations : float, optional</span>
+<span class="sd">        Maximum number of iterations in determining eccentric anomaly, (default = 1e5)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : float</span>
+<span class="sd">        True anomaly</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cos_ecc_anom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">eccentric_anomaly_from_mean_anomaly</span><span class="p">(</span>
+        <span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">))</span>
+    <span class="n">sin_ecc_anom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">eccentric_anomaly_from_mean_anomaly</span><span class="p">(</span>
+        <span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">))</span>
+
+    <span class="c1"># This only works for M_e &lt; \pi</span>
+    <span class="c1"># return np.arccos(np.clip((eccentricity - cos_ecc_anom) /</span>
+    <span class="c1">#                 (eccentricity*cos_ecc_anom - 1), -1, 1))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eccentricity</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+                                   <span class="n">sin_ecc_anom</span><span class="p">,</span>
+                                   <span class="n">cos_ecc_anom</span> <span class="o">-</span> <span class="n">eccentricity</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="perifocal_position"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.perifocal_position">[docs]</a><span class="k">def</span> <span class="nf">perifocal_position</span><span class="p">(</span><span class="n">eccentricity</span><span class="p">,</span> <span class="n">semimajor_axis</span><span class="p">,</span> <span class="n">true_anomaly</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The position vector in perifocal coordinates calculated from the Keplerian elements</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        Orbit eccentricity</span>
+<span class="sd">    semimajor_axis : float</span>
+<span class="sd">        Orbit semi-major axis</span>
+<span class="sd">    true_anomaly</span>
+<span class="sd">        Orbit true anomaly</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : numpy.array</span>
+<span class="sd">        :math:`[r_x, r_y, r_z]` position in perifocal coordinates</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Cache some trigonometric functions</span>
+    <span class="n">c_tran</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">true_anomaly</span><span class="p">)</span>
+    <span class="n">s_tran</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">true_anomaly</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">semimajor_axis</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eccentricity</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eccentricity</span> <span class="o">*</span> <span class="n">c_tran</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c_tran</span><span class="p">],</span> <span class="p">[</span><span class="n">s_tran</span><span class="p">],</span>
+                                                <span class="p">[</span><span class="mi">0</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="perifocal_velocity"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.perifocal_velocity">[docs]</a><span class="k">def</span> <span class="nf">perifocal_velocity</span><span class="p">(</span><span class="n">eccentricity</span><span class="p">,</span> <span class="n">semimajor_axis</span><span class="p">,</span> <span class="n">true_anomaly</span><span class="p">,</span>
+                       <span class="n">grav_parameter</span><span class="o">=</span><span class="mf">3.986004418e14</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The velocity vector in perifocal coordinates calculated from the Keplerian elements</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eccentricity : float</span>
+<span class="sd">        Orbit eccentricity</span>
+<span class="sd">    semimajor_axis : float</span>
+<span class="sd">        Orbit semi-major axis</span>
+<span class="sd">    true_anomaly : float</span>
+<span class="sd">        Orbit true anomaly</span>
+<span class="sd">    grav_parameter : float, optional</span>
+<span class="sd">        Standard gravitational parameter :math:`\mu = G M`. Default is</span>
+<span class="sd">        :math:`3.986004418 \times 10^{14} \mathrm{m}^3 \mathrm{s}^{-2}`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : numpy.narray</span>
+<span class="sd">        :math:`[\dot{r}_x, \dot{r}_y, \dot{r}_z]` velocity in perifocal coordinates</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Cache some trigonometric functions</span>
+    <span class="n">c_tran</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">true_anomaly</span><span class="p">)</span>
+    <span class="n">s_tran</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">true_anomaly</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grav_parameter</span> <span class="o">/</span> <span class="p">(</span><span class="n">semimajor_axis</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eccentricity</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>\
+        <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">s_tran</span><span class="p">],</span> <span class="p">[</span><span class="n">eccentricity</span> <span class="o">+</span> <span class="n">c_tran</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="perifocal_to_geocentric_matrix"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.perifocal_to_geocentric_matrix">[docs]</a><span class="k">def</span> <span class="nf">perifocal_to_geocentric_matrix</span><span class="p">(</span><span class="n">inclination</span><span class="p">,</span> <span class="n">raan</span><span class="p">,</span> <span class="n">argp</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the matrix which transforms from perifocal to geocentric coordinates</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    inclination : float</span>
+<span class="sd">        Orbital inclination</span>
+<span class="sd">    raan : float</span>
+<span class="sd">        Orbit Right Ascension of the ascending node</span>
+<span class="sd">    argp : float</span>
+<span class="sd">        The orbit&#39;s argument of periapsis</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : numpy.array</span>
+<span class="sd">        The :math:`3 \times 3` array that transforms from perifocal coordinates to geocentric</span>
+<span class="sd">        coordinates</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Cache some trig functions</span>
+    <span class="n">s_incl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inclination</span><span class="p">)</span>
+    <span class="n">c_incl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inclination</span><span class="p">)</span>
+
+    <span class="n">s_raan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">raan</span><span class="p">)</span>
+    <span class="n">c_raan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">raan</span><span class="p">)</span>
+
+    <span class="n">s_aper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">argp</span><span class="p">)</span>
+    <span class="n">c_aper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">argp</span><span class="p">)</span>
+
+    <span class="c1"># Build the matrix</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">s_raan</span> <span class="o">*</span> <span class="n">c_incl</span> <span class="o">*</span> <span class="n">s_aper</span> <span class="o">+</span> <span class="n">c_raan</span> <span class="o">*</span> <span class="n">c_aper</span><span class="p">,</span>
+                      <span class="o">-</span><span class="n">s_raan</span> <span class="o">*</span> <span class="n">c_incl</span> <span class="o">*</span> <span class="n">c_aper</span> <span class="o">-</span> <span class="n">c_raan</span> <span class="o">*</span> <span class="n">s_aper</span><span class="p">,</span>
+                    <span class="n">s_raan</span> <span class="o">*</span> <span class="n">s_incl</span><span class="p">],</span>
+                    <span class="p">[</span><span class="n">c_raan</span> <span class="o">*</span> <span class="n">c_incl</span> <span class="o">*</span> <span class="n">s_aper</span> <span class="o">+</span> <span class="n">s_raan</span> <span class="o">*</span> <span class="n">c_aper</span><span class="p">,</span>
+                    <span class="n">c_raan</span> <span class="o">*</span> <span class="n">c_incl</span> <span class="o">*</span> <span class="n">c_aper</span> <span class="o">-</span> <span class="n">s_raan</span> <span class="o">*</span> <span class="n">s_aper</span><span class="p">,</span>
+                    <span class="o">-</span><span class="n">c_raan</span> <span class="o">*</span> <span class="n">s_incl</span><span class="p">],</span>
+                    <span class="p">[</span><span class="n">s_incl</span> <span class="o">*</span> <span class="n">s_aper</span><span class="p">,</span> <span class="n">s_incl</span> <span class="o">*</span> <span class="n">c_aper</span><span class="p">,</span> <span class="n">c_incl</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="keplerian_to_rv"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.keplerian_to_rv">[docs]</a><span class="k">def</span> <span class="nf">keplerian_to_rv</span><span class="p">(</span><span class="n">state_vector</span><span class="p">,</span> <span class="n">grav_parameter</span><span class="o">=</span><span class="mf">3.986004418e14</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert the Keplerian orbital elements to position, velocity state vector</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    state_vector : :class:`~.StateVector`</span>
+<span class="sd">        The Keplerian orbital state vector is defined as</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            X = [e, a, i, \Omega, \omega, \theta]^{T} \\</span>
+
+<span class="sd">        where:</span>
+<span class="sd">        :math:`e` is the orbital eccentricity (unitless),</span>
+<span class="sd">        :math:`a` the semi-major axis (m),</span>
+<span class="sd">        :math:`i` the inclination (rad),</span>
+<span class="sd">        :math:`\Omega` is the longitude of the ascending node (rad),</span>
+<span class="sd">        :math:`\omega` the argument of periapsis (rad), and</span>
+<span class="sd">        :math:`\theta` the true anomaly (rad)</span>
+
+<span class="sd">    grav_parameter : float, optional</span>
+<span class="sd">        Standard gravitational parameter :math:`\mu = G M`. The default is :math:`3.986004418</span>
+<span class="sd">        \times 10^{14} \mathrm{m}^3 \mathrm{s}^{-2}`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    : :class:`~.StateVector`</span>
+<span class="sd">        Orbital state vector as :math:`[r_x, r_y, r_z, \dot{r}_x, \dot{r}_y, \dot{r}_z]`</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+<span class="sd">    No checking undertaken. Assumes Keplerian elements rendered correctly as above</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Calculate the position vector in perifocal coordinates</span>
+    <span class="n">rx</span> <span class="o">=</span> <span class="n">perifocal_position</span><span class="p">(</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+    <span class="c1"># Calculate the velocity vector in perifocal coordinates</span>
+    <span class="n">vx</span> <span class="o">=</span> <span class="n">perifocal_velocity</span><span class="p">(</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                            <span class="n">grav_parameter</span><span class="o">=</span><span class="n">grav_parameter</span><span class="p">)</span>
+
+    <span class="c1"># Transform position (perifocal) and velocity (perifocal)</span>
+    <span class="c1"># into geocentric</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">perifocal_to_geocentric_matrix</span><span class="p">(</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">@</span> <span class="n">rx</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">perifocal_to_geocentric_matrix</span><span class="p">(</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">@</span> <span class="n">vx</span>
+
+    <span class="c1"># And put them into the state vector</span>
+    <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="mod_inclination"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.mod_inclination">[docs]</a><span class="k">def</span> <span class="nf">mod_inclination</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the modulus of an inclination. Inclination angles are within the range :math:`0`</span>
+<span class="sd">    to :math:`\pi`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: float</span>
+<span class="sd">        inclination angle in radians</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Angle in radians in the range :math:`0` to :math:`+\pi`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="mod_elongitude"><a class="viewcode-back" href="../../../smartfusion.functions.html#smartfusion.functions.orbital.mod_elongitude">[docs]</a><span class="k">def</span> <span class="nf">mod_elongitude</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the modulus of an ecliptic longitude in which angles are within the range</span>
+<span class="sd">    :math:`0` to :math:`2 \pi`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: float</span>
+<span class="sd">        longitudinal angle in radians</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Angle in radians in the range :math:`0` to :math:`+2 \pi`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">x</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

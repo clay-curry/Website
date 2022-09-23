@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sensors &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Radars" href="smartfusion.sensor.radar.html" />
+    <link rel="prev" title="Readers" href="smartfusion.reader.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Sensors</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.sensor.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sensors">
+<h1>Sensors<a class="headerlink" href="#sensors" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.sensor.radar.html">Radars</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.radar.html#module-smartfusion.sensor.radar.beam_pattern">Beam Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.radar.html#module-smartfusion.sensor.radar.beam_shape">Beam Shapes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.sensor.action.html">Actions</a></li>
+</ul>
+</div>
+<span class="target" id="module-smartfusion.sensor"></span><span class="target" id="module-smartfusion.sensor.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.base.</span></span><span class="sig-name descname"><span class="pre">PlatformMountable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/base.html#PlatformMountable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Base class for any object that can be mounted on a platform.</p>
+<p>All PlatformMountables must be mounted on a platform to calculate their position and
+orientation. To make this easier, if the sensor has a position and/or orientation specified in
+the constructor, and no <code class="xref py py-attr docutils literal notranslate"><span class="pre">platform_system</span></code>, then the default is to create an internally
+held “private” platform for the Sensor. This allows the Sensor to control (and set) its own
+position and orientation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.rotation_offset">
+<span class="sig-name descname"><span class="pre">rotation_offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.rotation_offset" title="Permalink to this definition"></a></dt>
+<dd><p>A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.mounting_offset">
+<span class="sig-name descname"><span class="pre">mounting_offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.mounting_offset" title="Permalink to this definition"></a></dt>
+<dd><p>A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.movement_controller">
+<span class="sig-name descname"><span class="pre">movement_controller</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Movable</span></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.movement_controller" title="Permalink to this definition"></a></dt>
+<dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.position">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.position" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor position on a 3D Cartesian plane, expressed as a 3x1 <code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code>
+of Cartesian coordinates in the order <span class="math notranslate nohighlight">\(x,y,z\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property delegates the actual calculation of position to the Sensor’s
+<a class="reference internal" href="#smartfusion.sensor.base.PlatformMountable.movement_controller" title="smartfusion.sensor.base.PlatformMountable.movement_controller"><code class="xref py py-attr docutils literal notranslate"><span class="pre">movement_controller</span></code></a></p>
+<p>It is settable if, and only if, the sensor holds its own internal movement_controller.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.orientation">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.orientation" title="Permalink to this definition"></a></dt>
+<dd><p>A 3x1 StateVector of angles (rad), specifying the sensor orientation in terms of the
+counter-clockwise rotation around each Cartesian axis in the order <span class="math notranslate nohighlight">\(x,y,z\)</span>.
+The rotation angles are positive if the rotation is in the counter-clockwise
+direction when viewed by an observer looking along the respective rotation axis,
+towards the origin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property delegates the actual calculation of orientation to the Sensor’s
+<a class="reference internal" href="#smartfusion.sensor.base.PlatformMountable.movement_controller" title="smartfusion.sensor.base.PlatformMountable.movement_controller"><code class="xref py py-attr docutils literal notranslate"><span class="pre">movement_controller</span></code></a></p>
+<p>It is settable if, and only if, the sensor holds its own internal movement_controller.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.base.PlatformMountable.velocity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">velocity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.base.PlatformMountable.velocity" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor velocity on a 3D Cartesian plane, expressed as a 3x1 <code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code>
+of Cartesian coordinates in the order <span class="math notranslate nohighlight">\(x,y,z\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property delegates the actual calculation of velocity to the Sensor’s
+<a class="reference internal" href="#smartfusion.sensor.base.PlatformMountable.movement_controller" title="smartfusion.sensor.base.PlatformMountable.movement_controller"><code class="xref py py-attr docutils literal notranslate"><span class="pre">movement_controller</span></code></a></p>
+<p>It is settable if, and only if, the sensor holds its own internal movement_controller
+which is a <code class="xref py py-class docutils literal notranslate"><span class="pre">MovingMovable</span></code>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-smartfusion.sensor.sensor"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.Sensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.sensor.</span></span><span class="sig-name descname"><span class="pre">Sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/sensor.html#Sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.sensor.Sensor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.base.PlatformMountable" title="smartfusion.sensor.base.PlatformMountable"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlatformMountable</span></code></a>, <a class="reference internal" href="#smartfusion.sensor.actionable.Actionable" title="smartfusion.sensor.actionable.Actionable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Actionable</span></code></a></p>
+<p>Sensor Base class for general use.</p>
+<p>Most properties and methods are inherited from <a class="reference internal" href="#smartfusion.sensor.base.PlatformMountable" title="smartfusion.sensor.base.PlatformMountable"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlatformMountable</span></code></a>.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Sensors must have a measure function.</p></li>
+<li><p>Attributes that are modifiable via actioning the sensor should be
+<a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> types.</p></li>
+<li><p>The sensor has a timestamp property that should be updated via its
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">act()</span></code> method.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.Sensor.measure">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/sensor.html#Sensor.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.sensor.Sensor.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.Sensor.measurement_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.sensor.Sensor.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.SensorSuite">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.sensor.</span></span><span class="sig-name descname"><span class="pre">SensorSuite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes_inform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/sensor.html#SensorSuite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.sensor.SensorSuite" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Sensor composition type</p>
+<p>Models a suite of sensors all returning detections at the same ‘time’. Returns all detections
+in one go.
+Can append information of the sensors to the metadata of their corresponding detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Sensor]</span></code>) – Suite of sensors to get detections from.</p></li>
+<li><p><strong>attributes_inform</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set[str]</span></code>) – Names of attributes to store the value of at time of detection.</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.SensorSuite.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><span class="pre">Sensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.sensor.SensorSuite.sensors" title="Permalink to this definition"></a></dt>
+<dd><p>Suite of sensors to get detections from.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.SensorSuite.attributes_inform">
+<span class="sig-name descname"><span class="pre">attributes_inform</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.sensor.SensorSuite.attributes_inform" title="Permalink to this definition"></a></dt>
+<dd><p>Names of attributes to store the value of at time of detection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.SensorSuite.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/sensor.html#SensorSuite.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.sensor.SensorSuite.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Call each sub-sensor’s measure method in turn. Key word arguments are passed to the
+measure method of each sensor.</p>
+<p>Append additional metadata to each sensor’s set of detections. Which keys are appended is
+dictated by <a class="reference internal" href="#smartfusion.sensor.sensor.SensorSuite.attributes_inform" title="smartfusion.sensor.sensor.SensorSuite.attributes_inform"><code class="xref py py-attr docutils literal notranslate"><span class="pre">attributes_inform</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.sensor.SensorSuite.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.sensor.SensorSuite.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.sensor.passive">
+<span id="passive"></span><h2>Passive<a class="headerlink" href="#module-smartfusion.sensor.passive" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.passive.</span></span><span class="sig-name descname"><span class="pre">PassiveElevationBearing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/passive.html#PassiveElevationBearing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>A simple passive sensor that generates measurements of targets, using a
+<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearing" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearing"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearing</span></code></a> model, relative to its position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current implementation of this class assumes a 3D Cartesian plane.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of state dimensions. This is utilised by (and follows in            format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearing" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearing"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearing</span></code></a>            model</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Mapping between the targets state space and the sensors            measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by            (and follow in format) the underlying             <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearing" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearing"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearing</span></code></a> model</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing.ndim_state">
+<span class="sig-name descname"><span class="pre">ndim_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions. This is utilised by (and follows in            format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearing" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearing"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearing</span></code></a>            model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing.mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between the targets state space and the sensors            measurement capability</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing.noise_covar">
+<span class="sig-name descname"><span class="pre">noise_covar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></em><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing.noise_covar" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor noise covariance matrix. This is utilised by            (and follow in format) the underlying             <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearing" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearing"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearing</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.passive.PassiveElevationBearing.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/passive.html#PassiveElevationBearing.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.passive.PassiveElevationBearing.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.sensor.categorical">
+<span id="categorical"></span><h2>Categorical<a class="headerlink" href="#module-smartfusion.sensor.categorical" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.categorical.HMMSensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.categorical.</span></span><span class="sig-name descname"><span class="pre">HMMSensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.categorical.MarkovianMeasurementModel" title="smartfusion.models.measurement.categorical.MarkovianMeasurementModel"><span class="pre">MarkovianMeasurementModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/categorical.html#HMMSensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.categorical.HMMSensor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Sensor model that observes a categorical state space and returns categorical measurements.</p>
+<p>Measurements are categorical distributions over a finite set of categories
+<span class="math notranslate nohighlight">\(Z = \{\zeta^n|n\in \mathbf{N}, n\le N\}\)</span> (for some finite <span class="math notranslate nohighlight">\(N\)</span>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.categorical.MarkovianMeasurementModel" title="smartfusion.models.measurement.categorical.MarkovianMeasurementModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarkovianMeasurementModel</span></code></a>) – Measurement model to generate detection vectors from</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.categorical.HMMSensor.measurement_model">
+<span class="sig-name descname"><span class="pre">measurement_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.categorical.MarkovianMeasurementModel" title="smartfusion.models.measurement.categorical.MarkovianMeasurementModel"><span class="pre">MarkovianMeasurementModel</span></a></em><a class="headerlink" href="#smartfusion.sensor.categorical.HMMSensor.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model to generate detection vectors from</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.categorical.HMMSensor.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/categorical.html#HMMSensor.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.categorical.HMMSensor.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a categorical measurement for a given set of true categorical state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.CategoricalGroundTruthState" title="smartfusion.types.groundtruth.CategoricalGroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalGroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.CategoricalGroundTruthState" title="smartfusion.types.groundtruth.CategoricalGroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalGroundTruthState</span></code></a>.</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates whether measurement vectors are sampled from and the resultant measurement
+categories returned instead. These are discrete categories instead of a distribution
+over the measurement space. They are represented by N-tuples, with all components
+equal to 0, except at an index corresponding to the relevant category.
+For example <span class="math notranslate nohighlight">\(e^k\)</span> indicates that the measurement category is <span class="math notranslate nohighlight">\(\zeta^k\)</span>.
+If <cite>False</cite>, the resultant distribution is returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueCategoricalDetection" title="smartfusion.types.detection.TrueCategoricalDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueCategoricalDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.sensor.actionable">
+<span id="actionable"></span><h2>Actionable<a class="headerlink" href="#module-smartfusion.sensor.actionable" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.ActionableProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.actionable.</span></span><span class="sig-name descname"><span class="pre">ActionableProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator_cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/actionable.html#ActionableProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.actionable.ActionableProperty" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Property" title="smartfusion.base.Property"><code class="xref py py-class docutils literal notranslate"><span class="pre">Property</span></code></a></p>
+<p>Property that is modified via an <a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> with defined, non-equal start and end
+times.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.Actionable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.actionable.</span></span><span class="sig-name descname"><span class="pre">Actionable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/actionable.html#Actionable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.actionable.Actionable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Base Actionable type.</p>
+<p>Contains the core methods of an actionable sensor/platform type.</p>
+<p class="rubric">Notes</p>
+<p>An Actionable is required to have a <cite>timestamp</cite> attribute, in order to validate actions and
+act. This is an abstract base class, and not intended for direct use. Attaining a timestamp is
+left to the inheriting type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.Actionable.resolutions">
+<span class="sig-name descname"><span class="pre">resolutions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></em><a class="headerlink" href="#smartfusion.sensor.actionable.Actionable.resolutions" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping of each <a class="reference internal" href="#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.Actionable.actions">
+<span class="sig-name descname"><span class="pre">actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.ActionGenerator" title="smartfusion.sensor.action.ActionGenerator"><span class="pre">ActionGenerator</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/actionable.html#Actionable.actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.actionable.Actionable.actions" title="Permalink to this definition"></a></dt>
+<dd><p>Method to return a set of action generators available up to a provided timestamp.</p>
+<p>A generator is returned for each actionable property that the sensor has.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Time of action finish.</p></li>
+<li><p><strong>start_timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a><em>, </em><em>optional</em>) – Time of action start.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of action generators, that describe the bounds of each action space.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.ActionGenerator" title="smartfusion.sensor.action.ActionGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionGenerator</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.Actionable.add_actions">
+<span class="sig-name descname"><span class="pre">add_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><span class="pre">Action</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="_modules/smartfusion/sensor/actionable.html#Actionable.add_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.actionable.Actionable.add_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Add actions to the sensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>actions</strong> (sequence of <a class="reference internal" href="smartfusion.sensor.action.html#smartfusion.sensor.action.Action" title="smartfusion.sensor.action.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>) – Sequence of actions that will be executed in order</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Return True if actions accepted. False if rejected.
+Returns neither if timestamp is invalid.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.10)"><strong>NotImplementedError</strong></a> – If sensor cannot be tasked.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Base class returns True</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.actionable.Actionable.act">
+<span class="sig-name descname"><span class="pre">act</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/actionable.html#Actionable.act"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.actionable.Actionable.act" title="Permalink to this definition"></a></dt>
+<dd><p>Carry out actions up to a timestamp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Carry out actions up to this timestamp.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.reader.html" class="btn btn-neutral float-left" title="Readers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.sensor.radar.html" class="btn btn-neutral float-right" title="Radars" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

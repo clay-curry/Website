@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.reader.generic &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.reader.generic</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/reader/generic" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.reader.generic</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Generic readers for SMART FUSION.</span>
+
+<span class="sd">This is a collection of generic readers for SMART FUSION, allowing quick reading</span>
+<span class="sd">of data that is in common formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">modf</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">GroundTruthReader</span><span class="p">,</span> <span class="n">DetectionReader</span>
+<span class="kn">from</span> <span class="nn">.file</span> <span class="kn">import</span> <span class="n">TextFileReader</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..buffered_generator</span> <span class="kn">import</span> <span class="n">BufferedGenerator</span>
+<span class="kn">from</span> <span class="nn">..types.detection</span> <span class="kn">import</span> <span class="n">Detection</span>
+<span class="kn">from</span> <span class="nn">..types.groundtruth</span> <span class="kn">import</span> <span class="n">GroundTruthPath</span><span class="p">,</span> <span class="n">GroundTruthState</span>
+
+
+<span class="k">class</span> <span class="nc">_CSVReader</span><span class="p">(</span><span class="n">TextFileReader</span><span class="p">):</span>
+    <span class="n">state_vector_fields</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;List of columns names to be used in state vector&#39;</span><span class="p">)</span>
+    <span class="n">time_field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Name of column to be used as time field&#39;</span><span class="p">)</span>
+    <span class="n">time_field_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Optional datetime format&#39;</span><span class="p">)</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Treat time field as a timestamp from epoch&#39;</span><span class="p">)</span>
+    <span class="n">metadata_fields</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;List of columns to be saved as metadata, default all&#39;</span><span class="p">)</span>
+    <span class="n">csv_options</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Keyword arguments for the underlying csv reader&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">local_metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">local_metadata</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_field</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector_fields</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">local_metadata</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">local_metadata</span> <span class="o">=</span> <span class="p">{</span><span class="n">field</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+                              <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_fields</span>
+                              <span class="k">if</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">row</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">local_metadata</span>
+
+    <span class="k">def</span> <span class="nf">_get_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_field_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">time_field_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time_field</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_field_format</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">fractional</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">modf</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time_field</span><span class="p">]))</span>
+            <span class="n">time_field_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">))</span>
+            <span class="n">time_field_value</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">microseconds</span><span class="o">=</span><span class="n">fractional</span> <span class="o">*</span> <span class="mf">1E6</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">time_field_value</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time_field</span><span class="p">],</span> <span class="n">ignoretz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">time_field_value</span>
+
+
+<div class="viewcode-block" id="CSVGroundTruthReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.generic.CSVGroundTruthReader">[docs]</a><span class="k">class</span> <span class="nc">CSVGroundTruthReader</span><span class="p">(</span><span class="n">GroundTruthReader</span><span class="p">,</span> <span class="n">_CSVReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A simple reader for csv files of truth data.</span>
+
+<span class="sd">    CSV file must have headers, as these are used to determine which fields</span>
+<span class="sd">    to use to generate the ground truth state. Those states with the same ID will be put into</span>
+<span class="sd">    a :class:`~.GroundTruthPath` in sequence, and all paths that are updated at the same time</span>
+<span class="sd">    are yielded together, and such assumes file is in time order.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path_id_field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Name of column to be used as path ID&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CSVGroundTruthReader.groundtruth_paths_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.generic.CSVGroundTruthReader.groundtruth_paths_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">groundtruth_paths_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+            <span class="n">groundtruth_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">updated_paths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">previous_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">csv_options</span><span class="p">):</span>
+
+                <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_time</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">previous_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">previous_time</span> <span class="o">!=</span> <span class="n">time</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">previous_time</span><span class="p">,</span> <span class="n">updated_paths</span>
+                    <span class="n">updated_paths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">previous_time</span> <span class="o">=</span> <span class="n">time</span>
+
+                <span class="n">state</span> <span class="o">=</span> <span class="n">GroundTruthState</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">row</span><span class="p">[</span><span class="n">col_name</span><span class="p">]]</span> <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector_fields</span><span class="p">],</span>
+                             <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                    <span class="n">metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_metadata</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+
+                <span class="n">id_</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">path_id_field</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">id_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groundtruth_dict</span><span class="p">:</span>
+                    <span class="n">groundtruth_dict</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="n">GroundTruthPath</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">)</span>
+                <span class="n">groundtruth_path</span> <span class="o">=</span> <span class="n">groundtruth_dict</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span>
+                <span class="n">groundtruth_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+                <span class="n">updated_paths</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">groundtruth_path</span><span class="p">)</span>
+
+            <span class="c1"># Yield remaining</span>
+            <span class="k">yield</span> <span class="n">previous_time</span><span class="p">,</span> <span class="n">updated_paths</span></div></div>
+
+
+<div class="viewcode-block" id="CSVDetectionReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.generic.CSVDetectionReader">[docs]</a><span class="k">class</span> <span class="nc">CSVDetectionReader</span><span class="p">(</span><span class="n">DetectionReader</span><span class="p">,</span> <span class="n">_CSVReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A simple detection reader for csv files of detections.</span>
+
+<span class="sd">    CSV file must have headers, as these are used to determine which fields to use to generate</span>
+<span class="sd">    the detection. Detections at the same time are yielded together, and such assume file is in</span>
+<span class="sd">    time order.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CSVDetectionReader.detections_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.generic.CSVDetectionReader.detections_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">detections_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+            <span class="n">detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">previous_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">csv_options</span><span class="p">):</span>
+
+                <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_time</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">previous_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">previous_time</span> <span class="o">!=</span> <span class="n">time</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">previous_time</span><span class="p">,</span> <span class="n">detections</span>
+                    <span class="n">detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">previous_time</span> <span class="o">=</span> <span class="n">time</span>
+
+                <span class="n">detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Detection</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">row</span><span class="p">[</span><span class="n">col_name</span><span class="p">]]</span> <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector_fields</span><span class="p">],</span>
+                             <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                    <span class="n">metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_metadata</span><span class="p">(</span><span class="n">row</span><span class="p">)))</span>
+
+            <span class="c1"># Yield remaining</span>
+            <span class="k">yield</span> <span class="n">previous_time</span><span class="p">,</span> <span class="n">detections</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

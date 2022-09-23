@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.hypothesiser.composite &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.hypothesiser.composite</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/hypothesiser/composite" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.hypothesiser.composite</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Hypothesiser</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..predictor.composite</span> <span class="kn">import</span> <span class="n">CompositePredictor</span>
+<span class="kn">from</span> <span class="nn">..types.hypothesis</span> <span class="kn">import</span> <span class="n">CompositeProbabilityHypothesis</span>
+<span class="kn">from</span> <span class="nn">..types.multihypothesis</span> <span class="kn">import</span> <span class="n">MultipleHypothesis</span>
+
+
+<div class="viewcode-block" id="CompositeHypothesiser"><a class="viewcode-back" href="../../../smartfusion.hypothesiser.html#smartfusion.hypothesiser.composite.CompositeHypothesiser">[docs]</a><span class="k">class</span> <span class="nc">CompositeHypothesiser</span><span class="p">(</span><span class="n">Hypothesiser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite hypothesiser type</span>
+
+<span class="sd">        A composition of ordered sub-hyposisers (:class:`~.Hypothesiser`). Hypothesises each</span>
+<span class="sd">        sub-state of a track-detection pair using a corresponding sub-hypothesiser.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sub_hypothesisers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Hypothesiser</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of sub-hypothesisers comprising the composite hypothesiser. Must not be &quot;</span>
+            <span class="s2">&quot;empty. These must be hypothesisers that return probability-weighted hypotheses, in &quot;</span>
+            <span class="s2">&quot;order for composite hypothesis weights to be calculated.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot create an empty composite hypothesiser&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub_hypothesiser</span><span class="p">,</span> <span class="n">Hypothesiser</span><span class="p">)</span>
+               <span class="k">for</span> <span class="n">sub_hypothesiser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All sub-hypothesisers must be a hypothesiser type&quot;</span><span class="p">)</span>
+
+        <span class="c1"># create predictor as composition of sub-hypothesisers&#39; predictors</span>
+        <span class="n">sub_predictors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sub_hypothesiser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="p">:</span>
+            <span class="n">sub_predictors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_hypothesiser</span><span class="o">.</span><span class="n">predictor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span> <span class="o">=</span> <span class="n">CompositePredictor</span><span class="p">(</span><span class="n">sub_predictors</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CompositeHypothesiser.hypothesise"><a class="viewcode-back" href="../../../smartfusion.hypothesiser.html#smartfusion.hypothesiser.composite.CompositeHypothesiser.hypothesise">[docs]</a>    <span class="k">def</span> <span class="nf">hypothesise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Evaluate and return all track association hypotheses.</span>
+
+<span class="sd">        For a given track and a set of N available detections, return a MultipleHypothesis object</span>
+<span class="sd">        composed of N+1 :class:`~.CompositeProbabilityHypothesis` (including a null hypothesis),</span>
+<span class="sd">        each with an associated probability.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track: :class:`~.Track`</span>
+<span class="sd">            The track object to hypothesise on, existing in a composite state space</span>
+<span class="sd">        detections: :class:`set`</span>
+<span class="sd">            A set of :class:`~CompositeDetection` objects, representing the available detections.</span>
+<span class="sd">        timestamp: :class:`datetime.datetime`</span>
+<span class="sd">            A timestamp used when evaluating the state and measurement predictions. Note that if a</span>
+<span class="sd">            given detection has a non empty timestamp, then prediction will be performed according</span>
+<span class="sd">            to the timestamp of the detection.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`~.MultipleHypothesis`</span>
+<span class="sd">            A container of :class:`~CompositeHypothesis` objects, each of which containing a</span>
+<span class="sd">            sequence of :class:`~.SingleHypothesis` objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">all_hypotheses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="c1"># Common state &amp; measurement prediction</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">)</span>
+
+        <span class="n">null_sub_hypotheses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="c1"># as each detection is composite, it will have a set of sub-hypotheses paired to it</span>
+        <span class="n">detections_hypotheses</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+        <span class="c1"># loop over the sub-states of the track and sub-hypothesisers</span>
+        <span class="k">for</span> <span class="n">sub_state_index</span><span class="p">,</span> <span class="p">(</span><span class="n">sub_state</span><span class="p">,</span> <span class="n">sub_hypothesiser</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sub_states</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="p">)):</span>
+            <span class="c1"># store all sub-detections produced from sub-state index i</span>
+            <span class="n">sub_state_detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="c1"># need way to get whole composite detections back from their i-th components</span>
+            <span class="c1"># create dictionary, keyed by the i-th components, where the value is whole detection</span>
+            <span class="c1"># will keep track of all detections that have an i-th component</span>
+            <span class="n">relevant_detections</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sub_detection_index</span> <span class="o">=</span> <span class="n">detection</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">sub_state_index</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">sub_detection</span> <span class="o">=</span> <span class="n">detection</span><span class="p">[</span><span class="n">sub_detection_index</span><span class="p">]</span>
+                <span class="n">sub_state_detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sub_detection</span><span class="p">)</span>
+                <span class="n">relevant_detections</span><span class="p">[</span><span class="n">sub_detection</span><span class="p">]</span> <span class="o">=</span> <span class="n">detection</span>
+
+            <span class="c1"># get all hypotheses for the i-th component, considering i-th component of track state</span>
+            <span class="n">sub_hypotheses</span> <span class="o">=</span> <span class="n">sub_hypothesiser</span><span class="o">.</span><span class="n">hypothesise</span><span class="p">(</span><span class="n">sub_state</span><span class="p">,</span> <span class="n">sub_state_detections</span><span class="p">,</span>
+                                                          <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">)</span>
+            <span class="c1"># get the set of single hypotheses back</span>
+            <span class="n">sub_hypotheses</span> <span class="o">=</span> <span class="n">sub_hypotheses</span><span class="o">.</span><span class="n">single_hypotheses</span>
+
+            <span class="c1"># Store sub-null-hypothesis for detections that didn&#39;t have i-th component</span>
+            <span class="n">sub_null_hypothesis</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">while</span> <span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="n">sub_hypothesis</span> <span class="o">=</span> <span class="n">sub_hypotheses</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">sub_hypothesis</span><span class="p">:</span>
+                    <span class="n">sub_null_hypothesis</span> <span class="o">=</span> <span class="n">sub_hypothesis</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># get whole detection back, using</span>
+                    <span class="n">relevant_detection</span> <span class="o">=</span> <span class="n">relevant_detections</span><span class="p">[</span><span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="p">]</span>
+                    <span class="c1"># Add hypothesis to detection&#39;s hypotheses container</span>
+                    <span class="n">detections_hypotheses</span><span class="p">[</span><span class="n">relevant_detection</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_hypothesis</span><span class="p">)</span>
+
+            <span class="c1"># For detections without i-th component, use sub-missed detection hypothesis</span>
+            <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">relevant_detections</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                <span class="n">detections_hypotheses</span><span class="p">[</span><span class="n">detection</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_null_hypothesis</span><span class="p">)</span>
+
+            <span class="c1"># Add sub-null-hypothesis to composite null hypothesis</span>
+            <span class="n">null_sub_hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_null_hypothesis</span><span class="p">)</span>
+
+        <span class="c1"># add a composite hypothesis for each detection</span>
+        <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+            <span class="c1"># get all sub-hypotheses for detection</span>
+            <span class="n">sub_hypotheses</span> <span class="o">=</span> <span class="n">detections_hypotheses</span><span class="p">[</span><span class="n">detection</span><span class="p">]</span>
+
+            <span class="n">all_hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CompositeProbabilityHypothesis</span><span class="p">(</span><span class="n">prediction</span><span class="o">=</span><span class="n">prediction</span><span class="p">,</span>
+                                                                 <span class="n">measurement</span><span class="o">=</span><span class="n">detection</span><span class="p">,</span>
+                                                                 <span class="n">sub_hypotheses</span><span class="o">=</span><span class="n">sub_hypotheses</span><span class="p">))</span>
+
+        <span class="c1"># add null-hypothesis</span>
+        <span class="n">all_hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CompositeProbabilityHypothesis</span><span class="p">(</span><span class="n">prediction</span><span class="o">=</span><span class="n">prediction</span><span class="p">,</span>
+                                                             <span class="n">measurement</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                                             <span class="n">sub_hypotheses</span><span class="o">=</span><span class="n">null_sub_hypotheses</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">MultipleHypothesis</span><span class="p">(</span><span class="n">all_hypotheses</span><span class="p">,</span> <span class="n">normalise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">total_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Can be indexed as a list, or sliced, in which case a new composite hypothesiser will be</span>
+<span class="sd">        created from the sub-list of sub-hypothesisers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypothesisers</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

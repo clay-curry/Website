@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radars &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Actions" href="smartfusion.sensor.action.html" />
+    <link rel="prev" title="Sensors" href="smartfusion.sensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+          <li><a href="smartfusion.sensor.html">Sensors</a> &raquo;</li>
+      <li>Radars</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.sensor.radar.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.sensor.radar">
+<span id="radars"></span><h1>Radars<a class="headerlink" href="#module-smartfusion.sensor.radar" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.sensor.radar.radar"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarBearingRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarBearingRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>A simple radar sensor that generates measurements of targets, using a
+<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model, relative to its position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current implementation of this class assumes a 3D Cartesian plane.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.ndim_state">
+<span class="sig-name descname"><span class="pre">ndim_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.position_mapping">
+<span class="sig-name descname"><span class="pre">position_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.position_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between the target’s state space and the sensor’s measurement capability</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.noise_covar">
+<span class="sig-name descname"><span class="pre">noise_covar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.noise_covar" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.clutter_model">
+<span class="sig-name descname"><span class="pre">clutter_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.clutter_model" title="Permalink to this definition"></a></dt>
+<dd><p>An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.max_range">
+<span class="sig-name descname"><span class="pre">max_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.max_range" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum detection range of the radar (in meters)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRange.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarBearingRange.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRange.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarRotatingBearingRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dwell_centre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarRotatingBearingRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarBearingRange" title="smartfusion.sensor.radar.radar.RadarBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadarBearingRange</span></code></a></p>
+<p>A simple rotating radar, with set field-of-view (FOV) angle, range and     rotations per minute (RPM), that generates measurements of targets, using     a <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model, relative to its     position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The current implementation of this class assumes a 3D Cartesian plane.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>dwell_centre</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>) – A <cite>state_vector</cite> property that describes the rotation angle of the centre of the sensor’s current FOV (i.e. the dwell centre) relative to the positive x-axis of the sensor frame/orientation. The angle is positive if the rotation is in the counter-clockwise direction when viewed by an observer looking down the z-axis of the sensor frame, towards the origin. Angle units are in radians</p></li>
+<li><p><strong>rpm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The number of antenna rotations per minute (RPM)</p></li>
+<li><p><strong>fov_angle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The radar field of view (FOV) angle (in radians).</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.dwell_centre">
+<span class="sig-name descname"><span class="pre">dwell_centre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.dwell_centre" title="Permalink to this definition"></a></dt>
+<dd><p>A <cite>state_vector</cite> property that describes the rotation angle of the centre of the sensor’s current FOV (i.e. the dwell centre) relative to the positive x-axis of the sensor frame/orientation. The angle is positive if the rotation is in the counter-clockwise direction when viewed by an observer looking down the z-axis of the sensor frame, towards the origin. Angle units are in radians</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.rpm">
+<span class="sig-name descname"><span class="pre">rpm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.rpm" title="Permalink to this definition"></a></dt>
+<dd><p>The number of antenna rotations per minute (RPM)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.max_range">
+<span class="sig-name descname"><span class="pre">max_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.max_range" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum detection range of the radar (in meters)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.fov_angle">
+<span class="sig-name descname"><span class="pre">fov_angle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.fov_angle" title="Permalink to this definition"></a></dt>
+<dd><p>The radar field of view (FOV) angle (in radians).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRotatingBearingRange.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarRotatingBearingRange.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarElevationBearingRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarElevationBearingRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarBearingRange" title="smartfusion.sensor.radar.radar.RadarBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadarBearingRange</span></code></a></p>
+<p>A  radar sensor that generates measurements of targets, using a
+<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRange</span></code></a> model, relative to its position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation of this class assumes a 3D Cartesian space.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRange</span></code></a> model</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange.ndim_state">
+<span class="sig-name descname"><span class="pre">ndim_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange.noise_covar">
+<span class="sig-name descname"><span class="pre">noise_covar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange.noise_covar" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRange</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange.max_range">
+<span class="sig-name descname"><span class="pre">max_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange.max_range" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum detection range of the radar (in meters)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRange.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarElevationBearingRange.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRange.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarBearingRangeRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">3,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarBearingRangeRate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarBearingRange" title="smartfusion.sensor.radar.radar.RadarBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadarBearingRange</span></code></a></p>
+<p>A radar sensor that generates measurements of targets, using a
+<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRangeRate</span></code></a> model, relative to its position
+and velocity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class implementation assumes a 3D cartesian space and therefore     expects a 6D state space.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRangeRate</span></code></a> model</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.velocity_mapping" title="smartfusion.sensor.radar.radar.RadarBearingRangeRate.velocity_mapping"><code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></a></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRangeRate</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+<li><p><strong>velocity_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code>, optional) – Mapping to the target’s velocity information within its state space</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate.velocity_mapping">
+<span class="sig-name descname"><span class="pre">velocity_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.velocity_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping to the target’s velocity information within its state space</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate.ndim_state">
+<span class="sig-name descname"><span class="pre">ndim_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRangeRate</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate.noise_covar">
+<span class="sig-name descname"><span class="pre">noise_covar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.noise_covar" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRangeRate</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarBearingRangeRate.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarBearingRangeRate.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarElevationBearingRangeRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">3,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarElevationBearingRangeRate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarBearingRangeRate" title="smartfusion.sensor.radar.radar.RadarBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadarBearingRangeRate</span></code></a></p>
+<p>A radar sensor that generates measurements of targets, using a
+<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRangeRate</span></code></a> model, relative to its position
+and velocity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current implementation of this class assumes a 3D Cartesian plane.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRangeRate</span></code></a> model</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.velocity_mapping" title="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.velocity_mapping"><code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></a></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRangeRate</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+<li><p><strong>velocity_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code>, optional) – Mapping to the target’s velocity information within its state space</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.velocity_mapping">
+<span class="sig-name descname"><span class="pre">velocity_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.velocity_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping to the target’s velocity information within its state space</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.ndim_state">
+<span class="sig-name descname"><span class="pre">ndim_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.ndim_state" title="Permalink to this definition"></a></dt>
+<dd><p>Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRangeRate</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.noise_covar">
+<span class="sig-name descname"><span class="pre">noise_covar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.noise_covar" title="Permalink to this definition"></a></dt>
+<dd><p>The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRangeRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToElevationBearingRangeRate</span></code></a> model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.measurement_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">measurement_model</span></span><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model of the sensor, describing general sensor model properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarElevationBearingRangeRate.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarElevationBearingRangeRate.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRasterScanBearingRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">RadarRasterScanBearingRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_covar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><span class="pre">CovarianceMatrix</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dwell_centre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.ClutterModel"><span class="pre">ClutterModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarRasterScanBearingRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRasterScanBearingRange" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.radar.RadarRotatingBearingRange" title="smartfusion.sensor.radar.radar.RadarRotatingBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadarRotatingBearingRange</span></code></a></p>
+<p>A simple raster scan radar, with set field-of-regard (FoR) angle,      field-of-view (FoV) angle, range and rotations per minute (RPM), that      generates measurements of targets, using a      <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model, relative to its position</p>
+<blockquote>
+<div><p>This is a simple extension of the RadarRotatingBearingRange class with      the rotate function changed to restrict the  dwell-centre to within the      field of regard.
+It’s important to note that this only works (has  been tested) in an 2D      environment</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class implementation assumes a 3D cartesian space and therefore      expects a 6D state space.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int]</span></code>) – Mapping between the target’s state space and the sensor’s measurement capability</p></li>
+<li><p><strong>noise_covar</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">CovarianceMatrix</span></code></a>) – The sensor noise covariance matrix. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>dwell_centre</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>) – A state object, whose <cite>state_vector</cite> property describes the rotation angle of the centre of the sensor’s current FOV (i.e. the dwell centre) relative to the positive x-axis of the sensor frame/orientation. The angle is positive if the rotation is in the counter-clockwise direction when viewed by an observer looking down the z-axis of the sensor frame, towards the origin. Angle units are in radians</p></li>
+<li><p><strong>rpm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The number of antenna rotations per minute (RPM)</p></li>
+<li><p><strong>fov_angle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The radar field of view (FOV) angle (in radians).</p></li>
+<li><p><strong>for_angle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The radar field of regard (FoR) angle (in radians).</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor rotation offsets from the platform’s primary axis (defined as the direction of motion). Defaults to a zero vector with the same length as the Platform’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">velocity_mapping</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>ndim_state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of state dimensions. This is utilised by (and follows in format) the underlying <a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToBearingRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">CartesianToBearingRange</span></code></a> model</p></li>
+<li><p><strong>clutter_model</strong> (<a class="reference internal" href="smartfusion.models.clutter.html#smartfusion.models.clutter.ClutterModel" title="smartfusion.models.clutter.clutter.ClutterModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClutterModel</span></code></a>, optional) – An optional clutter generator that adds a set of simulated <code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code> objects to the measurements at each time step. The clutter is simulated according to the provided distribution.</p></li>
+<li><p><strong>max_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The maximum detection range of the radar (in meters)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.dwell_centre">
+<span class="sig-name descname"><span class="pre">dwell_centre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.dwell_centre" title="Permalink to this definition"></a></dt>
+<dd><p>A state object, whose <cite>state_vector</cite> property describes the rotation angle of the centre of the sensor’s current FOV (i.e. the dwell centre) relative to the positive x-axis of the sensor frame/orientation. The angle is positive if the rotation is in the counter-clockwise direction when viewed by an observer looking down the z-axis of the sensor frame, towards the origin. Angle units are in radians</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.for_angle">
+<span class="sig-name descname"><span class="pre">for_angle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.for_angle" title="Permalink to this definition"></a></dt>
+<dd><p>The radar field of regard (FoR) angle (in radians).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.act">
+<span class="sig-name descname"><span class="pre">act</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#RadarRasterScanBearingRange.act"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.RadarRasterScanBearingRange.act" title="Permalink to this definition"></a></dt>
+<dd><p>Rotate the sensor’s antenna</p>
+<p>This method computes and updates the sensor’s <cite>dwell_centre</cite> property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – A timestamp signifying when the rotation completes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.radar.</span></span><span class="sig-name descname"><span class="pre">AESARadar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.sensor.radar.beam_shape.BeamShape" title="smartfusion.sensor.radar.beam_shape.BeamShape"><span class="pre">BeamShape</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel"><span class="pre">BeamTransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver_noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">antenna_gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolutions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mounting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Movable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_pulses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swerling_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probability_false_alarm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#AESARadar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>An AESA (Active electronically scanned array) radar model that
+calculates the signal to noise ratio (SNR) of a target and the subsequent
+probability of detection (PD). The SNR is calculated using:</p>
+<div class="math notranslate nohighlight">
+\[\mathit{SNR} = \dfrac{c^2\, n_p \,\beta}{64\,\pi^3 \,kT_0 \,B \,F \,f^2
+ \,L} \times\dfrac{\sigma\, G_a^2\, P_t}{R^4}\]</div>
+<p>where
+<span class="math notranslate nohighlight">\(c\)</span> is the speed of light
+<span class="math notranslate nohighlight">\(n_p\)</span> is the number of pulses in a burst
+<span class="math notranslate nohighlight">\(\beta\)</span> is the duty cycle which is unitless
+<span class="math notranslate nohighlight">\(k\)</span> is the boltzmann constant
+<span class="math notranslate nohighlight">\(T_0\)</span> is system temperature in kelvin
+<span class="math notranslate nohighlight">\(B\)</span> is the bandwidth in hertz
+<span class="math notranslate nohighlight">\(F\)</span> is the noise figure unitless
+<span class="math notranslate nohighlight">\(f\)</span> is the frequency in hertz
+<span class="math notranslate nohighlight">\(L\)</span> is the loss which is unitless
+The probability of detection (<span class="math notranslate nohighlight">\(P_{d}\)</span>) is calculated
+using the North’s approximation,</p>
+<div class="math notranslate nohighlight">
+\[P_{d} = 0.5\, erfc\left(\sqrt{-\ln{P_{fa}}}-\sqrt{ \mathit{SNR}
+ +0.5} \right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(P_{fa}\)</span> is the probability of false alarm.
+In this model the AESA scan angle effects the gain by:</p>
+<div class="math notranslate nohighlight">
+\[G_a = G_a \cos{\left(\theta\right)}
+\cos{\left(\phi\right)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> are respectively the azimuth and
+elevation angles in respects to the boresight of the antenna.
+The effect of beam spoiling on the beam width is :</p>
+<div class="math notranslate nohighlight">
+\[\Delta\theta = \dfrac{\Delta\theta}{\cos{\left(\theta\right)}
+\cos{\left(\phi\right)}}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current implementation of this class assumes a 3D Cartesian plane.
+This model does not generate false alarms.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasurementModel</span></code></a>) – The measurement model used to generate measurements.</p></li>
+<li><p><strong>beam_shape</strong> (<a class="reference internal" href="#smartfusion.sensor.radar.beam_shape.BeamShape" title="smartfusion.sensor.radar.beam_shape.BeamShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeamShape</span></code></a>) – Object describing the shape of the beam.</p></li>
+<li><p><strong>beam_transition_model</strong> (<a class="reference internal" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeamTransitionModel</span></code></a>) – Object describing the movement of the beam in azimuth and elevation from the perspective of the radar.</p></li>
+<li><p><strong>duty_cycle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Duty cycle is the fraction of the time the radar is transmitting.</p></li>
+<li><p><strong>band_width</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Bandwidth of the receiver in hertz.</p></li>
+<li><p><strong>receiver_noise</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Noise figure of the radar in decibels.</p></li>
+<li><p><strong>frequency</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Transmitted frequency in hertz.</p></li>
+<li><p><strong>antenna_gain</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Total antenna gain in decibels.</p></li>
+<li><p><strong>beam_width</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Radar beam width in radians.</p></li>
+<li><p><strong>resolutions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, optional) – Mapping of each <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.actionable.ActionableProperty" title="smartfusion.sensor.actionable.ActionableProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionableProperty</span></code></a> of the sensor and corresponding resolutions at which the sensor is able to be tasked.</p></li>
+<li><p><strong>rotation_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A 3x1 array of angles (rad), specifying the radar orientation in terms of the counter-clockwise rotation around the <span class="math notranslate nohighlight">\(x,y,z\)</span> axis. i.e Roll, Pitch and Yaw. Default is <code class="docutils literal notranslate"><span class="pre">StateVector([0,</span> <span class="pre">0,</span> <span class="pre">0])</span></code></p></li>
+<li><p><strong>mounting_offset</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector</span></code></a>, optional) – A StateVector containing the sensor translation offsets from the platform’s reference point. Defaults to a zero vector with length 3</p></li>
+<li><p><strong>movement_controller</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Movable</span></code>, optional) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">`Movable</span></code> object that controls the movement of this sensor. Will be set by the platform if the sensor is assigned to a platform.</p></li>
+<li><p><strong>position_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span></code>, optional) – Mapping between or positions and state dimensions. [x,y,z]</p></li>
+<li><p><strong>number_pulses</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – The number of pulses in the radar burst.</p></li>
+<li><p><strong>loss</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Loss in decibels.</p></li>
+<li><p><strong>swerling_on</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Is the Swerling 1 case used. If True the RCS of the target will change for each timestep. The random RCS follows the probability distribution of the Swerling 1 case.</p></li>
+<li><p><strong>rcs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – The radar cross section of targets in meters squared. Used if RCS not present on truth. Default <cite>None</cite>, where ‘rcs’ must be present on truth.</p></li>
+<li><p><strong>probability_false_alarm</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Probability of false alarm used in the North’s approximation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.position_mapping">
+<span class="sig-name descname"><span class="pre">position_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.position_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping between or positions and state dimensions. [x,y,z]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.beam_shape">
+<span class="sig-name descname"><span class="pre">beam_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.sensor.radar.beam_shape.BeamShape" title="smartfusion.sensor.radar.beam_shape.BeamShape"><span class="pre">BeamShape</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.beam_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Object describing the shape of the beam.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.beam_transition_model">
+<span class="sig-name descname"><span class="pre">beam_transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel"><span class="pre">BeamTransitionModel</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.beam_transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Object describing the movement of the beam in azimuth and elevation from the perspective of the radar.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.number_pulses">
+<span class="sig-name descname"><span class="pre">number_pulses</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.number_pulses" title="Permalink to this definition"></a></dt>
+<dd><p>The number of pulses in the radar burst.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.duty_cycle">
+<span class="sig-name descname"><span class="pre">duty_cycle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.duty_cycle" title="Permalink to this definition"></a></dt>
+<dd><p>Duty cycle is the fraction of the time the radar is transmitting.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.band_width">
+<span class="sig-name descname"><span class="pre">band_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.band_width" title="Permalink to this definition"></a></dt>
+<dd><p>Bandwidth of the receiver in hertz.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.receiver_noise">
+<span class="sig-name descname"><span class="pre">receiver_noise</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.receiver_noise" title="Permalink to this definition"></a></dt>
+<dd><p>Noise figure of the radar in decibels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.frequency">
+<span class="sig-name descname"><span class="pre">frequency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.frequency" title="Permalink to this definition"></a></dt>
+<dd><p>Transmitted frequency in hertz.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.antenna_gain">
+<span class="sig-name descname"><span class="pre">antenna_gain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.antenna_gain" title="Permalink to this definition"></a></dt>
+<dd><p>Total antenna gain in decibels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.beam_width">
+<span class="sig-name descname"><span class="pre">beam_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.beam_width" title="Permalink to this definition"></a></dt>
+<dd><p>Radar beam width in radians.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.loss">
+<span class="sig-name descname"><span class="pre">loss</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.loss" title="Permalink to this definition"></a></dt>
+<dd><p>Loss in decibels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.swerling_on">
+<span class="sig-name descname"><span class="pre">swerling_on</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.swerling_on" title="Permalink to this definition"></a></dt>
+<dd><p>Is the Swerling 1 case used. If True the RCS of the target will change for each timestep. The random RCS follows the probability distribution of the Swerling 1 case.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.rcs">
+<span class="sig-name descname"><span class="pre">rcs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.rcs" title="Permalink to this definition"></a></dt>
+<dd><p>The radar cross section of targets in meters squared. Used if RCS not present on truth. Default <cite>None</cite>, where ‘rcs’ must be present on truth.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.probability_false_alarm">
+<span class="sig-name descname"><span class="pre">probability_false_alarm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.probability_false_alarm" title="Permalink to this definition"></a></dt>
+<dd><p>Probability of false alarm used in the North’s approximation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.rotation_offset">
+<span class="sig-name descname"><span class="pre">rotation_offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><span class="pre">StateVector</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.rotation_offset" title="Permalink to this definition"></a></dt>
+<dd><p>A 3x1 array of angles (rad), specifying the radar orientation in terms of the counter-clockwise rotation around the <span class="math notranslate nohighlight">\(x,y,z\)</span> axis. i.e Roll, Pitch and Yaw. Default is <code class="docutils literal notranslate"><span class="pre">StateVector([0,</span> <span class="pre">0,</span> <span class="pre">0])</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.measurement_model">
+<span class="sig-name descname"><span class="pre">measurement_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>The measurement model used to generate measurements.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.gen_probability">
+<span class="sig-name descname"><span class="pre">gen_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">truth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#AESARadar.gen_probability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.gen_probability" title="Permalink to this definition"></a></dt>
+<dd><p>Generates probability of detection of a given State.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>truth</strong> (<em>The target state.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>det_prob</strong> (<cite>float</cite>) – Probability of detection.</p></li>
+<li><p><strong>snr</strong> (<cite>float</cite>) – Signal to noise ratio.</p></li>
+<li><p><strong>rcs</strong> (<cite>float</cite>) – RCS after the Swerling 1 case is applied.</p></li>
+<li><p><strong>directed_power</strong> (<cite>float</cite>) – Power in the direction of the target.</p></li>
+<li><p><strong>spoiled_gain</strong> (<cite>float</cite>) – Gain in decibels with beam spoiling applied.</p></li>
+<li><p><strong>spoiled_width</strong> (<cite>float</cite>) – Beam width with beam spoiling applied.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.radar.AESARadar.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><span class="pre">GroundTruthState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><span class="pre">TrueDetection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/sensor/radar/radar.html#AESARadar.measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.radar.AESARadar.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a measurement for a given state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truths</strong> (Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>]) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a></p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or bool) – An externally generated random process noise sample (the default is <cite>True</cite>, in which
+case <a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model.rvs" title="smartfusion.models.base.Model.rvs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rvs()</span></code></a> is used; if <cite>False</cite>, no noise will be added)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of measurements generated from the given states. The timestamps of the
+measurements are set equal to that of the corresponding states that they were
+calculated from. Each measurement stores the ground truth path that it was produced
+from.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrueDetection</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.sensor.radar.beam_pattern">
+<span id="beam-patterns"></span><h2>Beam Patterns<a class="headerlink" href="#module-smartfusion.sensor.radar.beam_pattern" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.beam_pattern.</span></span><span class="sig-name descname"><span class="pre">BeamTransitionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#BeamTransitionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Base class for Beam Transition Model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>centre</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) – Centre of the beam pattern</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel.centre">
+<span class="sig-name descname"><span class="pre">centre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel.centre" title="Permalink to this definition"></a></dt>
+<dd><p>Centre of the beam pattern</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel.move_beam">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">move_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#BeamTransitionModel.move_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel.move_beam" title="Permalink to this definition"></a></dt>
+<dd><p>Gives position of beam at given time</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.StationaryBeam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.beam_pattern.</span></span><span class="sig-name descname"><span class="pre">StationaryBeam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#StationaryBeam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.StationaryBeam" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeamTransitionModel</span></code></a></p>
+<p>Stationary beam that points in the direction of centre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>centre</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) – Centre of the beam pattern</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.StationaryBeam.move_beam">
+<span class="sig-name descname"><span class="pre">move_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#StationaryBeam.move_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.StationaryBeam.move_beam" title="Permalink to this definition"></a></dt>
+<dd><p>generates a beam position based on the centre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>azimuth</strong> (<cite>float</cite>) – azimuth from the perspective of the radar at given timestamp</p></li>
+<li><p><strong>elevation</strong> (<cite>float</cite>) – elevation from the perspective of the radar at given timestamp</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.beam_pattern.</span></span><span class="sig-name descname"><span class="pre">BeamSweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle_per_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">centre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#BeamSweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.beam_pattern.BeamTransitionModel" title="smartfusion.sensor.radar.beam_pattern.BeamTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeamTransitionModel</span></code></a></p>
+<p>This describes a beam moving in a raster pattern</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle_per_s</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The speed that the beam scans at</p></li>
+<li><p><strong>frame</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float]</span></code>) – Dimensions of search frame as [azimuth,elevation]</p></li>
+<li><p><strong>separation</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Separation of lines in elevation</p></li>
+<li><p><strong>centre</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float]</span></code>, optional) – Centre of the search frame in [azimuth,elevation]. Defaults to (0, 0)</p></li>
+<li><p><strong>init_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – The time the frame is started</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.init_time">
+<span class="sig-name descname"><span class="pre">init_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.init_time" title="Permalink to this definition"></a></dt>
+<dd><p>The time the frame is started</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.angle_per_s">
+<span class="sig-name descname"><span class="pre">angle_per_s</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.angle_per_s" title="Permalink to this definition"></a></dt>
+<dd><p>The speed that the beam scans at</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.frame" title="Permalink to this definition"></a></dt>
+<dd><p>Dimensions of search frame as [azimuth,elevation]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.separation">
+<span class="sig-name descname"><span class="pre">separation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.separation" title="Permalink to this definition"></a></dt>
+<dd><p>Separation of lines in elevation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.centre">
+<span class="sig-name descname"><span class="pre">centre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.centre" title="Permalink to this definition"></a></dt>
+<dd><p>Centre of the search frame in [azimuth,elevation]. Defaults to (0, 0)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_pattern.BeamSweep.move_beam">
+<span class="sig-name descname"><span class="pre">move_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_pattern.html#BeamSweep.move_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_pattern.BeamSweep.move_beam" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the position of the beam at given timestamp</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timestamp</strong> (<cite>datetime.datetime</cite>) – current timestep</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>azimuth</strong> (<cite>float</cite>) – azimuth from the perspective of the radar at given timestamp</p></li>
+<li><p><strong>elevation</strong> (<cite>float</cite>) – elevation from the perspective of the radar at given timestamp</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.sensor.radar.beam_shape">
+<span id="beam-shapes"></span><h2>Beam Shapes<a class="headerlink" href="#module-smartfusion.sensor.radar.beam_shape" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_shape.BeamShape">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.beam_shape.</span></span><span class="sig-name descname"><span class="pre">BeamShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_shape.html#BeamShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_shape.BeamShape" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Base class for beam shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peak_power</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – peak power of the main lobe in Watts</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_shape.BeamShape.peak_power">
+<span class="sig-name descname"><span class="pre">peak_power</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.sensor.radar.beam_shape.BeamShape.peak_power" title="Permalink to this definition"></a></dt>
+<dd><p>peak power of the main lobe in Watts</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_shape.BeamShape.beam_power">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beam_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">azimuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_width</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_shape.html#BeamShape.beam_power"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_shape.BeamShape.beam_power" title="Permalink to this definition"></a></dt>
+<dd><p>beam power sent in the direction of the target.
+azimuth = elevation = 0 for center of beam</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_shape.Beam2DGaussian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.sensor.radar.beam_shape.</span></span><span class="sig-name descname"><span class="pre">Beam2DGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_shape.html#Beam2DGaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_shape.Beam2DGaussian" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.sensor.radar.beam_shape.BeamShape" title="smartfusion.sensor.radar.beam_shape.BeamShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeamShape</span></code></a></p>
+<p>The beam is in the shape of a 2D gaussian in the azimuth and elevation.
+The width at half the maxima is the beam width. It is described by:</p>
+<div class="math notranslate nohighlight">
+\[P = P_p\exp \left( 0.5 \times \left(\left(\frac{2.35\,az}{B_w}\right)
+^2 +\left(\frac{2.35\,el}{B_w}\right)^2 \right) \right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(az\)</span> and <span class="math notranslate nohighlight">\(el\)</span> are the azimuth and elevation angles away
+from the centre. <span class="math notranslate nohighlight">\(B_w\)</span> is the beam width and <span class="math notranslate nohighlight">\(P_p\)</span> is the peak
+power.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peak_power</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – peak power of the main lobe in Watts</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.sensor.radar.beam_shape.Beam2DGaussian.beam_power">
+<span class="sig-name descname"><span class="pre">beam_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">azimuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_width</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/sensor/radar/beam_shape.html#Beam2DGaussian.beam_power"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.sensor.radar.beam_shape.Beam2DGaussian.beam_power" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>azimuth</strong> (<cite>float</cite>) – The angle of the target away from the boresight of the radar in
+azimuth</p></li>
+<li><p><strong>elevation</strong> (<cite>float</cite>) – The angle of the target away from the boresight of the radar in
+elevation</p></li>
+<li><p><strong>beam_width</strong> (<cite>float</cite>) – The width of the radar beam</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the power directed towards the target</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>float</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.sensor.html" class="btn btn-neutral float-left" title="Sensors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.sensor.action.html" class="btn btn-neutral float-right" title="Actions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

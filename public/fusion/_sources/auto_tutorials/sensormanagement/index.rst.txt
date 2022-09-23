@@ -1,0 +1,77 @@
+
+
+.. _sphx_glr_auto_tutorials_sensormanagement:
+
+Sensor Management
+-----------------
+Here are some tutorials that introduce sensor management using SMART FUSION classes.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="1 - Single Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_01_SingleSensorManagement_thumb.png
+    :alt: 1 - Single Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_01_SingleSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1 - Single Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="2 - Multiple Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_02_MultiSensorManagement_thumb.png
+    :alt: 2 - Multiple Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_02_MultiSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">2 - Multiple Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="3 - Optimised Sensor Management">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/sensormanagement/images/thumb/sphx_glr_03_OptimisedSensorManagement_thumb.png
+    :alt: 3 - Optimised Sensor Management
+
+  :ref:`sphx_glr_auto_tutorials_sensormanagement_03_OptimisedSensorManagement.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3 - Optimised Sensor Management</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/sensormanagement/01_SingleSensorManagement
+   /auto_tutorials/sensormanagement/02_MultiSensorManagement
+   /auto_tutorials/sensormanagement/03_OptimisedSensorManagement
+

@@ -1,0 +1,79 @@
+Welcome to SMART FUSION's documentation!
+========================================
+
+.. image:: _static/smart_fusion_logo.jpeg
+    :width: 200px
+    :align: center
+    :alt: SMART FUSION Logo
+
+SMART FUSION is a software research framework geared for supporting advances 
+in multisource-multitarget information fusion for multiple object tracking.
+
+As SMART FUSION is focused on development and testing of algorithms, and such
+components may not be the most optimised implementations, instead focusing on
+being flexible. Its also intended to aid choice of component/algorithms
+to tackle real world problems.
+
+The mission of SMART FUSION is to enhance the development, prototyping, and 
+testing of algorithms by unifying reusable object oriented code together with 
+useful primary and secondary literature, state-of-the-art research, benchmarks, 
+and related conference proceedings. SMART FUSION is designed to be especially 
+helpful for the following tasks:
+* onboarding of new researchers to the vast science of multiple object tracking, 
+* designing rigorous testing environments for the assessment of object tracking algorithms,  
+* combing-over existing literature so that researchers can spend more time pushing 
+state-of-the-art forward (rather than catching up).
+
+SMART FUSION is currently in *beta* and under continuing development, where
+feedback and contributions are welcomed to improve the component interface
+design and grow the number components available.
+
+Please see the SMART FUSION :ref:`auto_tutorials/index:Tutorials` for learning
+about tracking and using SMART FUSION, :ref:`auto_examples/index:Examples` for
+examples of SMART FUSION features, and :ref:`auto_demos/index:Demonstrations`
+for demonstrations of using SMART FUSION.
+
+Installation
+------------
+SMART FUSION is currently in *beta* and heavily inspired by the `Stone-Soup library`_.
+
+.. code::
+
+    python -m pip install git+https://github.com/claycurry34/Smart-Fusion.git#egg=smartfusion
+
+
+Developing
+^^^^^^^^^^
+If you are looking to carry out development with SMART FUSION, you should first
+clone from GitHub and install with development dependencies by doing the
+following:
+
+.. code::
+
+    git clone "https://github.com/[org_page]/Smart-Fusion.git"
+    cd Smart-Fusion
+    python -m pip install -e ".[dev]"
+
+Please also see our :ref:`contributing:Contributing` page.
+
+Contents
+========
+
+.. toctree::
+    :maxdepth: 2
+
+    design
+    smartfusion
+    auto_tutorials/index
+    auto_examples/index
+    auto_demos/index
+    contributing
+    copyright
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+
+.. _Stone-Soup library: https://stonesoup.readthedocs.io/en/v0.1b10/index.html

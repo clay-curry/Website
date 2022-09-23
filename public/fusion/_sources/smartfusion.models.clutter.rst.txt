@@ -1,0 +1,6 @@
+Clutter Models
+==============
+
+.. automodule:: smartfusion.models.clutter
+    :show-inheritance:
+    :inherited-members:

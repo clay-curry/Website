@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.reader.opensky &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.reader.opensky</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/reader/opensky" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.reader.opensky</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">requests</span>
+    <span class="kn">from</span> <span class="nn">requests.compat</span> <span class="kn">import</span> <span class="n">urljoin</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+        <span class="s2">&quot;Usage of opensky requires the dependency &#39;requests&#39; is installed. &quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
+
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Reader</span><span class="p">,</span> <span class="n">DetectionReader</span><span class="p">,</span> <span class="n">GroundTruthReader</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..buffered_generator</span> <span class="kn">import</span> <span class="n">BufferedGenerator</span>
+<span class="kn">from</span> <span class="nn">..types.detection</span> <span class="kn">import</span> <span class="n">Detection</span>
+<span class="kn">from</span> <span class="nn">..types.groundtruth</span> <span class="kn">import</span> <span class="n">GroundTruthPath</span><span class="p">,</span> <span class="n">GroundTruthState</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">State</span>
+
+
+<span class="k">class</span> <span class="nc">_OpenSkyNetworkReader</span><span class="p">(</span><span class="n">Reader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;OpenSky Network reader</span>
+
+<span class="sd">    This reader uses the `OpenSky Network &lt;https://opensky-network.org/&gt;`_ REST</span>
+<span class="sd">    API to fetch air traffic control data.</span>
+
+<span class="sd">    The state vector consists of longitude, latitude</span>
+<span class="sd">    (in decimal degrees) and altitude (in meters).</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        By using this reader, you are agreeing to `OpenSky Network&#39;s terms of</span>
+<span class="sd">        use &lt;https://opensky-network.org/about/terms-of-use&gt;`_.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://opensky-network.org/&quot;</span>
+    <span class="n">sources</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;ADS-B&quot;</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;ASTERIX&quot;</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;MLAT&quot;</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;FLARM&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">bbox</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Bounding box to filter data to (left, bottom, right, top). &quot;</span>
+            <span class="s2">&quot;Default `None` which will include global data.&quot;</span><span class="p">)</span>
+    <span class="n">timestep</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Time of each poll after reported time from OpenSky. &quot;</span>
+            <span class="s2">&quot;Must be greater than 10 seconds. Default 15 seconds.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;timestep&#39; must be &gt;= 10 seconds.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">data_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+             <span class="s1">&#39;lomin&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+             <span class="s1">&#39;lamin&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+             <span class="s1">&#39;lomax&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+             <span class="s1">&#39;lamax&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+             <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Global</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;api/states/all&quot;</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+                <span class="n">states_and_metadata</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;states&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span>  <span class="c1"># On ground</span>
+                        <span class="k">continue</span>
+                    <span class="c1"># Must have position (lon, lat, geo-alt)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="p">)):</span>
+                        <span class="k">continue</span>
+                    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="c1"># Skip old detections</span>
+                    <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">time</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">states_and_metadata</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+                        <span class="n">State</span><span class="p">([[</span><span class="n">state</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span> <span class="p">[</span><span class="n">state</span><span class="p">[</span><span class="mi">6</span><span class="p">]],</span> <span class="p">[</span><span class="n">state</span><span class="p">[</span><span class="mi">13</span><span class="p">]]],</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">),</span>
+                        <span class="p">{</span>
+                            <span class="s1">&#39;icao24&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="s1">&#39;callsign&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="s1">&#39;orign_country&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                            <span class="s1">&#39;sensors&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span>
+                            <span class="s1">&#39;squawk&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span>
+                            <span class="s1">&#39;spi&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span>
+                            <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="n">state</span><span class="p">[</span><span class="mi">16</span><span class="p">]],</span>
+                        <span class="p">}</span>
+                    <span class="p">))</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+                <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="n">states_and_metadata</span>
+
+                <span class="k">while</span> <span class="n">time</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">():</span>
+                    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="OpenSkyNetworkDetectionReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.opensky.OpenSkyNetworkDetectionReader">[docs]</a><span class="k">class</span> <span class="nc">OpenSkyNetworkDetectionReader</span><span class="p">(</span><span class="n">_OpenSkyNetworkReader</span><span class="p">,</span> <span class="n">DetectionReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;OpenSky Network detection reader</span>
+
+<span class="sd">    This reader uses the `OpenSky Network &lt;https://opensky-network.org/&gt;`_ REST</span>
+<span class="sd">    API to fetch air traffic control data.</span>
+
+<span class="sd">    The detection state vector consists of longitude, latitude</span>
+<span class="sd">    (in decimal degrees) and altitude (in meters).</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        By using this reader, you are agreeing to `OpenSky Network&#39;s terms of</span>
+<span class="sd">        use &lt;https://opensky-network.org/about/terms-of-use&gt;`_.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpenSkyNetworkDetectionReader.detections_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.opensky.OpenSkyNetworkDetectionReader.detections_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">detections_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">states_and_metadata</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_gen</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="p">{</span><span class="n">Detection</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span>
+                         <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">metadata</span> <span class="ow">in</span> <span class="n">states_and_metadata</span><span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="OpenSkyNetworkGroundTruthReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader">[docs]</a><span class="k">class</span> <span class="nc">OpenSkyNetworkGroundTruthReader</span><span class="p">(</span><span class="n">_OpenSkyNetworkReader</span><span class="p">,</span> <span class="n">GroundTruthReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;OpenSky Network groundtruth reader</span>
+
+<span class="sd">    This reader uses the `OpenSky Network &lt;https://opensky-network.org/&gt;`_ REST</span>
+<span class="sd">    API to fetch air traffic control data.</span>
+
+<span class="sd">    The groundtruth state vector consists of longitude, latitude</span>
+<span class="sd">    (in decimal degrees) and altitude (in meters).</span>
+
+<span class="sd">    Paths that are yielded are grouped based on the International Civil Aviation</span>
+<span class="sd">    Organisation (ICAO) 24-bit address.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        By using this reader, you are agreeing to `OpenSky Network&#39;s terms of</span>
+<span class="sd">        use &lt;https://opensky-network.org/about/terms-of-use&gt;`_.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpenSkyNetworkGroundTruthReader.groundtruth_paths_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.opensky.OpenSkyNetworkGroundTruthReader.groundtruth_paths_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">groundtruth_paths_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">groundtruth_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">time</span><span class="p">,</span> <span class="n">states_and_metadata</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_gen</span><span class="p">():</span>
+            <span class="n">updated_paths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">metadata</span> <span class="ow">in</span> <span class="n">states_and_metadata</span><span class="p">:</span>
+                <span class="n">path_id</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;icao24&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">path_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">GroundTruthPath</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">path_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groundtruth_dict</span><span class="p">:</span>
+                        <span class="n">groundtruth_dict</span><span class="p">[</span><span class="n">path_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">GroundTruthPath</span><span class="p">([],</span> <span class="nb">id</span><span class="o">=</span><span class="n">path_id</span><span class="p">)</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">groundtruth_dict</span><span class="p">[</span><span class="n">path_id</span><span class="p">]</span>
+
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GroundTruthState</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">metadata</span><span class="p">))</span>
+                <span class="n">updated_paths</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">groundtruth_dict</span><span class="p">[</span><span class="n">path_id</span><span class="p">])</span>
+
+            <span class="k">yield</span> <span class="n">time</span><span class="p">,</span> <span class="n">updated_paths</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

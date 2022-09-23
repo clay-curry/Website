@@ -1,0 +1,5 @@
+Optimal Sub-Pattern Assignment (OSPA) Metric
+============================================
+
+.. automodule:: smartfusion.metricgenerator.ospametric
+    :show-inheritance:

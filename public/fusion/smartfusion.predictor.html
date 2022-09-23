@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predictors &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Resampler" href="smartfusion.resampler.html" />
+    <link rel="prev" title="Transition Models" href="smartfusion.models.transition.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Predictors</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.predictor.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.predictor">
+<span id="predictors"></span><h1>Predictors<a class="headerlink" href="#module-smartfusion.predictor" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.predictor.base"></span><p>Base classes for SMART FUSION Predictor interface</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.base.Predictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.base.</span></span><span class="sig-name descname"><span class="pre">Predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/base.html#Predictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.base.Predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Predictor base class</p>
+<p>A predictor is used to predict a new <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> given a prior
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> and a <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>. In addition, a
+<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a> may be used to model an external influence on the
+state.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_{k|k-1} = f_k(\mathbf{x}_{k-1}, \mathbf{\nu}_k) +
+b_k(\mathbf{u}_k, \mathbf{\eta}_k)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x}_{k-1}\)</span> is the prior state,
+<span class="math notranslate nohighlight">\(f_k(\mathbf{x}_{k-1})\)</span> is the transition function,
+<span class="math notranslate nohighlight">\(\mathbf{u}_k\)</span> the control vector, <span class="math notranslate nohighlight">\(b_k(\mathbf{u}_k)\)</span> the
+control input and <span class="math notranslate nohighlight">\(\mathbf{\nu}_k\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\eta}_k\)</span> the
+transition and control model noise respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – transition model</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – control model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.base.Predictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.base.Predictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>transition model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.base.Predictor.control_model">
+<span class="sig-name descname"><span class="pre">control_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.base.Predictor.control_model" title="Permalink to this definition"></a></dt>
+<dd><p>control model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.base.Predictor.predict">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/base.html#Predictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.base.Predictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The prediction function itself</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – The prior state</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – Time at which the prediction is made (used by the transition
+model)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>State prediction</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.StatePrediction" title="smartfusion.types.prediction.StatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">StatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.predictor.kalman">
+<span id="kalman"></span><h2>Kalman<a class="headerlink" href="#module-smartfusion.predictor.kalman" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.KalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.kalman.</span></span><span class="sig-name descname"><span class="pre">KalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#KalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.KalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a></p>
+<p>A predictor class which forms the basis for the family of Kalman
+predictors. This class also serves as the (specific) Kalman Filter
+<a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a> class. Here</p>
+<div class="math notranslate nohighlight">
+\[f_k( \mathbf{x}_{k-1}) = F_k \mathbf{x}_{k-1},  \ b_k( \mathbf{u}_k) =
+B_k \mathbf{u}_k \ \mathrm{and} \ \mathbf{\nu}_k \sim \mathcal{N}(0,Q_k)\]</div>
+<p class="rubric">Notes</p>
+<p>In the Kalman filter, transition and control models must be linear.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If no <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a> is specified.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearGaussianTransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.KalmanPredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.KalmanPredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.KalmanPredictor.control_model">
+<span class="sig-name descname"><span class="pre">control_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.KalmanPredictor.control_model" title="Permalink to this definition"></a></dt>
+<dd><p>The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.KalmanPredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#KalmanPredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.KalmanPredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The predict function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – <span class="math notranslate nohighlight">\(\mathbf{x}_{k-1}\)</span></p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p><strong>**kwargs</strong> – These are passed, via <code class="xref py py-meth docutils literal notranslate"><span class="pre">transition_function()</span></code> to
+<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel.matrix" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel.matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matrix()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\mathbf{x}_{k|k-1}\)</span>, the predicted state and the predicted
+state covariance <span class="math notranslate nohighlight">\(P_{k|k-1}\)</span></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.GaussianStatePrediction" title="smartfusion.types.prediction.GaussianStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.ExtendedKalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.kalman.</span></span><span class="sig-name descname"><span class="pre">ExtendedKalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#ExtendedKalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a></p>
+<p>ExtendedKalmanPredictor class</p>
+<p>An implementation of the Extended Kalman Filter predictor. Here the
+transition and control functions may be non-linear, their transition and
+control matrices are approximated via Jacobian matrices. To this end the
+transition and control models, if non-linear, must be able to return the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">jacobian()</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.ExtendedKalmanPredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.ExtendedKalmanPredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.ExtendedKalmanPredictor.control_model">
+<span class="sig-name descname"><span class="pre">control_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.ExtendedKalmanPredictor.control_model" title="Permalink to this definition"></a></dt>
+<dd><p>The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.kalman.</span></span><span class="sig-name descname"><span class="pre">UnscentedKalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#UnscentedKalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a></p>
+<p>UnscentedKalmanFilter class</p>
+<p>The predict is accomplished by calculating the sigma points from the
+Gaussian mean and covariance, then putting these through the (in general
+non-linear) transition function, then reconstructing the Gaussian.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+<li><p><strong>alpha</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Primary sigma point spread scaling parameter. Default is 0.5.</p></li>
+<li><p><strong>beta</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Used to incorporate prior knowledge of the distribution. If the true distribution is Gaussian, the value of 2 is optimal. Default is 2</p></li>
+<li><p><strong>kappa</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Secondary spread scaling parameter. Default is calculated as 3-Ns</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.control_model">
+<span class="sig-name descname"><span class="pre">control_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.control_model" title="Permalink to this definition"></a></dt>
+<dd><p>The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.alpha" title="Permalink to this definition"></a></dt>
+<dd><p>Primary sigma point spread scaling parameter. Default is 0.5.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.beta" title="Permalink to this definition"></a></dt>
+<dd><p>Used to incorporate prior knowledge of the distribution. If the true distribution is Gaussian, the value of 2 is optimal. Default is 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.kappa">
+<span class="sig-name descname"><span class="pre">kappa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.kappa" title="Permalink to this definition"></a></dt>
+<dd><p>Secondary spread scaling parameter. Default is calculated as 3-Ns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.UnscentedKalmanPredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#UnscentedKalmanPredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The unscented version of the predict step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>) – Prior state, <span class="math notranslate nohighlight">\(\mathbf{x}_{k-1}\)</span></p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Time to transit to (<span class="math notranslate nohighlight">\(k\)</span>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>various</em><em>, </em><em>optional</em>) – These are passed to <code class="xref py py-meth docutils literal notranslate"><span class="pre">covar()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted state <span class="math notranslate nohighlight">\(\mathbf{x}_{k|k-1}\)</span> and the predicted
+state covariance <span class="math notranslate nohighlight">\(P_{k|k-1}\)</span></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.GaussianStatePrediction" title="smartfusion.types.prediction.GaussianStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.SqrtKalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.kalman.</span></span><span class="sig-name descname"><span class="pre">SqrtKalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/kalman.html#SqrtKalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.kalman.SqrtKalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a></p>
+<p>The version of the Kalman predictor that operates on the square root parameterisation of
+the Gaussian state, <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.SqrtGaussianState" title="smartfusion.types.state.SqrtGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SqrtGaussianState</span></code></a>.</p>
+<p>The prediction is undertaken in one of two ways. The default is to work in exactly the same
+way as the parent class, with the exception that the predicted covariance is
+subject to a Cholesky factorisation prior to initialisation of the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.SqrtGaussianState" title="smartfusion.types.state.SqrtGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SqrtGaussianState</span></code></a>
+output. The alternative, accessible via the <code class="xref py py-attr docutils literal notranslate"><span class="pre">qr_method</span> <span class="pre">=</span> <span class="pre">True</span></code> flag, is to predict via a
+modified Gram-Schmidt process. See [1] for details.</p>
+<p>If transition and control models are possessed of the square root form of the covariance (as
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">sqrt_covar</span></code> in the case of the transition model and <code class="xref py py-attr docutils literal notranslate"><span class="pre">sqrt_control_noise</span></code> for
+control models), then these are used directly. If not then they are created from the full
+matrices using the scipy.linalg <code class="xref py py-meth docutils literal notranslate"><span class="pre">sqrtm()</span></code> method. (Unlike the Cholesky decomposition
+this works on positive semi-definite matrices, as well as positive definite ones.</p>
+<p class="rubric">References</p>
+<ol class="arabic simple">
+<li><p>Maybeck, P.S. 1994, Stochastic Models, Estimation, and Control, Vol. 1, NavtechGPS,
+Springfield, VA.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearGaussianTransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+<li><p><strong>qr_method</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – A switch to do the prediction via a QR decomposition, rather than using a Cholesky decomposition.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.kalman.SqrtKalmanPredictor.qr_method">
+<span class="sig-name descname"><span class="pre">qr_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.predictor.kalman.SqrtKalmanPredictor.qr_method" title="Permalink to this definition"></a></dt>
+<dd><p>A switch to do the prediction via a QR decomposition, rather than using a Cholesky decomposition.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.predictor.particle">
+<span id="particle"></span><h2>Particle<a class="headerlink" href="#module-smartfusion.predictor.particle" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.particle.ParticlePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.particle.</span></span><span class="sig-name descname"><span class="pre">ParticlePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/particle.html#ParticlePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.particle.ParticlePredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a></p>
+<p>ParticlePredictor class</p>
+<p>An implementation of a Particle Filter predictor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – transition model</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – control model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.particle.ParticlePredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/particle.html#ParticlePredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.particle.ParticlePredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Particle Filter prediction step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.ParticleState" title="smartfusion.types.state.ParticleState"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleState</span></code></a>) – A prior state object</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – A timestamp signifying when the prediction is performed
+(the default is <cite>None</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.ParticleStatePrediction" title="smartfusion.types.prediction.ParticleStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.particle.ParticleFlowKalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.particle.</span></span><span class="sig-name descname"><span class="pre">ParticleFlowKalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kalman_predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><span class="pre">KalmanPredictor</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/particle.html#ParticleFlowKalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.particle.ParticleFlowKalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.particle.ParticlePredictor" title="smartfusion.predictor.particle.ParticlePredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticlePredictor</span></code></a></p>
+<p>Gromov Flow Parallel Kalman Particle Predictor</p>
+<p>This is a wrapper around the <code class="xref py py-class docutils literal notranslate"><span class="pre">GromovFlowParticlePredictor</span></code> which
+can use a <a class="reference internal" href="#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="smartfusion.predictor.kalman.ExtendedKalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExtendedKalmanPredictor</span></code></a> or
+<a class="reference internal" href="#smartfusion.predictor.kalman.UnscentedKalmanPredictor" title="smartfusion.predictor.kalman.UnscentedKalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnscentedKalmanPredictor</span></code></a> in parallel in order to maintain a
+state covariance, as proposed in <a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
+<p>This should be used in conjunction with the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleFlowKalmanUpdater</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – transition model</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – control model</p></li>
+<li><p><strong>kalman_predictor</strong> (<a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a>, optional) – Kalman predictor to use. Default <cite>None</cite> where a new instance of:class:<cite>~.ExtendedKalmanPredictor</cite> will be created utilising thesame transition model.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Ding, Tao &amp; Coates, Mark J., “Implementation of the Daum-Huang
+Exact-Flow Particle Filter” 2012</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.particle.ParticleFlowKalmanPredictor.kalman_predictor">
+<span class="sig-name descname"><span class="pre">kalman_predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><span class="pre">KalmanPredictor</span></a></em><a class="headerlink" href="#smartfusion.predictor.particle.ParticleFlowKalmanPredictor.kalman_predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Kalman predictor to use. Default <cite>None</cite> where a new instance of:class:<cite>~.ExtendedKalmanPredictor</cite> will be created utilising thesame transition model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.particle.ParticleFlowKalmanPredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/particle.html#ParticleFlowKalmanPredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.particle.ParticleFlowKalmanPredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Particle Filter prediction step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.ParticleState" title="smartfusion.types.state.ParticleState"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleState</span></code></a>) – A prior state object</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – A timestamp signifying when the prediction is performed
+(the default is <cite>None</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.ParticleStatePrediction" title="smartfusion.types.prediction.ParticleStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.predictor.ensemble">
+<span id="ensemble"></span><h2>Ensemble<a class="headerlink" href="#module-smartfusion.predictor.ensemble" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.ensemble.EnsemblePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.ensemble.</span></span><span class="sig-name descname"><span class="pre">EnsemblePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/ensemble.html#EnsemblePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.ensemble.EnsemblePredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a></p>
+<p>Ensemble Kalman Filter Predictor class</p>
+<p>The EnKF predicts the state by treating each column of the ensemble matrix
+as a state vector. The state is propagated through time by applying the
+transition function to each member (vector) of the ensemble.</p>
+<div class="math notranslate nohighlight">
+\[\hat{X}_k = [f(x_1), f(x_2), ..., f(x_M)]\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.ensemble.EnsemblePredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.ensemble.EnsemblePredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.ensemble.EnsemblePredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/ensemble.html#EnsemblePredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.ensemble.EnsemblePredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Ensemble Kalman Filter prediction step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.EnsembleState" title="smartfusion.types.state.EnsembleState"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnsembleState</span></code></a>) – A prior state object</p></li>
+<li><p><strong>control_input</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>, optional) – The control input. It will only have an effect if
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">control_model</span></code> is not <cite>None</cite> (the default is <cite>None</cite>)</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – A timestamp signifying when the prediction is performed
+(the default is <cite>None</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.EnsembleStatePrediction" title="smartfusion.types.prediction.EnsembleStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnsembleStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.predictor.categorical">
+<span id="categorical"></span><h2>Categorical<a class="headerlink" href="#module-smartfusion.predictor.categorical" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.categorical.HMMPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.categorical.</span></span><span class="sig-name descname"><span class="pre">HMMPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.categorical.MarkovianTransitionModel" title="smartfusion.models.transition.categorical.MarkovianTransitionModel"><span class="pre">MarkovianTransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/categorical.html#HMMPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.categorical.HMMPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a></p>
+<p>Hidden Markov model predictor</p>
+<p>Assumes transition model is time-invariant, and therefore care should be taken when predicting
+forward to the same time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.categorical.MarkovianTransitionModel" title="smartfusion.models.transition.categorical.MarkovianTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarkovianTransitionModel</span></code></a>) – The transition model used to predict states forward in <cite>time</cite>.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – control model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.categorical.HMMPredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.categorical.MarkovianTransitionModel" title="smartfusion.models.transition.categorical.MarkovianTransitionModel"><span class="pre">MarkovianTransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.categorical.HMMPredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model used to predict states forward in <cite>time</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.categorical.HMMPredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/categorical.html#HMMPredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.categorical.HMMPredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predicts a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.CategoricalState" title="smartfusion.types.state.CategoricalState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalState</span></code></a> forward using the <a class="reference internal" href="#smartfusion.predictor.categorical.HMMPredictor.transition_model" title="smartfusion.predictor.categorical.HMMPredictor.transition_model"><code class="xref py py-attr docutils literal notranslate"><span class="pre">transition_model</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.CategoricalState" title="smartfusion.types.state.CategoricalState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalState</span></code></a>) – <span class="math notranslate nohighlight">\(\alpha_{t-1}\)</span></p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><strong>**kwargs</strong> – These are passed to the <code class="xref py py-meth docutils literal notranslate"><span class="pre">transition_model.function()</span></code> method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted state.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.CategoricalStatePrediction" title="smartfusion.types.prediction.CategoricalStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalStatePrediction</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The Markovian transition model is time-invariant and the evaluated <cite>time_interval</cite> can be
+<cite>None</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.predictor.composite">
+<span id="composite"></span><h2>Composite<a class="headerlink" href="#module-smartfusion.predictor.composite" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.composite.CompositePredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.composite.</span></span><span class="sig-name descname"><span class="pre">CompositePredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_predictors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><span class="pre">ControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/composite.html#CompositePredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.composite.CompositePredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a></p>
+<p>Composite predictor type</p>
+<p>A composition of ordered sub-predictors (<a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>). Independently predicts each
+sub-state of a <code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeState</span></code> forward using a corresponding sub-predictor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sub_predictors</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Predictor]</span></code>) – Sequence of sub-predictors comprising the composite predictor. Must not be empty.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>, optional) – control model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.composite.CompositePredictor.sub_predictors">
+<span class="sig-name descname"><span class="pre">sub_predictors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.predictor.composite.CompositePredictor.sub_predictors" title="Permalink to this definition"></a></dt>
+<dd><p>Sequence of sub-predictors comprising the composite predictor. Must not be empty.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.predictor.composite.CompositePredictor.transition_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transition_model</span></span><a class="headerlink" href="#smartfusion.predictor.composite.CompositePredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>transition model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.composite.CompositePredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/composite.html#CompositePredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.composite.CompositePredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The predict function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.CompositeState" title="smartfusion.types.state.CompositeState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeState</span></code></a>) – The composite state of an object to be predicted forwards</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p><strong>**kwargs</strong> – These are passed to each sub-predictor’s prediction method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted composite state</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.CompositeState" title="smartfusion.types.state.CompositeState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeState</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.predictor.information">
+<span id="information"></span><h2>Information<a class="headerlink" href="#module-smartfusion.predictor.information" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.predictor.information.InformationKalmanPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.predictor.information.</span></span><span class="sig-name descname"><span class="pre">InformationKalmanPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/information.html#InformationKalmanPredictor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.information.InformationKalmanPredictor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.predictor.kalman.KalmanPredictor" title="smartfusion.predictor.kalman.KalmanPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanPredictor</span></code></a></p>
+<p>A predictor class which uses the information form of the Kalman filter. The key concept is
+that ‘information’ is encoded as the information matrix, and the so-called ‘information state’,
+which are:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Y_{k-1} &amp;= P^{-1}_{k-1}\\\mathbf{y}_{k-1} &amp;= P^{-1}_{k-1} \mathbf{x}_{k-1}\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p>The prediction then proceeds as <a class="footnote-reference brackets" href="#id5" id="id3">2</a></p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Y_{k|k-1} &amp;= [F_k Y_{k-1}^{-1} F^T + Q_k]^{-1}\\\mathbf{y}_{k|k-1} &amp;= Y_{k|k-1} F_k Y_{k-1}^{-1} \mathbf{y}_{k-1} + Y_{k|k-1}
+B_k\mathbf{u}_k\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p>where the symbols have the same meaning as in the description of the Kalman filter
+(see e.g. tutorial 1) and the prediction equations can be derived from those of the Kalman
+filter. In order to cut down on the number of matrix inversions and to benefit from caching
+these are usually recast as <a class="footnote-reference brackets" href="#id6" id="id4">3</a></p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}M_k &amp;= (F_k^{-1})^T Y_{k-1} F_k^{-1}\\Y_{k|k-1} &amp;= (I + M_k Q_k)^{-1} M_k\\\mathbf{y}_{k|k-1} &amp;= (I + M_k Q_k)^{-1} (F_k^{-1})^T \mathbf{y}_k + Y_{k|k-1}
+B_k\mathbf{u}_k\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p>The prior state must have a state vector <span class="math notranslate nohighlight">\(\mathbf{y}_{k-1}\)</span> corresponding to
+<span class="math notranslate nohighlight">\(P_{k-1}^{-1} \mathbf{x}_{k-1}\)</span> and a precision matrix, <span class="math notranslate nohighlight">\(Y_{k-1} = P_{k-1}^{-1}\)</span>.
+The <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.InformationState" title="smartfusion.types.state.InformationState"><code class="xref py py-class docutils literal notranslate"><span class="pre">InformationState</span></code></a> class is provided for this purpose.</p>
+<p>The <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a> is queried for the existence of an
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">inverse_matrix()</span></code> method, and if not present, <code class="xref py py-meth docutils literal notranslate"><span class="pre">matrix()</span></code> is inverted. This gives
+one the opportunity to cache <span class="math notranslate nohighlight">\(F_k^{-1}\)</span> and save computational resource.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If no <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a> is specified.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Kim, Y-S, Hong, K-S 2003, Decentralized information filter in federated form, SICE
+annual conference</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Makarenko, A., Durrant-Whyte, H. 2004, Decentralized data fusion and control in active
+sensor networks, in: The 7th International Conference on Information Fusion (Fusion’04),
+pp. 479-486</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearGaussianTransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>control_model</strong> (<a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearControlModel</span></code></a>, optional) – The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.information.InformationKalmanPredictor.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.information.InformationKalmanPredictor.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.predictor.information.InformationKalmanPredictor.control_model">
+<span class="sig-name descname"><span class="pre">control_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.linear.LinearControlModel" title="smartfusion.models.control.linear.LinearControlModel"><span class="pre">LinearControlModel</span></a></em><a class="headerlink" href="#smartfusion.predictor.information.InformationKalmanPredictor.control_model" title="Permalink to this definition"></a></dt>
+<dd><p>The control model to be used. Default <cite>None</cite> where the predictor will create a zero-effect linear <a class="reference internal" href="smartfusion.models.control.html#smartfusion.models.control.base.ControlModel" title="smartfusion.models.control.base.ControlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControlModel</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.predictor.information.InformationKalmanPredictor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/predictor/information.html#InformationKalmanPredictor.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.predictor.information.InformationKalmanPredictor.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The predict function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.InformationState" title="smartfusion.types.state.InformationState"><code class="xref py py-class docutils literal notranslate"><span class="pre">InformationState</span></code></a>) – <span class="math notranslate nohighlight">\(\mathbf{y}_{k-1}, Y_{k-1}\)</span></p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, optional) – <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p><strong>**kwargs</strong> – These are passed, via <code class="xref py py-meth docutils literal notranslate"><span class="pre">transition_function()</span></code> to
+<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel.matrix" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel.matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matrix()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\mathbf{y}_{k|k-1}\)</span>, the predicted information state and the predicted
+information matrix <span class="math notranslate nohighlight">\(Y_{k|k-1}\)</span></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.prediction.InformationStatePrediction" title="smartfusion.types.prediction.InformationStatePrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">InformationStatePrediction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.models.transition.html" class="btn btn-neutral float-left" title="Transition Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.resampler.html" class="btn btn-neutral float-right" title="Resampler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

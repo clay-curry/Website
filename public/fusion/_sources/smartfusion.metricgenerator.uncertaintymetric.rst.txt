@@ -1,0 +1,5 @@
+Uncertainty Metric
+==================
+
+.. automodule:: smartfusion.metricgenerator.uncertaintymetric
+    :show-inheritance:

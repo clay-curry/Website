@@ -1,0 +1,19 @@
+Sensor Managers
+===============
+
+.. automodule:: smartfusion.sensormanager
+    :no-members:
+
+.. automodule:: smartfusion.sensormanager.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.sensormanager.optimise
+    :show-inheritance:
+    :inherited-members:
+
+
+Reward Functions
+----------------
+.. automodule:: smartfusion.sensormanager.reward
+    :show-inheritance:
+    :special-members:

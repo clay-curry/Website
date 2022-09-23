@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.updater.slidinginnovation &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.updater.slidinginnovation</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/updater/slidinginnovation" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.updater.slidinginnovation</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..types.array</span> <span class="kn">import</span> <span class="n">CovarianceMatrix</span>
+<span class="kn">from</span> <span class="nn">.kalman</span> <span class="kn">import</span> <span class="n">KalmanUpdater</span><span class="p">,</span> <span class="n">ExtendedKalmanUpdater</span>
+
+
+<div class="viewcode-block" id="SlidingInnovationUpdater"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.slidinginnovation.SlidingInnovationUpdater">[docs]</a><span class="k">class</span> <span class="nc">SlidingInnovationUpdater</span><span class="p">(</span><span class="n">KalmanUpdater</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sliding Innovation Filter Updater</span>
+
+<span class="sd">    The Sliding Innovation Filter (SIF) is a sub-optimal filter (in comparison to Kalman filter)</span>
+<span class="sd">    which uses a switching gain to provide robustness to estimation problems that may be</span>
+<span class="sd">    ill-conditioned or contain modeling uncertainties or disturbances.</span>
+
+<span class="sd">    The main difference from Kalman filter is the calculation of the gain:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        K_k = H_k^+ \overline{sat}(|\mathbf{z}_{k|k-1}|/\mathbf{\delta})</span>
+
+<span class="sd">    where :math:`\mathbf{\delta}` is the sliding boundary layer width.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    1. S. A. Gadsden and M. Al-Shabi, &quot;The Sliding Innovation Filter,&quot; in IEEE Access, vol. 8,</span>
+<span class="sd">       pp. 96129-96138, 2020, doi: 10.1109/ACCESS.2020.2995345.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">layer_width</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sliding boundary layer width :math:`</span><span class="se">\\</span><span class="s2">mathbf{</span><span class="se">\\</span><span class="s2">delta}`. A tunable parameter in &quot;</span>
+            <span class="s2">&quot;measurement space. An example initial value provided in original paper is &quot;</span>
+            <span class="s2">&quot;:math:`10 </span><span class="se">\\</span><span class="s2">times </span><span class="se">\\</span><span class="s2">text</span><span class="si">{diag}</span><span class="s2">(R)`&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_posterior_covariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hypothesis</span><span class="p">):</span>
+        <span class="n">measurement_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_measurement_model</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">measurement_model</span><span class="p">)</span>
+        <span class="n">measurement_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measurement_matrix</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="p">,</span> <span class="n">measurement_model</span><span class="p">)</span>
+
+        <span class="n">layer_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_width</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Must be column vector</span>
+
+        <span class="n">innovation_vector</span> <span class="o">=</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">state_vector</span> \
+            <span class="o">-</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement_prediction</span><span class="o">.</span><span class="n">state_vector</span>
+        <span class="n">gain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">measurement_matrix</span><span class="p">)</span> \
+            <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">innovation_vector</span><span class="p">)</span><span class="o">/</span><span class="n">layer_width</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+        <span class="n">I_KH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span> <span class="o">-</span> <span class="n">gain</span><span class="nd">@measurement_matrix</span>
+        <span class="n">posterior_covariance</span> <span class="o">=</span> \
+            <span class="n">I_KH</span><span class="nd">@hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="nd">@I_KH</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">gain</span><span class="nd">@measurement_model</span><span class="o">.</span><span class="n">covar</span><span class="p">()</span><span class="nd">@gain</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">return</span> <span class="n">posterior_covariance</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">CovarianceMatrix</span><span class="p">),</span> <span class="n">gain</span></div>
+
+
+<div class="viewcode-block" id="ExtendedSlidingInnovationUpdater"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.slidinginnovation.ExtendedSlidingInnovationUpdater">[docs]</a><span class="k">class</span> <span class="nc">ExtendedSlidingInnovationUpdater</span><span class="p">(</span><span class="n">SlidingInnovationUpdater</span><span class="p">,</span> <span class="n">ExtendedKalmanUpdater</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extended Sliding Innovation Filter Updater</span>
+
+<span class="sd">    This is the Extended version of the :class:`~.SlidingInnovationUpdater` for non-linear</span>
+<span class="sd">    measurement models.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    1. S. A. Gadsden and M. Al-Shabi, &quot;The Sliding Innovation Filter,&quot; in IEEE Access, vol. 8,</span>
+<span class="sd">       pp. 96129-96138, 2020, doi: 10.1109/ACCESS.2020.2995345.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

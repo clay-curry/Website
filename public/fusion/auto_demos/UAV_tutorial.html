@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UAV Tracking Demonstration &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Video processing, Object detection &amp; Tracking" href="Video_Processing.html" />
+    <link rel="prev" title="Tracking Groundtruth ADS-B Data by Simulating Radar Detections" href="OpenSky_Demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Demonstrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AIS_Solent_Tracker.html">Tracking AIS Reports Using SMART FUSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OpenSky_Demo.html">Tracking Groundtruth ADS-B Data by Simulating Radar Detections</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">UAV Tracking Demonstration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-transition-model-measurement-model-updater-and-predictor">Setup: transition model, measurement model, updater and predictor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-csv-reader-feeder">Setup CSV reader &amp; feeder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-sensor-platform-and-detector">Define Sensor, Platform and Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-initiator-class-for-the-tracker">Setup Initiator class for the Tracker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-deleter-for-the-tracker">Setup Deleter for the Tracker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-hypothesiser-and-associator">Setup Hypothesiser and Associator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-tracker">Run the Tracker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#to-investigate">To Investigate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Video_Processing.html">Video processing, Object detection &amp; Tracking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Demonstrations</a> &raquo;</li>
+      <li>UAV Tracking Demonstration</li>
+  
+    
+    
+      
+    
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/../demos/UAV_tutorial.py" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-demos-uav-tutorial-py"><span class="std std-ref">here</span></a>
+to download the full example code or to run this example in your browser via Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="uav-tracking-demonstration">
+<span id="sphx-glr-auto-demos-uav-tutorial-py"></span><h1>UAV Tracking Demonstration<a class="headerlink" href="#uav-tracking-demonstration" title="Permalink to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>Starting with GPS data from an instrumented UAV, we will generate range, bearing, and
+elevation measurements (from a given radar position). We will use SMART FUSION’s simple
+<a class="reference internal" href="../smartfusion.tracker.html#smartfusion.tracker.simple.SingleTargetTracker" title="smartfusion.tracker.simple.SingleTargetTracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleTargetTracker</span></code></a> to perform the tracking. At this point we are primarily interested
+in the necessary motion models that may be needed so the example is fairly simple, but
+we want to be able to easily expand the simulation to handle more complex scenarios.</p>
+<p>Items to note:</p>
+<ul class="simple">
+<li><p>Assumes a single target track, which simplifies track management.</p></li>
+<li><p>There is no clutter, and no missed detections. So 1:1 Data Association.</p></li>
+<li><p>Need an initiator and deleter for the tracker.</p></li>
+<li><p>GPS updates are 1 sec., we assume radar revisit is the same (little unrealistic)</p></li>
+</ul>
+<p>We are assuming a ground based radar:</p>
+<ul class="simple">
+<li><p>Radar has course elevation resolution and fine bearing resolution.</p></li>
+<li><p>Use range standard deviation of 3.14 m as a replacement for range resolution.</p></li>
+</ul>
+</section>
+<section id="setup-transition-model-measurement-model-updater-and-predictor">
+<h2>Setup: transition model, measurement model, updater and predictor<a class="headerlink" href="#setup-transition-model-measurement-model-updater-and-predictor" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">smartfusion.models.transition.linear</span> <span class="kn">import</span> <span class="p">(</span>
+    <a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantVelocity" title="smartfusion.models.transition.linear.ConstantVelocity" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">ConstantVelocity</span></a><span class="p">,</span>
+    <a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" title="smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">CombinedLinearGaussianTransitionModel</span></a>
+    <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">smartfusion.predictor.kalman</span> <span class="kn">import</span> <a href="../smartfusion.predictor.html#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="smartfusion.predictor.kalman.ExtendedKalmanPredictor" class="sphx-glr-backref-module-smartfusion-predictor-kalman sphx-glr-backref-type-py-class"><span class="n">ExtendedKalmanPredictor</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.updater.kalman</span> <span class="kn">import</span> <a href="../smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater" class="sphx-glr-backref-module-smartfusion-updater-kalman sphx-glr-backref-type-py-class"><span class="n">ExtendedKalmanUpdater</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.models.measurement.nonlinear</span> <span class="kn">import</span> <span class="p">(</span>
+    <a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-class"><span class="n">CartesianToElevationBearingRange</span></a>
+    <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">smartfusion.types.array</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class"><span class="n">CovarianceMatrix</span></a>
+
+
+<a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" title="smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">transition_model</span></a> <span class="o">=</span> <a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" title="smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">CombinedLinearGaussianTransitionModel</span></a><span class="p">(</span>
+    <span class="p">[</span><a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantVelocity" title="smartfusion.models.transition.linear.ConstantVelocity" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">ConstantVelocity</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+     <a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantVelocity" title="smartfusion.models.transition.linear.ConstantVelocity" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">ConstantVelocity</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+     <a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantVelocity" title="smartfusion.models.transition.linear.ConstantVelocity" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class"><span class="n">ConstantVelocity</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">)])</span>
+
+<span class="c1"># Model coords = elev, bearing, range. Angles in radians</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_covar</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.diag.html#numpy.diag" title="numpy.diag" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">diag</span></a><span class="p">([</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">radians</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mf">10.0</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                      <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">radians</span></a><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="mf">3.14</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+
+<a href="../smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_covar_trk</span></a> <span class="o">=</span> <a href="../smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class"><span class="n">CovarianceMatrix</span></a><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_covar</span></a><span class="p">)</span>
+<a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_model</span></a> <span class="o">=</span> <a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-class"><span class="n">CartesianToElevationBearingRange</span></a><span class="p">(</span>
+            <span class="n">ndim_state</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span>
+            <span class="n">noise_covar</span><span class="o">=</span><a href="../smartfusion.types.html#smartfusion.types.array.CovarianceMatrix" title="smartfusion.types.array.CovarianceMatrix" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_covar_trk</span></a><span class="p">)</span>
+<a href="../smartfusion.predictor.html#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="smartfusion.predictor.kalman.ExtendedKalmanPredictor" class="sphx-glr-backref-module-smartfusion-predictor-kalman sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictor</span></a> <span class="o">=</span> <a href="../smartfusion.predictor.html#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="smartfusion.predictor.kalman.ExtendedKalmanPredictor" class="sphx-glr-backref-module-smartfusion-predictor-kalman sphx-glr-backref-type-py-class"><span class="n">ExtendedKalmanPredictor</span></a><span class="p">(</span><a href="../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" title="smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel" class="sphx-glr-backref-module-smartfusion-models-transition-linear sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">transition_model</span></a><span class="p">)</span>
+<a href="../smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater" class="sphx-glr-backref-module-smartfusion-updater-kalman sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">updater</span></a> <span class="o">=</span> <a href="../smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater" class="sphx-glr-backref-module-smartfusion-updater-kalman sphx-glr-backref-type-py-class"><span class="n">ExtendedKalmanUpdater</span></a><span class="p">(</span><span class="n">measurement_model</span><span class="o">=</span><a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_model</span></a><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-csv-reader-feeder">
+<h2>Setup CSV reader &amp; feeder<a class="headerlink" href="#setup-csv-reader-feeder" title="Permalink to this heading"></a></h2>
+<p>Setup the reader and feeder to read the GPS data in
+<a class="reference download internal" download="" href="../_downloads/c1dac4b9800d0a8fa9df2c429e0f22e3/UAV_Rot.csv"><code class="xref download docutils literal notranslate"><span class="pre">CSV</span> <span class="pre">file</span></code></a>.
+This part uses 2 SMART FUSION detector type of classes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../smartfusion.reader.html#smartfusion.reader.generic.CSVGroundTruthReader" title="smartfusion.reader.generic.CSVGroundTruthReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">CSVGroundTruthReader</span></code></a> - reads our CSV file which contains: timestamp,
+latitude, longitude, altitude and other miscellaneous data.</p></li>
+<li><p><a class="reference internal" href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLAtoENUConverter</span></code></a> - this is a feeder, but it converts our lat, long,
+alt data into Cartesian (ENU).</p></li>
+</ul>
+<p>The Cartesian(ENU) data will be converted to Range, Bearing, Altitude later on.
+A more involved detector could:</p>
+<ul class="simple">
+<li><p>Add clutter.</p></li>
+<li><p>Handle <span class="math notranslate nohighlight">\(P_d\)</span> behaviour. It could be based on radial velocity or other
+parameters.</p></li>
+<li><p>Handle radar revisit times.</p></li>
+<li><p>Add unknown number &amp; multiple targets.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smartfusion.reader.generic</span> <span class="kn">import</span> <a href="../smartfusion.reader.html#smartfusion.reader.generic.CSVGroundTruthReader" title="smartfusion.reader.generic.CSVGroundTruthReader" class="sphx-glr-backref-module-smartfusion-reader-generic sphx-glr-backref-type-py-class"><span class="n">CSVGroundTruthReader</span></a>
+
+<a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth_reader</span></a> <span class="o">=</span> <a href="../smartfusion.reader.html#smartfusion.reader.generic.CSVGroundTruthReader" title="smartfusion.reader.generic.CSVGroundTruthReader" class="sphx-glr-backref-module-smartfusion-reader-generic sphx-glr-backref-type-py-class"><span class="n">CSVGroundTruthReader</span></a><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;UAV_Rot.csv&#39;</span><span class="p">,</span>
+    <span class="n">state_vector_fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Vx m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Vy m/s&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude (m)&#39;</span><span class="p">],</span>
+    <span class="n">time_field</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+    <span class="n">path_id_field</span><span class="o">=</span><span class="s1">&#39;groupNb&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">smartfusion.feeder.geo</span> <span class="kn">import</span> <a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class"><span class="n">LLAtoENUConverter</span></a>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensor_location</span></a> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">30.948</span><span class="p">,</span> <span class="mf">50.297311666</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Radar position [long, lat, alt]</span>
+<a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth_reader</span></a> <span class="o">=</span> <a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class"><span class="n">LLAtoENUConverter</span></a><span class="p">(</span><a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth_reader</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensor_location</span></a><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="define-sensor-platform-and-detector">
+<h2>Define Sensor, Platform and Detector<a class="headerlink" href="#define-sensor-platform-and-detector" title="Permalink to this heading"></a></h2>
+<p>The sensor converts the Cartesian coordinates into range, bearing and elevation.
+The sensor is then mounted onto a platform (stationary in this case)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smartfusion.platform.base</span> <span class="kn">import</span> <a href="../smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base" class="sphx-glr-backref-module-smartfusion-base sphx-glr-backref-type-py-class"><span class="n">FixedPlatform</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.sensor.radar.radar</span> <span class="kn">import</span> <a href="../smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor" class="sphx-glr-backref-module-smartfusion-sensor-sensor sphx-glr-backref-type-py-class"><span class="n">RadarElevationBearingRange</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.simulator.platform</span> <span class="kn">import</span> <a href="../smartfusion.simulator.html#smartfusion.simulator.platform.PlatformDetectionSimulator" title="smartfusion.simulator.platform.PlatformDetectionSimulator" class="sphx-glr-backref-module-smartfusion-simulator-platform sphx-glr-backref-type-py-class"><span class="n">PlatformDetectionSimulator</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.types.state</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class"><span class="n">State</span></a>
+
+<span class="n">sensor</span> <span class="o">=</span> <a href="../smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor" class="sphx-glr-backref-module-smartfusion-sensor-sensor sphx-glr-backref-type-py-class"><span class="n">RadarElevationBearingRange</span></a><span class="p">(</span>
+    <span class="n">position_mapping</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="n">noise_covar</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_covar</span></a><span class="p">,</span>
+    <span class="n">ndim_state</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">platform</span> <span class="o">=</span> <a href="../smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base" class="sphx-glr-backref-module-smartfusion-base sphx-glr-backref-type-py-class"><span class="n">FixedPlatform</span></a><span class="p">(</span>
+    <a href="../smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class"><span class="n">State</span></a><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>  <span class="c1"># Sensor at reference point, zero velocity</span>
+    <span class="n">position_mapping</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="n">sensors</span><span class="o">=</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the detector and initialize it.</span>
+<a href="../smartfusion.simulator.html#smartfusion.simulator.platform.PlatformDetectionSimulator" title="smartfusion.simulator.platform.PlatformDetectionSimulator" class="sphx-glr-backref-module-smartfusion-simulator-platform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detector</span></a> <span class="o">=</span> <a href="../smartfusion.simulator.html#smartfusion.simulator.platform.PlatformDetectionSimulator" title="smartfusion.simulator.platform.PlatformDetectionSimulator" class="sphx-glr-backref-module-smartfusion-simulator-platform sphx-glr-backref-type-py-class"><span class="n">PlatformDetectionSimulator</span></a><span class="p">(</span><a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth_reader</span></a><span class="p">,</span> <span class="p">[</span><span class="n">platform</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-initiator-class-for-the-tracker">
+<h2>Setup Initiator class for the Tracker<a class="headerlink" href="#setup-initiator-class-for-the-tracker" title="Permalink to this heading"></a></h2>
+<p>This is just an heuristic initiation:
+Assume most of the deviation is caused by the Bearing measurement error.
+This is then converted into x, y components using the target bearing. For the
+deviation in z,
+we simply use <span class="math notranslate nohighlight">\(R\times\sigma_{elev}\)</span> (ignore any bearing and range
+deviation components). Velocity covariances are simply based on the expected
+velocity range of the targets.</p>
+<p><strong>NOTE</strong> - The Extended Kalman filter can be very sensitive to the state
+initiation. Using the default <a class="reference internal" href="../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator" title="smartfusion.initiator.simple.SimpleMeasurementInitiator"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleMeasurementInitiator</span></code></a>, the estimates
+tended to diverge over the course of the track when larger bearing measurement
+covariances were used.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smartfusion.types.state</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class"><span class="n">GaussianState</span></a><span class="p">,</span> <a href="../smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class"><span class="n">State</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.types.update</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.update.GaussianStateUpdate" title="smartfusion.types.update.GaussianStateUpdate" class="sphx-glr-backref-module-smartfusion-types-update sphx-glr-backref-type-py-class"><span class="n">GaussianStateUpdate</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.initiator.simple</span> <span class="kn">import</span> <a href="../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator" title="smartfusion.initiator.simple.SimpleMeasurementInitiator" class="sphx-glr-backref-module-smartfusion-initiator-simple sphx-glr-backref-type-py-class"><span class="n">SimpleMeasurementInitiator</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.types.track</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track" class="sphx-glr-backref-module-smartfusion-types-track sphx-glr-backref-type-py-class"><span class="n">Track</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.types.hypothesis</span> <span class="kn">import</span> <a href="../smartfusion.types.html#smartfusion.types.hypothesis.SingleHypothesis" title="smartfusion.types.hypothesis.SingleHypothesis" class="sphx-glr-backref-module-smartfusion-types-hypothesis sphx-glr-backref-type-py-class"><span class="n">SingleHypothesis</span></a>
+
+
+<span class="k">class</span> <span class="nc">Initiator</span><span class="p">(</span><a href="../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator" title="smartfusion.initiator.simple.SimpleMeasurementInitiator" class="sphx-glr-backref-module-smartfusion-initiator-simple sphx-glr-backref-type-py-class"><span class="n">SimpleMeasurementInitiator</span></a><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">MAX_DEV</span> <span class="o">=</span> <span class="mf">400.</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">measurement_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_model</span>
+        <span class="k">for</span> <a href="../smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection" class="sphx-glr-backref-module-smartfusion-types-detection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span></a> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+            <span class="n">state_vector</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">inverse_function</span><span class="p">(</span>
+                            <a href="../smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection" class="sphx-glr-backref-module-smartfusion-types-detection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span></a><span class="p">)</span>
+            <span class="n">model_covar</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">covar</span><span class="p">()</span>
+
+            <span class="n">el_az_range</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.diag.html#numpy.diag" title="numpy.diag" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">diag</span></a><span class="p">(</span><span class="n">model_covar</span><span class="p">))</span> <span class="c1">#elev, az, range</span>
+
+            <span class="n">std_pos</span> <span class="o">=</span> <a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span><span class="o">.</span><span class="n">state_vector</span></a><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">el_az_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">stdx</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">abs</span></a><span class="p">(</span><span class="n">std_pos</span><span class="o">*</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">el_az_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">stdy</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">abs</span></a><span class="p">(</span><span class="n">std_pos</span><span class="o">*</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">cos</span></a><span class="p">(</span><span class="n">el_az_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">stdz</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">abs</span></a><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span><span class="o">.</span><span class="n">state_vector</span></a><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">el_az_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">stdx</span> <span class="o">&gt;</span> <span class="n">MAX_DEV</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning - X Deviation exceeds limit!!&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stdy</span> <span class="o">&gt;</span> <span class="n">MAX_DEV</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning - Y Deviation exceeds limit!!&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stdz</span> <span class="o">&gt;</span> <span class="n">MAX_DEV</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning - Z Deviation exceeds limit!!&#39;</span><span class="p">)</span>
+            <span class="n">C0</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.diag.html#numpy.diag" title="numpy.diag" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">diag</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="n">stdx</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="n">stdy</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="n">stdz</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+            <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">add</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track" class="sphx-glr-backref-module-smartfusion-types-track sphx-glr-backref-type-py-class"><span class="n">Track</span></a><span class="p">([</span><a href="../smartfusion.types.html#smartfusion.types.update.GaussianStateUpdate" title="smartfusion.types.update.GaussianStateUpdate" class="sphx-glr-backref-module-smartfusion-types-update sphx-glr-backref-type-py-class"><span class="n">GaussianStateUpdate</span></a><span class="p">(</span>
+                <span class="n">state_vector</span><span class="p">,</span>
+                <span class="n">C0</span><span class="p">,</span>
+                <a href="../smartfusion.types.html#smartfusion.types.hypothesis.SingleHypothesis" title="smartfusion.types.hypothesis.SingleHypothesis" class="sphx-glr-backref-module-smartfusion-types-hypothesis sphx-glr-backref-type-py-class"><span class="n">SingleHypothesis</span></a><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <a href="../smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection" class="sphx-glr-backref-module-smartfusion-types-detection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span></a><span class="p">),</span>
+                <span class="n">timestamp</span><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span><span class="o">.</span><span class="n">timestamp</span></a><span class="p">)</span>
+            <span class="p">]))</span>
+        <span class="k">return</span> <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a>
+
+
+<a href="../smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prior_state</span></a> <span class="o">=</span> <a href="../smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class"><span class="n">GaussianState</span></a><span class="p">(</span>
+        <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]),</span>
+        <a href="https://numpy.org/doc/stable/reference/generated/numpy.diag.html#numpy.diag" title="numpy.diag" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">diag</span></a><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">initiator</span> <span class="o">=</span> <a href="../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator" title="smartfusion.initiator.simple.SimpleMeasurementInitiator" class="sphx-glr-backref-module-smartfusion-initiator-simple sphx-glr-backref-type-py-class"><span class="n">Initiator</span></a><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.state.GaussianState" title="smartfusion.types.state.GaussianState" class="sphx-glr-backref-module-smartfusion-types-state sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prior_state</span></a><span class="p">,</span> <a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_model</span></a><span class="p">)</span>
+<span class="c1">#initiator = SimpleMeasurementInitiator(prior_state, meas_model)</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-deleter-for-the-tracker">
+<h2>Setup Deleter for the Tracker<a class="headerlink" href="#setup-deleter-for-the-tracker" title="Permalink to this heading"></a></h2>
+<p>In the simple case of 1 target, we never want to delete the track. Because
+this Deleter is so simple we haven’t bothered using a subtype/inheritance
+and instead make use of Python’s duck typing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyDeleter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">delete_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="n">deleter</span> <span class="o">=</span> <span class="n">MyDeleter</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-hypothesiser-and-associator">
+<h2>Setup Hypothesiser and Associator<a class="headerlink" href="#setup-hypothesiser-and-associator" title="Permalink to this heading"></a></h2>
+<p>Since we know there is only one measurement per scan, we can just use the
+<a class="reference internal" href="../smartfusion.dataassociator.html#smartfusion.dataassociator.neighbour.NearestNeighbour" title="smartfusion.dataassociator.neighbour.NearestNeighbour"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestNeighbour</span></code></a> associator to achieve our desired result.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smartfusion.measures</span> <span class="kn">import</span> <a href="../smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean" class="sphx-glr-backref-module-smartfusion-measures sphx-glr-backref-type-py-class"><span class="n">Euclidean</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.dataassociator.neighbour</span> <span class="kn">import</span> <a href="../smartfusion.dataassociator.html#smartfusion.dataassociator.neighbour.NearestNeighbour" title="smartfusion.dataassociator.neighbour.NearestNeighbour" class="sphx-glr-backref-module-smartfusion-dataassociator-neighbour sphx-glr-backref-type-py-class"><span class="n">NearestNeighbour</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.hypothesiser.distance</span> <span class="kn">import</span> <a href="../smartfusion.hypothesiser.html#smartfusion.hypothesiser.distance.DistanceHypothesiser" title="smartfusion.hypothesiser.distance.DistanceHypothesiser" class="sphx-glr-backref-module-smartfusion-hypothesiser-distance sphx-glr-backref-type-py-class"><span class="n">DistanceHypothesiser</span></a>
+<span class="kn">from</span> <span class="nn">smartfusion.tracker.simple</span> <span class="kn">import</span> <a href="../smartfusion.tracker.html#smartfusion.tracker.simple.SingleTargetTracker" title="smartfusion.tracker.simple.SingleTargetTracker" class="sphx-glr-backref-module-smartfusion-tracker-simple sphx-glr-backref-type-py-class"><span class="n">SingleTargetTracker</span></a>
+<a href="../smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean" class="sphx-glr-backref-module-smartfusion-measures sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas</span></a> <span class="o">=</span> <a href="../smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean" class="sphx-glr-backref-module-smartfusion-measures sphx-glr-backref-type-py-class"><span class="n">Euclidean</span></a><span class="p">()</span>
+<a href="../smartfusion.hypothesiser.html#smartfusion.hypothesiser.distance.DistanceHypothesiser" title="smartfusion.hypothesiser.distance.DistanceHypothesiser" class="sphx-glr-backref-module-smartfusion-hypothesiser-distance sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">hypothesiser</span></a> <span class="o">=</span> <a href="../smartfusion.hypothesiser.html#smartfusion.hypothesiser.distance.DistanceHypothesiser" title="smartfusion.hypothesiser.distance.DistanceHypothesiser" class="sphx-glr-backref-module-smartfusion-hypothesiser-distance sphx-glr-backref-type-py-class"><span class="n">DistanceHypothesiser</span></a><span class="p">(</span><a href="../smartfusion.predictor.html#smartfusion.predictor.kalman.ExtendedKalmanPredictor" title="smartfusion.predictor.kalman.ExtendedKalmanPredictor" class="sphx-glr-backref-module-smartfusion-predictor-kalman sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictor</span></a><span class="p">,</span> <a href="../smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater" class="sphx-glr-backref-module-smartfusion-updater-kalman sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">updater</span></a><span class="p">,</span> <a href="../smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean" class="sphx-glr-backref-module-smartfusion-measures sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas</span></a><span class="p">)</span>
+<a href="../smartfusion.dataassociator.html#smartfusion.dataassociator.neighbour.NearestNeighbour" title="smartfusion.dataassociator.neighbour.NearestNeighbour" class="sphx-glr-backref-module-smartfusion-dataassociator-neighbour sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">associator</span></a> <span class="o">=</span> <a href="../smartfusion.dataassociator.html#smartfusion.dataassociator.neighbour.NearestNeighbour" title="smartfusion.dataassociator.neighbour.NearestNeighbour" class="sphx-glr-backref-module-smartfusion-dataassociator-neighbour sphx-glr-backref-type-py-class"><span class="n">NearestNeighbour</span></a><span class="p">(</span><a href="../smartfusion.hypothesiser.html#smartfusion.hypothesiser.distance.DistanceHypothesiser" title="smartfusion.hypothesiser.distance.DistanceHypothesiser" class="sphx-glr-backref-module-smartfusion-hypothesiser-distance sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">hypothesiser</span></a><span class="p">)</span>
+
+
+<a href="../smartfusion.tracker.html#smartfusion.tracker.simple.SingleTargetTracker" title="smartfusion.tracker.simple.SingleTargetTracker" class="sphx-glr-backref-module-smartfusion-tracker-simple sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracker</span></a> <span class="o">=</span> <a href="../smartfusion.tracker.html#smartfusion.tracker.simple.SingleTargetTracker" title="smartfusion.tracker.simple.SingleTargetTracker" class="sphx-glr-backref-module-smartfusion-tracker-simple sphx-glr-backref-type-py-class"><span class="n">SingleTargetTracker</span></a><span class="p">(</span><span class="n">initiator</span><span class="p">,</span>
+                              <span class="n">deleter</span><span class="p">,</span>
+                              <a href="../smartfusion.simulator.html#smartfusion.simulator.platform.PlatformDetectionSimulator" title="smartfusion.simulator.platform.PlatformDetectionSimulator" class="sphx-glr-backref-module-smartfusion-simulator-platform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detector</span></a><span class="p">,</span>
+                              <a href="../smartfusion.dataassociator.html#smartfusion.dataassociator.neighbour.NearestNeighbour" title="smartfusion.dataassociator.neighbour.NearestNeighbour" class="sphx-glr-backref-module-smartfusion-dataassociator-neighbour sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">associator</span></a><span class="p">,</span>
+                              <a href="../smartfusion.updater.html#smartfusion.updater.kalman.ExtendedKalmanUpdater" title="smartfusion.updater.kalman.ExtendedKalmanUpdater" class="sphx-glr-backref-module-smartfusion-updater-kalman sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">updater</span></a><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-the-tracker">
+<h2>Run the Tracker<a class="headerlink" href="#run-the-tracker" title="Permalink to this heading"></a></h2>
+<p>We extract the ground truth from the detector and then run the tracker.
+While running the tracker we:</p>
+<ul class="simple">
+<li><p>Extract the measurement that is associated with it.</p></li>
+<li><p>Extract the position components of the estimated state vector.</p></li>
+</ul>
+<p>This allows us to plot the measurements, ground truth, and state estimates.</p>
+<p><strong>Note:</strong> The meas_model.inverse_function() returns a state vector, which
+for our CV model consists of [x, vx, y, vy, z, vz].</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_X</span></a><span class="o">=</span><span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_Y</span></a><span class="o">=</span><span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_X</span></a><span class="o">=</span><span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_Y</span></a><span class="o">=</span><span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_X</span></a> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_Y</span></a> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">time</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a> <span class="ow">in</span> <a href="../smartfusion.tracker.html#smartfusion.tracker.simple.SingleTargetTracker" title="smartfusion.tracker.simple.SingleTargetTracker" class="sphx-glr-backref-module-smartfusion-tracker-simple sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracker</span></a><span class="p">:</span>
+    <span class="k">for</span> <a href="../smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath" class="sphx-glr-backref-module-smartfusion-types-groundtruth sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth</span></a> <span class="ow">in</span> <a href="../smartfusion.feeder.html#smartfusion.feeder.geo.LLAtoENUConverter" title="smartfusion.feeder.geo.LLAtoENUConverter" class="sphx-glr-backref-module-smartfusion-feeder-geo sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth_reader</span></a><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">:</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_X</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth</span><span class="o">.</span><span class="n">state_vector</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_Y</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ground_truth</span><span class="o">.</span><span class="n">state_vector</span></a><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># Because this is a single target tracker, I know there is only 1 track.</span>
+    <span class="k">for</span> <a href="../smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track" class="sphx-glr-backref-module-smartfusion-types-track sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="p">:</span>
+
+        <span class="c1">#Get the corresponding measurement</span>
+        <a href="../smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection" class="sphx-glr-backref-module-smartfusion-types-detection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track</span><span class="o">.</span><span class="n">states</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span>
+        <span class="c1"># Convert measurement into xy</span>
+        <a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xyz</span></a> <span class="o">=</span> <a href="../smartfusion.models.measurement.html#smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange.inverse_function" title="smartfusion.models.measurement.nonlinear.CartesianToElevationBearingRange.inverse_function" class="sphx-glr-backref-module-smartfusion-models-measurement-nonlinear sphx-glr-backref-type-py-method"><span class="n">meas_model</span><span class="o">.</span><span class="n">inverse_function</span></a><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.detection.TrueDetection" title="smartfusion.types.detection.TrueDetection" class="sphx-glr-backref-module-smartfusion-types-detection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">detection</span></a><span class="p">)</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_X</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xyz</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_Y</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xyz</span></a><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+        <a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vec</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track</span><span class="o">.</span><span class="n">states</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">state_vector</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_X</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vec</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_Y</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector" class="sphx-glr-backref-module-smartfusion-types-array sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vec</span></a><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="matplotlib.figure.Figure.add_subplot" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_X</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meas_Y</span></a><span class="p">,</span> <span class="s1">&#39;xb&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Measurements&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html#matplotlib.axes.Axes.plot" title="matplotlib.axes.Axes.plot" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_X</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_Y</span></a><span class="p">,</span> <span class="s1">&#39;d-k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Truth&#39;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#matplotlib.axes.Axes.legend" title="matplotlib.axes.Axes.legend" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax1</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html#matplotlib.axes.Axes.set_xlabel" title="matplotlib.axes.Axes.set_xlabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span></a><span class="p">(</span><span class="s1">&#39;X (m)&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html#matplotlib.axes.Axes.set_ylabel" title="matplotlib.axes.Axes.set_ylabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span></a><span class="p">(</span><span class="s1">&#39;Y (m)&#39;</span><span class="p">)</span>
+
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="matplotlib.figure.Figure.add_subplot" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html#matplotlib.axes.Axes.plot" title="matplotlib.axes.Axes.plot" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_X</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">true_Y</span></a><span class="p">,</span> <span class="s1">&#39;d-k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Truth&#39;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html#matplotlib.axes.Axes.plot" title="matplotlib.axes.Axes.plot" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_X</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_Y</span></a><span class="p">,</span> <span class="s1">&#39;r.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Estimates&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html#matplotlib.axes.Axes.set_xlabel" title="matplotlib.axes.Axes.set_xlabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span></a><span class="p">(</span><span class="s1">&#39;X (m)&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html#matplotlib.axes.Axes.set_ylabel" title="matplotlib.axes.Axes.set_ylabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span></a><span class="p">(</span><span class="s1">&#39;Y (m)&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#matplotlib.axes.Axes.legend" title="matplotlib.axes.Axes.legend" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax2</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_UAV_tutorial_001.png" srcset="../_images/sphx_glr_UAV_tutorial_001.png" alt="UAV tutorial" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_UAV_tutorial_002.png" srcset="../_images/sphx_glr_UAV_tutorial_002.png" alt="UAV tutorial" class = "sphx-glr-multi-img"/></li>
+</ul>
+</section>
+<section id="to-investigate">
+<h2>To Investigate<a class="headerlink" href="#to-investigate" title="Permalink to this heading"></a></h2>
+<p>What happens when:</p>
+<ul class="simple">
+<li><p>Increase the bearing standard deviation?</p></li>
+<li><p>Increase the model process noise?</p></li>
+<li><p>Move the radar?</p></li>
+</ul>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.820 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-demos-uav-tutorial-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/claycurry34/Smart-Fusion/main?filepath=notebooks/auto_demos/UAV_tutorial.ipynb"><img alt="Launch binder" src="../_images/binder_badge_logo.svg" width="150px" /></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/2fa4cc3d360c90475edac39aa3157ff5/UAV_tutorial.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">UAV_tutorial.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/29609dc442865954331c13ab37e0b7f7/UAV_tutorial.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">UAV_tutorial.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="OpenSky_Demo.html" class="btn btn-neutral float-left" title="Tracking Groundtruth ADS-B Data by Simulating Radar Detections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Video_Processing.html" class="btn btn-neutral float-right" title="Video processing, Object detection &amp; Tracking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

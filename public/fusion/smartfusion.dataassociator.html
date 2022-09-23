@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Association &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Deleters" href="smartfusion.deleter.html" />
+    <link rel="prev" title="Writers" href="smartfusion.writer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Data Association</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.dataassociator.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.dataassociator">
+<span id="data-association"></span><h1>Data Association<a class="headerlink" href="#module-smartfusion.dataassociator" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.dataassociator.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.base.DataAssociator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.base.</span></span><span class="sig-name descname"><span class="pre">DataAssociator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/base.html#DataAssociator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.base.DataAssociator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Data Associator base class</p>
+<p>A data associator is used to associate tracks and detections, and may also
+include an association of a missed detection. The associations generate are
+in the form a mapping each track to a hypothesis, based on “best” choice
+from hypotheses generate from a <a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Generate a set of hypotheses for each track-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.base.DataAssociator.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.base.DataAssociator.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each track-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.base.DataAssociator.associate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><span class="pre">Detection</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.10)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><span class="pre">Hypothesis</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/dataassociator/base.html#DataAssociator.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.base.DataAssociator.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate tracks and detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Tracks which detections will be associated to.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections to be associated to tracks.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Timestamp to be used for missed detections and to predict to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mapping of track to Hypothesis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> : <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.base.Associator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.base.</span></span><span class="sig-name descname"><span class="pre">Associator</span></span><a class="reference internal" href="_modules/smartfusion/dataassociator/base.html#Associator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.base.Associator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Associator base class</p>
+<p>An associator is used to associate objects for the generation of
+metrics. It returns a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.AssociationSet" title="smartfusion.types.association.AssociationSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssociationSet</span></code></a> containing
+a set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a>
+objects.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.base.TrackToTrackAssociator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.base.</span></span><span class="sig-name descname"><span class="pre">TrackToTrackAssociator</span></span><a class="reference internal" href="_modules/smartfusion/dataassociator/base.html#TrackToTrackAssociator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.base.TrackToTrackAssociator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.Associator" title="smartfusion.dataassociator.base.Associator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Associator</span></code></a></p>
+<p>Associates two sets of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects together</p>
+</dd></dl>
+
+<section id="module-smartfusion.dataassociator.neighbour">
+<span id="neighbour"></span><h2>Neighbour<a class="headerlink" href="#module-smartfusion.dataassociator.neighbour" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.NearestNeighbour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.neighbour.</span></span><span class="sig-name descname"><span class="pre">NearestNeighbour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#NearestNeighbour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.NearestNeighbour" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a></p>
+<p>Nearest Neighbour Associator</p>
+<p>Scores and associates detections to a predicted state using the Nearest
+Neighbour method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Generate a set of hypotheses for each prediction-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.NearestNeighbour.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.neighbour.NearestNeighbour.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each prediction-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.NearestNeighbour.associate">
+<span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#NearestNeighbour.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.NearestNeighbour.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate tracks and detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Tracks which detections will be associated to.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections to be associated to tracks.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Timestamp to be used for missed detections and to predict to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mapping of track to Hypothesis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> : <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GlobalNearestNeighbour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.neighbour.</span></span><span class="sig-name descname"><span class="pre">GlobalNearestNeighbour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GlobalNearestNeighbour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GlobalNearestNeighbour" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a></p>
+<p>Global Nearest Neighbour Associator</p>
+<p>Scores and associates detections to a predicted state using the Global
+Nearest Neighbour method, assuming a distance-based hypothesis score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Generate a set of hypotheses for each prediction-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each prediction-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.associate">
+<span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GlobalNearestNeighbour.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate tracks and detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Tracks which detections will be associated to.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections to be associated to tracks.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Timestamp to be used for missed detections and to predict to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mapping of track to Hypothesis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> : <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.isvalid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isvalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">joint_hypothesis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GlobalNearestNeighbour.isvalid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.isvalid" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether a joint_hypothesis is valid.</p>
+<p>Check the set of hypotheses that define a joint hypothesis to ensure a
+single detection is not associated to more than one track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>joint_hypothesis</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">JointHypothesis</span></code>) – A set of hypotheses linking each prediction to a single detection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether joint_hypothesis is a valid set of hypotheses</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.enumerate_joint_hypotheses">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enumerate_joint_hypotheses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypotheses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GlobalNearestNeighbour.enumerate_joint_hypotheses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GlobalNearestNeighbour.enumerate_joint_hypotheses" title="Permalink to this definition"></a></dt>
+<dd><p>Enumerate the possible joint hypotheses.</p>
+<p>Create a list of all possible joint hypotheses from the individual
+hypotheses and determine whether each is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypotheses</strong> (dict of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>: <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a>) – A list of all hypotheses linking predictions to detections,
+including missed detections</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>joint_hypotheses</strong> – A list of all valid joint hypotheses with a score on each</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of <code class="xref py py-class docutils literal notranslate"><span class="pre">JointHypothesis</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GNNWith2DAssignment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.neighbour.</span></span><span class="sig-name descname"><span class="pre">GNNWith2DAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GNNWith2DAssignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GNNWith2DAssignment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a></p>
+<p>Global Nearest Neighbour Associator</p>
+<p>Associates detections to a predicted state using the
+Global Nearest Neighbour method, utilising a 2D matrix of
+distances and a “shortest path” assignment algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Generate a set of hypotheses for each prediction-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GNNWith2DAssignment.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GNNWith2DAssignment.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each prediction-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.neighbour.GNNWith2DAssignment.associate">
+<span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/neighbour.html#GNNWith2DAssignment.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.neighbour.GNNWith2DAssignment.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate a set of detections with predicted states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code>) – Current tracked objects</p></li>
+<li><p><strong>detections</strong> (set of <code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code>) – Retrieved measurements</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Detection time to predict to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Key value pair of tracks with associated detection</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.dataassociator.probability">
+<span id="probability"></span><h2>Probability<a class="headerlink" href="#module-smartfusion.dataassociator.probability" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.PDA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.probability.</span></span><span class="sig-name descname"><span class="pre">PDA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/probability.html#PDA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.probability.PDA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a></p>
+<p>Probabilistic Data Association (PDA)</p>
+<p>Given a set of detections and a set of tracks, each track has a
+probability that it is associated to each specific detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Generate a set of hypotheses for each prediction-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.PDA.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.probability.PDA.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each prediction-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.PDA.associate">
+<span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/probability.html#PDA.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.probability.PDA.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate tracks and detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Tracks which detections will be associated to.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections to be associated to tracks.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Timestamp to be used for missed detections and to predict to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mapping of track to Hypothesis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> : <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.JPDA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.probability.</span></span><span class="sig-name descname"><span class="pre">JPDA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.probability.PDAHypothesiser" title="smartfusion.hypothesiser.probability.PDAHypothesiser"><span class="pre">PDAHypothesiser</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/probability.html#JPDA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.probability.JPDA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.DataAssociator" title="smartfusion.dataassociator.base.DataAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataAssociator</span></code></a></p>
+<p>Joint Probabilistic Data Association (JPDA)</p>
+<p>Given a set of Detections and a set of Tracks, each Detection has a
+probability that it is associated with each specific Track. Rather than
+associate specific Detections/Tracks, JPDA calculates the new state of a
+Track based on its possible association with ALL Detections.  The new
+state is a Gaussian Mixture, reduced to a single Gaussian.
+If</p>
+<div class="math notranslate nohighlight">
+\[prob_{association(Detection, Track)} &lt;
+\frac{prob_{association(MissedDetection, Track)}}{gate\ ratio}\]</div>
+<p>then Detection is assumed to be outside Track’s gate, and the probability
+of association is dropped from the Gaussian Mixture.  This calculation
+takes place in the function <code class="xref py py-meth docutils literal notranslate"><span class="pre">enumerate_JPDA_hypotheses()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.probability.PDAHypothesiser" title="smartfusion.hypothesiser.probability.PDAHypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDAHypothesiser</span></code></a>) – Generate a set of hypotheses for each prediction-detection pair</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.JPDA.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.probability.PDAHypothesiser" title="smartfusion.hypothesiser.probability.PDAHypothesiser"><span class="pre">PDAHypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.probability.JPDA.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a set of hypotheses for each prediction-detection pair</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.probability.JPDA.associate">
+<span class="sig-name descname"><span class="pre">associate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/probability.html#JPDA.associate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.probability.JPDA.associate" title="Permalink to this definition"></a></dt>
+<dd><p>Associate tracks and detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Tracks which detections will be associated to.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections to be associated to tracks.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Timestamp to be used for missed detections and to predict to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Mapping of track to Hypothesis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mapping of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> : <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.dataassociator.tracktotrack">
+<span id="track-to-track-association"></span><h2>Track-to-track Association<a class="headerlink" href="#module-smartfusion.dataassociator.tracktotrack" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.tracktotrack.</span></span><span class="sig-name descname"><span class="pre">TrackToTrackCounting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">association_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">consec_pairs_confirm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consec_misses_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_positional_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_weighting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackToTrackCounting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.TrackToTrackAssociator" title="smartfusion.dataassociator.base.TrackToTrackAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackToTrackAssociator</span></code></a></p>
+<p>Track to track associator based on the Counting Technique</p>
+<p>Compares two sets of <code class="xref py py-class docutils literal notranslate"><span class="pre">tracks</span></code>, each formed of a sequence of
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> objects and returns an <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> object for
+each time at which the two <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> within the <code class="xref py py-class docutils literal notranslate"><span class="pre">tracks</span></code>
+are assessed to be associated.</p>
+<p>Uses an algorithm called the Counting Technique <a class="footnote-reference brackets" href="#id2" id="id1">1</a>.
+Associations are triggered by track states being within a threshold
+distance for a given number of timestamps. Associations are terminated when
+either the two <code class="xref py py-class docutils literal notranslate"><span class="pre">tracks</span></code> end or the two <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> are
+separated by a distance greater than the threshold at the next time step.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>J. Å. Sagild, A. Gullikstad Hem and E. F. Brekke,
+“Counting Technique versus Single-Time Test for Track-to-Track Association,”
+2021 IEEE 24th International Conference on Information Fusion (FUSION), 2021, pp. 1-7</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Association is not prioritised based on historic associations or distance.
+If, at a specific time step, the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> of one of the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">tracks</span></code> is assessed as close to more than one track then an
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> object will be return for all possible association
+combinations.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>association_threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Threshold distance measure which states must be within for an association to be recorded</p></li>
+<li><p><strong>consec_pairs_confirm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of consecutive time instances which track pairs are required to be within a specified threshold in order for an association to be formed. Default is 3</p></li>
+<li><p><strong>consec_misses_end</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of consecutive time instances which track pairs are required to exceed a specified threshold in order for an association to be ended. Default is 2</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>, optional) – Distance measure to use. Must use <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.EuclideanWeighted" title="smartfusion.measures.EuclideanWeighted"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanWeighted()</span></code></a> if <cite>use_positional_only</cite> set to True.  Default  is <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.EuclideanWeighted" title="smartfusion.measures.EuclideanWeighted"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanWeighted()</span></code></a> using <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> and <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pos_map</span></code></a>.  Note if neither are provided this is equivalent to a standard Euclidean</p></li>
+<li><p><strong>pos_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, optional) – List of items specifying the mapping of the position components of the state space for <code class="xref py py-attr docutils literal notranslate"><span class="pre">tracks_set_1</span></code>.  Defaults to whole <a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector()</span></code></a>, but must be provided whenever <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> is set to True</p></li>
+<li><p><strong>use_positional_only</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If <cite>True</cite>, the differences in velocity/acceleration values for each state are ignored in the calculation for the association threshold.  Default is <cite>True</cite></p></li>
+<li><p><strong>position_weighting</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – If <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> is set to False, this decides how much to weight position components compared to others (such as velocity).  Default is 0.6</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.association_threshold">
+<span class="sig-name descname"><span class="pre">association_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.association_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold distance measure which states must be within for an association to be recorded</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.consec_pairs_confirm">
+<span class="sig-name descname"><span class="pre">consec_pairs_confirm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.consec_pairs_confirm" title="Permalink to this definition"></a></dt>
+<dd><p>Number of consecutive time instances which track pairs are required to be within a specified threshold in order for an association to be formed. Default is 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.consec_misses_end">
+<span class="sig-name descname"><span class="pre">consec_misses_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.consec_misses_end" title="Permalink to this definition"></a></dt>
+<dd><p>Number of consecutive time instances which track pairs are required to exceed a specified threshold in order for an association to be ended. Default is 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Distance measure to use. Must use <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.EuclideanWeighted" title="smartfusion.measures.EuclideanWeighted"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanWeighted()</span></code></a> if <cite>use_positional_only</cite> set to True.  Default  is <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.EuclideanWeighted" title="smartfusion.measures.EuclideanWeighted"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanWeighted()</span></code></a> using <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> and <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pos_map</span></code></a>.  Note if neither are provided this is equivalent to a standard Euclidean</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map">
+<span class="sig-name descname"><span class="pre">pos_map</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.pos_map" title="Permalink to this definition"></a></dt>
+<dd><p>List of items specifying the mapping of the position components of the state space for <code class="xref py py-attr docutils literal notranslate"><span class="pre">tracks_set_1</span></code>.  Defaults to whole <a class="reference internal" href="smartfusion.types.html#smartfusion.types.array.StateVector" title="smartfusion.types.array.StateVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateVector()</span></code></a>, but must be provided whenever <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> is set to True</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only">
+<span class="sig-name descname"><span class="pre">use_positional_only</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="Permalink to this definition"></a></dt>
+<dd><p>If <cite>True</cite>, the differences in velocity/acceleration values for each state are ignored in the calculation for the association threshold.  Default is <cite>True</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.position_weighting">
+<span class="sig-name descname"><span class="pre">position_weighting</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.position_weighting" title="Permalink to this definition"></a></dt>
+<dd><p>If <a class="reference internal" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only" title="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.use_positional_only"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_positional_only</span></code></a> is set to False, this decides how much to weight position components compared to others (such as velocity).  Default is 0.6</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.associate_tracks">
+<span class="sig-name descname"><span class="pre">associate_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks_set_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks_set_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackToTrackCounting.associate_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.associate_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Associate two sets of tracks together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks_set_1</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects) – Tracks to associate to track set 2</p></li>
+<li><p><strong>tracks_set_2</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects) – Tracks to associate to track set 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Contains a set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.AssociationSet" title="smartfusion.types.association.AssociationSet">AssociationSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.tracktotrack.</span></span><span class="sig-name descname"><span class="pre">TrackToTruth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">association_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">consec_pairs_confirm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consec_misses_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Euclidean(mapping=None,</span> <span class="pre">mapping2=None)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackToTruth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.TrackToTrackAssociator" title="smartfusion.dataassociator.base.TrackToTrackAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackToTrackAssociator</span></code></a></p>
+<p>Track to truth associator</p>
+<p>Compares two sets of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>, each formed of a sequence of
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> objects and returns an <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> object for
+each time at which a the two <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> within the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>
+are assessed to be associated. Tracks are considered to be associated with
+the Truth if the true <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> is the closest to the track and
+within the specified distance for a specified number of time steps.</p>
+<p>Associations between Truth and Track if the Truth is no longer the
+‘closest’ to the track or the distance exceeds the specified threshold for
+a specified number of consecutive time steps.</p>
+<p>Associates will be ended by consec_misses_end before any new associations
+are considered even if consec_pairs_confirm &lt; consec_misses_end</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tracks can only be associated with one Truth (one-2-one relationship) at a
+given time step however a Truth track can be associated with multiple
+Tracks (one-2-many relationship).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>association_threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Threshold distance measure which states must be within for an association to be recorded</p></li>
+<li><p><strong>consec_pairs_confirm</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of consecutive time instances which track-truth pairs are required to be within a specified threshold in order for an association to be formed. Default is 3</p></li>
+<li><p><strong>consec_misses_end</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of consecutive time instances which track-truth pairs are required to exceed a specified threshold in order for an association to be ended. Default is 2</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>, optional) – Distance measure to use. Default <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean"><code class="xref py py-class docutils literal notranslate"><span class="pre">Euclidean()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth.association_threshold">
+<span class="sig-name descname"><span class="pre">association_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth.association_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold distance measure which states must be within for an association to be recorded</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth.consec_pairs_confirm">
+<span class="sig-name descname"><span class="pre">consec_pairs_confirm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth.consec_pairs_confirm" title="Permalink to this definition"></a></dt>
+<dd><p>Number of consecutive time instances which track-truth pairs are required to be within a specified threshold in order for an association to be formed. Default is 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth.consec_misses_end">
+<span class="sig-name descname"><span class="pre">consec_misses_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth.consec_misses_end" title="Permalink to this definition"></a></dt>
+<dd><p>Number of consecutive time instances which track-truth pairs are required to exceed a specified threshold in order for an association to be ended. Default is 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Distance measure to use. Default <a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Euclidean" title="smartfusion.measures.Euclidean"><code class="xref py py-class docutils literal notranslate"><span class="pre">Euclidean()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackToTruth.associate_tracks">
+<span class="sig-name descname"><span class="pre">associate_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truth_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><span class="pre">GroundTruthPath</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackToTruth.associate_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackToTruth.associate_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Associate Tracks</p>
+<p>Method compares to sets of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects and will determine
+associations between the two sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks_set</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects) – Tracks to associate to truth</p></li>
+<li><p><strong>truth_set</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> objects) – Truth to associate to tracks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Contains a set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.AssociationSet" title="smartfusion.types.association.AssociationSet">AssociationSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackIDbased">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.tracktotrack.</span></span><span class="sig-name descname"><span class="pre">TrackIDbased</span></span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackIDbased"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackIDbased" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.dataassociator.base.TrackToTrackAssociator" title="smartfusion.dataassociator.base.TrackToTrackAssociator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackToTrackAssociator</span></code></a></p>
+<p>Track ID based associator</p>
+<p>Compares set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects to set of <code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruth</span></code> objects,
+each formed of a sequence of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> objects and returns an
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> object for each time at which a the two <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.State" title="smartfusion.types.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>
+within the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> and <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> are assessed to be associated.
+Tracks are considered to be associated with the Ground Truth if the ID of the Track
+is the same as the ID of the Ground Truth.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tracktotrack.TrackIDbased.associate_tracks">
+<span class="sig-name descname"><span class="pre">associate_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truths_set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tracktotrack.html#TrackIDbased.associate_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tracktotrack.TrackIDbased.associate_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Associate two sets of tracks together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks_set</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects) – Tracks to associate to ground truths set</p></li>
+<li><p><strong>truths_set</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> objects) – Ground truths to associate to tracks set</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Contains a set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.Association" title="smartfusion.types.association.Association"><code class="xref py py-class docutils literal notranslate"><span class="pre">Association</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.association.AssociationSet" title="smartfusion.types.association.AssociationSet">AssociationSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.dataassociator.tree">
+<span id="trees"></span><h2>Trees<a class="headerlink" href="#module-smartfusion.dataassociator.tree" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.tree.</span></span><span class="sig-name descname"><span class="pre">DetectionKDTreeMixIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_neighbours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_distance_covariance_multiplier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tree.html#DetectionKDTreeMixIn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Detection kd-tree based mixin</p>
+<p>Construct a kd-tree from detections and then use a <a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a> and
+<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a> to get prediction of track in measurement space. This is
+then queried against the kd-tree, and only matching detections are passed
+to the <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.hypothesiser" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.hypothesiser"><code class="xref py py-attr docutils literal notranslate"><span class="pre">hypothesiser</span></code></a>.</p>
+<p class="rubric">Notes</p>
+<p>This is only suitable where measurements are in same space as each other
+(i.e. have the same measurement model) and at the same timestamp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Underlying hypothesiser used to generate detection-target pairs</p></li>
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>) – Predict tracks to detection times</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to get measurement prediction</p></li>
+<li><p><strong>number_of_neighbours</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of neighbours to find. Default <cite>None</cite>, which means all points within the <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a> are returned.</p></li>
+<li><p><strong>max_distance</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Max distance to return points. Default <cite>inf</cite></p></li>
+<li><p><strong>max_distance_covariance_multiplier</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – If set, the max distance will be limited to maximum of covariance diagonal of the track state, multiplied by this attribute, or <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a>, whichever is smallest. Default <cite>None</cite> where only <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a> is used.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Underlying hypothesiser used to generate detection-target pairs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Predict tracks to detection times</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to get measurement prediction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.number_of_neighbours">
+<span class="sig-name descname"><span class="pre">number_of_neighbours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.number_of_neighbours" title="Permalink to this definition"></a></dt>
+<dd><p>Number of neighbours to find. Default <cite>None</cite>, which means all points within the <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a> are returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance">
+<span class="sig-name descname"><span class="pre">max_distance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Max distance to return points. Default <cite>inf</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance_covariance_multiplier">
+<span class="sig-name descname"><span class="pre">max_distance_covariance_multiplier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance_covariance_multiplier" title="Permalink to this definition"></a></dt>
+<dd><p>If set, the max distance will be limited to maximum of covariance diagonal of the track state, multiplied by this attribute, or <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a>, whichever is smallest. Default <cite>None</cite> where only <a class="reference internal" href="#smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn.max_distance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code></a> is used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.dataassociator.tree.</span></span><span class="sig-name descname"><span class="pre">TPRTreeMixIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizon_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/dataassociator/tree.html#TPRTreeMixIn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Detection TPR tree based mixin</p>
+<p>Construct a TPR-tree to filter detections for generating hypotheses. This assumes
+tracks move in constant velocity like model, using the mean and covariance to define
+region to look for detections.</p>
+<p class="rubric">Notes</p>
+<p>This requires that track state has a mean (position and velocity) and covariance, which
+is then approximated to a TPR node (position, velocity and time bounding box).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Underlying hypothesiser used to generate detection-target pairs</p></li>
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasurementModel</span></code></a>) – Measurement model used within the TPR tree</p></li>
+<li><p><strong>horizon_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>) – How far the TPR tree should look into the future</p></li>
+<li><p><strong>pos_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>, optional) – Mapping for position coordinates. Default <cite>None</cite>, which uses the measurement modelmapping</p></li>
+<li><p><strong>vel_mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>, optional) – Mapping for velocity coordinates. Default <cite>None</cite>, which uses the position mapping adding offset of 1 to each</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.hypothesiser.html#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Underlying hypothesiser used to generate detection-target pairs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn.measurement_model">
+<span class="sig-name descname"><span class="pre">measurement_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.measurement.html#smartfusion.models.measurement.base.MeasurementModel" title="smartfusion.models.measurement.base.MeasurementModel"><span class="pre">MeasurementModel</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn.measurement_model" title="Permalink to this definition"></a></dt>
+<dd><p>Measurement model used within the TPR tree</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn.horizon_time">
+<span class="sig-name descname"><span class="pre">horizon_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn.horizon_time" title="Permalink to this definition"></a></dt>
+<dd><p>How far the TPR tree should look into the future</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn.pos_mapping">
+<span class="sig-name descname"><span class="pre">pos_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn.pos_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping for position coordinates. Default <cite>None</cite>, which uses the measurement modelmapping</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.dataassociator.tree.TPRTreeMixIn.vel_mapping">
+<span class="sig-name descname"><span class="pre">vel_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.dataassociator.tree.TPRTreeMixIn.vel_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Mapping for velocity coordinates. Default <cite>None</cite>, which uses the position mapping adding offset of 1 to each</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.writer.html" class="btn btn-neutral float-left" title="Writers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.deleter.html" class="btn btn-neutral float-right" title="Deleters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

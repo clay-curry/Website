@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.reader.video &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.reader.video</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/reader/video" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.reader.video</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Video readers for SMART FUSION.</span>
+
+<span class="sd">This is a collection of video readers for SMART FUSION, allowing quick reading</span>
+<span class="sd">of video data/streams.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">ParseResult</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ffmpeg</span>
+    <span class="kn">import</span> <span class="nn">moviepy.editor</span> <span class="k">as</span> <span class="nn">mpy</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+        <span class="s2">&quot;Usage of video processing classes requires that the optional&quot;</span>
+        <span class="s2">&quot;package dependencies &#39;moviepy&#39; and &#39;ffmpeg-python&#39; are installed. &quot;</span>
+        <span class="s2">&quot;This can be achieved by running &quot;</span>
+        <span class="s2">&quot;&#39;python -m pip install smartfusion[video]&#39;&quot;</span><span class="p">)</span>\
+        <span class="kn">from</span> <span class="nn">error</span>
+
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">FrameReader</span>
+<span class="kn">from</span> <span class="nn">.file</span> <span class="kn">import</span> <span class="n">FileReader</span>
+<span class="kn">from</span> <span class="nn">.url</span> <span class="kn">import</span> <span class="n">UrlReader</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..buffered_generator</span> <span class="kn">import</span> <span class="n">BufferedGenerator</span>
+<span class="kn">from</span> <span class="nn">..types.sensordata</span> <span class="kn">import</span> <span class="n">ImageFrame</span>
+
+
+<div class="viewcode-block" id="VideoClipReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.video.VideoClipReader">[docs]</a><span class="k">class</span> <span class="nc">VideoClipReader</span><span class="p">(</span><span class="n">FileReader</span><span class="p">,</span> <span class="n">FrameReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VideoClipReader</span>
+
+<span class="sd">    A simple reader that uses MoviePy_ to read video frames from a file.</span>
+
+<span class="sd">    Usage of MoviePy allows for the application of clip transformations</span>
+<span class="sd">    and effects, as per the MoviePy documentation_. Upon instantiation,</span>
+<span class="sd">    the underlying MoviePy `VideoFileClip` instance can be accessed</span>
+<span class="sd">    through the :attr:`~clip` class property. This can then be used</span>
+<span class="sd">    as expected, e.g.:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Rearrange RGB to BGR</span>
+<span class="sd">        def arrange_bgr(image):</span>
+<span class="sd">            return image[:, :, [2, 1, 0]]</span>
+
+<span class="sd">        reader = VideoClipReader(&quot;path_to_file&quot;)</span>
+<span class="sd">        reader.clip = reader.clip.fl_image(arrange_bgr)</span>
+
+<span class="sd">        for timestamp, frame in reader:</span>
+<span class="sd">            # The generated frame.pixels will now</span>
+<span class="sd">            # be arranged in BGR format.</span>
+<span class="sd">            ...</span>
+
+<span class="sd">    .. _MoviePy: https://zulko.github.io/moviepy/index.html</span>
+<span class="sd">    .. _documentation: https://zulko.github.io/moviepy/getting_started/effects.html</span>
+<span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa:E501</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Start time expressed as duration from the start of the clip&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">end_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;End time expressed as duration from the start of the clip&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Timestamp given to the first frame&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">end_time_sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clip</span> <span class="o">=</span> <span class="n">mpy</span><span class="o">.</span><span class="n">VideoFileClip</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span> \
+            <span class="o">.</span><span class="n">subclip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="n">end_time_sec</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VideoClipReader.frames_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.video.VideoClipReader.frames_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">frames_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="k">for</span> <span class="n">timestamp_sec</span><span class="p">,</span> <span class="n">pixels</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">iter_frames</span><span class="p">(</span><span class="n">with_times</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">start_time</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">timestamp_sec</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">ImageFrame</span><span class="p">(</span><span class="n">pixels</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">frame</span></div></div>
+
+
+<div class="viewcode-block" id="FFmpegVideoStreamReader"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.video.FFmpegVideoStreamReader">[docs]</a><span class="k">class</span> <span class="nc">FFmpegVideoStreamReader</span><span class="p">(</span><span class="n">UrlReader</span><span class="p">,</span> <span class="n">FrameReader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; FFmpegVideoStreamReader</span>
+
+<span class="sd">    A threaded reader that uses ffmpeg-python_ to read frames from video</span>
+<span class="sd">    streams (e.g. RTSP) in real-time.</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Use of this class requires that FFmpeg_ is installed on the host machine.</span>
+<span class="sd">    - By default, FFmpeg performs internal buffering of frames leading to a \</span>
+<span class="sd">    slight delay in the incoming frames (0.5-1 sec). To remove the delay it \</span>
+<span class="sd">    is recommended to set ``input_opts={&#39;threads&#39;: 1, &#39;fflags&#39;: &#39;nobuffer&#39;}`` \</span>
+<span class="sd">    when instantiating a reader, e.g: .</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        video_reader = FFmpegVideoStreamReader(&#39;rtsp://192.168.0.10:554/1/h264minor&#39;,</span>
+<span class="sd">                                               input_opts={&#39;threads&#39;: 1, &#39;fflags&#39;: &#39;nobuffer&#39;})</span>
+<span class="sd">        for timestamp, frame in video_reader:</span>
+<span class="sd">            ....</span>
+
+<span class="sd">    .. _ffmpeg-python: https://github.com/kkroening/ffmpeg-python</span>
+<span class="sd">    .. _FFmpeg: https://www.ffmpeg.org/download.html</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">url</span><span class="p">:</span> <span class="n">ParseResult</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Input source to read video stream from, passed as input url argument. This can &quot;</span>
+            <span class="s2">&quot;include any valid FFmpeg input e.g. rtsp URL, device name when using &#39;dshow&#39;/&#39;v4l2&#39;&quot;</span><span class="p">)</span>
+    <span class="n">buffer_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Size of the frame buffer. The frame buffer is used to cache frames in cases where &quot;</span>
+            <span class="s2">&quot;the stream generates frames faster than they are ingested by the reader. If &quot;</span>
+            <span class="s2">&quot;`buffer_size` is less than or equal to zero, the buffer size is infinite.&quot;</span><span class="p">)</span>
+    <span class="n">input_opts</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;FFmpeg input options, provided in the form of a dictionary, whose keys correspond to &quot;</span>
+            <span class="s2">&quot;option names. (e.g. ``{&#39;fflags&#39;: &#39;nobuffer&#39;}``). The default is ``</span><span class="si">{}</span><span class="s2">``.&quot;</span><span class="p">)</span>
+    <span class="n">output_opts</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;FFmpeg output options, provided in the form of a dictionary, whose keys correspond &quot;</span>
+            <span class="s2">&quot;to option names. The default is ``{&#39;f&#39;: &#39;rawvideo&#39;, &#39;pix_fmt&#39;: &#39;rgb24&#39;}``.&quot;</span><span class="p">)</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;FFmpeg filters, provided in the form of a list of filter name, sequence of &quot;</span>
+            <span class="s2">&quot;arguments, mapping of key/value pairs (e.g. ``[(&#39;scale&#39;, (&#39;320&#39;, &#39;240&#39;), </span><span class="si">{}</span><span class="s2">)]``). &quot;</span>
+            <span class="s2">&quot;Default `None` where no filter will be applied. Note that :attr:`frame_size` may &quot;</span>
+            <span class="s2">&quot;need to be set in when video size changed by filter.&quot;</span><span class="p">)</span>
+    <span class="n">frame_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Tuple of frame width and height. Default `None` where it will be detected using &quot;</span>
+            <span class="s2">&quot;`ffprobe` against the input, but this may yield wrong width/height (e.g. when &quot;</span>
+            <span class="s2">&quot;filters are applied), and such this option can be used to override.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_opts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_opts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_opts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="s1">&#39;rawvideo&#39;</span><span class="p">,</span> <span class="s1">&#39;pix_fmt&#39;</span><span class="p">:</span> <span class="s1">&#39;rgb24&#39;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_info</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Probe stream information</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_info</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                <span class="n">s</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ffmpeg</span><span class="o">.</span><span class="n">probe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">geturl</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">input_opts</span><span class="p">)[</span><span class="s1">&#39;streams&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;codec_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;video&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Initialise stream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">ffmpeg</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">geturl</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">input_opts</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">filter_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="n">filter_name</span><span class="p">,</span> <span class="n">filter_args</span><span class="p">,</span> <span class="n">filter_kwargs</span> <span class="o">=</span> <span class="n">filter_</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                <span class="n">filter_name</span><span class="p">,</span> <span class="o">*</span><span class="n">filter_args</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_kwargs</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream</span>
+            <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s1">&#39;pipe:&#39;</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">output_opts</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">global_args</span><span class="p">(</span><span class="s1">&#39;-y&#39;</span><span class="p">,</span> <span class="s1">&#39;-loglevel&#39;</span><span class="p">,</span> <span class="s1">&#39;panic&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">run_async</span><span class="p">(</span><span class="n">pipe_stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Initialise capture thread</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capture_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capture_thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capture_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FFmpegVideoStreamReader.frames_gen"><a class="viewcode-back" href="../../../smartfusion.reader.html#smartfusion.reader.video.FFmpegVideoStreamReader.frames_gen">[docs]</a>    <span class="nd">@BufferedGenerator</span><span class="o">.</span><span class="n">generator_method</span>
+    <span class="k">def</span> <span class="nf">frames_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+            <span class="c1"># if not self.buffer.empty():</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">timestamp</span>
+            <span class="k">yield</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">frame</span></div>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stream_info</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">])</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stream_info</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Read bytes from stream</span>
+            <span class="n">in_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">in_bytes</span><span class="p">:</span>
+                <span class="c1"># Transform bytes to pixels</span>
+                <span class="n">frame_np</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">in_bytes</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+                <span class="p">)</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">ImageFrame</span><span class="p">(</span><span class="n">frame_np</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+
+                <span class="c1"># Write new frame to buffer</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

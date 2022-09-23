@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.types.orbitalstate &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.types.orbitalstate</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/types/orbitalstate" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.types.orbitalstate</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..functions.orbital</span> <span class="kn">import</span> <span class="n">keplerian_to_rv</span><span class="p">,</span> <span class="n">tru_anom_from_mean_anom</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">.array</span> <span class="kn">import</span> <span class="n">StateVector</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">GaussianState</span>
+<span class="kn">from</span> <span class="nn">.angle</span> <span class="kn">import</span> <span class="n">Inclination</span><span class="p">,</span> <span class="n">EclipticLongitude</span>
+
+
+<div class="viewcode-block" id="CoordinateSystem"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.orbitalstate.CoordinateSystem">[docs]</a><span class="k">class</span> <span class="nc">CoordinateSystem</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enumerates the allowable coordinate systems. See OrbitalState help for full explanation of</span>
+<span class="sd">    what each of the elements does.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CARTESIAN</span> <span class="o">=</span> <span class="s2">&quot;Cartesian&quot;</span>
+    <span class="n">KEPLERIAN</span> <span class="o">=</span> <span class="s2">&quot;Keplerian&quot;</span>
+    <span class="n">TLE</span> <span class="o">=</span> <span class="s2">&quot;TLE&quot;</span>
+    <span class="n">EQUINOCTIAL</span> <span class="o">=</span> <span class="s2">&quot;Equinoctial&quot;</span>
+
+    <span class="c1"># To allow case insensitivity and the use of &quot;TwoLineElement&quot; as a string to mean TLE</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_missing_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">element</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;TLE&quot;</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;twolineelement&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%r</span><span class="s2"> is not a valid </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Orbital"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.orbitalstate.Orbital">[docs]</a><span class="k">class</span> <span class="nc">Orbital</span><span class="p">(</span><span class="n">Type</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The orbital base type. This is the building block of SMART FUSION&#39;s orbital inference</span>
+<span class="sd">    routines and follows the principle that you shouldn&#39;t have to care which parameterisation you</span>
+<span class="sd">    use. The class stores relevant information internally and undertakes whatever conversions are</span>
+<span class="sd">    necessary.</span>
+
+<span class="sd">    The gravitational parameter :math:`\mu = GM` can be defined. If left undefined it defaults to</span>
+<span class="sd">    that of the Earth, :math:`3.986004418 \, (\pm \, 0.000000008) \times 10^{14} \mathrm{m}^3</span>
+<span class="sd">    \mathrm{s}^{−2}`</span>
+
+<span class="sd">    An orbital state is constructed from the input vector :math:`X_{t_{0}}` at epoch</span>
+<span class="sd">    :attr:`State.timestamp`, :math:`t_0`. The coordinates of :math:`X_{t_{0}}` are Cartesian</span>
+<span class="sd">    Earth-Centered Inertial (ECI) [m] by default, but may be selected via the &quot;coordinates&quot; keyword</span>
+<span class="sd">    by passing a :class:`~.CoordinateSystem` object, or an appropriate string. Allowable coordinate</span>
+<span class="sd">    systems are:</span>
+
+<span class="sd">        Coordinates = &quot;Cartesian&quot;, the input state vector is</span>
+
+<span class="sd">             .. math::</span>
+
+<span class="sd">                X_{t_0} = [r_x, r_y, r_z, \dot{r}_x, \dot{r}_y,</span>
+<span class="sd">                    \dot{r}_z]^{T}</span>
+
+<span class="sd">        where :math:`r_x, r_y, r_z` are the Cartesian position coordinates in the Primary-Centered</span>
+<span class="sd">        Inertial frame and :math:`\dot{r}_x, \dot{r}_y, \dot{r}_z` are the corresponding velocity</span>
+<span class="sd">        coordinates.</span>
+
+<span class="sd">        Coordinates = &quot;Keplerian&quot; (Keplarian elements), construct using input state vector:</span>
+
+<span class="sd">            .. math::</span>
+
+<span class="sd">                X_{t_0} = [e, a, i, \Omega, \omega, \theta]^{T} \\</span>
+
+<span class="sd">        where:</span>
+<span class="sd">        :math:`e` is the orbital eccentricity (unitless),</span>
+<span class="sd">        :math:`a` the semi-major axis ([length]),</span>
+<span class="sd">        :math:`i` the inclination (radian),</span>
+<span class="sd">        :math:`\Omega` is the longitude of the ascending node (radian),</span>
+<span class="sd">        :math:`\omega` the argument of periapsis (radian), and</span>
+<span class="sd">        :math:`\theta` the true anomaly (radian).</span>
+
+<span class="sd">        Coordinates = &quot;TLE&quot; (Two-Line Elements [1]_), initiates using input vector</span>
+
+<span class="sd">            .. math::</span>
+
+<span class="sd">                X_{t_0} = [i, \Omega, e, \omega, M_0, n]^{T}</span>
+
+<span class="sd">        where :math:`i` the inclination (radian),</span>
+<span class="sd">        :math:`\Omega` is the longitude of the ascending node (radian),</span>
+<span class="sd">        :math:`e` is the orbital eccentricity (unitless),</span>
+<span class="sd">        :math:`\omega` the argument of perigee (radian),</span>
+<span class="sd">        :math:`M_0` the mean anomaly (radian) and</span>
+<span class="sd">        :math:`n` the mean motion (radian / [time]).</span>
+
+<span class="sd">        This can also be constructed by passing `state_vector=None` and using the metadata. In this</span>
+<span class="sd">        instance the metadata must conform to the TLE standard format [2]_ and be included in the</span>
+<span class="sd">        metadata dictionary as &#39;line_1&#39; and &#39;line_2&#39;.</span>
+
+<span class="sd">        Coordinates = &quot;Equinoctial&quot; (equinoctial elements [2]_),</span>
+
+<span class="sd">            .. math::</span>
+
+<span class="sd">                X_{t_0} = [a, h, k, p, q, \lambda]^{T} \\</span>
+
+<span class="sd">        where :math:`a` the semi-major axis ([length]),</span>
+<span class="sd">        :math:`h` is the horizontal component of the eccentricity (unitless),</span>
+<span class="sd">        :math:`k` is the vertical component of the eccentricity (unitless),</span>
+<span class="sd">        :math:`q` is the horizontal component of the inclination (radian),</span>
+<span class="sd">        :math:`k` is the vertical component of the inclination (radian),</span>
+<span class="sd">        :math:`\lambda` is the mean longitude (radian).</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] NASA, Definition of Two-line Element Set Coordinate System, [spaceflight.nasa.gov](</span>
+<span class="sd">           https://spaceflight.nasa.gov/realdata/sightings/SSapplications/Post/JavaSSOP/</span>
+<span class="sd">           SSOP_Help/tle_def.html)</span>
+
+<span class="sd">    .. [2] Broucke, R. A. &amp; Cefola, P. J. 1972, Celestial Mechanics, Volume 5, Issue 3, pp. 303-310</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">coordinates</span><span class="p">:</span> <span class="n">CoordinateSystem</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">CoordinateSystem</span><span class="o">.</span><span class="n">CARTESIAN</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The parameterisation used on initiation. Acceptable values &quot;</span>
+            <span class="s2">&quot;are &#39;CARTESIAN&#39; (default), &#39;KEPLERIAN&#39;, &#39;TLE&#39;, or &#39;EQUINOCTIAL&#39;. &quot;</span>
+            <span class="s2">&quot;All other inputs will return errors. Will accept string inputs.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">grav_parameter</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">3.986004418e14</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Standard gravitational parameter :math:`\mu = G M`. The default &quot;</span>
+            <span class="sa">r</span><span class="s2">&quot;is :math:`3.986004418 \times 10^</span><span class="si">{14}</span><span class="s2"> \,` &quot;</span>
+            <span class="sa">r</span><span class="s2">&quot;:math:`\mathrm</span><span class="si">{m}</span><span class="s2">^3 \mathrm</span><span class="si">{s}</span><span class="s2">^{-2}`.&quot;</span><span class="p">)</span>
+
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Dictionary containing metadata about orbit.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;coordinates&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">CoordinateSystem</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">CoordinateSystem</span><span class="o">.</span><span class="n">CARTESIAN</span>
+
+        <span class="c1"># Check to see if the initialisation is via metadata</span>
+        <span class="k">if</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;TLE&#39;</span> <span class="ow">and</span> \
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">&#39;metadata&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">line1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">][</span><span class="s1">&#39;line_1&#39;</span><span class="p">]</span>
+                <span class="n">line2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">][</span><span class="s1">&#39;line_2&#39;</span><span class="p">]</span>
+
+                <span class="c1"># Resolve the timestamp</span>
+                <span class="n">year</span> <span class="o">=</span> <span class="mi">2000</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">line1</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span><span class="mi">20</span><span class="p">])</span>
+                <span class="n">day</span> <span class="o">=</span> <span class="n">line1</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">23</span><span class="p">]</span>
+
+                <span class="n">hour</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line1</span><span class="p">[</span><span class="mi">23</span><span class="p">:</span><span class="mi">32</span><span class="p">])</span> <span class="o">*</span> <span class="mi">24</span>
+                <span class="n">fhour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">hour</span><span class="p">))</span>
+
+                <span class="n">minu</span> <span class="o">=</span> <span class="p">(</span><span class="n">hour</span> <span class="o">-</span> <span class="n">fhour</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
+                <span class="n">fminu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">minu</span><span class="p">))</span>
+
+                <span class="n">seco</span> <span class="o">=</span> <span class="p">(</span><span class="n">minu</span> <span class="o">-</span> <span class="n">fminu</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
+                <span class="n">fseco</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">seco</span><span class="p">))</span>
+
+                <span class="n">mics</span> <span class="o">=</span> <span class="p">(</span><span class="n">seco</span> <span class="o">-</span> <span class="n">fseco</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span>
+                <span class="n">fmics</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">mics</span><span class="p">))</span>
+
+                <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">day</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fhour</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fminu</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">fseco</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="n">fmics</span><span class="p">),</span> <span class="s2">&quot;%Y %j %H %M %S </span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">StateVector</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">line2</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">16</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span>
+                                                 <span class="nb">float</span><span class="p">(</span><span class="n">line2</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span><span class="mi">25</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span>
+                                                 <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">line2</span><span class="p">[</span><span class="mi">26</span><span class="p">:</span><span class="mi">33</span><span class="p">]),</span>
+                                                 <span class="nb">float</span><span class="p">(</span><span class="n">line2</span><span class="p">[</span><span class="mi">34</span><span class="p">:</span><span class="mi">42</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span>
+                                                 <span class="nb">float</span><span class="p">(</span><span class="n">line2</span><span class="p">[</span><span class="mi">43</span><span class="p">:</span><span class="mi">51</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span>
+                                                 <span class="nb">float</span><span class="p">(</span><span class="n">line2</span><span class="p">[</span><span class="mi">52</span><span class="p">:</span><span class="mi">63</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">])</span>
+
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timestamp</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;State vector and metadata cannot both be empty&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Otherwise check that the state vector is the right size</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;State vector shape should be 6x1 : got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="c1"># Coordinate type checks</span>
+        <span class="k">if</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;CARTESIAN&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">elif</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;KEPLERIAN&#39;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Eccentricity should be between 0 and 1: got </span><span class="si">{}</span><span class="s2">&quot;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="c1"># Convert Keplerian elements to Cartesian</span>
+
+            <span class="c1"># First enforce the correct type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Inclination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">keplerian_to_rv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">,</span>
+                                                <span class="n">grav_parameter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;TLE&#39;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Eccentricity should be between 0 and 1: got </span><span class="si">{}</span><span class="s2">&quot;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="c1"># First enforce the correct type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Inclination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+            <span class="c1"># Get the semi-major axis from the mean motion</span>
+            <span class="n">semimajor_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cbrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1"># True anomaly from mean anomaly</span>
+            <span class="n">tru_anom</span> <span class="o">=</span> <span class="n">tru_anom_from_mean_anom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+            <span class="c1"># Use given and derived quantities to convert from Keplarian to</span>
+            <span class="c1"># Cartesian</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">keplerian_to_rv</span><span class="p">(</span><span class="n">StateVector</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">semimajor_axis</span><span class="p">,</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">tru_anom</span><span class="p">]),</span>
+                                                <span class="n">grav_parameter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;EQUINOCTIAL&#39;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Horizontal Eccentricity should be between -1 &quot;</span>
+                                 <span class="s2">&quot;and 1: got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Vertical Eccentricity should be between -1 and &quot;</span>
+                                 <span class="s2">&quot;1: got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+            <span class="c1"># First enforce the correct type for mean longitude</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+            <span class="c1"># Calculate the Keplarian element quantities</span>
+            <span class="n">semimajor_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">inclination</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">raan</span><span class="p">))</span>
+            <span class="n">arg_per</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="n">raan</span>
+            <span class="n">mean_anomaly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">arg_per</span> <span class="o">-</span> <span class="n">raan</span>
+            <span class="n">eccentricity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">arg_per</span> <span class="o">+</span> <span class="n">raan</span><span class="p">))</span>
+
+            <span class="c1"># True anomaly from mean anomaly</span>
+            <span class="n">tru_anom</span> <span class="o">=</span> <span class="n">tru_anom_from_mean_anom</span><span class="p">(</span><span class="n">mean_anomaly</span><span class="p">,</span> <span class="n">eccentricity</span><span class="p">)</span>
+
+            <span class="c1"># Convert from Keplarian to Cartesian</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">keplerian_to_rv</span><span class="p">(</span><span class="n">StateVector</span><span class="p">([</span><span class="n">eccentricity</span><span class="p">,</span> <span class="n">semimajor_axis</span><span class="p">,</span>
+                                                             <span class="n">inclination</span><span class="p">,</span> <span class="n">raan</span><span class="p">,</span> <span class="n">arg_per</span><span class="p">,</span>
+                                                             <span class="n">tru_anom</span><span class="p">]),</span>
+                                                <span class="n">grav_parameter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">)</span>
+
+    <span class="c1"># Some vector quantities</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_nodeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The vector node line (defines the longitude of the ascending node in the</span>
+<span class="sd">        Primary-centered inertial frame)&quot;&quot;&quot;</span>
+
+        <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">boldh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_angular_momentum</span>
+
+        <span class="n">boldn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">boldh</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldn</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">boldn</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+        <span class="c1"># If inclination is 0, the node line is [0] and has 0 magnitude. By</span>
+        <span class="c1"># convention in these situations, we set the node line as a unit vector</span>
+        <span class="c1"># pointing along x. Note that the magnitude of the vector is not</span>
+        <span class="c1"># consistent with that produced by the cross product. (But we assume</span>
+        <span class="c1"># that the node line is only used for directional information.</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">boldn</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_eccentricity_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; The eccentricity vector :math:`\mathbf{e}`&quot;&quot;&quot;</span>
+
+        <span class="n">rang</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
+        <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="n">radial_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">rang</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">speed</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span> <span class="o">/</span> <span class="n">rang</span><span class="p">)</span>
+                                            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">rang</span> <span class="o">*</span>
+                                            <span class="n">radial_velocity</span> <span class="o">*</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">specific_angular_momentum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The specific angular momentum, :math:`\mathbf{h}`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cartesian_state_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The state vector :math:`X_{t_0} = [r_x, r_y, r_z, \dot{r}_x, \dot{r}_y, \dot{r}_z]^{T}`</span>
+<span class="sd">        in &#39;Primary-Centred&#39; Inertial coordinates, equivalent to ECI in the case of the Earth.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span>
+
+    <span class="c1"># Some scalar quantities</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The epoch, or state timestamp.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The distance to object (from gravitational centre of primary).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The current instantaneous speed (scalar).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">eccentricity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The orbital eccentricity, :math:`e \; (0 \le e \le 1)`.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        This version of the calculation uses a form dependent only on scalars.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO Check to see which of the following is quicker/better</span>
+
+        <span class="c1"># Either</span>
+        <span class="c1"># return np.sqrt(np.dot(self._eccentricity_vector.T,</span>
+        <span class="c1"># self._eccentricity_vector).item())</span>
+        <span class="c1"># or</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mag_specific_angular_momentum</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+                       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span> <span class="o">/</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">semimajor_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The orbital semi-major axis.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mag_specific_angular_momentum</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">)</span> <span class="o">*</span> \
+               <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Used to be this</span>
+        <span class="c1"># return 1/((2/self.range) - (self.speed**2)/self.grav_parameter)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inclination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Orbital inclination, :math:`i \; (0 \le i &lt; \pi)`, [rad].&quot;&quot;&quot;</span>
+        <span class="n">boldh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_angular_momentum</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mag_specific_angular_momentum</span>
+
+        <span class="c1"># Note no quadrant ambiguity</span>
+        <span class="k">return</span> <span class="n">Inclination</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">boldh</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">longitude_ascending_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The longitude (or right ascension) of ascending node, :math:`\Omega \; (0 \leq \Omega &lt;</span>
+<span class="sd">        2\pi)`.&quot;&quot;&quot;</span>
+        <span class="n">boldn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeline</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldn</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">boldn</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+        <span class="c1"># Quadrant ambiguity</span>
+        <span class="k">if</span> <span class="n">boldn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">boldn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># boldn[1].item() &lt; 0:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">boldn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">argument_periapsis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The argument of periapsis, :math:`\omega \; (0 \le \omega &lt; 2\pi)` in radians.&quot;&quot;&quot;</span>
+        <span class="n">boldn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeline</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldn</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">boldn</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">bolde</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eccentricity_vector</span>
+
+        <span class="c1"># If eccentricity is 0 then there&#39;s no unambiguous longitude of</span>
+        <span class="c1"># periapsis. In these situations we set the argument of periapsis to</span>
+        <span class="c1"># 0.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># Quadrant ambiguity. The clip function is required to mitigate against</span>
+        <span class="c1"># the occasional floating-point errors which push the ratio outside the</span>
+        <span class="c1"># -1,1 region.</span>
+        <span class="k">if</span> <span class="n">bolde</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldn</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">bolde</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span>
+                                                       <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># bolde[2].item() &lt; 0:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldn</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">bolde</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">true_anomaly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The true anomaly, :math:`\theta \; (0 \le \theta &lt; 2\pi)` in radians.&quot;&quot;&quot;</span>
+        <span class="c1"># Resolve the quadrant ambiguity.The clip function is required to</span>
+        <span class="c1"># mitigate against floating-point errors which push the ratio outside</span>
+        <span class="c1"># the -1,1 region.</span>
+        <span class="n">radial_velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+
+        <span class="k">if</span> <span class="n">radial_velocity</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eccentricity_vector</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># radial_velocity &lt; 0:</span>
+            <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eccentricity_vector</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">eccentric_anomaly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The eccentric anomaly, :math:`E \; (0 \le E &lt; 2\pi)` in radians.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">            This computes the quantity exactly via the Keplerian</span>
+<span class="sd">            eccentricity and true anomaly rather than via the mean</span>
+<span class="sd">            anomaly using an iterative procedure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">)</span> <span class="o">/</span>
+                                                                    <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">))</span> <span class="o">*</span>
+                                                            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_anomaly</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+                                              <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mean_anomaly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Mean anomaly, :math:`M \; (0 \le M &lt; 2\pi`), in radians.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">            Uses the eccentric anomaly and Kepler&#39;s equation to get</span>
+<span class="sd">            mean anomaly from true anomaly and eccentricity.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">*</span>
+                                 <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eccentric_anomaly</span><span class="p">))</span>  <span class="c1"># Kepler&#39;s equation</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">period</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Orbital period, :math:`T` ([time]).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span><span class="p">))</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">,</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mean_motion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The mean motion, :math:`\frac{2 \pi}{T}`, where :math:`T` is the period, (rad / [time]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">period</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mag_specific_angular_momentum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The magnitude of the specific angular momentum, :math:`h`.&quot;&quot;&quot;</span>
+        <span class="n">boldh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_angular_momentum</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">boldh</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">boldh</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+        <span class="c1"># Alternative via scalars</span>
+        <span class="c1"># return np.sqrt(self.grav_parameter * self.semimajor_axis *</span>
+        <span class="c1"># (1 - self.eccentricity ** 2))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">specific_orbital_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Specific orbital energy (:math:`\frac{-GM}{2a}`).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">grav_parameter</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equinoctial_h</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The horizontal component of the eccentricity in equinoctial coordinates is</span>
+<span class="sd">        :math:`h = e \sin (\omega + \Omega)`.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_periapsis</span> <span class="o">+</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equinoctial_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The vertical component of the eccentricity in equinoctial coordinates is</span>
+<span class="sd">        :math:`k = e \cos (\omega + \Omega)`.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_periapsis</span> <span class="o">+</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equinoctial_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The horizontal component of the inclination in equinoctial coordinates is</span>
+<span class="sd">        :math:`p = \tan (i/2) \sin \Omega`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inclination</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equinoctial_q</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The vertical component of the inclination in equinoctial coordinates is</span>
+<span class="sd">        :math:`q = \tan (i/2) \cos \Omega`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inclination</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mean_longitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The mean longitude, defined as :math:`\lambda = M_0 + \omega + \Omega` (rad).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">EclipticLongitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument_periapsis</span> <span class="o">+</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">)</span>
+
+    <span class="c1"># The following return vectors of complete sets of elements</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">keplerian_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The vector of Keplerian elements :math:`X = [e, a, i, \Omega, \omega, \theta]^{T}`</span>
+<span class="sd">        where :math:`e` is the orbital eccentricity (unitless), :math:`a` the semi-major axis</span>
+<span class="sd">        ([length]), :math:`i` the inclination (radian), :math:`\Omega` is the longitude of the</span>
+<span class="sd">        ascending node (radian), :math:`\omega` the argument of periapsis (radian), and</span>
+<span class="sd">        :math:`\theta` the true anomaly (radian).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">inclination</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_periapsis</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">true_anomaly</span><span class="p">]]))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">two_line_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The Two-Line Element vector :math:`X = [i, \Omega, e, \omega, M_0, n]^{T}` where</span>
+<span class="sd">        :math:`i` the inclination (radian) :math:`\Omega` is the longitude of the ascending node</span>
+<span class="sd">        (radian), :math:`e` is the orbital eccentricity (unitless), :math:`\omega` the argument of</span>
+<span class="sd">        periapsis (radian), :math:`M_0` the mean anomaly (radian) :math:`n` the mean motion</span>
+<span class="sd">        (rad/[time]). [2]_&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">inclination</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude_ascending_node</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eccentricity</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_periapsis</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_anomaly</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_motion</span><span class="p">]]))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equinoctial_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The equinoctial elements, :math:`X = [a, h, k, p, q, \lambda]^{T}` where :math:`a` the</span>
+<span class="sd">        semi-major axis ([length]), :math:`h` and :math:`k` are the horizontal and vertical</span>
+<span class="sd">        components of the eccentricity respectively (unitless), :math:`p` and :math:`q` are the</span>
+<span class="sd">        horizontal and vertical components of the inclination respectively (radian) and</span>
+<span class="sd">        :math:`\lambda` is the mean longitude (radian). [3]_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">StateVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">semimajor_axis</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">equinoctial_h</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">equinoctial_k</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">equinoctial_p</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">equinoctial_q</span><span class="p">],</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_longitude</span><span class="p">]]))</span></div>
+
+
+<div class="viewcode-block" id="OrbitalState"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.orbitalstate.OrbitalState">[docs]</a><span class="k">class</span> <span class="nc">OrbitalState</span><span class="p">(</span><span class="n">Orbital</span><span class="p">,</span> <span class="n">State</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The orbital state class which inherits from :class:`~.Orbital` and :class:`~.State`.</span>
+
+<span class="sd">    The :attr:`state_vector` is held as :math:`[\mathbf{r}, \dot{\mathbf{r}}]`, the &quot;Orbital State</span>
+<span class="sd">    Vector&quot; (as traditionally understood in orbital mechanics), where :math:`\mathbf{r}` is the</span>
+<span class="sd">    (3D) Cartesian position in the primary-centered inertial frame, while :math:`\dot{\mathbf{r}}`</span>
+<span class="sd">    is the corresponding velocity vector. All methods provided by :class:`~.Orbital` are available.</span>
+<span class="sd">    Formulae for conversions are generally found in, or derived from [3]_.</span>
+
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [3] Curtis, H.D. 2010, Orbital Mechanics for Engineering Students (3rd Ed), Elsevier</span>
+<span class="sd">           Aerospace Engineering Series</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianOrbitalState"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.orbitalstate.GaussianOrbitalState">[docs]</a><span class="k">class</span> <span class="nc">GaussianOrbitalState</span><span class="p">(</span><span class="n">Orbital</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An orbital state for use in Kalman filters (and perhaps elsewhere). Inherits from</span>
+<span class="sd">    GaussianState so has a covariance matrix. As no checks on the validity of the covariance</span>
+<span class="sd">    matrix are made, care should be exercised in its use. The propagator will generally require</span>
+<span class="sd">    a particular coordinate reference which must be understood.</span>
+
+<span class="sd">    All methods provided by :class:`~.Orbital` are available.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

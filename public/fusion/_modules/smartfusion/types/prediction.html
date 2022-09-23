@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.types.prediction &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.types.prediction</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/types/prediction" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.types.prediction</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span> <span class="nn">.array</span> <span class="kn">import</span> <span class="n">CovarianceMatrix</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="p">(</span><span class="n">State</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">,</span> <span class="n">ParticleState</span><span class="p">,</span> <span class="n">EnsembleState</span><span class="p">,</span>
+                    <span class="n">SqrtGaussianState</span><span class="p">,</span> <span class="n">InformationState</span><span class="p">,</span> <span class="n">TaggedWeightedGaussianState</span><span class="p">,</span>
+                    <span class="n">WeightedGaussianState</span><span class="p">,</span> <span class="n">CategoricalState</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..models.transition.base</span> <span class="kn">import</span> <span class="n">TransitionModel</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">CreatableFromState</span><span class="p">,</span> <span class="n">CompositeState</span>
+
+
+<div class="viewcode-block" id="Prediction"><a class="viewcode-back" href="../../../types.html#smartfusion.types.prediction.Prediction">[docs]</a><span class="k">class</span> <span class="nc">Prediction</span><span class="p">(</span><span class="n">Type</span><span class="p">,</span> <span class="n">CreatableFromState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Prediction type</span>
+
+<span class="sd">    This is the base prediction class. &quot;&quot;&quot;</span>
+    <span class="n">transition_model</span><span class="p">:</span> <span class="n">TransitionModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The transition model used to make the prediction&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.MeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">MeasurementPrediction</span><span class="p">(</span><span class="n">Type</span><span class="p">,</span> <span class="n">CreatableFromState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Prediction type</span>
+
+<span class="sd">    This is the base measurement prediction class. &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="StatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.StatePrediction">[docs]</a><span class="k">class</span> <span class="nc">StatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">State</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; StatePrediction type</span>
+
+<span class="sd">    Most simple state prediction type, which only has time and a state vector.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InformationStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.InformationStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">InformationStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">InformationState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; InformationStatePrediction type</span>
+
+<span class="sd">    Information state prediction type: contains state vector, precision matrix and timestamp</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="StateMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.StateMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">StateMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">State</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; MeasurementPrediction type</span>
+
+<span class="sd">    Most simple measurement prediction type, which only has time and a state</span>
+<span class="sd">    vector.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.GaussianStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">GaussianStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; GaussianStatePrediction type</span>
+
+<span class="sd">    This is a simple Gaussian state prediction object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SqrtGaussianStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.SqrtGaussianStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">SqrtGaussianStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">SqrtGaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; SqrtGaussianStatePrediction type</span>
+
+<span class="sd">    This is a Gaussian state prediction object, with the covariance held</span>
+<span class="sd">    as the square root of the covariance matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="WeightedGaussianStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.WeightedGaussianStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">WeightedGaussianStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">WeightedGaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; WeightedGaussianStatePrediction type</span>
+
+<span class="sd">    This is a simple Gaussian state prediction object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian distribution</span>
+<span class="sd">    with an associated weight.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="TaggedWeightedGaussianStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.TaggedWeightedGaussianStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">TaggedWeightedGaussianStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span>
+                                            <span class="n">TaggedWeightedGaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; TaggedWeightedGaussianStatePrediction type</span>
+
+<span class="sd">    This is a simple Gaussian state prediction object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian distribution, with an associated</span>
+<span class="sd">    weight and unique tag.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.GaussianMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">GaussianMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; GaussianMeasurementPrediction type</span>
+
+<span class="sd">    This is a simple Gaussian measurement prediction object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cross_covar</span><span class="p">:</span> <span class="n">CovarianceMatrix</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The state-measurement cross covariance matrix&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_covar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_covar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cross_covar should have the same number of &quot;</span>
+                             <span class="s2">&quot;columns as the number of rows in state_vector&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1"># Don&#39;t need to support Sqrt Covar for MeasurementPrediction</span>
+<span class="n">CreatableFromState</span><span class="o">.</span><span class="n">class_mapping</span><span class="p">[</span><span class="n">MeasurementPrediction</span><span class="p">][</span><span class="n">SqrtGaussianState</span><span class="p">]</span> <span class="o">=</span> \
+    <span class="n">GaussianMeasurementPrediction</span>
+
+
+<div class="viewcode-block" id="ParticleStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.ParticleStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">ParticleStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">ParticleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ParticleStatePrediction type</span>
+
+<span class="sd">    This is a simple Particle state prediction object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ParticleMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.ParticleMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">ParticleMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">ParticleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;MeasurementStatePrediction type</span>
+
+<span class="sd">    This is a simple Particle measurement prediction object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EnsembleStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.EnsembleStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">EnsembleStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">EnsembleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;EnsembleStatePrediction type</span>
+
+<span class="sd">    This is a simple Ensemble measurement prediction object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EnsembleMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.EnsembleMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">EnsembleMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">EnsembleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;EnsembleMeasurementPrediction type</span>
+
+<span class="sd">    This is a simple Ensemble measurement prediction object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CategoricalStatePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.CategoricalStatePrediction">[docs]</a><span class="k">class</span> <span class="nc">CategoricalStatePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">CategoricalState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Categorical state prediction type&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CategoricalMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.CategoricalMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">CategoricalMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">CategoricalState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Categorical measurement prediction type&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CompositePrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.CompositePrediction">[docs]</a><span class="k">class</span> <span class="nc">CompositePrediction</span><span class="p">(</span><span class="n">Prediction</span><span class="p">,</span> <span class="n">CompositeState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite prediction type</span>
+
+<span class="sd">    Composition of :class:`~.Prediction`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sub_states</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Prediction</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of sub-predictions comprising the composite prediction. All sub-predictions &quot;</span>
+            <span class="s2">&quot;must have matching timestamp. Must not be empty.&quot;</span><span class="p">)</span></div>
+
+
+<span class="n">Prediction</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CompositeState</span><span class="p">)</span>  <span class="c1"># noqa: E305</span>
+
+
+<div class="viewcode-block" id="CompositeMeasurementPrediction"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.prediction.CompositeMeasurementPrediction">[docs]</a><span class="k">class</span> <span class="nc">CompositeMeasurementPrediction</span><span class="p">(</span><span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">CompositeState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite measurement prediction type</span>
+
+<span class="sd">    Composition of :class:`~.MeasurementPrediction`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sub_states</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">MeasurementPrediction</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of sub-measurement-predictions comprising the composite measurement &quot;</span>
+            <span class="s2">&quot;prediction. All sub-measurement-predictions must have matching timestamp.&quot;</span><span class="p">)</span></div>
+
+
+<span class="n">MeasurementPrediction</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CompositeState</span><span class="p">)</span>  <span class="c1"># noqa: E305</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

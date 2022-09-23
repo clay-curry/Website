@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.types.hypothesis &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.types.hypothesis</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/types/hypothesis" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.types.hypothesis</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">UserDict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">.detection</span> <span class="kn">import</span> <span class="n">Detection</span><span class="p">,</span> <span class="n">MissedDetection</span><span class="p">,</span> <span class="n">CompositeDetection</span>
+<span class="kn">from</span> <span class="nn">.prediction</span> <span class="kn">import</span> <span class="n">MeasurementPrediction</span><span class="p">,</span> <span class="n">Prediction</span><span class="p">,</span> <span class="n">CompositePrediction</span><span class="p">,</span> \
+    <span class="n">CompositeMeasurementPrediction</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..types.numeric</span> <span class="kn">import</span> <span class="n">Probability</span>
+
+
+<div class="viewcode-block" id="Hypothesis"><a class="viewcode-back" href="../../../types.html#smartfusion.types.hypothesis.Hypothesis">[docs]</a><span class="k">class</span> <span class="nc">Hypothesis</span><span class="p">(</span><span class="n">Type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Hypothesis base type</span>
+
+<span class="sd">    A Hypothesis has sub-types:</span>
+
+<span class="sd">    &#39;SingleHypothesis&#39;, which consists of a prediction for a single</span>
+<span class="sd">    Track and a single Measurement that *might* be associated with it</span>
+
+<span class="sd">    &#39;MultipleHypothesis&#39;, which consists of a prediction for a</span>
+<span class="sd">    single Track and multiple Measurements of which one *might* be associated</span>
+<span class="sd">    with it</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ProbabilityHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.ProbabilityHypothesis">[docs]</a><span class="k">class</span> <span class="nc">ProbabilityHypothesis</span><span class="p">(</span><span class="n">Hypothesis</span><span class="p">):</span>
+    <span class="n">probability</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability that detection is true location of prediction&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ProbabilityHypothesis</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span></div>
+
+
+<div class="viewcode-block" id="SingleHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.SingleHypothesis">[docs]</a><span class="k">class</span> <span class="nc">SingleHypothesis</span><span class="p">(</span><span class="n">Hypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A hypothesis based on a single measurement.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prediction</span><span class="p">:</span> <span class="n">Prediction</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Predicted track state&quot;</span><span class="p">)</span>
+    <span class="n">measurement</span><span class="p">:</span> <span class="n">Detection</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Detection used for hypothesis and updating&quot;</span><span class="p">)</span>
+    <span class="n">measurement_prediction</span><span class="p">:</span> <span class="n">MeasurementPrediction</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Optional track prediction in measurement space&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement</span><span class="p">,</span> <span class="n">MissedDetection</span><span class="p">))</span> <span class="ow">and</span> \
+               <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SingleDistanceHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.SingleDistanceHypothesis">[docs]</a><span class="k">class</span> <span class="nc">SingleDistanceHypothesis</span><span class="p">(</span><span class="n">SingleHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Distance scored hypothesis subclass.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    As smaller distance is &#39;better&#39;, comparison logic is reversed</span>
+<span class="sd">    i.e. smaller distance is a greater likelihood.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">distance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance between detection and prediction&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span>
+        <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SingleProbabilityHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.SingleProbabilityHypothesis">[docs]</a><span class="k">class</span> <span class="nc">SingleProbabilityHypothesis</span><span class="p">(</span><span class="n">ProbabilityHypothesis</span><span class="p">,</span> <span class="n">SingleHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single Measurement Probability scored hypothesis subclass.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="JointHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.JointHypothesis">[docs]</a><span class="k">class</span> <span class="nc">JointHypothesis</span><span class="p">(</span><span class="n">Type</span><span class="p">,</span> <span class="n">UserDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Joint Hypothesis base type</span>
+
+<span class="sd">    A Joint Hypothesis consists of multiple Hypotheses, each with a single</span>
+<span class="sd">    Track and a single Prediction.  A Joint Hypothesis can be a</span>
+<span class="sd">    &#39;ProbabilityJointHypothesis&#39; or a &#39;DistanceJointHypothesis&#39;, with a</span>
+<span class="sd">    probability or distance that is a function of the Hypothesis</span>
+<span class="sd">    probabilities.  Multiple Joint Hypotheses can be compared to see which is</span>
+<span class="sd">    most likely to be the &quot;correct&quot; hypothesis.</span>
+
+<span class="sd">    Note: In reality, the property &#39;hypotheses&#39; is a dictionary where the</span>
+<span class="sd">    entries have the form &#39;Track: Hypothesis&#39;.  However, we cannot define</span>
+<span class="sd">    it this way because then Hypothesis imports Track, and Track imports</span>
+<span class="sd">    Update, and Update imports Hypothesis, which is a circular import.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">hypotheses</span><span class="p">:</span> <span class="n">Hypothesis</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Association hypotheses&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">hypothesis</span><span class="p">,</span> <span class="n">SingleDistanceHypothesis</span><span class="p">)</span>
+               <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">hypotheses</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">DistanceJointHypothesis</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">hypothesis</span><span class="p">,</span> <span class="n">SingleProbabilityHypothesis</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">hypotheses</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">ProbabilityJointHypothesis</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypotheses</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="ProbabilityJointHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.ProbabilityJointHypothesis">[docs]</a><span class="k">class</span> <span class="nc">ProbabilityJointHypothesis</span><span class="p">(</span><span class="n">ProbabilityHypothesis</span><span class="p">,</span> <span class="n">JointHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Probability-scored Joint Hypothesis subclass.&quot;&quot;&quot;</span>
+
+    <span class="n">probability</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability that detection is true location of prediction. Defaults to `None`, &quot;</span>
+            <span class="s2">&quot;whereby the probability is calculated as being the product of the constituent &quot;</span>
+            <span class="s2">&quot;multiple-hypotheses&#39; probabilities.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="n">Probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">probability</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypotheses</span><span class="o">.</span><span class="n">values</span><span class="p">()]))</span>
+
+    <span class="k">def</span> <span class="nf">normalise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sum_probability</span> <span class="o">=</span> <span class="n">Probability</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">hypothesis</span><span class="o">.</span><span class="n">probability</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypotheses</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypotheses</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">hypothesis</span><span class="o">.</span><span class="n">probability</span> <span class="o">/=</span> <span class="n">sum_probability</span></div>
+
+
+<div class="viewcode-block" id="DistanceJointHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.DistanceJointHypothesis">[docs]</a><span class="k">class</span> <span class="nc">DistanceJointHypothesis</span><span class="p">(</span><span class="n">JointHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Distance scored Joint Hypothesis subclass.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    As smaller distance is &#39;better&#39;, comparison logic is reversed</span>
+<span class="sd">    i.e. smaller distance is a greater likelihood.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">distance</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span></div>
+
+
+<div class="viewcode-block" id="CompositeHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.CompositeHypothesis">[docs]</a><span class="k">class</span> <span class="nc">CompositeHypothesis</span><span class="p">(</span><span class="n">SingleHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite hypothesis type</span>
+
+<span class="sd">    A composition of :class:`~.SingleHypothesis`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sub_hypotheses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">SingleHypothesis</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of sub-hypotheses comprising the composite hypothesis. Must not be empty.&quot;</span><span class="p">)</span>
+    <span class="n">prediction</span><span class="p">:</span> <span class="n">CompositePrediction</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Predicted track state&quot;</span><span class="p">)</span>
+    <span class="n">measurement</span><span class="p">:</span> <span class="n">CompositeDetection</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Detection used for hypothesis and updating&quot;</span><span class="p">)</span>
+    <span class="n">measurement_prediction</span><span class="p">:</span> <span class="n">CompositeMeasurementPrediction</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Optional track prediction in measurement space&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot create an empty composite hypothesis&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Is null hypothesis if all sub-hypotheses are null</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">sub_hypothesis</span><span class="o">.</span><span class="fm">__bool__</span><span class="p">()</span> <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="c1"># Prediction matching `item`</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Prediction</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">prediction</span> <span class="ow">is</span> <span class="n">item</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Detection matching `item`</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Detection</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">measurement</span> <span class="ow">is</span> <span class="n">item</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Hypothesis matching `item`</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">SingleHypothesis</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+
+        <span class="c1"># retrieve sub-hypothesis by index</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">prediction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
+                                  <span class="n">measurement</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
+                                  <span class="n">sub_hypotheses</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+        <span class="c1"># retrieve sub-hypothesis by prediction</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">Prediction</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">prediction</span> <span class="ow">is</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub_hypothesis</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># retrieve sub-hypothesis by measurement</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">Detection</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">measurement</span> <span class="ow">is</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub_hypothesis</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span></div>
+
+
+<span class="n">Hypothesis</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CompositeHypothesis</span><span class="p">)</span>  <span class="c1"># noqa: E305</span>
+
+
+<div class="viewcode-block" id="CompositeProbabilityHypothesis"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.hypothesis.CompositeProbabilityHypothesis">[docs]</a><span class="k">class</span> <span class="nc">CompositeProbabilityHypothesis</span><span class="p">(</span><span class="n">CompositeHypothesis</span><span class="p">,</span> <span class="n">SingleProbabilityHypothesis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite probability hypothesis type</span>
+
+<span class="sd">    A composition of :class:`~.SingleProbabilityHypothesis`.</span>
+
+<span class="sd">    Calculate hypothesis probability via product of sub-hypotheses&#39; probabilities.</span>
+<span class="sd">    Probability is 1 if there are no sub-hypotheses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">probability</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability that detection is true location of prediction. Default is `None`, &quot;</span>
+            <span class="s2">&quot;whereby probability is calculated as the product of sub-hypotheses&#39; probabilities&quot;</span><span class="p">)</span>
+    <span class="n">sub_hypotheses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">SingleProbabilityHypothesis</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of probability-scored sub-hypotheses comprising the composite hypothesis.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub_hypothesis</span><span class="p">,</span> <span class="n">SingleProbabilityHypothesis</span><span class="p">)</span>
+               <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> must be composed of SingleProbabilityHypothesis types&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Probability is product of sub-hypothesis probabilities</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="n">Probability</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sub_hypothesis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub_hypothesis</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                    <span class="c1"># If `self` is null-hypothesis, consider all sub-hypotheses&#39; probabilities</span>
+                    <span class="c1"># If `self` is not null, consider only non-null sub-hypotheses&#39; probabilities</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">*=</span> <span class="n">sub_hypothesis</span><span class="o">.</span><span class="n">probability</span></div>
+
+
+<span class="n">ProbabilityHypothesis</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CompositeProbabilityHypothesis</span><span class="p">)</span>  <span class="c1"># noqa: E305</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

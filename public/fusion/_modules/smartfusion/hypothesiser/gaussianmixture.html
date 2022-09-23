@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.hypothesiser.gaussianmixture &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.hypothesiser.gaussianmixture</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/hypothesiser/gaussianmixture" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.hypothesiser.gaussianmixture</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Hypothesiser</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..dataassociator.tree</span> <span class="kn">import</span> <span class="n">DetectionKDTreeMixIn</span>
+<span class="kn">from</span> <span class="nn">..types.detection</span> <span class="kn">import</span> <span class="n">MissedDetection</span>
+<span class="kn">from</span> <span class="nn">..types.multihypothesis</span> <span class="kn">import</span> <span class="n">MultipleHypothesis</span>
+<span class="kn">from</span> <span class="nn">..types.prediction</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TaggedWeightedGaussianStatePrediction</span><span class="p">,</span>
+                                <span class="n">WeightedGaussianStatePrediction</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">TaggedWeightedGaussianState</span>
+
+
+<div class="viewcode-block" id="GaussianMixtureHypothesiser"><a class="viewcode-back" href="../../../smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser">[docs]</a><span class="k">class</span> <span class="nc">GaussianMixtureHypothesiser</span><span class="p">(</span><span class="n">Hypothesiser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Gaussian Mixture Prediction Hypothesiser based on an underlying Hypothesiser</span>
+
+<span class="sd">    Generates a list of :class:`MultipleHypothesis`, where each</span>
+<span class="sd">    MultipleHypothesis in the list contains SingleHypotheses</span>
+<span class="sd">    pertaining to an individual component-detection hypothesis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">hypothesiser</span><span class="p">:</span> <span class="n">Hypothesiser</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Underlying hypothesiser used to generate detection-target pairs&quot;</span><span class="p">)</span>
+    <span class="n">order_by_detection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Flag to order the :class:`~.MultipleHypothesis` &quot;</span>
+            <span class="s2">&quot;list by detection or component&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate_hypotheses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">component</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hypothesiser</span><span class="o">.</span><span class="n">hypothesise</span><span class="p">(</span>
+            <span class="n">component</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">}</span>
+
+<div class="viewcode-block" id="GaussianMixtureHypothesiser.hypothesise"><a class="viewcode-back" href="../../../smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.hypothesise">[docs]</a>    <span class="k">def</span> <span class="nf">hypothesise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Form hypotheses for associations between Detections and Gaussian</span>
+<span class="sd">        Mixture components.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        components : list of :class:`~.WeightedGaussianState`</span>
+<span class="sd">            Components representing the state of the target space</span>
+<span class="sd">        detections : set of :class:`~.Detection`</span>
+<span class="sd">            Retrieved measurements</span>
+<span class="sd">        timestamp : datetime.datetime</span>
+<span class="sd">            Time of the detections/predicted states</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of :class:`~.MultipleHypothesis`</span>
+<span class="sd">            Each :class:`~.MultipleHypothesis` in the list contains</span>
+<span class="sd">            a list of :class:`~SingleHypothesis` pertaining</span>
+<span class="sd">            to the same Gaussian component unless</span>
+<span class="sd">            order_by_detection is true, then they</span>
+<span class="sd">            pertain to the same Detection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Check to make sure all detections are obtained from the same time</span>
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">detection</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All detections must have the same timestamp&quot;</span><span class="p">)</span>
+
+        <span class="n">components_hypotheses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_hypotheses</span><span class="p">(</span>
+            <span class="n">components</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">hypotheses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">component</span><span class="p">,</span> <span class="n">component_hypotheses</span> <span class="ow">in</span> <span class="n">components_hypotheses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">component_hypotheses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">TaggedWeightedGaussianState</span><span class="p">):</span>
+                    <span class="c1"># Ensure that a birth component without a measurement retains</span>
+                    <span class="c1"># the birth tag. This will prevent a track from being made</span>
+                    <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">component</span><span class="o">.</span><span class="n">BIRTH</span> <span class="ow">and</span> \
+                            <span class="nb">isinstance</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="p">,</span> <span class="n">MissedDetection</span><span class="p">):</span>
+                        <span class="n">tag</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">BIRTH</span>
+                    <span class="k">elif</span> <span class="n">component</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">component</span><span class="o">.</span><span class="n">BIRTH</span><span class="p">:</span>
+                        <span class="n">tag</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># a new tag will be made</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tag</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">tag</span>
+                    <span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span> <span class="o">=</span> \
+                        <span class="n">TaggedWeightedGaussianStatePrediction</span><span class="p">(</span>
+                            <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+                            <span class="n">weight</span><span class="o">=</span><span class="n">component</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                            <span class="n">state_vector</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">state_vector</span><span class="p">,</span>
+                            <span class="n">covar</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                            <span class="n">timestamp</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">timestamp</span>
+                            <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">WeightedGaussianStatePrediction</span><span class="p">(</span>
+                        <span class="n">weight</span><span class="o">=</span><span class="n">component</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                        <span class="n">state_vector</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">state_vector</span><span class="p">,</span>
+                        <span class="n">covar</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                        <span class="n">timestamp</span><span class="o">=</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">timestamp</span>
+                    <span class="p">)</span>
+            <span class="c1"># Create Multiple Hypothesis and add to list</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">component_hypotheses</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MultipleHypothesis</span><span class="p">(</span><span class="n">component_hypotheses</span><span class="p">))</span>
+
+        <span class="c1"># Reorder list of MultipleHypothesis so that they are ordered</span>
+        <span class="c1"># by detection, not component</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by_detection</span><span class="p">:</span>
+            <span class="n">single_hypothesis_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="c1"># Retrieve all single hypotheses</span>
+            <span class="k">for</span> <span class="n">multiple_hypothesis</span> <span class="ow">in</span> <span class="n">hypotheses</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">single_hypothesis</span> <span class="ow">in</span> <span class="n">multiple_hypothesis</span><span class="p">:</span>
+                    <span class="n">single_hypothesis_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">single_hypothesis</span><span class="p">)</span>
+            <span class="n">reordered_hypotheses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="c1"># Get miss detected components</span>
+            <span class="n">miss_detections_hypothesis</span> <span class="o">=</span> <span class="n">MultipleHypothesis</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">single_hypothesis_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+                <span class="c1"># Create multiple hypothesis per detection</span>
+                <span class="n">detection_multiple_hypothesis</span> <span class="o">=</span> \
+                    <span class="n">MultipleHypothesis</span><span class="p">(</span><span class="nb">list</span><span class="p">([</span><span class="n">hypothesis</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">single_hypothesis_list</span>
+                                            <span class="k">if</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span> <span class="o">==</span> <span class="n">detection</span><span class="p">]))</span>
+                <span class="c1"># Add to new list</span>
+                <span class="n">reordered_hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detection_multiple_hypothesis</span><span class="p">)</span>
+            <span class="c1"># Add miss detected hypothesis to end</span>
+            <span class="n">reordered_hypotheses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">miss_detections_hypothesis</span><span class="p">)</span>
+            <span class="c1"># Assign reordered list to original list</span>
+            <span class="n">hypotheses</span> <span class="o">=</span> <span class="n">reordered_hypotheses</span>
+
+        <span class="k">return</span> <span class="n">hypotheses</span></div></div>
+
+
+<div class="viewcode-block" id="GaussianMixtureKDTreeHypothesiser"><a class="viewcode-back" href="../../../smartfusion.hypothesiser.html#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureKDTreeHypothesiser">[docs]</a><span class="k">class</span> <span class="nc">GaussianMixtureKDTreeHypothesiser</span><span class="p">(</span><span class="n">DetectionKDTreeMixIn</span><span class="p">,</span> <span class="n">GaussianMixtureHypothesiser</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

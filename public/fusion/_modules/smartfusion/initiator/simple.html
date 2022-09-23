@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.initiator.simple &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.initiator.simple</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/initiator/simple" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.initiator.simple</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">GaussianInitiator</span><span class="p">,</span> <span class="n">ParticleInitiator</span><span class="p">,</span> <span class="n">Initiator</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..dataassociator</span> <span class="kn">import</span> <span class="n">DataAssociator</span>
+<span class="kn">from</span> <span class="nn">..deleter</span> <span class="kn">import</span> <span class="n">Deleter</span>
+<span class="kn">from</span> <span class="nn">..models.base</span> <span class="kn">import</span> <span class="n">LinearModel</span><span class="p">,</span> <span class="n">ReversibleModel</span>
+<span class="kn">from</span> <span class="nn">..models.measurement</span> <span class="kn">import</span> <span class="n">MeasurementModel</span>
+<span class="kn">from</span> <span class="nn">..types.hypothesis</span> <span class="kn">import</span> <span class="n">SingleHypothesis</span>
+<span class="kn">from</span> <span class="nn">..types.numeric</span> <span class="kn">import</span> <span class="n">Probability</span>
+<span class="kn">from</span> <span class="nn">..types.particle</span> <span class="kn">import</span> <span class="n">Particle</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">,</span> <span class="n">ParticleState</span>
+<span class="kn">from</span> <span class="nn">..types.track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">..types.update</span> <span class="kn">import</span> <span class="n">GaussianStateUpdate</span><span class="p">,</span> <span class="n">ParticleStateUpdate</span><span class="p">,</span> <span class="n">Update</span>
+<span class="kn">from</span> <span class="nn">..updater</span> <span class="kn">import</span> <span class="n">Updater</span>
+<span class="kn">from</span> <span class="nn">..updater.kalman</span> <span class="kn">import</span> <span class="n">ExtendedKalmanUpdater</span>
+
+
+<div class="viewcode-block" id="SinglePointInitiator"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.SinglePointInitiator">[docs]</a><span class="k">class</span> <span class="nc">SinglePointInitiator</span><span class="p">(</span><span class="n">GaussianInitiator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;SinglePointInitiator class</span>
+
+<span class="sd">    This uses an :class:`~.ExtendedKalmanUpdater` to carry out an update using</span>
+<span class="sd">    provided :attr:`prior_state` for each unassociated detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">prior_state</span><span class="p">:</span> <span class="n">GaussianState</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Prior state information&quot;</span><span class="p">)</span>
+    <span class="n">measurement_model</span><span class="p">:</span> <span class="n">MeasurementModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Measurement model. Can be left as None if all detections have a &quot;</span>
+            <span class="s2">&quot;valid measurement model.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SinglePointInitiator.initiate"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.SinglePointInitiator.initiate">[docs]</a>    <span class="k">def</span> <span class="nf">initiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initiates tracks given unassociated measurements</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        detections : set of :class:`~.Detection`</span>
+<span class="sd">            A list of unassociated detections</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Current timestamp</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : set of :class:`~.Track`</span>
+<span class="sd">            A list of new tracks with an initial :class:`~.GaussianState`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">updater</span> <span class="o">=</span> <span class="n">ExtendedKalmanUpdater</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement_model</span><span class="p">)</span>
+
+        <span class="n">tracks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+            <span class="n">measurement_prediction</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">predict_measurement</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span><span class="p">,</span> <span class="n">detection</span><span class="o">.</span><span class="n">measurement_model</span><span class="p">)</span>
+            <span class="n">track_state</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">SingleHypothesis</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span><span class="p">,</span> <span class="n">detection</span><span class="p">,</span> <span class="n">measurement_prediction</span><span class="p">))</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">([</span><span class="n">track_state</span><span class="p">])</span>
+            <span class="n">tracks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tracks</span></div></div>
+
+
+<div class="viewcode-block" id="SimpleMeasurementInitiator"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator">[docs]</a><span class="k">class</span> <span class="nc">SimpleMeasurementInitiator</span><span class="p">(</span><span class="n">GaussianInitiator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initiator that maps measurement space to state space</span>
+
+<span class="sd">    Works for both linear and non-linear co-ordinate input</span>
+
+<span class="sd">    This initiator utilises the :class:`~.MeasurementModel` matrix to convert</span>
+<span class="sd">    :class:`~.Detection` state vector and model covariance into state space.</span>
+<span class="sd">    It either takes the :class:`~.MeasurementModel` from the given detection</span>
+<span class="sd">    or uses the :attr:`measurement_model`.</span>
+
+<span class="sd">    Utilises the ReversibleModel inverse function to convert</span>
+<span class="sd">    non-linear spherical co-ordinates into Cartesian x/y co-ordinates</span>
+<span class="sd">    for use in predictions and mapping.</span>
+
+<span class="sd">    This then replaces mapped values in the :attr:`prior_state` to form the</span>
+<span class="sd">    initial :class:`~.GaussianState` of the :class:`~.Track`.</span>
+
+<span class="sd">    The diagonal loading value is used to try to ensure that the estimated</span>
+<span class="sd">    covariance matrix is positive definite, especially for subsequent Cholesky</span>
+<span class="sd">    decompositions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prior_state</span><span class="p">:</span> <span class="n">GaussianState</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Prior state information&quot;</span><span class="p">)</span>
+    <span class="n">measurement_model</span><span class="p">:</span> <span class="n">MeasurementModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Measurement model. Can be left as None if all detections have a &quot;</span>
+            <span class="s2">&quot;valid measurement model.&quot;</span><span class="p">)</span>
+    <span class="n">skip_non_reversible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">diag_load</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Positive float value for diagonal loading&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">diag_load</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;diag_load value can&#39;t be less than 0.0&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SimpleMeasurementInitiator.initiate"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.SimpleMeasurementInitiator.initiate">[docs]</a>    <span class="k">def</span> <span class="nf">initiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">detection</span><span class="o">.</span><span class="n">measurement_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">measurement_model</span> <span class="o">=</span> <span class="n">detection</span><span class="o">.</span><span class="n">measurement_model</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No measurement model specified&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">measurement_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_model</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">measurement_model</span><span class="p">,</span> <span class="n">LinearModel</span><span class="p">):</span>
+                <span class="n">model_matrix</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">matrix</span><span class="p">()</span>
+                <span class="n">inv_model_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">model_matrix</span><span class="p">)</span>
+                <span class="n">state_vector</span> <span class="o">=</span> <span class="n">inv_model_matrix</span> <span class="o">@</span> <span class="n">detection</span><span class="o">.</span><span class="n">state_vector</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">measurement_model</span><span class="p">,</span> <span class="n">ReversibleModel</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">state_vector</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">inverse_function</span><span class="p">(</span>
+                            <span class="n">detection</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_non_reversible</span><span class="p">:</span>
+                            <span class="k">raise</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                    <span class="n">model_matrix</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">State</span><span class="p">(</span>
+                        <span class="n">state_vector</span><span class="p">))</span>
+                    <span class="n">inv_model_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">model_matrix</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_non_reversible</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid measurement model used.</span><span class="se">\</span>
+<span class="s2">                                    Must be instance of linear or reversible.&quot;</span><span class="p">)</span>
+
+            <span class="n">model_covar</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">covar</span><span class="p">()</span>
+
+            <span class="n">prior_state_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">prior_covar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span><span class="o">.</span><span class="n">covar</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="n">mapped_dimensions</span> <span class="o">=</span> <span class="n">measurement_model</span><span class="o">.</span><span class="n">mapping</span>
+
+            <span class="n">prior_state_vector</span><span class="p">[</span><span class="n">mapped_dimensions</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">prior_covar</span><span class="p">[</span><span class="n">mapped_dimensions</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">C0</span> <span class="o">=</span> <span class="n">inv_model_matrix</span> <span class="o">@</span> <span class="n">model_covar</span> <span class="o">@</span> <span class="n">inv_model_matrix</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">C0</span> <span class="o">=</span> <span class="n">C0</span> <span class="o">+</span> <span class="n">prior_covar</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">diag_load</span><span class="p">]</span> <span class="o">*</span> <span class="n">C0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">tracks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Track</span><span class="p">([</span><span class="n">GaussianStateUpdate</span><span class="p">(</span>
+                <span class="n">prior_state_vector</span> <span class="o">+</span> <span class="n">state_vector</span><span class="p">,</span>
+                <span class="n">C0</span><span class="p">,</span>
+                <span class="n">SingleHypothesis</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">detection</span><span class="p">),</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="n">detection</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+            <span class="p">]))</span>
+        <span class="k">return</span> <span class="n">tracks</span></div></div>
+
+
+<div class="viewcode-block" id="MultiMeasurementInitiator"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.MultiMeasurementInitiator">[docs]</a><span class="k">class</span> <span class="nc">MultiMeasurementInitiator</span><span class="p">(</span><span class="n">GaussianInitiator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-measurement initiator.</span>
+
+<span class="sd">    Utilises features of the tracker to initiate and hold tracks</span>
+<span class="sd">    temporarily within the initiator itself, releasing them to the</span>
+<span class="sd">    tracker once there are multiple detections associated with them</span>
+<span class="sd">    enough to determine that they are &#39;sure&#39; tracks.</span>
+
+<span class="sd">    Utilises simple initiator to initiate tracks to hold -&gt;</span>
+<span class="sd">    prevents code duplication.</span>
+
+<span class="sd">    Solves issue of short-lived single detection tracks being</span>
+<span class="sd">    initiated only to then be removed shortly after.</span>
+<span class="sd">    Does cause slight delay in initiation to tracker.&quot;&quot;&quot;</span>
+
+    <span class="n">prior_state</span><span class="p">:</span> <span class="n">GaussianState</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Prior state information&quot;</span><span class="p">)</span>
+    <span class="n">deleter</span><span class="p">:</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Deleter used to delete the track.&quot;</span><span class="p">)</span>
+    <span class="n">data_associator</span><span class="p">:</span> <span class="n">DataAssociator</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Association algorithm to pair predictions to detections.&quot;</span><span class="p">)</span>
+    <span class="n">updater</span><span class="p">:</span> <span class="n">Updater</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Updater used to update the track object to the new state.&quot;</span><span class="p">)</span>
+    <span class="n">measurement_model</span><span class="p">:</span> <span class="n">MeasurementModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Measurement model. Can be left as None if all detections have a &quot;</span>
+            <span class="s2">&quot;valid measurement model.&quot;</span><span class="p">)</span>
+    <span class="n">min_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Minimum number of track points required to confirm a track.&quot;</span><span class="p">)</span>
+    <span class="n">updates_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Whether :attr:`min_points` only counts :class:`~.Update` states.&quot;</span><span class="p">)</span>
+    <span class="n">initiator</span><span class="p">:</span> <span class="n">Initiator</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Initiator used to create tracks. If None, a :class:`SimpleMeasurementInitiator` will &quot;</span>
+            <span class="s2">&quot;be created using :attr:`prior_state` and :attr:`measurement_model`. Otherwise, these &quot;</span>
+            <span class="s2">&quot;attributes are ignored.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initiator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initiator</span> <span class="o">=</span> <span class="n">SimpleMeasurementInitiator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_model</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MultiMeasurementInitiator.initiate"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.MultiMeasurementInitiator.initiate">[docs]</a>    <span class="k">def</span> <span class="nf">initiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">sure_tracks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="n">associated_detections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span><span class="p">:</span>
+            <span class="n">associations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_associator</span><span class="o">.</span><span class="n">associate</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">track</span><span class="p">,</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">associations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">hypothesis</span><span class="p">:</span>
+                    <span class="n">state_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">hypothesis</span><span class="p">)</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state_post</span><span class="p">)</span>
+                    <span class="n">associated_detections</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">updates_only</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">Update</span><span class="p">))</span>\
+                        <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_points</span><span class="p">:</span>
+                    <span class="n">sure_tracks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deleter</span><span class="o">.</span><span class="n">delete_tracks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">holding_tracks</span> <span class="o">|=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initiator</span><span class="o">.</span><span class="n">initiate</span><span class="p">(</span>
+            <span class="n">detections</span> <span class="o">-</span> <span class="n">associated_detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sure_tracks</span></div></div>
+
+
+<div class="viewcode-block" id="GaussianParticleInitiator"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.GaussianParticleInitiator">[docs]</a><span class="k">class</span> <span class="nc">GaussianParticleInitiator</span><span class="p">(</span><span class="n">ParticleInitiator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Gaussian Particle Initiator class</span>
+
+<span class="sd">    Utilising Gaussian Initiator, sample from the resultant track&#39;s state</span>
+<span class="sd">    to generate a number of particles, overwriting with a</span>
+<span class="sd">    :class:`~.ParticleState`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">initiator</span><span class="p">:</span> <span class="n">GaussianInitiator</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Gaussian Initiator which will be used to generate tracks.&quot;</span><span class="p">)</span>
+    <span class="n">number_particles</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Number of particles for initial track state&quot;</span><span class="p">)</span>
+    <span class="n">use_fixed_covar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;If `True`, the Gaussian state covariance is used for the &quot;</span>
+            <span class="s2">&quot;:class:`~.ParticleState` as a fixed covariance. Default `False`.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Create prior particle state</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initiator</span><span class="o">.</span><span class="n">prior_state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">initiator</span><span class="o">.</span><span class="n">prior_state</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                                              <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_particles</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;No prior state&quot;</span><span class="p">)</span>
+        <span class="n">particles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Particle</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prior_state</span> <span class="o">=</span> <span class="n">ParticleState</span><span class="p">(</span>
+            <span class="n">particles</span><span class="p">,</span>
+            <span class="n">fixed_covar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">initiator</span><span class="o">.</span><span class="n">prior_state</span><span class="o">.</span><span class="n">covar</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_fixed_covar</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Probability</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_particles</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GaussianParticleInitiator.initiate"><a class="viewcode-back" href="../../../smartfusion.initiator.html#smartfusion.initiator.simple.GaussianParticleInitiator.initiate">[docs]</a>    <span class="k">def</span> <span class="nf">initiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initiates tracks given unassociated measurements</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        detections : set of :class:`~.Detection`</span>
+<span class="sd">            A list of unassociated detections</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Current timestamp</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : set of :class:`~.Track`</span>
+<span class="sd">            A list of new tracks with a initial :class:`~.ParticleState`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initiator</span><span class="o">.</span><span class="n">initiate</span><span class="p">(</span><span class="n">detections</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                                              <span class="n">track</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                                              <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_particles</span><span class="p">)</span>
+            <span class="n">particles</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Particle</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+            <span class="n">track</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ParticleStateUpdate</span><span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">hypothesis</span><span class="p">,</span>
+                <span class="n">particle_list</span><span class="o">=</span><span class="n">particles</span><span class="p">,</span>
+                <span class="n">fixed_covar</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">covar</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_fixed_covar</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tracks</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

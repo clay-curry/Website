@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.models.transition.linear &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.models.transition.linear</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/models/transition/linear" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.models.transition.linear</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">quad</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">block_diag</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">TransitionModel</span><span class="p">,</span> <span class="n">CombinedGaussianTransitionModel</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="p">(</span><span class="n">LinearModel</span><span class="p">,</span> <span class="n">GaussianModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span><span class="p">,</span>
+                    <span class="n">TimeInvariantModel</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">...base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">...types.array</span> <span class="kn">import</span> <span class="n">CovarianceMatrix</span>
+
+
+<div class="viewcode-block" id="LinearGaussianTransitionModel"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel">[docs]</a><span class="k">class</span> <span class="nc">LinearGaussianTransitionModel</span><span class="p">(</span>
+        <span class="n">TransitionModel</span><span class="p">,</span> <span class="n">LinearModel</span><span class="p">,</span> <span class="n">GaussianModel</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;ndim_state getter method</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`int`</span>
+<span class="sd">            The number of model state dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="CombinedLinearGaussianTransitionModel"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel">[docs]</a><span class="k">class</span> <span class="nc">CombinedLinearGaussianTransitionModel</span><span class="p">(</span><span class="n">LinearModel</span><span class="p">,</span> <span class="n">CombinedGaussianTransitionModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Combine multiple models into a single model by stacking them.</span>
+
+<span class="sd">    The assumption is that all models are Linear and Gaussian.</span>
+<span class="sd">    Time Variant, and Time Invariant models can be combined together.</span>
+<span class="sd">    If any of the models are time variant the keyword argument &quot;time_interval&quot;</span>
+<span class="sd">    must be supplied to all methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CombinedLinearGaussianTransitionModel.matrix"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.CombinedLinearGaussianTransitionModel.matrix">[docs]</a>    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Model matrix :math:`F`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`numpy.ndarray` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">transition_matrices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">block_diag</span><span class="p">(</span><span class="o">*</span><span class="n">transition_matrices</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LinearGaussianTimeInvariantTransitionModel"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTimeInvariantTransitionModel">[docs]</a><span class="k">class</span> <span class="nc">LinearGaussianTimeInvariantTransitionModel</span><span class="p">(</span><span class="n">LinearGaussianTransitionModel</span><span class="p">,</span>
+                                                 <span class="n">TimeInvariantModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generic Linear Gaussian Time Invariant Transition Model.&quot;&quot;&quot;</span>
+
+    <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Transition matrix :math:`</span><span class="se">\\</span><span class="s2">mathbf</span><span class="si">{F}</span><span class="s2">`.&quot;</span><span class="p">)</span>
+    <span class="n">control_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Control matrix :math:`</span><span class="se">\\</span><span class="s2">mathbf</span><span class="si">{B}</span><span class="s2">`.&quot;</span><span class="p">)</span>
+    <span class="n">covariance_matrix</span><span class="p">:</span> <span class="n">CovarianceMatrix</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Transition noise covariance matrix :math:`</span><span class="se">\\</span><span class="s2">mathbf</span><span class="si">{Q}</span><span class="s2">`.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LinearGaussianTimeInvariantTransitionModel.matrix"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTimeInvariantTransitionModel.matrix">[docs]</a>    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Model matrix :math:`F`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`numpy.ndarray` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The model matrix evaluated given the provided time interval.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span></div>
+
+<div class="viewcode-block" id="LinearGaussianTimeInvariantTransitionModel.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTimeInvariantTransitionModel.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transition model noise covariance matrix.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`smartfusion.types.state.CovarianceMatrix` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The process noise covariance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">covariance_matrix</span></div></div>
+
+
+<div class="viewcode-block" id="ConstantNthDerivative"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantNthDerivative">[docs]</a><span class="k">class</span> <span class="nc">ConstantNthDerivative</span><span class="p">(</span><span class="n">LinearGaussianTransitionModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Discrete model based on the Nth derivative with respect to time being</span>
+<span class="sd">    constant, to set derivative use keyword argument</span>
+<span class="sd">    :attr:`constant_derivative`</span>
+
+<span class="sd">     The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx^{(N-1)} &amp; = &amp; x^{(N)} dt &amp; | {(N-1)th \ derivative \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx^{(N)} &amp; = &amp; q\cdot dW_t,\ W_t \sim \mathcal{N}(0,q^2) &amp; | \</span>
+<span class="sd">                Nth\ derivative\ on\ X-axis (m/s^{N})</span>
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    It is hard to represent the matrix form of these due to the fact that they</span>
+<span class="sd">    vary with N, examples for N=1 and N=2 can be found in the</span>
+<span class="sd">    :class:`~.ConstantVelocity` and :class:`~.ConstantAcceleration` models</span>
+<span class="sd">    respectively. To aid visualisation of :math:`F_t` the elements are</span>
+<span class="sd">    calculated as the terms of the taylor expansion of each state variable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">constant_derivative</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The order of the derivative with respect to time to be kept constant, eg if 2 &quot;</span>
+            <span class="s2">&quot;identical to constant acceleration&quot;</span><span class="p">)</span>
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The Nth derivative noise diffusion coefficient (Variance) :math:`q`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_derivative</span> <span class="o">+</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="ConstantNthDerivative.matrix"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantNthDerivative.matrix">[docs]</a>    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">time_interval_sec</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_derivative</span>
+        <span class="n">Fmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval_sec</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">Fmat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Fmat</span></div>
+
+<div class="viewcode-block" id="ConstantNthDerivative.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantNthDerivative.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">time_interval_sec</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval_sec</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_derivative</span>
+        <span class="k">if</span> <span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dt</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                              <span class="p">[</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="p">]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Fmat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">igrand</span> <span class="o">=</span> <span class="n">Fmat</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">Fmat</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># noqa: E741</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">covar</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">igrand</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">N</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">l</span> <span class="o">-</span> <span class="n">k</span><span class="p">))</span>
+        <span class="n">covar</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_diff_coeff</span>
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">covar</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RandomWalk"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.RandomWalk">[docs]</a><span class="k">class</span> <span class="nc">RandomWalk</span><span class="p">(</span><span class="n">ConstantNthDerivative</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D</span>
+<span class="sd">    Linear-Gaussian Random Walk Transition Model.</span>
+
+<span class="sd">        The target is assumed to be (almost) stationary, where</span>
+<span class="sd">        target velocity is modelled as white noise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The position noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constant_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For random walk, this is 0.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="ConstantVelocity"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantVelocity">[docs]</a><span class="k">class</span> <span class="nc">ConstantVelocity</span><span class="p">(</span><span class="n">ConstantNthDerivative</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D</span>
+<span class="sd">    Linear-Gaussian Constant Velocity Transition Model.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity, where</span>
+<span class="sd">    target acceleration is modelled as white noise.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} d &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp; q\cdot dW_t,\ W_t \sim \mathcal{N}(0,q^2) &amp; | \</span>
+<span class="sd">                Speed on\ X-axis (m/s)</span>
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel}</span>
+<span class="sd">                \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        1 &amp; dt\\</span>
+<span class="sd">                        0 &amp; 1</span>
+<span class="sd">                \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        \frac{dt^3}{3} &amp; \frac{dt^2}{2} \\</span>
+<span class="sd">                        \frac{dt^2}{2} &amp; dt</span>
+<span class="sd">                \end{bmatrix} q</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The velocity noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constant_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For constant velocity, this is 1.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="ConstantAcceleration"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.ConstantAcceleration">[docs]</a><span class="k">class</span> <span class="nc">ConstantAcceleration</span><span class="p">(</span><span class="n">ConstantNthDerivative</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D Constant</span>
+<span class="sd">    Acceleration Transition Model.</span>
+
+<span class="sd">    The target acceleration is modeled as a zero-mean white noise random</span>
+<span class="sd">    process.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} d &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp; x_{acc} d &amp; | {Speed \</span>
+<span class="sd">                on\ X-axis (m/s)} \\</span>
+<span class="sd">                dx_{acc} &amp; = &amp; q W_t,\ W_t \sim</span>
+<span class="sd">                \mathcal{N}(0,q^2) &amp; | {Acceleration \ on \ X-axis (m^2/s)}</span>
+
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                         x_{pos} \\</span>
+<span class="sd">                         x_{vel} \\</span>
+<span class="sd">                         x_{acc}</span>
+<span class="sd">                    \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                           1 &amp; dt &amp; \frac{dt^2}{2} \\</span>
+<span class="sd">                           0 &amp; 1 &amp; dt \\</span>
+<span class="sd">                           0 &amp; 0 &amp; 1</span>
+<span class="sd">                      \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        \frac{dt^5}{20} &amp; \frac{dt^4}{8} &amp; \frac{dt^3}{6} \\</span>
+<span class="sd">                        \frac{dt^4}{8} &amp; \frac{dt^3}{3} &amp; \frac{dt^2}{2} \\</span>
+<span class="sd">                        \frac{dt^3}{6} &amp; \frac{dt^2}{2} &amp; dt</span>
+<span class="sd">                      \end{bmatrix} q</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The acceleration noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constant_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For constant acceleration, this is 2.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="NthDerivativeDecay"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.NthDerivativeDecay">[docs]</a><span class="k">class</span> <span class="nc">NthDerivativeDecay</span><span class="p">(</span><span class="n">LinearGaussianTransitionModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Discrete model based on the Nth derivative with respect to time</span>
+<span class="sd">    decaying to 0 exponentially, to set derivative use keyword argument</span>
+<span class="sd">    :attr:`decay_derivative`</span>
+
+<span class="sd">        The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx^{(N-1)} &amp; = &amp; x^{(N)} dt &amp; | {(N-1)th derivative \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx^{(N)} &amp; = &amp; -K x^{N} dt + q\cdot dW_t,\ W_t \sim</span>
+<span class="sd">                \mathcal{N}(0,q^2) &amp; | \ Nth\ derivative\ on\ X-axis (m/s^{N})</span>
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    The transition and covariance matrices are very difficult to express</span>
+<span class="sd">    simply, but examples for N=1 and N=2 are given in</span>
+<span class="sd">    :class:`~.OrnsteinUhlenbeck` and :class:`~.Singer` respectively.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="n">decay_derivative</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The derivative with respect to time to decay exponentially, eg if 2 identical to &quot;</span>
+            <span class="s2">&quot;singer&quot;</span><span class="p">)</span>
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+    <span class="n">damping_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The Nth derivative damping coefficient :math:`K`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decay_derivative</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@lru_cache</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_continoustransitionmatrix</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+        <span class="n">FCont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">FCont</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">K</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">K</span> <span class="o">**</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">FCont</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span> <span class="o">-=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span>\
+                               <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">K</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+                <span class="n">FCont</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FCont</span>
+
+<div class="viewcode-block" id="NthDerivativeDecay.matrix"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.NthDerivativeDecay.matrix">[docs]</a>    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decay_derivative</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">damping_coeff</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_continoustransitionmatrix</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_continouscovar</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>  <span class="c1"># noqa: E741</span>
+        <span class="n">FcCont</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_continoustransitionmatrix</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">CovarCont</span> <span class="o">=</span> <span class="n">FcCont</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">FcCont</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">CovarCont</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="nd">@lru_cache</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_covardiscrete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># noqa: E741</span>
+                <span class="n">covar</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">quad</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_continouscovar</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                   <span class="n">dt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">covar</span> <span class="o">*</span> <span class="n">q</span>
+
+<div class="viewcode-block" id="NthDerivativeDecay.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.NthDerivativeDecay.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decay_derivative</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_diff_coeff</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">damping_coeff</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_covardiscrete</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="OrnsteinUhlenbeck"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.OrnsteinUhlenbeck">[docs]</a><span class="k">class</span> <span class="nc">OrnsteinUhlenbeck</span><span class="p">(</span><span class="n">NthDerivativeDecay</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D</span>
+<span class="sd">    Linear-Gaussian Ornstein Uhlenbeck Transition Model.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity, which</span>
+<span class="sd">    exponentially decays to zero over time, and target acceleration is</span>
+<span class="sd">    modeled as white noise.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} dt &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp; -K x_{vel} dt + q dW_t,</span>
+<span class="sd">                W_t \sim \mathcal{N}(0,q) &amp; | {Speed\ on \</span>
+<span class="sd">                X-axis (m/s)}</span>
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel}</span>
+<span class="sd">                \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        1 &amp; \frac{1}{K}(1 - e^{-Kdt})\\</span>
+<span class="sd">                        0 &amp; e^{-Kdt}</span>
+<span class="sd">                \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        \frac{dt - \frac{2}{K}(1 - e^{-Kdt})</span>
+<span class="sd">                              + \frac{1}{2K}(1 - e^{-2Kdt})}{K^2} &amp;</span>
+<span class="sd">                        \frac{\frac{1}{K}(1 - e^{-Kdt})</span>
+<span class="sd">                              - \frac{1}{2K}(1 - e^{-2Kdt})}{K} \\</span>
+<span class="sd">                        \frac{\frac{1}{K}(1 - e^{-Kdt})</span>
+<span class="sd">                              - \frac{1}{2K}(1 - e^{-2Kdt})}{K} &amp;</span>
+<span class="sd">                        \frac{1 - e^{-2Kdt}}{2K}</span>
+<span class="sd">                \end{bmatrix} q</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The velocity noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+    <span class="n">damping_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The velocity damping coefficient :math:`K`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decay_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Singer"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.Singer">[docs]</a><span class="k">class</span> <span class="nc">Singer</span><span class="p">(</span><span class="n">NthDerivativeDecay</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D Singer</span>
+<span class="sd">    Transition Model.</span>
+
+<span class="sd">    The target acceleration is modeled as a zero-mean Gauss-Markov random</span>
+<span class="sd">    process.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} dt &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp; x_{acc} dt &amp; | {Speed \</span>
+<span class="sd">                on\ X-axis (m/s)} \\</span>
+<span class="sd">                dx_{acc} &amp; = &amp; -K x_{acc} dt + q W_t,\ W_t \sim</span>
+<span class="sd">                \mathcal{N}(0,q^2) &amp; | {Acceleration \ on \ X-axis (m^2/s)}</span>
+
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel} \\</span>
+<span class="sd">                        x_{acc}</span>
+<span class="sd">                    \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        1 &amp; dt &amp; (K dt-1+e^{-K dt})/K^2 \\</span>
+<span class="sd">                        0 &amp; 1 &amp; (1-e^{-K dt})/K \\</span>
+<span class="sd">                        0 &amp; 0 &amp; e^{-K t}</span>
+<span class="sd">                      \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; q \begin{bmatrix}</span>
+<span class="sd">                    \frac{[1-e^{-2K dt}] + 2K dt +</span>
+<span class="sd">                    \frac{2K^3 dt^3}{3}- 2K^2 dt^2 -</span>
+<span class="sd">                    4K dt e^{-K dt} }{2K^5} &amp;</span>
+<span class="sd">                    \frac{(K dt - [1-e^{-K dt}])^2}{2K^4} &amp;</span>
+<span class="sd">                    \frac{[1-e^{-2K dt}]-2K dt e^{-K dt}}</span>
+<span class="sd">                    {2K^3} \\</span>
+<span class="sd">                    \frac{(K dt - [1 - e^{-K dt}])^2}{2K^4} &amp;</span>
+<span class="sd">                    \frac{2K dt - 4[1-e^{-K dt}] +</span>
+<span class="sd">                    [1-e^{-2K dt}]}{2K^3} &amp;</span>
+<span class="sd">                    \frac{[1-e^{-K dt}]^2}{2K^2} \\</span>
+<span class="sd">                    \frac{[1- e^{-2K dt}]-2K dt e^{-K dt}}</span>
+<span class="sd">                    {2K^3} &amp;</span>
+<span class="sd">                    \frac{[1-e^{-K dt}]^2}{2K^2} &amp;</span>
+<span class="sd">                    \frac{1-e^{-2K dt}}{2K}</span>
+<span class="sd">                    \end{bmatrix}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">noise_diff_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The acceleration noise diffusion coefficient :math:`q`&quot;</span><span class="p">)</span>
+    <span class="n">damping_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;The reciprocal of the decorrelation time :math:`\alpha`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decay_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="SingerApproximate"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.SingerApproximate">[docs]</a><span class="k">class</span> <span class="nc">SingerApproximate</span><span class="p">(</span><span class="n">Singer</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decay_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 1D Singer</span>
+<span class="sd">    Transition Model, with covariance approximation applicable for smaller time</span>
+<span class="sd">    intervals.</span>
+
+<span class="sd">    The target acceleration is modeled as a zero-mean Gauss-Markov random</span>
+<span class="sd">    process.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} d &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp; x_{acc} d &amp; | {Speed \</span>
+<span class="sd">                on\ X-axis (m/s)} \\</span>
+<span class="sd">                dx_{acc} &amp; = &amp; -\alpha x_{acc} d + q W_t,\ W_t \sim</span>
+<span class="sd">                \mathcal{N}(0,q^2) &amp; | {Acceleration \ on \ X-axis (m^2/s)}</span>
+
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel} \\</span>
+<span class="sd">                        x_{acc}</span>
+<span class="sd">                    \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        1 &amp; dt &amp; (\alpha dt-1+e^{-\alpha dt})/\alpha^2 \\</span>
+<span class="sd">                        0 &amp; 1 &amp; (1-e^{-\alpha dt})/\alpha \\</span>
+<span class="sd">                        0 &amp; 0 &amp; e^{-\alpha t}</span>
+<span class="sd">                      \end{bmatrix}</span>
+
+<span class="sd">        For small dt:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; q \begin{bmatrix}</span>
+<span class="sd">                        \frac{dt^5}{20} &amp; \frac{dt^4}{8} &amp; \frac{dt^3}{6} \\</span>
+<span class="sd">                        \frac{dt^4}{8} &amp; \frac{dt^3}{3} &amp; \frac{dt^2}{2} \\</span>
+<span class="sd">                        \frac{dt^3}{6} &amp; \frac{dt^2}{2} &amp; dt</span>
+<span class="sd">                        \end{bmatrix}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SingerApproximate.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.SingerApproximate.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transition model noise covariance matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time_interval : :class:`datetime.timedelta`</span>
+<span class="sd">            A time interval :math:`dt`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`smartfusion.types.state.CovarianceMatrix` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The process noise covariance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># time_interval_threshold is currently set arbitrarily.</span>
+        <span class="n">time_interval_sec</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="c1"># Only leading terms get calculated for speed.</span>
+        <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">5</span> <span class="o">/</span> <span class="mi">20</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">4</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">4</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="n">time_interval_sec</span><span class="p">]]</span>
+        <span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_diff_coeff</span>
+
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">covar</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="KnownTurnRateSandwich"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.KnownTurnRateSandwich">[docs]</a><span class="k">class</span> <span class="nc">KnownTurnRateSandwich</span><span class="p">(</span><span class="n">LinearGaussianTransitionModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a time-variant 2D Constant Turn</span>
+<span class="sd">    Model. This model is used, as opposed to the normal :class:`~.KnownTurnRate`</span>
+<span class="sd">    model, when the turn occurs in 2 dimensions that are not adjacent in the</span>
+<span class="sd">    state vector, eg if the turn occurs in the x-z plane but the state vector</span>
+<span class="sd">    is of the form :math:`(x,y,z)`. The list of transition models are to be</span>
+<span class="sd">    applied to any state variables that lie in between, eg if for the above</span>
+<span class="sd">    example you wanted the y component to move with constant velocity, you</span>
+<span class="sd">    would put a :class:`~.ConstantVelocity` model in the list.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity and also</span>
+<span class="sd">    known (nearly) constant turn rate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">turn_noise_diff_coeffs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The acceleration noise diffusion coefficients :math:`q`&quot;</span><span class="p">)</span>
+    <span class="n">turn_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;The turn rate :math:`\omega`&quot;</span><span class="p">)</span>
+    <span class="n">model_list</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">LinearGaussianTransitionModel</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;List of Transition Models.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;ndim_state getter method</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`int`</span>
+<span class="sd">            The number of combined model state dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">ndim_state</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span>
+
+<div class="viewcode-block" id="KnownTurnRateSandwich.matrix"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.KnownTurnRateSandwich.matrix">[docs]</a>    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Model matrix :math:`F`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`numpy.ndarray` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_interval_sec</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">turn_ratedt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn_rate</span> <span class="o">*</span> <span class="n">time_interval_sec</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">transition_matrices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">time_interval</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">]</span>
+        <span class="n">sandwich</span> <span class="o">=</span> <span class="n">block_diag</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="o">*</span><span class="n">transition_matrices</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="n">sandwich</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">turn_rate</span><span class="p">],</span>
+                                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)]])</span>
+        <span class="n">sandwich</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">turn_rate</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)]])</span>
+        <span class="n">sandwich</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">))</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">turn_rate</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)]])</span>
+        <span class="n">sandwich</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">turn_rate</span><span class="p">],</span>
+                                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">turn_ratedt</span><span class="p">)]])</span>
+        <span class="k">return</span> <span class="n">sandwich</span></div>
+
+<div class="viewcode-block" id="KnownTurnRateSandwich.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.KnownTurnRateSandwich.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transition model noise covariance matrix.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`smartfusion.types.state.CovarianceMatrix` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The process noise covariance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn_noise_diff_coeffs</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">covar_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">time_interval</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">]</span>
+        <span class="n">ctc1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="p">[</span><span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="p">]])</span>
+        <span class="n">ctc2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="p">[</span><span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">q1</span><span class="o">*</span><span class="n">dt</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">block_diag</span><span class="p">(</span><span class="n">ctc1</span><span class="p">,</span> <span class="o">*</span><span class="n">covar_list</span><span class="p">,</span> <span class="n">ctc2</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="KnownTurnRate"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.linear.KnownTurnRate">[docs]</a><span class="k">class</span> <span class="nc">KnownTurnRate</span><span class="p">(</span><span class="n">KnownTurnRateSandwich</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 2D Constant</span>
+<span class="sd">    Turn Model.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity and also</span>
+<span class="sd">    known (nearly) constant turn rate.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{eqnarray}</span>
+<span class="sd">                dx_{pos} &amp; = &amp; x_{vel} d &amp; | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = &amp;-\omega y_{pos} d &amp; | {Speed \</span>
+<span class="sd">                on\ X-axis (m/s)} \\</span>
+<span class="sd">                dy_{pos} &amp; = &amp; y_{vel} d &amp; | {Position \ on \</span>
+<span class="sd">                Y-axis (m)} \\</span>
+<span class="sd">                dy_{vel} &amp; = &amp; \omega x_{pos} d &amp; | {Speed \</span>
+<span class="sd">                on\ Y-axis (m/s)}</span>
+<span class="sd">            \end{eqnarray}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel} \\</span>
+<span class="sd">                        y_{pos} \\</span>
+<span class="sd">                        y_{vel}</span>
+<span class="sd">                    \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                          1 &amp; \frac{\sin\omega dt}{\omega} &amp;</span>
+<span class="sd">                          0 &amp;-\frac{1-\cos\omega dt}{\omega} \\</span>
+<span class="sd">                          0 &amp; \cos\omega dt &amp; 0 &amp; -\sin\omega dt \\</span>
+<span class="sd">                          0 &amp; \frac{1-\cos\omega dt}{\omega} &amp;</span>
+<span class="sd">                          1 &amp; \frac{\sin\omega dt}{\omega}\\</span>
+<span class="sd">                          0 &amp; \sin\omega dt &amp; 0 &amp; \cos\omega dt</span>
+<span class="sd">                      \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            Q_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                          q_x^2 \frac{dt^3}{3} &amp; q_x^2 \frac{dt^2}{2} &amp;</span>
+<span class="sd">                          0 &amp; 0 \\</span>
+<span class="sd">                          q_x^2 \frac{dt^2}{2} &amp; q_x^2  dt &amp;</span>
+<span class="sd">                          0 &amp; 0 \\</span>
+<span class="sd">                          0 &amp; 0 &amp;</span>
+<span class="sd">                          q_y^2 \frac{dt^3}{3} &amp; q_y^2 \frac{dt^2}{2}\\</span>
+<span class="sd">                          0 &amp; 0 &amp;</span>
+<span class="sd">                          q_y^2 \frac{dt^2}{2} &amp; q_y^2 dt</span>
+<span class="sd">                      \end{bmatrix}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">model_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For a turn in adjacent state vectors,</span>
+<span class="sd">         no transition models go in between&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

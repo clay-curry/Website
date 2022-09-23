@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.models.base &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.models.base</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/models/base" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.models.base</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Base</span><span class="p">,</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..functions</span> <span class="kn">import</span> <span class="n">jacobian</span> <span class="k">as</span> <span class="n">compute_jac</span>
+<span class="kn">from</span> <span class="nn">..types.array</span> <span class="kn">import</span> <span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span><span class="p">,</span> <span class="n">CovarianceMatrix</span>
+<span class="kn">from</span> <span class="nn">..types.numeric</span> <span class="kn">import</span> <span class="n">Probability</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">State</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..types.detection</span> <span class="kn">import</span> <span class="n">Detection</span>
+
+
+<div class="viewcode-block" id="Model"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.Model">[docs]</a><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Model type</span>
+
+<span class="sd">    Base/Abstract class for all models.&quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of dimensions of model&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<div class="viewcode-block" id="Model.function"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.Model.function">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">noise</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Model function :math:`f_k(x(k),w(k))`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state: State</span>
+<span class="sd">            An input state</span>
+<span class="sd">        noise: :class:`numpy.ndarray` or bool</span>
+<span class="sd">            An externally generated random process noise sample (the default is</span>
+<span class="sd">            `False`, in which case no noise will be added</span>
+<span class="sd">            if &#39;True&#39;, the output of :meth:`~.Model.rvs` is used)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`StateVector` or :class:`StateVectors`</span>
+<span class="sd">            The StateVector(s) with the model function evaluated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Model.jacobian"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.Model.jacobian">[docs]</a>    <span class="k">def</span> <span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Model jacobian matrix :math:`H_{jac}`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            An input state</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`numpy.ndarray` of shape (:py:attr:`~ndim_meas`, \</span>
+<span class="sd">        :py:attr:`~ndim_state`)</span>
+<span class="sd">            The model jacobian matrix evaluated around the given state vector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">compute_jac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Model.rvs"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.Model.rvs">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Model noise/sample generation function</span>
+
+<span class="sd">        Generates noise samples from the model.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_samples: scalar, optional</span>
+<span class="sd">            The number of samples to be generated (the default is 1)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        noise : 2-D array of shape (:attr:`ndim`, ``num_samples``)</span>
+<span class="sd">            A set of Np samples, generated from the model&#39;s noise</span>
+<span class="sd">            distribution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Model.pdf"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.Model.pdf">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state1</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Probability</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Model pdf/likelihood evaluation function</span>
+
+<span class="sd">        Evaluates the pdf/likelihood of ``state1``, given the state</span>
+<span class="sd">        ``state2`` which is passed to :meth:`function()`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state1 : State</span>
+<span class="sd">        state2 : State</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`~.Probability` or :class:`~.numpy.ndarray` of :class:`~.Probability`</span>
+<span class="sd">            The likelihood of ``state1``, given ``state2``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+
+
+<div class="viewcode-block" id="LinearModel"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.LinearModel">[docs]</a><span class="k">class</span> <span class="nc">LinearModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;LinearModel class</span>
+
+<span class="sd">    Base/Abstract class for all linear models&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LinearModel.matrix"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.LinearModel.matrix">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Model matrix&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="LinearModel.function"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.LinearModel.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">noise</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Model linear function :math:`f_k(x(k),w(k)) = F_k(x_k) + w_k`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state: State</span>
+<span class="sd">            An input state</span>
+<span class="sd">        noise: :class:`numpy.ndarray` or bool</span>
+<span class="sd">            An externally generated random process noise sample (the default is</span>
+<span class="sd">            `False`, in which case no noise will be added</span>
+<span class="sd">            if &#39;True&#39;, the output of :meth:`~.Model.rvs` is added)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`StateVector` or :class:`StateVectors`</span>
+<span class="sd">            The StateVector(s) with the model function evaluated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="n">noise</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">noise</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">+</span> <span class="n">noise</span></div>
+
+<div class="viewcode-block" id="LinearModel.jacobian"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.LinearModel.jacobian">[docs]</a>    <span class="k">def</span> <span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Model jacobian matrix :math:`H_{jac}`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            An input state</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :class:`numpy.ndarray` of shape (:py:attr:`~ndim_meas`, \</span>
+<span class="sd">        :py:attr:`~ndim_state`)</span>
+<span class="sd">            The model jacobian matrix evaluated around the given state vector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ReversibleModel"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.ReversibleModel">[docs]</a><span class="k">class</span> <span class="nc">ReversibleModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Non-linear model containing sufficient co-ordinate</span>
+<span class="sd">    information such that the linear co-ordinate conversions</span>
+<span class="sd">    can be calculated from the non-linear counterparts.</span>
+
+<span class="sd">    Contains an inverse function which computes the reverse</span>
+<span class="sd">    of the relevant linear-to-non-linear function&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ReversibleModel.inverse_function"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.ReversibleModel.inverse_function">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">inverse_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detection</span><span class="p">:</span> <span class="s1">&#39;Detection&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StateVector</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Takes in the result of the function and</span>
+<span class="sd">        computes the inverse function, returning the initial</span>
+<span class="sd">        input of the function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        detection: :class:`~.Detection`</span>
+<span class="sd">            Input state (non-linear format)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        StateVector</span>
+<span class="sd">            The linear co-ordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+
+
+<div class="viewcode-block" id="TimeVariantModel"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.TimeVariantModel">[docs]</a><span class="k">class</span> <span class="nc">TimeVariantModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TimeVariantModel class</span>
+
+<span class="sd">    Base/Abstract class for all time-variant models&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="TimeInvariantModel"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.TimeInvariantModel">[docs]</a><span class="k">class</span> <span class="nc">TimeInvariantModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TimeInvariantModel class</span>
+
+<span class="sd">    Base/Abstract class for all time-invariant models&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianModel"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.GaussianModel">[docs]</a><span class="k">class</span> <span class="nc">GaussianModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;GaussianModel class</span>
+
+<span class="sd">    Base/Abstract class for all Gaussian models&quot;&quot;&quot;</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Seed for random number generation&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="GaussianModel.rvs"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.GaussianModel.rvs">[docs]</a>    <span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span>\
+            <span class="n">Union</span><span class="p">[</span><span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Model noise/sample generation function</span>
+
+<span class="sd">        Generates noise samples from the model.</span>
+
+<span class="sd">        In mathematical terms, this can be written as:</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            v_t \sim \mathcal{N}(0,Q)</span>
+
+<span class="sd">        where :math:`v_t =` ``noise`` and :math:`Q` = :attr:`covar`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_samples: scalar, optional</span>
+<span class="sd">            The number of samples to be generated (the default is 1)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        noise : 2-D array of shape (:attr:`ndim`, ``num_samples``)</span>
+<span class="sd">            A set of Np samples, generated from the model&#39;s noise</span>
+<span class="sd">            distribution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">covar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># If model has None-type covariance or contains None, it does not represent a Gaussian</span>
+        <span class="k">if</span> <span class="n">covar</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">covar</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot generate rvs from None-type covariance&quot;</span><span class="p">)</span>
+
+        <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span> <span class="k">if</span> <span class="n">random_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span>
+
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">covar</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># numpy.rvs method squeezes 1-dimensional matrices to integers</span>
+
+        <span class="k">if</span> <span class="n">num_samples</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">noise</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">StateVector</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">noise</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">StateVectors</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GaussianModel.pdf"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.GaussianModel.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state1</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">state2</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Probability</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Model pdf/likelihood evaluation function</span>
+
+<span class="sd">        Evaluates the pdf/likelihood of ``state1``, given the state</span>
+<span class="sd">        ``state2`` which is passed to :meth:`function()`.</span>
+
+<span class="sd">        In mathematical terms, this can be written as:</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            p = p(y_t | x_t) = \mathcal{N}(y_t; x_t, Q)</span>
+
+<span class="sd">        where :math:`y_t` = ``state_vector1``, :math:`x_t` = ``state_vector2``</span>
+<span class="sd">        and :math:`Q` = :attr:`covar`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state1 : State</span>
+<span class="sd">        state2 : State</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`~.Probability` or :class:`~.numpy.ndarray` of :class:`~.Probability`</span>
+<span class="sd">            The likelihood of ``state1``, given ``state2``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">covar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># If model has None-type covariance or contains None, it does not represent a Gaussian</span>
+        <span class="k">if</span> <span class="n">covar</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">covar</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot generate pdf from None-type covariance&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Calculate difference before to handle custom types (mean defaults to zero)</span>
+        <span class="c1"># This is required as log pdf coverts arrays to floats</span>
+        <span class="n">likelihood</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Probability</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">log_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                               <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span>
+                                  <span class="p">(</span><span class="n">state1</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">state2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                                  <span class="n">cov</span><span class="o">=</span><span class="n">covar</span><span class="p">))])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">likelihood</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">likelihood</span></div>
+
+<div class="viewcode-block" id="GaussianModel.covar"><a class="viewcode-back" href="../../../smartfusion.models.html#smartfusion.models.base.GaussianModel.covar">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CovarianceMatrix</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Model covariance&quot;&quot;&quot;</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

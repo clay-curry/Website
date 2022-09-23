@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hypothesiser &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Initiators" href="smartfusion.initiator.html" />
+    <link rel="prev" title="Gater" href="smartfusion.gater.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Hypothesiser</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.hypothesiser.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.hypothesiser">
+<span id="hypothesiser"></span><h1>Hypothesiser<a class="headerlink" href="#module-smartfusion.hypothesiser" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.hypothesiser.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.base.Hypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.base.</span></span><span class="sig-name descname"><span class="pre">Hypothesiser</span></span><a class="reference internal" href="_modules/smartfusion/hypothesiser/base.html#Hypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.base.Hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Hypothesiser base class</p>
+<p>Given a track and set of detections, generate hypothesis of association.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.base.Hypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><span class="pre">Detection</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><span class="pre">Hypothesis</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/hypothesiser/base.html#Hypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.base.Hypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Hypothesise track and detection association</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – Track which hypotheses will be generated for.</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections used to generate hypotheses.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – A timestamp used when evaluating the state and measurement
+predictions. Note that if a given detection has a non empty
+timestamp, then prediction will be performed according to
+the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ordered sequence of “best” to “worse” hypothesis.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sequence of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.Hypothesis" title="smartfusion.types.hypothesis.Hypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.hypothesiser.distance">
+<span id="distance"></span><h2>Distance<a class="headerlink" href="#module-smartfusion.hypothesiser.distance" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.distance.</span></span><span class="sig-name descname"><span class="pre">DistanceHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">missed_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/distance.html#DistanceHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Prediction Hypothesiser based on a Measure</p>
+<p>Generate track predictions at detection times and score each hypothesised
+prediction-detection pair using the distance of the supplied
+<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a> class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>) – Predict tracks to detection times</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to get measurement prediction</p></li>
+<li><p><strong>measure</strong> (<a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a>) – Measure class used to calculate the distance between two states.</p></li>
+<li><p><strong>missed_distance</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Distance for a missed detection. Default is set to infinity</p></li>
+<li><p><strong>include_all</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If <cite>True</cite>, hypotheses beyond missed distance will be returned. Default <cite>False</cite></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Predict tracks to detection times</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to get measurement prediction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.measures.html#smartfusion.measures.Measure" title="smartfusion.measures.Measure"><span class="pre">Measure</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Measure class used to calculate the distance between two states.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.missed_distance">
+<span class="sig-name descname"><span class="pre">missed_distance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.missed_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Distance for a missed detection. Default is set to infinity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.include_all">
+<span class="sig-name descname"><span class="pre">include_all</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.include_all" title="Permalink to this definition"></a></dt>
+<dd><p>If <cite>True</cite>, hypotheses beyond missed distance will be returned. Default <cite>False</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.distance.DistanceHypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/distance.html#DistanceHypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.distance.DistanceHypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate and return all track association hypotheses.</p>
+<p>For a given track and a set of N available detections, return a
+MultipleHypothesis object with N+1 detections (first detection is
+a ‘MissedDetection’), each with an associated distance measure..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – The track object to hypothesise on</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – The available detections</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – A timestamp used when evaluating the state and measurement
+predictions. Note that if a given detection has a non empty
+timestamp, then prediction will be performed according to
+the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A container of <code class="xref py py-class docutils literal notranslate"><span class="pre">SingleDistanceHypothesis</span></code> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.hypothesiser.probability">
+<span id="probability"></span><h2>Probability<a class="headerlink" href="#module-smartfusion.hypothesiser.probability" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.probability.</span></span><span class="sig-name descname"><span class="pre">PDAHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clutter_spatial_density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_detect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Probability(0.85)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_gate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Probability(0.95)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/probability.html#PDAHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Hypothesiser based on Probabilistic Data Association (PDA)</p>
+<p>Generate track predictions at detection times and calculate probabilities
+for all prediction-detection pairs for single prediction and multiple
+detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>) – Predict tracks to detection times</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to get measurement prediction</p></li>
+<li><p><strong>clutter_spatial_density</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Spatial density of clutter - tied to probability of false detection. Default is None where the clutter spatial density is calculated based on assumption that all but one measurement within the validation region of the track are clutter.</p></li>
+<li><p><strong>prob_detect</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Target Detection Probability</p></li>
+<li><p><strong>prob_gate</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Gate Probability - prob. gate contains true measurement if detected</p></li>
+<li><p><strong>include_all</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If <cite>True</cite>, hypotheses outside probability gates will be returned. This requires that the clutter spatial density is also provided, as it may not be possible toestimate this. Default <cite>False</cite></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Predict tracks to detection times</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to get measurement prediction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.clutter_spatial_density">
+<span class="sig-name descname"><span class="pre">clutter_spatial_density</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.clutter_spatial_density" title="Permalink to this definition"></a></dt>
+<dd><p>Spatial density of clutter - tied to probability of false detection. Default is None where the clutter spatial density is calculated based on assumption that all but one measurement within the validation region of the track are clutter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.prob_detect">
+<span class="sig-name descname"><span class="pre">prob_detect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.prob_detect" title="Permalink to this definition"></a></dt>
+<dd><p>Target Detection Probability</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.prob_gate">
+<span class="sig-name descname"><span class="pre">prob_gate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.prob_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Gate Probability - prob. gate contains true measurement if detected</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.include_all">
+<span class="sig-name descname"><span class="pre">include_all</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.include_all" title="Permalink to this definition"></a></dt>
+<dd><p>If <cite>True</cite>, hypotheses outside probability gates will be returned. This requires that the clutter spatial density is also provided, as it may not be possible toestimate this. Default <cite>False</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.probability.PDAHypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/probability.html#PDAHypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.probability.PDAHypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate and return all track association hypotheses.</p>
+<p>For a given track and a set of N detections, return a
+MultipleHypothesis with N+1 detections (first detection is
+a ‘MissedDetection’), each with an associated probability.
+Probabilities are assumed to be exhaustive (sum to 1) and mutually
+exclusive (two detections cannot be the correct association at the
+same time).</p>
+<p>Detection 0: missed detection, none of the detections are associated
+with the track.
+Detection <span class="math notranslate nohighlight">\(i, i \in {1...N}\)</span>: detection i is associated
+with the track.</p>
+<p>The probabilities for these detections are calculated as follow:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\beta_i(k) = \begin{cases}
+      \frac{\mathcal{L}_{i}(k)}{1-P_{D}P_{G}+\sum_{j=1}^{m(k)}
+        \mathcal{L}_{j}(k)}, \quad i=1,...,m(k) \\
+      \frac{1-P_{D}P_{G}}{1-P_{D}P_{G}+\sum_{j=1}^{m(k)}
+        \mathcal{L}_{j}(k)}, \quad i=0
+      \end{cases}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{i}(k) = \frac{\mathcal{N}[z_{i}(k);\hat{z}(k|k-1),
+S(k)]P_{D}}{\lambda}\]</div>
+<p><span class="math notranslate nohighlight">\(\lambda\)</span> is the clutter density</p>
+<p><span class="math notranslate nohighlight">\(P_{D}\)</span> is the detection probability</p>
+<p><span class="math notranslate nohighlight">\(P_{G}\)</span> is the gate probability</p>
+<p><span class="math notranslate nohighlight">\(\mathcal{N}[z_{i}(k);\hat{z}(k|k-1),S(k)]\)</span> is the likelihood
+ratio of the measurement <span class="math notranslate nohighlight">\(z_{i}(k)\)</span> originating from the track
+target rather than the clutter.</p>
+<p>NOTE: Since all probabilities have the same denominator and are
+normalized later, the denominator can be discarded.</p>
+<p>References:</p>
+<p>[1] “The Probabilistic Data Association Filter: Estimation in the
+Presence of Measurement Origin Uncertainty” -
+<a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5338565">https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5338565</a></p>
+<p>[2] “Robotics 2 Data Association” (Lecture notes) -
+<a class="reference external" href="http://ais.informatik.uni-freiburg.de/teaching/ws10/robotics2/pdfs/rob2-15-dataassociation.pdf">http://ais.informatik.uni-freiburg.de/teaching/ws10/robotics2/pdfs/rob2-15-dataassociation.pdf</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – The track object to hypothesise on</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – The available detections</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – A timestamp used when evaluating the state and measurement
+predictions. Note that if a given detection has a non empty
+timestamp, then prediction will be performed according to
+the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A container of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.SingleProbabilityHypothesis" title="smartfusion.types.hypothesis.SingleProbabilityHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleProbabilityHypothesis</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.hypothesiser.gaussianmixture">
+<span id="gaussian-mixture"></span><h2>Gaussian Mixture<a class="headerlink" href="#module-smartfusion.hypothesiser.gaussianmixture" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.gaussianmixture.</span></span><span class="sig-name descname"><span class="pre">GaussianMixtureHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by_detection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/gaussianmixture.html#GaussianMixtureHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Gaussian Mixture Prediction Hypothesiser based on an underlying Hypothesiser</p>
+<p>Generates a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code>, where each
+MultipleHypothesis in the list contains SingleHypotheses
+pertaining to an individual component-detection hypothesis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Underlying hypothesiser used to generate detection-target pairs</p></li>
+<li><p><strong>order_by_detection</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Flag to order the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a> list by detection or component</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.hypothesiser">
+<span class="sig-name descname"><span class="pre">hypothesiser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.hypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Underlying hypothesiser used to generate detection-target pairs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.order_by_detection">
+<span class="sig-name descname"><span class="pre">order_by_detection</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.order_by_detection" title="Permalink to this definition"></a></dt>
+<dd><p>Flag to order the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a> list by detection or component</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/gaussianmixture.html#GaussianMixtureHypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Form hypotheses for associations between Detections and Gaussian
+Mixture components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>components</strong> (list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.WeightedGaussianState" title="smartfusion.types.state.WeightedGaussianState"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGaussianState</span></code></a>) – Components representing the state of the target space</p></li>
+<li><p><strong>detections</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Retrieved measurements</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a>) – Time of the detections/predicted states</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Each <a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a> in the list contains
+a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">SingleHypothesis</span></code> pertaining
+to the same Gaussian component unless
+order_by_detection is true, then they
+pertain to the same Detection.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureKDTreeHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.gaussianmixture.</span></span><span class="sig-name descname"><span class="pre">GaussianMixtureKDTreeHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hypothesiser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><span class="pre">Predictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><span class="pre">Updater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by_detection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_neighbours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_distance_covariance_multiplier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/gaussianmixture.html#GaussianMixtureKDTreeHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureKDTreeHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.dataassociator.html#smartfusion.dataassociator.tree.DetectionKDTreeMixIn" title="smartfusion.dataassociator.tree.DetectionKDTreeMixIn"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionKDTreeMixIn</span></code></a>, <a class="reference internal" href="#smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser" title="smartfusion.hypothesiser.gaussianmixture.GaussianMixtureHypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixtureHypothesiser</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hypothesiser</strong> (<a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>) – Underlying hypothesiser used to generate detection-target pairs</p></li>
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>) – Predict tracks to detection times</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.base.Updater" title="smartfusion.updater.base.Updater"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater used to get measurement prediction</p></li>
+<li><p><strong>order_by_detection</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Flag to order the <a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a> list by detection or component</p></li>
+<li><p><strong>number_of_neighbours</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of neighbours to find. Default <cite>None</cite>, which means all points within the <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code> are returned.</p></li>
+<li><p><strong>max_distance</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Max distance to return points. Default <cite>inf</cite></p></li>
+<li><p><strong>max_distance_covariance_multiplier</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – If set, the max distance will be limited to maximum of covariance diagonal of the track state, multiplied by this attribute, or <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code>, whichever is smallest. Default <cite>None</cite> where only <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_distance</span></code> is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.hypothesiser.categorical">
+<span id="categorical"></span><h2>Categorical<a class="headerlink" href="#module-smartfusion.hypothesiser.categorical" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.categorical.</span></span><span class="sig-name descname"><span class="pre">HMMHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.categorical.HMMPredictor" title="smartfusion.predictor.categorical.HMMPredictor"><span class="pre">HMMPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updater</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.categorical.HMMUpdater" title="smartfusion.updater.categorical.HMMUpdater"><span class="pre">HMMUpdater</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_detect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Probability(0.99)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_gate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Probability(0.95)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/categorical.html#HMMHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Hypothesiser based on categorical distribution accuracy.</p>
+<p>This hypothesiser generates track predictions at detection times and scores each hypothesised
+prediction-detection pair according to the accuracy of the corresponding measurement
+prediction compared to the detection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> (<a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.categorical.HMMPredictor" title="smartfusion.predictor.categorical.HMMPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HMMPredictor</span></code></a>) – Predictor used to predict tracks to detection times</p></li>
+<li><p><strong>updater</strong> (<a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.categorical.HMMUpdater" title="smartfusion.updater.categorical.HMMUpdater"><code class="xref py py-class docutils literal notranslate"><span class="pre">HMMUpdater</span></code></a>) – Updater used to get measurement prediction</p></li>
+<li><p><strong>prob_detect</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Target Detection Probability</p></li>
+<li><p><strong>prob_gate</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><code class="xref py py-class docutils literal notranslate"><span class="pre">Probability</span></code></a>, optional) – Gate Probability - prob. gate contains true measurement if detected</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.categorical.HMMPredictor" title="smartfusion.predictor.categorical.HMMPredictor"><span class="pre">HMMPredictor</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser.predictor" title="Permalink to this definition"></a></dt>
+<dd><p>Predictor used to predict tracks to detection times</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser.updater">
+<span class="sig-name descname"><span class="pre">updater</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.updater.html#smartfusion.updater.categorical.HMMUpdater" title="smartfusion.updater.categorical.HMMUpdater"><span class="pre">HMMUpdater</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser.updater" title="Permalink to this definition"></a></dt>
+<dd><p>Updater used to get measurement prediction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser.prob_detect">
+<span class="sig-name descname"><span class="pre">prob_detect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser.prob_detect" title="Permalink to this definition"></a></dt>
+<dd><p>Target Detection Probability</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser.prob_gate">
+<span class="sig-name descname"><span class="pre">prob_gate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.numeric.Probability" title="smartfusion.types.numeric.Probability"><span class="pre">Probability</span></a></em><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser.prob_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Gate Probability - prob. gate contains true measurement if detected</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.categorical.HMMHypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/categorical.html#HMMHypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.categorical.HMMHypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate and return all track association hypotheses.</p>
+<p>For a given track and a set of N available detections, return a MultipleHypothesis object
+with N+1 detections (first detection is a ‘MissedDetection’), each with an associated
+accuracy (of prediction emission to measurement), considered the probability of the
+hypothesis being true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – The track object to hypothesise on. Composed of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.state.CategoricalState" title="smartfusion.types.state.CategoricalState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalState</span></code></a> types.</p></li>
+<li><p><strong>detections</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.CategoricalDetection" title="smartfusion.types.detection.CategoricalDetection"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalDetection</span></code></a> objects, representing the available
+detections.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – A timestamp used when evaluating the state and measurement predictions. Note that if a
+given detection has a non empty timestamp, then prediction will be performed according
+to the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A container of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.SingleProbabilityHypothesis" title="smartfusion.types.hypothesis.SingleProbabilityHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleProbabilityHypothesis</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.hypothesiser.composite">
+<span id="composite"></span><h2>Composite<a class="headerlink" href="#module-smartfusion.hypothesiser.composite" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.composite.CompositeHypothesiser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.hypothesiser.composite.</span></span><span class="sig-name descname"><span class="pre">CompositeHypothesiser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_hypothesisers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/composite.html#CompositeHypothesiser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.composite.CompositeHypothesiser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a></p>
+<p>Composite hypothesiser type</p>
+<p>A composition of ordered sub-hyposisers (<a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hypothesiser</span></code></a>). Hypothesises each
+sub-state of a track-detection pair using a corresponding sub-hypothesiser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sub_hypothesisers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[Hypothesiser]</span></code>) – Sequence of sub-hypothesisers comprising the composite hypothesiser. Must not be empty. These must be hypothesisers that return probability-weighted hypotheses, in order for composite hypothesis weights to be calculated.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.composite.CompositeHypothesiser.sub_hypothesisers">
+<span class="sig-name descname"><span class="pre">sub_hypothesisers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.hypothesiser.base.Hypothesiser" title="smartfusion.hypothesiser.base.Hypothesiser"><span class="pre">Hypothesiser</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.hypothesiser.composite.CompositeHypothesiser.sub_hypothesisers" title="Permalink to this definition"></a></dt>
+<dd><p>Sequence of sub-hypothesisers comprising the composite hypothesiser. Must not be empty. These must be hypothesisers that return probability-weighted hypotheses, in order for composite hypothesis weights to be calculated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.hypothesiser.composite.CompositeHypothesiser.hypothesise">
+<span class="sig-name descname"><span class="pre">hypothesise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/hypothesiser/composite.html#CompositeHypothesiser.hypothesise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.hypothesiser.composite.CompositeHypothesiser.hypothesise" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate and return all track association hypotheses.</p>
+<p>For a given track and a set of N available detections, return a MultipleHypothesis object
+composed of N+1 <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.CompositeProbabilityHypothesis" title="smartfusion.types.hypothesis.CompositeProbabilityHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeProbabilityHypothesis</span></code></a> (including a null hypothesis),
+each with an associated probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – The track object to hypothesise on, existing in a composite state space</p></li>
+<li><p><strong>detections</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a>) – A set of <code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeDetection</span></code> objects, representing the available detections.</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – A timestamp used when evaluating the state and measurement predictions. Note that if a
+given detection has a non empty timestamp, then prediction will be performed according
+to the timestamp of the detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A container of <code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeHypothesis</span></code> objects, each of which containing a
+sequence of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.hypothesis.SingleHypothesis" title="smartfusion.types.hypothesis.SingleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleHypothesis</span></code></a> objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.multihypothesis.MultipleHypothesis" title="smartfusion.types.multihypothesis.MultipleHypothesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleHypothesis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.gater.html" class="btn btn-neutral float-left" title="Gater" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.initiator.html" class="btn btn-neutral float-right" title="Initiators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

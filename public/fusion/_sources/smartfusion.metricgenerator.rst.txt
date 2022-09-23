@@ -1,0 +1,21 @@
+Metric Generators
+=================
+
+.. toctree::
+
+    smartfusion.metricgenerator.basicmetrics
+    smartfusion.metricgenerator.tracktotruthmetrics
+    smartfusion.metricgenerator.ospametric
+    smartfusion.metricgenerator.pcrbmetric
+    smartfusion.metricgenerator.uncertaintymetric
+    smartfusion.metricgenerator.plotter
+
+.. automodule:: smartfusion.metricgenerator
+    :no-members:
+
+.. automodule:: smartfusion.metricgenerator.base
+    :show-inheritance:
+
+Metric Managers
+---------------
+.. automodule:: smartfusion.metricgenerator.manager

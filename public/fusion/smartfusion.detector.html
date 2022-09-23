@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detectors &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Feeders" href="smartfusion.feeder.html" />
+    <link rel="prev" title="Serialisation" href="smartfusion.serialise.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Detectors</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.detector.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.detector">
+<span id="detectors"></span><h1>Detectors<a class="headerlink" href="#module-smartfusion.detector" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.detector.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.detector.base.Detector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.detector.base.</span></span><span class="sig-name descname"><span class="pre">Detector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><span class="pre">SensorDataReader</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/detector/base.html#Detector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.detector.base.Detector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.DetectionReader" title="smartfusion.reader.base.DetectionReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DetectionReader</span></code></a></p>
+<p>Detector base class</p>
+<p>A Detector processes <a class="reference internal" href="smartfusion.types.html#smartfusion.types.sensordata.SensorData" title="smartfusion.types.sensordata.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a> to generate <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>
+data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sensor</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a>) – Source of sensor data</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.base.Detector.sensor">
+<span class="sig-name descname"><span class="pre">sensor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><span class="pre">SensorDataReader</span></a></em><a class="headerlink" href="#smartfusion.detector.base.Detector.sensor" title="Permalink to this definition"></a></dt>
+<dd><p>Source of sensor data</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.detector.tensorflow">
+<span id="tensorflow"></span><h2>TensorFlow<a class="headerlink" href="#module-smartfusion.detector.tensorflow" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.detector.tensorflow.</span></span><span class="sig-name descname"><span class="pre">TensorFlowBoxObjectDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><span class="pre">SensorDataReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/detector/tensorflow.html#TensorFlowBoxObjectDetector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_VideoAsyncBoxDetector</span></code></p>
+<p>A box object detector that generates detections of objects in the form of bounding boxes
+from image/video frames using a TensorFlow object detection model. Both TensorFlow 1 and
+TensorFlow 2 compatible models are supported.</p>
+<p>The detections generated by the box detector have the form of bounding boxes that capture
+the area of the frame where an object is detected. Each bounding box is represented by a
+vector of the form <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x,</span> <span class="pre">y</span></code> denote the relative coordinates of the
+top-left corner, while <code class="docutils literal notranslate"><span class="pre">w,</span> <span class="pre">h</span></code> denote the relative width and height of the bounding box.</p>
+<p>Additionally, each detection carries the following meta-data fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">raw_box</span></code>: The raw bounding box, as generated by TensorFlow.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class</span></code>: A dict with keys <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> relating to the id and name of the
+detection class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">score</span></code>: A float in the range <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1]</span></code> indicating the detector’s confidence.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Use of this class requires that TensorFlow 2 and the TensorFlow Object Detection API are
+installed. A quick guide on how to set these up can be found
+<a class="reference external" href="https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html">here</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a>) – Source of sensor data</p></li>
+<li><p><strong>model_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to <code class="docutils literal notranslate"><span class="pre">saved_model</span></code> directory. This is the directory that contains the <code class="docutils literal notranslate"><span class="pre">saved_model.pb</span></code> file.</p></li>
+<li><p><strong>labels_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a>) – Path to label map (<code class="docutils literal notranslate"><span class="pre">*.pbtxt</span></code> file). This is the file that contains mapping of object/class ids to meaningful names</p></li>
+<li><p><strong>run_async</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the detector will digest frames from the reader asynchronously and only perform detection on the last frame digested. This is suitable when the detector is applied to readers generating a live feed (e.g. <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.video.FFmpegVideoStreamReader" title="smartfusion.reader.video.FFmpegVideoStreamReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FFmpegVideoStreamReader</span></code></a>), where real-time processing is paramount. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></em><a class="headerlink" href="#smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector.model_path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to <code class="docutils literal notranslate"><span class="pre">saved_model</span></code> directory. This is the directory that contains the <code class="docutils literal notranslate"><span class="pre">saved_model.pb</span></code> file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector.labels_path">
+<span class="sig-name descname"><span class="pre">labels_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></em><a class="headerlink" href="#smartfusion.detector.tensorflow.TensorFlowBoxObjectDetector.labels_path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to label map (<code class="docutils literal notranslate"><span class="pre">*.pbtxt</span></code> file). This is the file that contains mapping of object/class ids to meaningful names</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.detector.tensornets">
+<span id="tensornets"></span><h2>TensorNets<a class="headerlink" href="#module-smartfusion.detector.tensornets" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.detector.tensornets.</span></span><span class="sig-name descname"><span class="pre">Networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/detector/tensornets.html#Networks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.detector.tensornets.Networks" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>TensorNet pre-trained networks, supported by <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorNetsObjectDetector</span></code></p>
+<p>See TensorNets documentation for more information on these networks.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.YOLOv2VOC">
+<span class="sig-name descname"><span class="pre">YOLOv2VOC</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.YOLOv2VOC" title="Permalink to this definition"></a></dt>
+<dd><p>YOLOv2 trained against PASCAL VOC dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.YOLOv2COCO">
+<span class="sig-name descname"><span class="pre">YOLOv2COCO</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.YOLOv2COCO" title="Permalink to this definition"></a></dt>
+<dd><p>YOLOv2 tranined against COCO dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.TinyYOLOv2VOC">
+<span class="sig-name descname"><span class="pre">TinyYOLOv2VOC</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.TinyYOLOv2VOC" title="Permalink to this definition"></a></dt>
+<dd><p>TinyYOLOv2 trained against PASCAL VOC dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.TinyYOLOv2COCO">
+<span class="sig-name descname"><span class="pre">TinyYOLOv2COCO</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.TinyYOLOv2COCO" title="Permalink to this definition"></a></dt>
+<dd><p>TinyYOLOv2 trained against COCO dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.YOLOv3VOC">
+<span class="sig-name descname"><span class="pre">YOLOv3VOC</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.YOLOv3VOC" title="Permalink to this definition"></a></dt>
+<dd><p>YOLOv3 trained against PASCAL VOC dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.Networks.YOLOv3COCO">
+<span class="sig-name descname"><span class="pre">YOLOv3COCO</span></span><a class="headerlink" href="#smartfusion.detector.tensornets.Networks.YOLOv3COCO" title="Permalink to this definition"></a></dt>
+<dd><p>YOLOv3 tranined against COCO dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.TensorNetsBoxObjectDetector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.detector.tensornets.</span></span><span class="sig-name descname"><span class="pre">TensorNetsBoxObjectDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><span class="pre">SensorDataReader</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#smartfusion.detector.tensornets.Networks" title="smartfusion.detector.tensornets.Networks"><span class="pre">Networks</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/detector/tensornets.html#TensorNetsBoxObjectDetector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.detector.tensornets.TensorNetsBoxObjectDetector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_VideoAsyncBoxDetector</span></code></p>
+<p>TensorNets Object Detection class</p>
+<p>This uses pre-trained networks from TensorNets for object detection in video
+frames. Supported networks are listed in <a class="reference internal" href="#smartfusion.detector.tensornets.Networks" title="smartfusion.detector.tensornets.Networks"><code class="xref py py-class docutils literal notranslate"><span class="pre">Networks</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor</strong> (<a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.base.SensorDataReader" title="smartfusion.reader.base.SensorDataReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorDataReader</span></code></a>) – Source of sensor data</p></li>
+<li><p><strong>net</strong> (<a class="reference internal" href="#smartfusion.detector.tensornets.Networks" title="smartfusion.detector.tensornets.Networks"><code class="xref py py-class docutils literal notranslate"><span class="pre">Networks</span></code></a>) – TensorNet network to use for object detection</p></li>
+<li><p><strong>run_async</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the detector will digest frames from the reader asynchronously and only perform detection on the last frame digested. This is suitable when the detector is applied to readers generating a live feed (e.g. <a class="reference internal" href="smartfusion.reader.html#smartfusion.reader.video.FFmpegVideoStreamReader" title="smartfusion.reader.video.FFmpegVideoStreamReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">FFmpegVideoStreamReader</span></code></a>), where real-time processing is paramount. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.detector.tensornets.TensorNetsBoxObjectDetector.net">
+<span class="sig-name descname"><span class="pre">net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#smartfusion.detector.tensornets.Networks" title="smartfusion.detector.tensornets.Networks"><span class="pre">Networks</span></a></em><a class="headerlink" href="#smartfusion.detector.tensornets.TensorNetsBoxObjectDetector.net" title="Permalink to this definition"></a></dt>
+<dd><p>TensorNet network to use for object detection</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.serialise.html" class="btn btn-neutral float-left" title="Serialisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.feeder.html" class="btn btn-neutral float-right" title="Feeders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

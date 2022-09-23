@@ -1,0 +1,18 @@
+Models
+======
+
+.. toctree::
+
+    smartfusion.models.clutter
+    smartfusion.models.control
+    smartfusion.models.measurement
+    smartfusion.models.transition
+
+.. automodule:: smartfusion.models
+    :no-members:
+
+.. automodule:: smartfusion.models.base
+    :show-inheritance:
+
+
+

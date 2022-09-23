@@ -1,0 +1,49 @@
+Base Data Types
+===============
+
+SMART FUSION base data types.
+
+.. autoclass:: smartfusion.types.array.Matrix
+    :noindex:
+
+.. autoclass:: smartfusion.types.array.StateVector
+    :noindex:
+
+.. autoclass:: smartfusion.types.association.Association
+    :noindex:
+
+.. autoclass:: smartfusion.types.detection.Detection
+    :noindex:
+
+.. autoclass:: smartfusion.types.groundtruth.GroundTruthState
+    :noindex:
+
+.. autoclass:: smartfusion.types.groundtruth.GroundTruthPath
+    :noindex:
+
+.. autoclass:: smartfusion.types.hypothesis.Hypothesis
+    :noindex:
+
+.. autoclass:: smartfusion.types.multihypothesis.MultipleHypothesis
+    :noindex:
+
+.. autoclass:: smartfusion.types.metric.Metric
+    :noindex:
+
+.. autoclass:: smartfusion.types.particle.Particle
+    :noindex:
+
+.. autoclass:: smartfusion.types.prediction.Prediction
+    :noindex:
+
+.. autoclass:: smartfusion.types.sensordata.SensorData
+    :noindex:
+
+.. autoclass:: smartfusion.types.state.State
+    :noindex:
+
+.. autoclass:: smartfusion.types.track.Track
+    :noindex:
+
+.. autoclass:: smartfusion.types.update.Update
+    :noindex:

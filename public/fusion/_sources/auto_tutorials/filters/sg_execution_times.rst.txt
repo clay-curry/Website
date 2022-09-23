@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_auto_tutorials_filters_sg_execution_times:
+
+Computation times
+=================
+**00:00.077** total execution time for **auto_tutorials_filters** files:
+
++--------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_tutorials_filters_InformationFilterTutorial.py` (``InformationFilterTutorial.py``) | 00:00.077 | 0.0 MB |
++--------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_tutorials_filters_GMPHDTutorial.py` (``GMPHDTutorial.py``)                         | 00:00.000 | 0.0 MB |
++--------------------------------------------------------------------------------------------------------+-----------+--------+

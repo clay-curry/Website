@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Declarative Base &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Configuration" href="smartfusion.config.html" />
+    <link rel="prev" title="Base Data Types" href="types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Declarative Base</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.base.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.base">
+<span id="declarative-base"></span><h1>Declarative Base<a class="headerlink" href="#module-smartfusion.base" title="Permalink to this heading"></a></h1>
+<p>Provides base for SMART FUSION components.</p>
+<p>To aid creation of components in SMART FUSION, a declarative approach is used to
+declare properties of components. These declared properties are then used to
+generate the signature for the class, populate documentation, and generate
+forms for the user interface.</p>
+<p>An example would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Example Foo class&#39;&#39;&#39;</span>
+    <span class="n">foo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;foo string parameter&quot;</span><span class="p">)</span>
+    <span class="n">bar</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;bar int parameter, default is 10&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is equivalent to the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Example Foo class</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    foo : str</span>
+<span class="sd">        foo string parameter</span>
+<span class="sd">    bar : int, optional</span>
+<span class="sd">        bar int parameter, default is 10</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="n">foo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The init method is actually part of <a class="reference internal" href="#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a> class so in the case of
+having to customise initialisation, <code class="xref py py-func docutils literal notranslate"><span class="pre">super()</span></code> should be used e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="sd">&#39;&#39;&#39;Example Foo class&#39;&#39;&#39;</span>
+<span class="n">foo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;foo string parameter&quot;</span><span class="p">)</span>
+<span class="n">bar</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;bar int parameter, default is 10&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="n">bar</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">bar</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.base.Property">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.base.</span></span><span class="sig-name descname"><span class="pre">Property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inspect.Parameter.empty</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/base.html#Property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.base.Property" title="Permalink to this definition"></a></dt>
+<dd><p>Property class for definition of attributes on component classes.</p>
+<p>A class must be provided such that the framework is aware of how components
+are put together to create a valid run within the framework. Additionally,
+the class is used by the user interface to generate configuration options
+to the users. The class is not used for any type checking, in the spirit of
+Python’s duck typing.</p>
+<p>A default value can be specified to signify the property on the class is
+optional. As <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> are reasonable default values,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">inspect.Parameter.empty</span></code> is used to signify the argument is
+mandatory. (Also aliased to <a class="reference internal" href="#smartfusion.base.Property.empty" title="smartfusion.base.Property.empty"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Property.empty</span></code></a> for ease)</p>
+<p>A description string can also be provided which will be rendered in the
+documentation.</p>
+<p>A property can be specified as read only using the (optional) <code class="docutils literal notranslate"><span class="pre">readonly</span></code>
+flag. Such properties can be written only once (when the parent object is
+instantiated). Any subsequent write raises an <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code></p>
+<p>Property also can be used in similar way to Python standard <cite>property</cite>
+using <cite>getter</cite>, <cite>setter</cite> and <cite>deleter</cite> decorators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<em>class</em><em>, </em><em>optional</em>) – A Python class. Where not specified, a type annotation is required,
+and providing both will raise an error.</p></li>
+<li><p><strong>default</strong> (<em>any</em><em>, </em><em>optional</em>) – A default value, which should be same type as class or None. Defaults
+to <code class="xref py py-class docutils literal notranslate"><span class="pre">inspect.Parameter.empty</span></code> (alias <a class="reference internal" href="#smartfusion.base.Property.empty" title="smartfusion.base.Property.empty"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Property.empty</span></code></a>)</p></li>
+<li><p><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Doc string for property</p></li>
+<li><p><strong>readonly</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, then property can only be set during initialisation.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.base.Property.cls">
+<span class="sig-name descname"><span class="pre">cls</span></span><a class="headerlink" href="#smartfusion.base.Property.cls" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.base.Property.default">
+<span class="sig-name descname"><span class="pre">default</span></span><a class="headerlink" href="#smartfusion.base.Property.default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.base.Property.doc">
+<span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#smartfusion.base.Property.doc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.base.Property.readonly">
+<span class="sig-name descname"><span class="pre">readonly</span></span><a class="headerlink" href="#smartfusion.base.Property.readonly" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.base.Property.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><a class="headerlink" href="#smartfusion.base.Property.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Alias to <code class="xref py py-class docutils literal notranslate"><span class="pre">inspect.Parameter.empty</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">inspect.Parameter.empty</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.base.BaseMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.base.</span></span><span class="sig-name descname"><span class="pre">BaseMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/base.html#BaseMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.base.BaseMeta" title="Permalink to this definition"></a></dt>
+<dd><p>Base metaclass for SMART FUSION components.</p>
+<p>This metaclass enables the use of the <a class="reference internal" href="#smartfusion.base.Property" title="smartfusion.base.Property"><code class="xref py py-class docutils literal notranslate"><span class="pre">Property</span></code></a> class to define
+attributes of a class. This includes generation of the init method
+signature.</p>
+<p>The init method signature if defined on a class, the arguments must match
+as declared. However, keyword only arguments can be added to the init
+method if required, as these won’t effect the use of the class in the
+framework.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.base.BaseMeta.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subclass</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/base.html#BaseMeta.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.base.BaseMeta.register" title="Permalink to this definition"></a></dt>
+<dd><p>Register a virtual subclass of an ABC.</p>
+<p>Returns the subclass, to allow usage as a class decorator.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.base.BaseMeta.subclasses">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subclasses</span></span><a class="headerlink" href="#smartfusion.base.BaseMeta.subclasses" title="Permalink to this definition"></a></dt>
+<dd><p>Set of subclasses for the class</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="smartfusion.base.BaseMeta.properties">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><a class="headerlink" href="#smartfusion.base.BaseMeta.properties" title="Permalink to this definition"></a></dt>
+<dd><p>Set of properties required to initialise the class</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.base.Base">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.base.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="reference internal" href="_modules/smartfusion/base.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.base.Base" title="Permalink to this definition"></a></dt>
+<dd><p>Base class for framework components.</p>
+<p>This is the base class which should be used for any SMART FUSION components.
+Building on the <a class="reference internal" href="#smartfusion.base.BaseMeta" title="smartfusion.base.BaseMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMeta</span></code></a> this provides a init method which
+populates the declared properties with their values.</p>
+<p>Subclasses can override this method, but they should either call this via
+<code class="xref py py-func docutils literal notranslate"><span class="pre">super()</span></code> or ensure they manually populated the properties as
+declared.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="types.html" class="btn btn-neutral float-left" title="Base Data Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.config.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

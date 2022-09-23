@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smoothers &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Updaters" href="smartfusion.updater.html" />
+    <link rel="prev" title="Resampler" href="smartfusion.resampler.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Smoothers</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.smoother.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.smoother">
+<span id="smoothers"></span><h1>Smoothers<a class="headerlink" href="#module-smartfusion.smoother" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.smoother.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.smoother.base.Smoother">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.smoother.base.</span></span><span class="sig-name descname"><span class="pre">Smoother</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/smoother/base.html#Smoother"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.smoother.base.Smoother" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Smoother Base Class</p>
+<p>(Fixed interval) Smoothers in general are used to infer a state, or series of states,
+<span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> from measurements <span class="math notranslate nohighlight">\(\mathbf{z}_{1:K}\)</span> where <span class="math notranslate nohighlight">\(k &lt; K\)</span>.</p>
+<p>The calculation is forward-backward in nature. The forward algorithm is “standard” filtering,
+provided by other SMART FUSION components. The Smoother’s input is therefore a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>
+(created by whatever means) The <code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth()</span></code> function undertakes the backward algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>, optional) – Transition Model.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.base.Smoother.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.smoother.base.Smoother.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>Transition Model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.smoother.kalman">
+<span id="kalman"></span><h2>Kalman<a class="headerlink" href="#module-smartfusion.smoother.kalman" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.KalmanSmoother">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.smoother.kalman.</span></span><span class="sig-name descname"><span class="pre">KalmanSmoother</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/smoother/kalman.html#KalmanSmoother"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.smoother.kalman.KalmanSmoother" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.smoother.base.Smoother" title="smartfusion.smoother.base.Smoother"><code class="xref py py-class docutils literal notranslate"><span class="pre">Smoother</span></code></a></p>
+<p>The linear-Gaussian or Rauch-Tung-Striebel smoother, colloquially the Kalman smoother <a class="footnote-reference brackets" href="#id2" id="id1">1</a>. The
+transition model is therefore linear-Gaussian. No control model is currently implemented.</p>
+<p>TODO: Include a control model</p>
+<p>The smooth function undertakes the backward algorithm on a <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track()</span></code></a> object. This is
+done by starting at the final index in the track, <span class="math notranslate nohighlight">\(K\)</span> and proceeding from
+<span class="math notranslate nohighlight">\(K \rightarrow 1\)</span> via:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathbf{x}_{k|k-1} &amp;= F_{k} \mathbf{x}_{k-1}\\P_{k|k-1} &amp;= F_{k} P_{k-1} F_{k}^T + Q_{k}\\G_k &amp;= P_{k-1} F_{k}^T P_{k|k-1}^{-1}\\\mathbf{x}_{k-1}^s &amp;= \mathbf{x}_{k-1} + G_k (\mathbf{x}_{k}^s - \mathbf{x}_{k|k-1})\\P_{k-1}^s &amp;= P_{k-1} + G_k (P_{k}^s - P_{k|k-1}) G_k^T\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x}_{K}^s = \mathbf{x}_{K}\)</span> and <span class="math notranslate nohighlight">\(P_K^s = P_K\)</span>.</p>
+<p>The predicted state vector and covariance are retrieved from the Track via predicted state or
+updated state via the links therein. Note that this means that the first two equations are not
+calculated, the results merely retrieved. This smoother is therefore strictly Kalman only in
+the backward portion. The prediction might have come by any number of means. If present, the
+transition model (providing <span class="math notranslate nohighlight">\(F\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>) in the prediction is used. This allows for
+a dynamic transition model (i.e. one that changes with <span class="math notranslate nohighlight">\(k\)</span>). Otherwise, the (static)
+transition model is used, defined on smoother initialisation.</p>
+<p>References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Särkä S. 2013, Bayesian filtering and smoothing, Cambridge University Press</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearGaussianTransitionModel</span></code></a>) – The transition model. The <a class="reference internal" href="#smartfusion.smoother.kalman.KalmanSmoother.smooth" title="smartfusion.smoother.kalman.KalmanSmoother.smooth"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth()</span></code></a> function will initially look for a transition model in the prediction. If that is not found then this one is used.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.KalmanSmoother.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.linear.LinearGaussianTransitionModel" title="smartfusion.models.transition.linear.LinearGaussianTransitionModel"><span class="pre">LinearGaussianTransitionModel</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.KalmanSmoother.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model. The <a class="reference internal" href="#smartfusion.smoother.kalman.KalmanSmoother.smooth" title="smartfusion.smoother.kalman.KalmanSmoother.smooth"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth()</span></code></a> function will initially look for a transition model in the prediction. If that is not found then this one is used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.KalmanSmoother.smooth">
+<span class="sig-name descname"><span class="pre">smooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/smoother/kalman.html#KalmanSmoother.smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.smoother.kalman.KalmanSmoother.smooth" title="Permalink to this definition"></a></dt>
+<dd><p>Perform the backward recursion to smooth the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – The input track.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Smoothed track</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.ExtendedKalmanSmoother">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.smoother.kalman.</span></span><span class="sig-name descname"><span class="pre">ExtendedKalmanSmoother</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/smoother/kalman.html#ExtendedKalmanSmoother"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.smoother.kalman.ExtendedKalmanSmoother" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.smoother.kalman.KalmanSmoother" title="smartfusion.smoother.kalman.KalmanSmoother"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanSmoother</span></code></a></p>
+<p>The extended version of the Kalman smoother. The equations are modified slightly,
+analogously to the extended Kalman filter,</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathbf{x}_{k|k-1} &amp;= f_{k} (\mathbf{x}_{k-1})\\F_k &amp;\approx J_f (\mathbf{x}_{k-1})\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(J_f (\mathbf{x}_{k-1})\)</span> is the Jacobian matrix evaluated at
+<span class="math notranslate nohighlight">\(\mathbf{x}_{k-1}\)</span>. The rest of the calculation proceeds as with the Kalman smoother.</p>
+<p>In fact the first equation isn’t calculated – it’s presumed to have been undertaken by a
+filter when building the track; similarly for the predicted covariance. In practice, the only
+difference between this and the Kalman smoother is in the use of the linearised transition
+matrix to calculate the smoothing gain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – The transition model to be used.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.ExtendedKalmanSmoother.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.ExtendedKalmanSmoother.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.UnscentedKalmanSmoother">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.smoother.kalman.</span></span><span class="sig-name descname"><span class="pre">UnscentedKalmanSmoother</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/smoother/kalman.html#UnscentedKalmanSmoother"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.smoother.kalman.UnscentedKalmanSmoother" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.smoother.kalman.KalmanSmoother" title="smartfusion.smoother.kalman.KalmanSmoother"><code class="xref py py-class docutils literal notranslate"><span class="pre">KalmanSmoother</span></code></a></p>
+<p>The unscented version of the Kalman filter. As with the parent version of the Kalman
+smoother, the mean and covariance of the prediction are retrieved from the track. The
+unscented transform is used to calculate the smoothing gain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transition_model</strong> (<a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>) – The transition model to be used.</p></li>
+<li><p><strong>alpha</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Primary sigma point spread scaling parameter. Default is 0.5.</p></li>
+<li><p><strong>beta</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Used to incorporate prior knowledge of the distribution. If the true distribution is Gaussian, the value of 2 is optimal. Default is 2</p></li>
+<li><p><strong>kappa</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, optional) – Secondary spread scaling parameter. Default is calculated as 3-Ns</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.UnscentedKalmanSmoother.transition_model">
+<span class="sig-name descname"><span class="pre">transition_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><span class="pre">TransitionModel</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.UnscentedKalmanSmoother.transition_model" title="Permalink to this definition"></a></dt>
+<dd><p>The transition model to be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.UnscentedKalmanSmoother.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.UnscentedKalmanSmoother.alpha" title="Permalink to this definition"></a></dt>
+<dd><p>Primary sigma point spread scaling parameter. Default is 0.5.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.UnscentedKalmanSmoother.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.UnscentedKalmanSmoother.beta" title="Permalink to this definition"></a></dt>
+<dd><p>Used to incorporate prior knowledge of the distribution. If the true distribution is Gaussian, the value of 2 is optimal. Default is 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.smoother.kalman.UnscentedKalmanSmoother.kappa">
+<span class="sig-name descname"><span class="pre">kappa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.smoother.kalman.UnscentedKalmanSmoother.kappa" title="Permalink to this definition"></a></dt>
+<dd><p>Secondary spread scaling parameter. Default is calculated as 3-Ns</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.resampler.html" class="btn btn-neutral float-left" title="Resampler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.updater.html" class="btn btn-neutral float-right" title="Updaters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

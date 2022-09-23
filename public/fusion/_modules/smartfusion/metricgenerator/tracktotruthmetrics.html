@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.metricgenerator.tracktotruthmetrics &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.metricgenerator.tracktotruthmetrics</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/metricgenerator/tracktotruthmetrics" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.metricgenerator.tracktotruthmetrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">MetricGenerator</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..measures</span> <span class="kn">import</span> <span class="n">Measure</span>
+<span class="kn">from</span> <span class="nn">..types.metric</span> <span class="kn">import</span> <span class="n">SingleTimeMetric</span><span class="p">,</span> <span class="n">TimeRangeMetric</span>
+<span class="kn">from</span> <span class="nn">..types.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">..types.track</span> <span class="kn">import</span> <span class="n">Track</span>
+
+
+<div class="viewcode-block" id="SIAPMetrics"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics">[docs]</a><span class="k">class</span> <span class="nc">SIAPMetrics</span><span class="p">(</span><span class="n">MetricGenerator</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;SIAP Metrics</span>
+
+<span class="sd">    Computes the Single Integrated Air Picture (SIAP) metrics as defined by the Systems Engineering</span>
+<span class="sd">    Task Force. The implementation provided here is derived from [1] and focuses on providing the</span>
+<span class="sd">    SIAP attribute measures.</span>
+
+<span class="sd">    The SIAP metrics provided require provision of ground truth information.</span>
+
+<span class="sd">    In the original paper the calculations are dependent upon :math:`m` which corresponds to the</span>
+<span class="sd">    identifying number of the sense capability which is being assessed. This is not used in this</span>
+<span class="sd">    implementation, with the assumption being that the fused sensor set is being assessed.</span>
+
+<span class="sd">    Metrics:</span>
+<span class="sd">        * Continuity (C): Fraction of true objects being tracked. The output is in the range</span>
+<span class="sd">          :math:`0:1`, with a target score of 1.</span>
+<span class="sd">        * Ambiguity (A): Number of tracks assigned to a true object. The output is unbounded with</span>
+<span class="sd">          a range of :math:`0:\infty`. The target score is 1.</span>
+<span class="sd">        * Spuriousness (S): Fraction of tracks that are unassigned to a true object. The output is</span>
+<span class="sd">          in the range :math:`0:1`, with a target score of 0.</span>
+<span class="sd">        * Positional Accuracy (PA): Positional error of associated tracks to their respective</span>
+<span class="sd">          truths. The output is a distance measure, range :math:`0:\infty`, with a target score of</span>
+<span class="sd">          0.</span>
+<span class="sd">        * Velocity Accuracy (VA): Velocity error of associated tracks to their respective truths.</span>
+<span class="sd">          The output is a distance measure, range :math:`0:\infty`, with a target score of 0.</span>
+<span class="sd">        * Rate of track number changes (R): SIAP continuity measure. Rate of number of track</span>
+<span class="sd">          changes per truth. The output is in the range :math:`0:\infty`, with a target score of 0.</span>
+<span class="sd">        * Longest track Segment (LS): SIAP continuity measure. Duration of longest associated</span>
+<span class="sd">          track segment per truth. The output is a float (seconds), with a target score equal to</span>
+<span class="sd">          the sum of all true object lifetimes.</span>
+
+<span class="sd">    Reference</span>
+<span class="sd">        [1] Single Integrated Air Picture (SIAP) Metrics Implementation, Votruba et al, 29-10-2001</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">position_measure</span><span class="p">:</span> <span class="n">Measure</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance measure used in calculating position accuracy scores.&quot;</span><span class="p">)</span>
+    <span class="n">velocity_measure</span><span class="p">:</span> <span class="n">Measure</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance measure used in calculating velocity accuracy scores.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SIAPMetrics.compute_metric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.compute_metric">[docs]</a>    <span class="k">def</span> <span class="nf">compute_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute metrics:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \begin{alignat*}{3}</span>
+<span class="sd">                \textrm{Name} &amp;\quad \textrm{At Time} &amp;&amp;\quad \textrm{TimeRange}\\</span>
+<span class="sd">                C &amp;\quad \frac{JT({t})}{J({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}JT({t})}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}J({t})}\\</span>
+<span class="sd">                A &amp;\quad \frac{N{A}({t})}{JT({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                N{A}({t})}{\sum_{t_{start}}^{t_{end}}JT({t})}\\</span>
+<span class="sd">                S &amp;\quad \frac{N({t}) - N{A}({t})}{N({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                [N({t}) - N{A}({t})]}{\sum_{t_{start}}^{t_{end}}N({t})}\\</span>
+<span class="sd">                PA &amp;\quad \frac{{\sum_{n\in tracks}PA_{n}(t)}}{NA(t)} &amp;&amp;\quad</span>
+<span class="sd">                \frac{\sum_{t_{start}}^{t_{end}}{\sum_{n\in tracks}PA_{n}(t)}}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}{NA(t)}}\\</span>
+<span class="sd">                VA &amp;\quad \frac{{\sum_{n\in tracks}VA_{n}(t)}}{NA(t)} &amp;&amp;\quad</span>
+<span class="sd">                \frac{\sum_{t_{start}}^{t_{end}}{\sum_{n\in tracks}VA_{n}(t)}}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}{NA(t)}}\\</span>
+<span class="sd">                R &amp;\quad -- &amp;&amp;\quad \frac{\sum_{j\in truths}NU_j-1}{\sum_{j\in truths}TT_j}\\</span>
+<span class="sd">                LS &amp;\quad -- &amp;&amp;\quad \frac{\sum_{j\in truths}T{L}_{j}}{\sum_{j\in truths}T_{j}}</span>
+<span class="sd">            \end{alignat*}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager : MetricManager</span>
+<span class="sd">            containing the data to be used to create the metric(s)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : list of :class:`~.Metric` objects</span>
+<span class="sd">            Generated metrics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">list_timestamps</span><span class="p">()</span>
+
+        <span class="n">completeness_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">ambiguity_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">spuriousness_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">position_accuracy_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">velocity_accuracy_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="n">J_sum</span> <span class="o">=</span> <span class="n">JT_sum</span> <span class="o">=</span> <span class="n">NA_sum</span> <span class="o">=</span> <span class="n">N_sum</span> <span class="o">=</span> <span class="n">PA_sum</span> <span class="o">=</span> <span class="n">VA_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+            <span class="n">Jt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">J_sum</span> <span class="o">+=</span> <span class="n">Jt</span>
+            <span class="n">JTt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_associated_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">JT_sum</span> <span class="o">+=</span> <span class="n">JTt</span>
+            <span class="n">NAt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_associated_tracks_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">NA_sum</span> <span class="o">+=</span> <span class="n">NAt</span>
+            <span class="n">Nt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_tracks_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">N_sum</span> <span class="o">+=</span> <span class="n">Nt</span>
+            <span class="n">PAt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_measure</span><span class="p">)</span>
+            <span class="n">PA_sum</span> <span class="o">+=</span> <span class="n">PAt</span>
+            <span class="n">VAt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity_measure</span><span class="p">)</span>
+            <span class="n">VA_sum</span> <span class="o">+=</span> <span class="n">VAt</span>
+
+            <span class="n">completeness_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Completeness at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">JTt</span> <span class="o">/</span> <span class="n">Jt</span> <span class="k">if</span> <span class="n">Jt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">ambiguity_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Ambiguity at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">NAt</span> <span class="o">/</span> <span class="n">JTt</span> <span class="k">if</span> <span class="n">JTt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">spuriousness_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Spuriousness at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="n">Nt</span> <span class="o">-</span> <span class="n">NAt</span><span class="p">)</span> <span class="o">/</span> <span class="n">Nt</span> <span class="k">if</span> <span class="n">Nt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">position_accuracy_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Position Accuracy at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">PAt</span> <span class="o">/</span> <span class="n">NAt</span> <span class="k">if</span> <span class="n">NAt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">velocity_accuracy_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Velocity Accuracy at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">VAt</span> <span class="o">/</span> <span class="n">NAt</span> <span class="k">if</span> <span class="n">NAt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">time_range</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">timestamps</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
+
+        <span class="n">completeness</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Completeness&quot;</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="n">JT_sum</span> <span class="o">/</span> <span class="n">J_sum</span> <span class="k">if</span> <span class="n">J_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                       <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                       <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ambiguity</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Ambiguity&quot;</span><span class="p">,</span>
+                                    <span class="n">value</span><span class="o">=</span><span class="n">NA_sum</span> <span class="o">/</span> <span class="n">JT_sum</span> <span class="k">if</span> <span class="n">JT_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                    <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">spuriousness</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Spuriousness&quot;</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="n">N_sum</span> <span class="o">-</span> <span class="n">NA_sum</span><span class="p">)</span> <span class="o">/</span> <span class="n">N_sum</span> <span class="k">if</span> <span class="n">N_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                       <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                       <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">position_accuracy</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Position Accuracy&quot;</span><span class="p">,</span>
+                                            <span class="n">value</span><span class="o">=</span><span class="n">PA_sum</span> <span class="o">/</span> <span class="n">NA_sum</span> <span class="k">if</span> <span class="n">NA_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                            <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                            <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">velocity_accuracy</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Velocity Accuracy&quot;</span><span class="p">,</span>
+                                            <span class="n">value</span><span class="o">=</span><span class="n">VA_sum</span> <span class="o">/</span> <span class="n">NA_sum</span> <span class="k">if</span> <span class="n">NA_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                            <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                            <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate_of_track_number_changes</span><span class="p">(</span><span class="n">manager</span><span class="p">)</span>
+        <span class="n">rate_track_num</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Rate of Track Number Change&quot;</span><span class="p">,</span>
+                                         <span class="n">value</span><span class="o">=</span><span class="n">R</span><span class="p">,</span>
+                                         <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                         <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">TL_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">longest_track_time_on_truth</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">)</span>
+        <span class="n">T_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">truth_lifetime</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span> <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">)</span>
+        <span class="n">longest_track_seg</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Longest Track Segment&quot;</span><span class="p">,</span>
+                                            <span class="n">value</span><span class="o">=</span><span class="n">TL_sum</span> <span class="o">/</span> <span class="n">T_sum</span> <span class="k">if</span> <span class="n">T_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                            <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                            <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">completeness_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Completeness at times&quot;</span><span class="p">,</span>
+                                                <span class="n">value</span><span class="o">=</span><span class="n">completeness_at_times</span><span class="p">,</span>
+                                                <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ambiguity_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Ambiguity at times&quot;</span><span class="p">,</span>
+                                             <span class="n">value</span><span class="o">=</span><span class="n">ambiguity_at_times</span><span class="p">,</span>
+                                             <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                             <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">spuriousness_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Spuriousness at times&quot;</span><span class="p">,</span>
+                                                <span class="n">value</span><span class="o">=</span><span class="n">spuriousness_at_times</span><span class="p">,</span>
+                                                <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">position_accuracy_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Position Accuracy at times&quot;</span><span class="p">,</span>
+                                                     <span class="n">value</span><span class="o">=</span><span class="n">position_accuracy_at_times</span><span class="p">,</span>
+                                                     <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                     <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">velocity_accuracy_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Velocity Accuracy at times&quot;</span><span class="p">,</span>
+                                                     <span class="n">value</span><span class="o">=</span><span class="n">velocity_accuracy_at_times</span><span class="p">,</span>
+                                                     <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                     <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">completeness</span><span class="p">,</span> <span class="n">ambiguity</span><span class="p">,</span> <span class="n">spuriousness</span><span class="p">,</span> <span class="n">position_accuracy</span><span class="p">,</span> <span class="n">velocity_accuracy</span><span class="p">,</span>
+                <span class="n">rate_track_num</span><span class="p">,</span> <span class="n">longest_track_seg</span><span class="p">,</span> <span class="n">completeness_at_times</span><span class="p">,</span> <span class="n">ambiguity_at_times</span><span class="p">,</span>
+                <span class="n">spuriousness_at_times</span><span class="p">,</span> <span class="n">position_accuracy_at_times</span><span class="p">,</span> <span class="n">velocity_accuracy_at_times</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.num_truths_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.num_truths_at_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">num_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`J(t)`. Calculate the number of true objects held by `manager` at `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to compute the value</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of true objects held by `manager` at `timestamp`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span>
+            <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.num_associated_truths_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.num_associated_truths_at_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">num_associated_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`JT(t)`. Calculate the number of associated true objects held by `manager` at</span>
+<span class="sd">        `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to compute the value</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of associated true objects held by `manager` at `timestamp`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">associations</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_at_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="n">association_objects</span> <span class="o">=</span> <span class="p">{</span><span class="n">thing</span> <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">associations</span> <span class="k">for</span> <span class="n">thing</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">objects</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span> <span class="k">if</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">association_objects</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.num_tracks_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.num_tracks_at_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">num_tracks_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`N(t)`. Calculate the number of tracks held by `manager` at `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to compute the value</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of tracks held by `manager` at `timestamp`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">tracks</span>
+            <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track</span><span class="o">.</span><span class="n">states</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.num_associated_tracks_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.num_associated_tracks_at_time">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">num_associated_tracks_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`NA(t)`. Calculate the number of associated tracks held by `manager` at</span>
+<span class="sd">        `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to compute the value</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of associated tracks held by `manager` at `timestamp`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">associations</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_at_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="n">association_objects</span> <span class="o">=</span> <span class="p">{</span><span class="n">thing</span> <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">associations</span> <span class="k">for</span> <span class="n">thing</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">objects</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">tracks</span> <span class="k">if</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">association_objects</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.accuracy_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.accuracy_at_time">[docs]</a>    <span class="k">def</span> <span class="nf">accuracy_at_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">measure</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`PA(t)` or :math:`VA(t)` (dependent on `measure`). Calculate the kinematic</span>
+<span class="sd">        accuracy of track-truth associations held by `manager` at `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to compute the value</span>
+<span class="sd">        measure: Measure</span>
+<span class="sd">            Measure used to calculate &#39;distance&#39; between truths and tracks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Kinematic accuracy of track-truth associations held by `manager` at `timestamp`.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">            This method adds the &#39;distance&#39; errors for each and every association. An alternative</span>
+<span class="sd">            would be to consider each true object and track at most once.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">associations</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_at_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="n">error_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">association</span> <span class="ow">in</span> <span class="n">associations</span><span class="p">:</span>
+            <span class="n">truth</span><span class="p">,</span> <span class="n">track</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">truth_track_from_association</span><span class="p">(</span><span class="n">association</span><span class="p">)</span>
+            <span class="n">error_sum</span> <span class="o">+=</span> <span class="n">measure</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">timestamp</span><span class="p">],</span> <span class="n">truth</span><span class="p">[</span><span class="n">timestamp</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">error_sum</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.truth_track_from_association"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.truth_track_from_association">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">truth_track_from_association</span><span class="p">(</span><span class="n">association</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find truth and track from an association.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        association: Association</span>
+<span class="sd">            Association that contains truth and track as its objects</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        GroundTruthPath, Track</span>
+<span class="sd">            True object and track that are the objects of the `association`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">truth</span><span class="p">,</span> <span class="n">track</span> <span class="o">=</span> <span class="n">association</span><span class="o">.</span><span class="n">objects</span>
+        <span class="c1"># Sets aren&#39;t ordered, so need to ensure correct path is truth/track</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+            <span class="n">truth</span><span class="p">,</span> <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="p">,</span> <span class="n">truth</span>
+        <span class="k">return</span> <span class="n">truth</span><span class="p">,</span> <span class="n">track</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.total_time_tracked"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.total_time_tracked">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">total_time_tracked</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`TT`. Calculate the total time a `truth` is tracked for by tracks contained by</span>
+<span class="sd">        `manager`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        truth: GroundTruthPath</span>
+<span class="sd">            True object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of seconds that `truth` is tracked for</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">assocs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_including_objects</span><span class="p">([</span><span class="n">truth</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">assocs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">truth_timestamps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">truth</span><span class="o">.</span><span class="n">states</span><span class="p">)</span>
+
+        <span class="n">total_time</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">current_time</span><span class="p">,</span> <span class="n">next_time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">truth_timestamps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">truth_timestamps</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">assocs</span><span class="p">:</span>
+                <span class="c1"># If both timestamps are in one association then add the difference to the total</span>
+                <span class="c1"># difference and stop looking</span>
+                <span class="k">if</span> <span class="n">current_time</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">time_range</span> <span class="ow">and</span> <span class="n">next_time</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">time_range</span><span class="p">:</span>
+                    <span class="n">total_time</span> <span class="o">+=</span> <span class="p">(</span><span class="n">next_time</span> <span class="o">-</span> <span class="n">current_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">total_time</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.min_num_tracks_needed_to_track"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.min_num_tracks_needed_to_track">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">min_num_tracks_needed_to_track</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`NU_j`. Calculate the minimum number of tracks needed to track `truth` using</span>
+<span class="sd">        tracks held</span>
+<span class="sd">        by `manager`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        truth: GroundTruthPath</span>
+<span class="sd">            True object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Minimum number of tracks needed to track `truth`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">assocs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_including_objects</span><span class="p">([</span><span class="n">truth</span><span class="p">]),</span>
+                        <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;time_range.end_timestamp&#39;</span><span class="p">),</span>
+                        <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">assocs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">truth_timestamps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">truth</span><span class="o">.</span><span class="n">states</span><span class="p">)</span>
+        <span class="n">num_tracks_needed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">timestamp_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">timestamp_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_timestamps</span><span class="p">):</span>
+            <span class="n">current_time</span> <span class="o">=</span> <span class="n">truth_timestamps</span><span class="p">[</span><span class="n">timestamp_index</span><span class="p">]</span>
+            <span class="n">assoc_at_time</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">assoc</span> <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">assocs</span> <span class="k">if</span> <span class="n">current_time</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">time_range</span><span class="p">),</span>
+                                 <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">assoc_at_time</span><span class="p">:</span>
+                <span class="n">timestamp_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="n">assoc_at_time</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">end_timestamp</span>
+                <span class="n">num_tracks_needed</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># If not yet at the end of the truth timestamps indices, move on to the next</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Move to next timestamp index after current association&#39;s end timestamp</span>
+                    <span class="n">timestamp_index</span> <span class="o">=</span> <span class="n">truth_timestamps</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">end_time</span><span class="p">,</span> <span class="n">timestamp_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">num_tracks_needed</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.rate_of_track_number_changes"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.rate_of_track_number_changes">[docs]</a>    <span class="k">def</span> <span class="nf">rate_of_track_number_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`R`. Calculate the average rate of track number changes for true objects held by</span>
+<span class="sd">        `manager`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Average rate of track number changes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_num_tracks_needed_to_track</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                        <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">)</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_time_tracked</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span> <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.truth_lifetime"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.truth_lifetime">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">truth_lifetime</span><span class="p">(</span><span class="n">truth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`T`. Calculate how long `truth` exists for.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        truth: GroundTruthPath</span>
+<span class="sd">            True object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of seconds that `truth` exists for</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">truth</span><span class="o">.</span><span class="n">states</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SIAPMetrics.longest_track_time_on_truth"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.SIAPMetrics.longest_track_time_on_truth">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">longest_track_time_on_truth</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`TL_j`. Calculate the longest time that a single track is associated to `truth`</span>
+<span class="sd">        using associations held by `manager`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        truth: GroundTruthPath</span>
+<span class="sd">            True object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Number of seconds of longest association to `truth`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">assocs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_including_objects</span><span class="p">({</span><span class="n">truth</span><span class="p">})</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">assoc</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">assocs</span><span class="p">)</span> <span class="k">if</span> <span class="n">assocs</span> <span class="k">else</span> <span class="mi">0</span></div></div>
+
+
+<div class="viewcode-block" id="IDSIAPMetrics"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.IDSIAPMetrics">[docs]</a><span class="k">class</span> <span class="nc">IDSIAPMetrics</span><span class="p">(</span><span class="n">SIAPMetrics</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;ID-based SIAP Metrics</span>
+
+<span class="sd">    SIAP metric generator that additionally computes ID-based SIAP metrics.</span>
+
+<span class="sd">    ID-based Metrics:</span>
+<span class="sd">        * ID Completeness (CID): ID-based SIAP. Fraction of true objects with an assigned ID. The</span>
+<span class="sd">          output is in the range :math:`0:1`, with a target score of 1.</span>
+<span class="sd">        * ID Correctness (IDC): ID-based SIAP. Fraction of true objects with correct ID</span>
+<span class="sd">          assignment. The output is in the range :math:`0:1`, with a target score of 1.</span>
+<span class="sd">        * ID Ambiguity (IDA): ID-based SIAP. Fraction of true objects with ambiguous ID</span>
+<span class="sd">          assignment. The output is in the range :math:`0:1`, with a target score of 0.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">        * This implementation assumes that track and ground truth path IDs are implemented via</span>
+<span class="sd">          metadata, whereby the strings :attr:`track_id` and :attr:`truth_id` are keys to track and</span>
+<span class="sd">          truth metadata entries with ID data respectively.</span>
+<span class="sd">        * :class:`~.Track` types store metadata outside of their `states` attribute. Therefore the</span>
+<span class="sd">          ID SIAPs make metadata comparisons via the tracks&#39; last ID metadata values (as calling</span>
+<span class="sd">          `track.metadata` will return a track&#39;s metadata at the end of its life). To provide a</span>
+<span class="sd">          better implementation, one might modify :class:`~.Track` types to contain a list of</span>
+<span class="sd">          `state` types that hold their own metadata.</span>
+
+<span class="sd">    Reference</span>
+<span class="sd">        [1] Single Integrated Air Picture (SIAP) Metrics Implementation, Votruba et al, 29-10-2001</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">truth_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Metadata key for ID of each ground truth path in data-set&quot;</span><span class="p">)</span>
+    <span class="n">track_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Metadata key for ID of each track in data-set&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IDSIAPMetrics.compute_metric"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.IDSIAPMetrics.compute_metric">[docs]</a>    <span class="k">def</span> <span class="nf">compute_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute metrics:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \begin{alignat*}{3}</span>
+<span class="sd">                \textrm{Name} &amp;\quad \textrm{At Time} &amp;&amp;\quad \textrm{TimeRange}\\</span>
+<span class="sd">                C &amp;\quad \frac{JT({t})}{J({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}JT({t})}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}J({t})}\\</span>
+<span class="sd">                A &amp;\quad \frac{N{A}({t})}{JT({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                N{A}({t})}{\sum_{t_{start}}^{t_{end}}JT({t})}\\</span>
+<span class="sd">                S &amp;\quad \frac{N({t}) - N{A}({t})}{N({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                [N({t}) - N{A}({t})]}{\sum_{t_{start}}^{t_{end}}N({t})}\\</span>
+<span class="sd">                PA &amp;\quad \frac{{\sum_{n\in tracks}PA_{n}(t)}}{NA(t)} &amp;&amp;\quad</span>
+<span class="sd">                \frac{\sum_{t_{start}}^{t_{end}}{\sum_{n\in tracks}PA_{n}(t)}}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}{NA(t)}}\\</span>
+<span class="sd">                VA &amp;\quad \frac{{\sum_{n\in tracks}VA_{n}(t)}}{NA(t)} &amp;&amp;\quad</span>
+<span class="sd">                \frac{\sum_{t_{start}}^{t_{end}}{\sum_{n\in tracks}VA_{n}(t)}}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}{NA(t)}}\\</span>
+<span class="sd">                R &amp;\quad -- &amp;&amp;\quad \frac{\sum_{j\in truths}NU_j-1}{\sum_{j\in truths}TT_j}\\</span>
+<span class="sd">                LS &amp;\quad -- &amp;&amp;\quad \frac{\sum_{j\in truths}T{L}_{j}}{\sum_{j\in truths}T_{j}}\\</span>
+<span class="sd">                CID &amp;\quad \frac{J{T}({t}) - J{U}({t})}{JT({t})}</span>
+<span class="sd">                &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}[J{T}({t}) - J{U}({T})]}</span>
+<span class="sd">                {\sum_{t_{start}}^{t_{end}}J{T}({t})}\\</span>
+<span class="sd">                IDC &amp;\quad \frac{J{C}({t})}{JT({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                J{C}({t})}{\sum_{t_{start}}^{t_{end}}J{T}({t})}\\</span>
+<span class="sd">                IDA &amp;\quad \frac{J{A}({t})}{JT({t})} &amp;&amp;\quad \frac{\sum_{t_{start}}^{t_{end}}</span>
+<span class="sd">                J{A}({t})}{\sum_{t_{start}}^{t_{end}}J{T}({t})}</span>
+<span class="sd">            \end{alignat*}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager : MetricManager</span>
+<span class="sd">            containing the data to be used to create the metric(s)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : list of :class:`~.Metric` objects</span>
+<span class="sd">            Generated metrics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">metrics</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">compute_metric</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">timestamps</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">list_timestamps</span><span class="p">()</span>
+
+        <span class="n">id_completeness_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">id_correctness_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">id_ambiguity_at_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="n">JT_sum</span> <span class="o">=</span> <span class="n">JU_sum</span> <span class="o">=</span> <span class="n">JC_sum</span> <span class="o">=</span> <span class="n">JI_sum</span> <span class="o">=</span> <span class="n">JA_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+            <span class="n">JTt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_associated_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">JT_sum</span> <span class="o">+=</span> <span class="n">JTt</span>
+            <span class="n">JUt</span><span class="p">,</span> <span class="n">JCt</span><span class="p">,</span> <span class="n">JIt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_id_truths_at_time</span><span class="p">(</span><span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+            <span class="n">JU_sum</span> <span class="o">+=</span> <span class="n">JUt</span>
+            <span class="n">JC_sum</span> <span class="o">+=</span> <span class="n">JCt</span>
+            <span class="n">JI_sum</span> <span class="o">+=</span> <span class="n">JIt</span>
+            <span class="n">JAt</span> <span class="o">=</span> <span class="n">JTt</span> <span class="o">-</span> <span class="n">JCt</span> <span class="o">-</span> <span class="n">JIt</span> <span class="o">-</span> <span class="n">JUt</span>
+            <span class="n">JA_sum</span> <span class="o">+=</span> <span class="n">JAt</span>
+
+            <span class="n">id_completeness_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Completeness at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="n">JTt</span> <span class="o">-</span> <span class="n">JUt</span><span class="p">)</span> <span class="o">/</span> <span class="n">JTt</span> <span class="k">if</span> <span class="n">JTt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">id_correctness_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Correctness at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">JCt</span> <span class="o">/</span> <span class="n">JTt</span> <span class="k">if</span> <span class="n">JTt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">id_ambiguity_at_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SingleTimeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP Ambiguity at timestamp&quot;</span><span class="p">,</span>
+                                 <span class="n">value</span><span class="o">=</span><span class="n">JAt</span> <span class="o">/</span> <span class="n">JTt</span> <span class="k">if</span> <span class="n">JTt</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                 <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                                 <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">time_range</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">timestamps</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
+
+        <span class="n">id_completeness</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Completeness&quot;</span><span class="p">,</span>
+                                          <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="n">JT_sum</span> <span class="o">-</span> <span class="n">JU_sum</span><span class="p">)</span> <span class="o">/</span> <span class="n">JT_sum</span> <span class="k">if</span> <span class="n">JT_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                          <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                          <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">id_correctness</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Correctness&quot;</span><span class="p">,</span>
+                                         <span class="n">value</span><span class="o">=</span><span class="n">JC_sum</span> <span class="o">/</span> <span class="n">JT_sum</span> <span class="k">if</span> <span class="n">JT_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                         <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                         <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">id_ambiguity</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Ambiguity&quot;</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="n">JA_sum</span> <span class="o">/</span> <span class="n">JT_sum</span> <span class="k">if</span> <span class="n">JT_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                                       <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                       <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">id_completeness_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Completeness at times&quot;</span><span class="p">,</span>
+                                                   <span class="n">value</span><span class="o">=</span><span class="n">id_completeness_at_times</span><span class="p">,</span>
+                                                   <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                   <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">id_correctness_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Correctness at times&quot;</span><span class="p">,</span>
+                                                  <span class="n">value</span><span class="o">=</span><span class="n">id_correctness_at_times</span><span class="p">,</span>
+                                                  <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                  <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">id_ambiguity_at_times</span> <span class="o">=</span> <span class="n">TimeRangeMetric</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;SIAP ID Ambiguity at times&quot;</span><span class="p">,</span>
+                                                <span class="n">value</span><span class="o">=</span><span class="n">id_ambiguity_at_times</span><span class="p">,</span>
+                                                <span class="n">time_range</span><span class="o">=</span><span class="n">time_range</span><span class="p">,</span>
+                                                <span class="n">generator</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">metrics</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">id_completeness</span><span class="p">,</span> <span class="n">id_correctness</span><span class="p">,</span> <span class="n">id_ambiguity</span><span class="p">,</span>
+                        <span class="n">id_completeness_at_times</span><span class="p">,</span> <span class="n">id_correctness_at_times</span><span class="p">,</span> <span class="n">id_ambiguity_at_times</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">metrics</span></div>
+
+<div class="viewcode-block" id="IDSIAPMetrics.find_track_id"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.IDSIAPMetrics.find_track_id">[docs]</a>    <span class="k">def</span> <span class="nf">find_track_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find `track` ID at `timestamp`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track: Track</span>
+<span class="sd">            Track object</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp to retrieve ID data at</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        any</span>
+<span class="sd">            `track` ID at `timestamp`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">timestamp</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">metadatas</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IDSIAPMetrics.num_id_truths_at_time"><a class="viewcode-back" href="../../../smartfusion.metricgenerator.tracktotruthmetrics.html#smartfusion.metricgenerator.tracktotruthmetrics.IDSIAPMetrics.num_id_truths_at_time">[docs]</a>    <span class="k">def</span> <span class="nf">num_id_truths_at_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:math:`JU`, :math:`JC`, :math:`JI`. Calculate the number of true objects that are:</span>
+<span class="sd">         Un-identified, correctly identified, incorrectly identified at `timestamp` according to</span>
+<span class="sd">         associations held by `manager`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        manager: MetricManager</span>
+<span class="sd">            Containing the data to be used</span>
+<span class="sd">        timestamp: datetime.datetime</span>
+<span class="sd">            Timestamp at which to consider associations</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int, int, int</span>
+<span class="sd">            Number of true objects: Un-identified, correctly identified, incorrectly identified</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">            * A true object is considered to be un-identified if all tracks associated with it at</span>
+<span class="sd">              `timestamp` have no ID.</span>
+<span class="sd">            * A true object is considered to be correctly identified if all tracks associated with</span>
+<span class="sd">              it at `timestamp` have the same ID as it.</span>
+<span class="sd">            * A true object is considered to be incorrectly identified if all tracks associated</span>
+<span class="sd">              with it at `timestamp` have a different ID to it.</span>
+<span class="sd">            * A true object is considered to have ambiguous identification if tracks associated</span>
+<span class="sd">              with it have differing ID (this value is calculated in the :meth:`~.compute_metric`</span>
+<span class="sd">              method).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">unknown_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">correct_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">incorrect_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">assocs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">association_set</span><span class="o">.</span><span class="n">associations_at_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">manager</span><span class="o">.</span><span class="n">groundtruth_paths</span><span class="p">:</span>
+            <span class="n">truth_id</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">truth_id</span><span class="p">)</span>
+            <span class="n">track_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+            <span class="n">truth_assocs</span> <span class="o">=</span> <span class="p">[</span><span class="n">assoc</span> <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">assocs</span> <span class="k">if</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">assoc</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth_assocs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">assoc</span> <span class="ow">in</span> <span class="n">truth_assocs</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">track</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">truth_track_from_association</span><span class="p">(</span><span class="n">assoc</span><span class="p">)</span>
+
+                <span class="n">track_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_track_id</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">track_id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="n">track_ids</span><span class="p">):</span>
+                <span class="n">unknown_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="n">track_id</span> <span class="o">==</span> <span class="n">truth_id</span> <span class="ow">and</span> <span class="n">track_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="n">track_ids</span><span class="p">)</span>
+                  <span class="ow">and</span> <span class="n">truth_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">correct_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">track_id</span> <span class="o">!=</span> <span class="n">truth_id</span> <span class="ow">and</span> <span class="n">track_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="n">track_ids</span><span class="p">):</span>
+                <span class="n">incorrect_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">unknown_count</span><span class="p">,</span> <span class="n">correct_count</span><span class="p">,</span> <span class="n">incorrect_count</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

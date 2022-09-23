@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.dataassociator.tracktotrack &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.dataassociator.tracktotrack</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/dataassociator/tracktotrack" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.dataassociator.tracktotrack</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">TrackToTrackAssociator</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..measures</span> <span class="kn">import</span> <span class="n">Measure</span><span class="p">,</span> <span class="n">Euclidean</span><span class="p">,</span> <span class="n">EuclideanWeighted</span>
+<span class="kn">from</span> <span class="nn">..types.association</span> <span class="kn">import</span> <span class="n">AssociationSet</span><span class="p">,</span> <span class="n">TimeRangeAssociation</span><span class="p">,</span> <span class="n">Association</span>
+<span class="kn">from</span> <span class="nn">..types.groundtruth</span> <span class="kn">import</span> <span class="n">GroundTruthPath</span>
+<span class="kn">from</span> <span class="nn">..types.track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">..types.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+
+
+<div class="viewcode-block" id="TrackToTrackCounting"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting">[docs]</a><span class="k">class</span> <span class="nc">TrackToTrackCounting</span><span class="p">(</span><span class="n">TrackToTrackAssociator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track to track associator based on the Counting Technique</span>
+
+<span class="sd">    Compares two sets of :class:`~.tracks`, each formed of a sequence of</span>
+<span class="sd">    :class:`~.State` objects and returns an :class:`~.Association` object for</span>
+<span class="sd">    each time at which the two :class:`~.State` within the :class:`~.tracks`</span>
+<span class="sd">    are assessed to be associated.</span>
+
+<span class="sd">    Uses an algorithm called the Counting Technique [1]_.</span>
+<span class="sd">    Associations are triggered by track states being within a threshold</span>
+<span class="sd">    distance for a given number of timestamps. Associations are terminated when</span>
+<span class="sd">    either the two :class:`~.tracks` end or the two :class:`~.State` are</span>
+<span class="sd">    separated by a distance greater than the threshold at the next time step.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] J. Å. Sagild, A. Gullikstad Hem and E. F. Brekke,</span>
+<span class="sd">           &quot;Counting Technique versus Single-Time Test for Track-to-Track Association,&quot;</span>
+<span class="sd">           2021 IEEE 24th International Conference on Information Fusion (FUSION), 2021, pp. 1-7</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    Association is not prioritised based on historic associations or distance.</span>
+<span class="sd">    If, at a specific time step, the :class:`~.State` of one of the</span>
+<span class="sd">    :class:`~.tracks` is assessed as close to more than one track then an</span>
+<span class="sd">    :class:`~.Association` object will be return for all possible association</span>
+<span class="sd">    combinations.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">association_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Threshold distance measure which states must be within for an &quot;</span>
+            <span class="s2">&quot;association to be recorded&quot;</span><span class="p">)</span>
+    <span class="n">consec_pairs_confirm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Number of consecutive time instances which track pairs are &quot;</span>
+            <span class="s2">&quot;required to be within a specified threshold in order for an &quot;</span>
+            <span class="s2">&quot;association to be formed. Default is 3&quot;</span><span class="p">)</span>
+    <span class="n">consec_misses_end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Number of consecutive time instances which track pairs are &quot;</span>
+            <span class="s2">&quot;required to exceed a specified threshold in order for an &quot;</span>
+            <span class="s2">&quot;association to be ended. Default is 2&quot;</span><span class="p">)</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="n">Measure</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance measure to use. Must use :class:`~.measures.EuclideanWeighted()` if &quot;</span>
+            <span class="s2">&quot;`use_positional_only` set to True.  Default  is &quot;</span>
+            <span class="s2">&quot;:class:`~.measures.EuclideanWeighted()` using :attr:`use_positional_only` &quot;</span>
+            <span class="s2">&quot;and :attr:`pos_map`.  Note if neither are provided this is equivalent to a &quot;</span>
+            <span class="s2">&quot;standard Euclidean&quot;</span><span class="p">)</span>
+    <span class="n">pos_map</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;List of items specifying the mapping of the position components &quot;</span>
+            <span class="s2">&quot;of the state space for :attr:`tracks_set_1`.  &quot;</span>
+            <span class="s2">&quot;Defaults to whole :class:`~.array.StateVector()`, but must be provided whenever &quot;</span>
+            <span class="s2">&quot;:attr:`use_positional_only` is set to True&quot;</span><span class="p">)</span>
+    <span class="n">use_positional_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;If `True`, the differences in velocity/acceleration values for each state are &quot;</span>
+            <span class="s2">&quot;ignored in the calculation for the association threshold.  Default is `True`&quot;</span>
+    <span class="p">)</span>
+    <span class="n">position_weighting</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;If :attr:`use_positional_only` is set to False, this decides how much to weight &quot;</span>
+            <span class="s2">&quot;position components compared to others (such as velocity).  &quot;</span>
+            <span class="s2">&quot;Default is 0.6&quot;</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="TrackToTrackCounting.associate_tracks"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackToTrackCounting.associate_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">associate_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracks_set_1</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Track</span><span class="p">],</span> <span class="n">tracks_set_2</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Track</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Associate two sets of tracks together.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tracks_set_1 : set of :class:`~.Track` objects</span>
+<span class="sd">            Tracks to associate to track set 2</span>
+<span class="sd">        tracks_set_2 : set of :class:`~.Track` objects</span>
+<span class="sd">            Tracks to associate to track set 1</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        AssociationSet</span>
+<span class="sd">            Contains a set of :class:`~.Association` objects</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_weighting</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_weighting</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Position weighting must be between 0 and 1&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_map</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_positional_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must provide mapping of position components to pos_map&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">:</span>
+            <span class="n">state1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tracks_set_1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">state1</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_map</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_map</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total</span><span class="p">)]</span>
+
+            <span class="n">pos_map_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_map</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_positional_only</span> <span class="ow">and</span> <span class="n">total</span> <span class="o">-</span> <span class="n">pos_map_len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">v_weight</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_weighting</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">total</span> <span class="o">-</span> <span class="n">pos_map_len</span><span class="p">)</span>
+                <span class="n">p_weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_weighting</span> <span class="o">/</span> <span class="n">pos_map_len</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">p_weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">pos_map_len</span>
+                <span class="n">v_weight</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">p_weight</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_map</span> <span class="k">else</span> <span class="n">v_weight</span>
+                       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total</span><span class="p">)]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">measure</span> <span class="o">=</span> <span class="n">EuclideanWeighted</span><span class="p">(</span><span class="n">weighting</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+
+        <span class="n">associations</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">track2</span> <span class="ow">in</span> <span class="n">tracks_set_2</span><span class="p">:</span>
+            <span class="n">truth_timestamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track2</span><span class="o">.</span><span class="n">states</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">track1</span> <span class="ow">in</span> <span class="n">tracks_set_1</span><span class="p">:</span>
+
+                <span class="n">track1_states</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">state</span>
+                     <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track1</span>
+                     <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="ow">in</span> <span class="n">truth_timestamps</span><span class="p">),</span>
+                    <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">))</span>
+                <span class="n">track_timestamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track1_states</span><span class="p">]</span>
+
+                <span class="n">track2_states</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">state</span>
+                     <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">track2</span>
+                     <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span> <span class="ow">in</span> <span class="n">track_timestamps</span><span class="p">),</span>
+                    <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">track1_states</span> <span class="ow">and</span> <span class="n">track2_states</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># At this point we should have two lists of states from</span>
+                <span class="c1"># track1 and 2 only at the times that they both existed</span>
+
+                <span class="n">n_successful</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">n_unsuccessful</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">start_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">end_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="c1"># Loop through every detection pair and form associations</span>
+                <span class="k">for</span> <span class="n">state1</span><span class="p">,</span> <span class="n">state2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">track1_states</span><span class="p">,</span> <span class="n">track2_states</span><span class="p">):</span>
+
+                    <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">state1</span><span class="p">,</span> <span class="n">state2</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">association_threshold</span><span class="p">:</span>
+                        <span class="n">n_successful</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">n_unsuccessful</span> <span class="o">=</span> <span class="mi">0</span>
+
+                        <span class="k">if</span> <span class="n">n_successful</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">first_timestamp</span> <span class="o">=</span> <span class="n">state1</span><span class="o">.</span><span class="n">timestamp</span>
+                        <span class="k">if</span> <span class="n">n_successful</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">consec_pairs_confirm</span><span class="p">:</span>
+                            <span class="n">start_timestamp</span> <span class="o">=</span> <span class="n">first_timestamp</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">n_successful</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">n_unsuccessful</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="k">if</span> <span class="n">n_unsuccessful</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">end_timestamp</span> <span class="o">=</span> <span class="n">state1</span><span class="o">.</span><span class="n">timestamp</span>
+
+                        <span class="k">if</span> <span class="n">n_unsuccessful</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consec_misses_end</span> <span class="ow">and</span> \
+                                <span class="n">start_timestamp</span><span class="p">:</span>
+                            <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeRangeAssociation</span><span class="p">(</span>
+                                <span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">),</span>
+                                <span class="n">TimeRange</span><span class="p">(</span><span class="n">start_timestamp</span><span class="p">,</span> <span class="n">end_timestamp</span><span class="p">)))</span>
+                            <span class="n">start_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="c1"># close any open associations</span>
+                <span class="k">if</span> <span class="n">start_timestamp</span><span class="p">:</span>
+                    <span class="n">end_timestamp</span> <span class="o">=</span> <span class="n">track1_states</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span>
+                    <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeRangeAssociation</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">),</span>
+                        <span class="n">TimeRange</span><span class="p">(</span><span class="n">start_timestamp</span><span class="p">,</span> <span class="n">end_timestamp</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">AssociationSet</span><span class="p">(</span><span class="n">associations</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TrackToTruth"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackToTruth">[docs]</a><span class="k">class</span> <span class="nc">TrackToTruth</span><span class="p">(</span><span class="n">TrackToTrackAssociator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track to truth associator</span>
+
+<span class="sd">    Compares two sets of :class:`~.Track`, each formed of a sequence of</span>
+<span class="sd">    :class:`~.State` objects and returns an :class:`~.Association` object for</span>
+<span class="sd">    each time at which a the two :class:`~.State` within the :class:`~.Track`</span>
+<span class="sd">    are assessed to be associated. Tracks are considered to be associated with</span>
+<span class="sd">    the Truth if the true :class:`~.State` is the closest to the track and</span>
+<span class="sd">    within the specified distance for a specified number of time steps.</span>
+
+<span class="sd">    Associations between Truth and Track if the Truth is no longer the</span>
+<span class="sd">    &#39;closest&#39; to the track or the distance exceeds the specified threshold for</span>
+<span class="sd">    a specified number of consecutive time steps.</span>
+
+<span class="sd">    Associates will be ended by consec_misses_end before any new associations</span>
+<span class="sd">    are considered even if consec_pairs_confirm &lt; consec_misses_end</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    Tracks can only be associated with one Truth (one-2-one relationship) at a</span>
+<span class="sd">    given time step however a Truth track can be associated with multiple</span>
+<span class="sd">    Tracks (one-2-many relationship).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">association_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Threshold distance measure which states must be within for an &quot;</span>
+            <span class="s2">&quot;association to be recorded&quot;</span><span class="p">)</span>
+    <span class="n">consec_pairs_confirm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Number of consecutive time instances which track-truth pairs are &quot;</span>
+            <span class="s2">&quot;required to be within a specified threshold in order for an &quot;</span>
+            <span class="s2">&quot;association to be formed. Default is 3&quot;</span><span class="p">)</span>
+    <span class="n">consec_misses_end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Number of consecutive time instances which track-truth pairs are &quot;</span>
+            <span class="s2">&quot;required to exceed a specified threshold in order for an &quot;</span>
+            <span class="s2">&quot;association to be ended. Default is 2&quot;</span><span class="p">)</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="n">Measure</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Euclidean</span><span class="p">(),</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Distance measure to use. Default :class:`~.measures.Euclidean()`&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TrackToTruth.associate_tracks"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackToTruth.associate_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">associate_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracks_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Track</span><span class="p">],</span> <span class="n">truth_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">GroundTruthPath</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Associate Tracks</span>
+
+<span class="sd">        Method compares to sets of :class:`~.Track` objects and will determine</span>
+<span class="sd">        associations between the two sets.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tracks_set : set of :class:`~.Track` objects</span>
+<span class="sd">            Tracks to associate to truth</span>
+<span class="sd">        truth_set : set of :class:`~.GroundTruthPath` objects</span>
+<span class="sd">            Truth to associate to tracks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        AssociationSet</span>
+<span class="sd">            Contains a set of :class:`~.Association` objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">associations</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks_set</span><span class="p">:</span>
+
+            <span class="n">current_truth</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">potential_truth</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">n_potential_successes</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">n_failures</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">potential_start_timestep</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">start_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">end_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">truth_state_iters</span> <span class="o">=</span> <span class="p">{</span><span class="n">truth</span><span class="p">:</span> <span class="n">GroundTruthPath</span><span class="o">.</span><span class="n">last_timestamp_generator</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+                                 <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">truth_set</span><span class="p">}</span>
+            <span class="n">truth_states</span> <span class="o">=</span> <span class="p">{</span><span class="n">truth</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">truth_state_iter</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">truth</span><span class="p">,</span> <span class="n">truth_state_iter</span> <span class="ow">in</span> <span class="n">truth_state_iters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+            <span class="k">for</span> <span class="n">track_state</span> <span class="ow">in</span> <span class="n">Track</span><span class="o">.</span><span class="n">last_timestamp_generator</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+
+                <span class="n">min_dist</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">min_truth</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">truth_set</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">truth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&gt;</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span> \
+                            <span class="ow">or</span> <span class="n">truth</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="k">while</span> <span class="n">truth_states</span><span class="p">[</span><span class="n">truth</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">:</span>
+                        <span class="n">truth_states</span><span class="p">[</span><span class="n">truth</span><span class="p">]</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">truth_state_iters</span><span class="p">[</span><span class="n">truth</span><span class="p">])</span>
+                    <span class="n">truth_state</span> <span class="o">=</span> <span class="n">truth_states</span><span class="p">[</span><span class="n">truth</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">truth_state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">!=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">track_state</span><span class="p">,</span> <span class="n">truth_state</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">min_dist</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">min_dist</span><span class="p">:</span>
+                        <span class="n">min_dist</span> <span class="o">=</span> <span class="n">distance</span>
+                        <span class="n">min_truth</span> <span class="o">=</span> <span class="n">truth</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">min_dist</span> \
+                            <span class="ow">and</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">association_threshold</span><span class="p">:</span>
+                        <span class="n">min_dist</span> <span class="o">=</span> <span class="n">distance</span>
+                        <span class="n">min_truth</span> <span class="o">=</span> <span class="n">truth</span>
+
+                <span class="c1"># If there is not a truth track currently</span>
+                <span class="c1"># considered to be associated to the track</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">current_truth</span><span class="p">:</span>
+                    <span class="c1"># If no truth associated then there&#39;s nothing to consider</span>
+                    <span class="k">if</span> <span class="n">min_truth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">n_potential_successes</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">potential_truth</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="n">potential_start_timestep</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="c1"># If the latest closest truth is not being assessed</span>
+                    <span class="c1"># as the likely truth make it so</span>
+                    <span class="k">elif</span> <span class="n">potential_truth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">min_truth</span><span class="p">:</span>
+                        <span class="n">potential_truth</span> <span class="o">=</span> <span class="n">min_truth</span>
+                        <span class="n">n_potential_successes</span> <span class="o">=</span> <span class="mi">1</span>
+                        <span class="n">potential_start_timestep</span> <span class="o">=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span>
+
+                    <span class="c1"># Otherwise increse the number of times</span>
+                    <span class="c1"># this truth appears in a row</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">n_potential_successes</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="c1"># If the threshold of continuous</span>
+                    <span class="c1"># similar matches has been made</span>
+                    <span class="k">if</span> <span class="n">n_potential_successes</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consec_pairs_confirm</span><span class="p">:</span>
+                        <span class="n">current_truth</span> <span class="o">=</span> <span class="n">min_truth</span>
+                        <span class="n">start_timestamp</span> <span class="o">=</span> <span class="n">potential_start_timestep</span>
+                        <span class="n">end_timestamp</span> <span class="o">=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span>
+                        <span class="n">potential_start_timestep</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="n">potential_truth</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="n">n_potential_successes</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="c1"># Otherwise if there is a track currently</span>
+                <span class="c1"># considered as the association</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If the closest track this time is the same</span>
+                    <span class="c1"># update the end time (time of last association)</span>
+                    <span class="k">if</span> <span class="n">min_truth</span> <span class="o">==</span> <span class="n">current_truth</span><span class="p">:</span>
+                        <span class="n">n_failures</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">end_timestamp</span> <span class="o">=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span>
+                    <span class="c1"># Otherwise record the failed match and how</span>
+                    <span class="c1"># many times it&#39;s been the same different</span>
+                    <span class="c1"># potential track in a row</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">n_failures</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">min_truth</span> <span class="ow">and</span> <span class="n">min_truth</span> <span class="ow">is</span> <span class="n">potential_truth</span><span class="p">:</span>
+                            <span class="n">n_potential_successes</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">potential_truth</span> <span class="o">=</span> <span class="n">min_truth</span>
+                            <span class="n">potential_start_timestep</span> <span class="o">=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span>
+                            <span class="n">n_potential_successes</span> <span class="o">=</span> <span class="mi">1</span>
+
+                    <span class="c1"># If there have been enough failed matches</span>
+                    <span class="c1"># in a row end the association and record</span>
+                    <span class="k">if</span> <span class="n">n_failures</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consec_misses_end</span><span class="p">:</span>
+                        <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeRangeAssociation</span><span class="p">(</span>
+                            <span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">current_truth</span><span class="p">),</span>
+                            <span class="n">TimeRange</span><span class="p">(</span><span class="n">start_timestamp</span><span class="p">,</span> <span class="n">end_timestamp</span><span class="p">)))</span>
+
+                        <span class="c1"># If the current potential association</span>
+                        <span class="c1"># is strong enough to confirm then do so</span>
+                        <span class="k">if</span> <span class="n">n_potential_successes</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consec_pairs_confirm</span><span class="p">:</span>
+
+                            <span class="n">current_truth</span> <span class="o">=</span> <span class="n">potential_truth</span>
+                            <span class="n">start_timestamp</span> <span class="o">=</span> <span class="n">potential_start_timestep</span>
+                            <span class="n">end_timestamp</span> <span class="o">=</span> <span class="n">track_state</span><span class="o">.</span><span class="n">timestamp</span>
+
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Otherwise wait for a new</span>
+                            <span class="c1"># association to be good enough</span>
+                            <span class="n">current_truth</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">start_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">end_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># Close any open associations when the track ends</span>
+            <span class="k">if</span> <span class="n">current_truth</span><span class="p">:</span>
+
+                <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeRangeAssociation</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">current_truth</span><span class="p">),</span>
+                    <span class="n">TimeRange</span><span class="p">(</span><span class="n">start_timestamp</span><span class="p">,</span> <span class="n">end_timestamp</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">AssociationSet</span><span class="p">(</span><span class="n">associations</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TrackIDbased"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackIDbased">[docs]</a><span class="k">class</span> <span class="nc">TrackIDbased</span><span class="p">(</span><span class="n">TrackToTrackAssociator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track ID based associator</span>
+
+<span class="sd">        Compares set of :class:`~.Track` objects to set of :class:`~.GroundTruth` objects,</span>
+<span class="sd">        each formed of a sequence of :class:`~.State` objects and returns an</span>
+<span class="sd">        :class:`~.Association` object for each time at which a the two :class:`~.State`</span>
+<span class="sd">        within the :class:`~.Track` and :class:`~.GroundTruthPath` are assessed to be associated.</span>
+<span class="sd">        Tracks are considered to be associated with the Ground Truth if the ID of the Track</span>
+<span class="sd">        is the same as the ID of the Ground Truth.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrackIDbased.associate_tracks"><a class="viewcode-back" href="../../../smartfusion.dataassociator.html#smartfusion.dataassociator.tracktotrack.TrackIDbased.associate_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">associate_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracks_set</span><span class="p">,</span> <span class="n">truths_set</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Associate two sets of tracks together.</span>
+
+<span class="sd">               Parameters</span>
+<span class="sd">               ----------</span>
+<span class="sd">               tracks_set : list of :class:`~.Track` objects</span>
+<span class="sd">                   Tracks to associate to ground truths set</span>
+<span class="sd">               truths_set: list of :class:`~.GroundTruthPath` objects</span>
+<span class="sd">                   Ground truths to associate to tracks set</span>
+
+<span class="sd">               Returns</span>
+<span class="sd">               -------</span>
+<span class="sd">               AssociationSet</span>
+<span class="sd">                   Contains a set of :class:`~.Association` objects</span>
+
+<span class="sd">               &quot;&quot;&quot;</span>
+
+        <span class="n">associations</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks_set</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">truth</span> <span class="ow">in</span> <span class="n">truths_set</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">truth</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                            <span class="n">TimeRangeAssociation</span><span class="p">((</span><span class="n">track</span><span class="p">,</span> <span class="n">truth</span><span class="p">),</span>
+                                                 <span class="n">TimeRange</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                                                               <span class="n">truth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">),</span>
+                                                           <span class="nb">min</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                                                               <span class="n">truth</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">))))</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                        <span class="c1"># A timestamp is None, or non-overlapping timestamps (start &gt; end)</span>
+                        <span class="n">associations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Association</span><span class="p">((</span><span class="n">track</span><span class="p">,</span> <span class="n">truth</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">AssociationSet</span><span class="p">(</span><span class="n">associations</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

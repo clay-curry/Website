@@ -1,0 +1,17 @@
+Smoothers
+=========
+
+.. automodule:: smartfusion.smoother
+    :no-members:
+
+.. automodule:: smartfusion.smoother.base
+    :show-inheritance:
+
+Kalman
+------
+
+.. automodule:: smartfusion.smoother.kalman
+    :show-inheritance:
+
+
+

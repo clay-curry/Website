@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deleters &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Gater" href="smartfusion.gater.html" />
+    <link rel="prev" title="Data Association" href="smartfusion.dataassociator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="smartfusion.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="smartfusion.html#algorithm-components">Algorithm Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Deleters</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.deleter.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.deleter">
+<span id="deleters"></span><h1>Deleters<a class="headerlink" href="#module-smartfusion.deleter" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-smartfusion.deleter.base"></span><dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.deleter.base.Deleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.deleter.base.</span></span><span class="sig-name descname"><span class="pre">Deleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_last_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/base.html#Deleter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.base.Deleter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="smartfusion.base.html#smartfusion.base.Base" title="smartfusion.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
+<p>Deleter base class.</p>
+<p>Proposes tracks for deletion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delete_last_pred</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.base.Deleter.delete_last_pred">
+<span class="sig-name descname"><span class="pre">delete_last_pred</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.base.Deleter.delete_last_pred" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.base.Deleter.check_for_deletion">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_for_deletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="_modules/smartfusion/deleter/base.html#Deleter.check_for_deletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.base.Deleter.check_for_deletion" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a given track should be deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – A track object to be checked for deletion.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if track should be deleted, <cite>False</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.base.Deleter.delete_tracks">
+<span class="sig-name descname"><span class="pre">delete_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/smartfusion/deleter/base.html#Deleter.delete_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.base.Deleter.delete_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Generic/Base track deletion method.</p>
+<p>Iterates through all tracks in a given list and calls
+<a class="reference internal" href="#smartfusion.deleter.base.Deleter.check_for_deletion" title="smartfusion.deleter.base.Deleter.check_for_deletion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_for_deletion()</span></code></a> to determine which
+tracks should be deleted and which should survive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of tracks proposed for deletion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-smartfusion.deleter.error">
+<span id="error-based"></span><h2>Error Based<a class="headerlink" href="#module-smartfusion.deleter.error" title="Permalink to this heading"></a></h2>
+<p>Contains collection of error based deleters</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.deleter.error.</span></span><span class="sig-name descname"><span class="pre">CovarianceBasedDeleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">covar_trace_thresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_last_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/error.html#CovarianceBasedDeleter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a></p>
+<p>Track deleter based on covariance matrix size.</p>
+<p>Deletes tracks whose state covariance matrix (more specifically its trace)
+exceeds a given threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>covar_trace_thresh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Covariance matrix trace threshold</p></li>
+<li><p><strong>delete_last_pred</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Remove the state that caused a track to be deleted if it is a prediction.</p></li>
+<li><p><strong>mapping</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence[int]</span></code>, optional) – Track state vector indices whose corresponding covariances’ sum is to be considered. Defaults toNone, whereby the entire track covariance trace is considered.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter.covar_trace_thresh">
+<span class="sig-name descname"><span class="pre">covar_trace_thresh</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter.covar_trace_thresh" title="Permalink to this definition"></a></dt>
+<dd><p>Covariance matrix trace threshold</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter.mapping">
+<span class="sig-name descname"><span class="pre">mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter.mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Track state vector indices whose corresponding covariances’ sum is to be considered. Defaults toNone, whereby the entire track covariance trace is considered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter.check_for_deletion">
+<span class="sig-name descname"><span class="pre">check_for_deletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/error.html#CovarianceBasedDeleter.check_for_deletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter.check_for_deletion" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a given track should be deleted</p>
+<p>A track is flagged for deletion if the trace of its state covariance
+matrix is higher than <a class="reference internal" href="#smartfusion.deleter.error.CovarianceBasedDeleter.covar_trace_thresh" title="smartfusion.deleter.error.CovarianceBasedDeleter.covar_trace_thresh"><code class="xref py py-attr docutils literal notranslate"><span class="pre">covar_trace_thresh</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – A track object to be checked for deletion.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if track should be deleted, <cite>False</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter.delete_last_pred">
+<span class="sig-name descname"><span class="pre">delete_last_pred</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter.delete_last_pred" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.error.CovarianceBasedDeleter.delete_tracks">
+<span class="sig-name descname"><span class="pre">delete_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#smartfusion.deleter.error.CovarianceBasedDeleter.delete_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Generic/Base track deletion method.</p>
+<p>Iterates through all tracks in a given list and calls
+<a class="reference internal" href="#smartfusion.deleter.error.CovarianceBasedDeleter.check_for_deletion" title="smartfusion.deleter.error.CovarianceBasedDeleter.check_for_deletion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_for_deletion()</span></code></a> to determine which
+tracks should be deleted and which should survive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of tracks proposed for deletion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.deleter.time">
+<span id="time-based"></span><h2>Time Based<a class="headerlink" href="#module-smartfusion.deleter.time" title="Permalink to this heading"></a></h2>
+<p>Contains collection of time based deleters</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeStepsDeleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.deleter.time.</span></span><span class="sig-name descname"><span class="pre">UpdateTimeStepsDeleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_steps_since_update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_last_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/time.html#UpdateTimeStepsDeleter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a></p>
+<p>Update Time based deleter</p>
+<p>Identify tracks for deletion which an <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> has occurred in
+last <a class="reference internal" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.time_steps_since_update" title="smartfusion.deleter.time.UpdateTimeStepsDeleter.time_steps_since_update"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_steps_since_update</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_steps_since_update</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Maximum time steps since last update</p></li>
+<li><p><strong>delete_last_pred</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Remove the state that caused a track to be deleted if it is a prediction.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeStepsDeleter.time_steps_since_update">
+<span class="sig-name descname"><span class="pre">time_steps_since_update</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.time_steps_since_update" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum time steps since last update</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeStepsDeleter.check_for_deletion">
+<span class="sig-name descname"><span class="pre">check_for_deletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/time.html#UpdateTimeStepsDeleter.check_for_deletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.check_for_deletion" title="Permalink to this definition"></a></dt>
+<dd><p>Delete track without update with measurements within time steps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – Track to check for deletion</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>False</cite> if track has an <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> with measurements within
+time steps; <cite>True</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeStepsDeleter.delete_last_pred">
+<span class="sig-name descname"><span class="pre">delete_last_pred</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.delete_last_pred" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeStepsDeleter.delete_tracks">
+<span class="sig-name descname"><span class="pre">delete_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.delete_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Generic/Base track deletion method.</p>
+<p>Iterates through all tracks in a given list and calls
+<a class="reference internal" href="#smartfusion.deleter.time.UpdateTimeStepsDeleter.check_for_deletion" title="smartfusion.deleter.time.UpdateTimeStepsDeleter.check_for_deletion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_for_deletion()</span></code></a> to determine which
+tracks should be deleted and which should survive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of tracks proposed for deletion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeDeleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.deleter.time.</span></span><span class="sig-name descname"><span class="pre">UpdateTimeDeleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_since_update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_last_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/time.html#UpdateTimeDeleter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeDeleter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a></p>
+<p>Update Time based deleter</p>
+<p>Identify tracks for deletion which time of last <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> with
+measurements is greater than <a class="reference internal" href="#smartfusion.deleter.time.UpdateTimeDeleter.time_since_update" title="smartfusion.deleter.time.UpdateTimeDeleter.time_since_update"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_since_update</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_since_update</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></a>) – Maximum time since last update</p></li>
+<li><p><strong>delete_last_pred</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Remove the state that caused a track to be deleted if it is a prediction.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeDeleter.time_since_update">
+<span class="sig-name descname"><span class="pre">time_since_update</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.10)"><span class="pre">timedelta</span></a></em><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeDeleter.time_since_update" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum time since last update</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeDeleter.check_for_deletion">
+<span class="sig-name descname"><span class="pre">check_for_deletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/time.html#UpdateTimeDeleter.check_for_deletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeDeleter.check_for_deletion" title="Permalink to this definition"></a></dt>
+<dd><p>Delete track based on time of last update with measurements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – Track to check for deletion</p></li>
+<li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><em>datetime.datetime</em></a><em>, </em><em>optional</em>) – Timestamp to calculate deletion time from. Default <cite>None</cite>, where
+the track’s latest timestamp will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>False</cite> if track has an <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> with measurements within
+time; <cite>True</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeDeleter.delete_last_pred">
+<span class="sig-name descname"><span class="pre">delete_last_pred</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeDeleter.delete_last_pred" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.time.UpdateTimeDeleter.delete_tracks">
+<span class="sig-name descname"><span class="pre">delete_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#smartfusion.deleter.time.UpdateTimeDeleter.delete_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Generic/Base track deletion method.</p>
+<p>Iterates through all tracks in a given list and calls
+<a class="reference internal" href="#smartfusion.deleter.time.UpdateTimeDeleter.check_for_deletion" title="smartfusion.deleter.time.UpdateTimeDeleter.check_for_deletion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_for_deletion()</span></code></a> to determine which
+tracks should be deleted and which should survive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of tracks proposed for deletion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-smartfusion.deleter.multi">
+<span id="multi"></span><h2>Multi<a class="headerlink" href="#module-smartfusion.deleter.multi" title="Permalink to this heading"></a></h2>
+<p>Contains deleters which use a composite of deleters to decide whether a track is to be deleted</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.deleter.multi.</span></span><span class="sig-name descname"><span class="pre">CompositeDeleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deleters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_last_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intersect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/multi.html#CompositeDeleter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deleter</span></code></a></p>
+<p>Track deleter composed of multiple deleters.</p>
+<p>If <a class="reference internal" href="#smartfusion.deleter.multi.CompositeDeleter.intersect" title="smartfusion.deleter.multi.CompositeDeleter.intersect"><code class="xref py py-attr docutils literal notranslate"><span class="pre">intersect</span></code></a> is True, deletes tracks if they satisfy the deletion conditions of each
+deleter listed in <a class="reference internal" href="#smartfusion.deleter.multi.CompositeDeleter.deleters" title="smartfusion.deleter.multi.CompositeDeleter.deleters"><code class="xref py py-attr docutils literal notranslate"><span class="pre">deleters</span></code></a>. Otherwise deletes tracks if they satisfy the conditions of
+at least one deleter listed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>deleters</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Collection[Deleter]</span></code>) – List of deleters to be applied to the track</p></li>
+<li><p><strong>delete_last_pred</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Remove the state that caused a track to be deleted if it is a prediction.</p></li>
+<li><p><strong>intersect</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Boolean that determines whether the composite deleter will intersect or unify deletion results. Default is <cite>True</cite>, applying an intersection.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter.deleters">
+<span class="sig-name descname"><span class="pre">deleters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Collection" title="(in Python v3.10)"><span class="pre">Collection</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#smartfusion.deleter.base.Deleter" title="smartfusion.deleter.base.Deleter"><span class="pre">Deleter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter.deleters" title="Permalink to this definition"></a></dt>
+<dd><p>List of deleters to be applied to the track</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter.intersect">
+<span class="sig-name descname"><span class="pre">intersect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter.intersect" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean that determines whether the composite deleter will intersect or unify deletion results. Default is <cite>True</cite>, applying an intersection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter.check_for_deletion">
+<span class="sig-name descname"><span class="pre">check_for_deletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/deleter/multi.html#CompositeDeleter.check_for_deletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter.check_for_deletion" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a given track should be deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> (<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><em>Track</em></a>) – A track object to be checked for deletion.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if track should be deleted, <cite>False</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter.delete_last_pred">
+<span class="sig-name descname"><span class="pre">delete_last_pred</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter.delete_last_pred" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the state that caused a track to be deleted if it is a prediction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.deleter.multi.CompositeDeleter.delete_tracks">
+<span class="sig-name descname"><span class="pre">delete_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.10)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><span class="pre">Track</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#smartfusion.deleter.multi.CompositeDeleter.delete_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Generic/Base track deletion method.</p>
+<p>Iterates through all tracks in a given list and calls
+<a class="reference internal" href="#smartfusion.deleter.multi.CompositeDeleter.check_for_deletion" title="smartfusion.deleter.multi.CompositeDeleter.check_for_deletion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_for_deletion()</span></code></a> to determine which
+tracks should be deleted and which should survive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tracks</strong> (set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – A set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of tracks proposed for deletion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.dataassociator.html" class="btn btn-neutral float-left" title="Data Association" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.gater.html" class="btn btn-neutral float-right" title="Gater" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+SMART FUSION Framework
+======================
+
+.. automodule:: smartfusion
+
+.. toctree::
+    interface
+    types
+    smartfusion.base
+    smartfusion.config
+    smartfusion.functions
+    smartfusion.measures
+    smartfusion.plotter
+    smartfusion.plugins
+    smartfusion.serialise
+
+Components
+----------
+SMART FUSION has a number of components which are used to build up a tracker.
+These included components are built upon the base :doc:`interface`.
+
+Enabling Components
+^^^^^^^^^^^^^^^^^^^
+.. toctree::
+
+    smartfusion.detector
+    smartfusion.feeder
+    smartfusion.metricgenerator
+    smartfusion.platform
+    smartfusion.reader
+    smartfusion.sensor
+    smartfusion.sensormanager
+    smartfusion.simulator
+    smartfusion.tracker
+    smartfusion.writer
+
+Algorithm Components
+^^^^^^^^^^^^^^^^^^^^
+.. toctree::
+
+    smartfusion.dataassociator
+    smartfusion.deleter
+    smartfusion.gater
+    smartfusion.hypothesiser
+    smartfusion.initiator
+    smartfusion.mixturereducer
+    smartfusion.models
+    smartfusion.predictor
+    smartfusion.resampler
+    smartfusion.smoother
+    smartfusion.updater
+
+Data Types
+----------
+SMART FUSION has a number of data types used to pass data between components.
+These are built upon the :doc:`types`.
+
+.. toctree::
+
+    smartfusion.types
+
+

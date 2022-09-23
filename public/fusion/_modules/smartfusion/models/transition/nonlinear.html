@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.models.transition.nonlinear &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.models.transition.nonlinear</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/models/transition/nonlinear" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.models.transition.nonlinear</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">block_diag</span>
+
+<span class="kn">from</span> <span class="nn">...types.array</span> <span class="kn">import</span> <span class="n">StateVector</span><span class="p">,</span> <span class="n">StateVectors</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">TransitionModel</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">GaussianModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span>
+<span class="kn">from</span> <span class="nn">...base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">...types.array</span> <span class="kn">import</span> <span class="n">CovarianceMatrix</span>
+
+
+<div class="viewcode-block" id="GaussianTransitionModel"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.GaussianTransitionModel">[docs]</a><span class="k">class</span> <span class="nc">GaussianTransitionModel</span><span class="p">(</span><span class="n">TransitionModel</span><span class="p">,</span> <span class="n">GaussianModel</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ConstantTurn"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurn">[docs]</a><span class="k">class</span> <span class="nc">ConstantTurn</span><span class="p">(</span><span class="n">GaussianTransitionModel</span><span class="p">,</span> <span class="n">TimeVariantModel</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a discrete, time-variant 2D Constant</span>
+<span class="sd">    Turn Model.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity and also</span>
+<span class="sd">    an unknown (nearly) constant turn rate.</span>
+
+<span class="sd">    The model is described by the following SDEs:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            :nowrap:</span>
+
+<span class="sd">            \begin{align}</span>
+<span class="sd">                dx_{pos} &amp; =  x_{vel} d  \quad | {Position \ on \</span>
+<span class="sd">                X-axis (m)} \\</span>
+<span class="sd">                dx_{vel} &amp; = -\omega y_{pos} d \quad | {Speed \</span>
+<span class="sd">                on\ X-axis (m/s)} &amp;\\</span>
+<span class="sd">                dy_{pos} &amp; =  y_{vel} d  \quad | {Position \ on \</span>
+<span class="sd">                Y-axis (m)} \\</span>
+<span class="sd">                dy_{vel} &amp; =  \omega x_{pos} d \quad | {Speed \</span>
+<span class="sd">                on\ Y-axis (m/s)} \\</span>
+<span class="sd">                d\omega &amp; = q_\omega dt  \quad | {Position \ on \ X,Y-axes (rad/sec)}</span>
+<span class="sd">            \end{align}</span>
+
+<span class="sd">    Or equivalently:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x_t = F_t x_{t-1} + w_t,\ w_t \sim \mathcal{N}(0,Q_t)</span>
+
+<span class="sd">    where:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            x &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                        x_{pos} \\</span>
+<span class="sd">                        x_{vel} \\</span>
+<span class="sd">                        y_{pos} \\</span>
+<span class="sd">                        y_{vel} \\</span>
+<span class="sd">                        \omega</span>
+<span class="sd">                    \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            F(x) &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                          x+ \frac{x_{vel}}{\omega}\sin\omega dt -</span>
+<span class="sd">                              \frac{y_{vel}}{\omega}(1-\cos\omega dt) \\</span>
+<span class="sd">                          x_{vel}\cos\omega dt - y_{vel}\sin\omega dt \\</span>
+<span class="sd">                          y+ \frac{v_{vel}}{\omega}\sin\omega dt +</span>
+<span class="sd">                              \frac{x_{vel}}{\omega}(1-\cos\omega dt) \\</span>
+<span class="sd">                          x_{vel}\sin\omega dt + y_{vel}\sin\omega dt \\</span>
+<span class="sd">                          \omega</span>
+<span class="sd">                      \end{bmatrix}</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">             Q_t &amp; = &amp; \begin{bmatrix}</span>
+<span class="sd">                          \frac{dt^4q_x^2}{4} &amp; \frac{dt^3q_x^2}{2} &amp; \frac{dt^4q_xq_y}{4} &amp;</span>
+<span class="sd">                              \frac{dt^3q_xq_y}{2} &amp; \frac{dt^2q_xq_\omega}{2} \\</span>
+<span class="sd">                          \frac{dt^3q_x^2}{2} &amp; dt^2q_x^2 &amp; \frac{dt^3q_xq_y}{2} &amp; dt^2q_xq_y &amp;</span>
+<span class="sd">                              dt q_x q_\omega \\</span>
+<span class="sd">                          \frac{dt^4q_xq_y}{4} &amp; \frac{dt^3q_xq_y}{2} &amp; \frac{dt^4q_y^2}{4} &amp;</span>
+<span class="sd">                              \frac{dt^3q_y^2}{2} &amp; \frac{dt^2q_y q_\omega}{2} \\</span>
+<span class="sd">                          \frac{dt^3q_x q_y}{2} &amp; dt^2q_xq_y &amp; \frac{dt^3q_y^2}{2} &amp;</span>
+<span class="sd">                              dt^2q_y^2 &amp; dt q_y q_\omega \\</span>
+<span class="sd">                          \frac{dt^2q_xq_\omega}{2} &amp; dtq_xq_\omega &amp; \frac{dt^2q_yq_\omega}{2} &amp;</span>
+<span class="sd">                              dt q_y q_\omega &amp; q_\omega^2</span>
+<span class="sd">                     \end{bmatrix}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">linear_noise_coeffs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;The acceleration noise diffusion coefficients :math:`[q_x, \: q_y]^T`&quot;</span><span class="p">)</span>
+    <span class="n">turn_noise_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;The turn rate noise coefficient :math:`q_\omega`&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;ndim_state getter method</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`int`</span>
+<span class="sd">            The number of combined model state dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">5</span>
+
+<div class="viewcode-block" id="ConstantTurn.function"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurn.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StateVector</span><span class="p">:</span>
+        <span class="n">time_interval_sec</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time_interval&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">sv1</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span>
+        <span class="n">turn_rate</span> <span class="o">=</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="c1"># Avoid divide by zero in the function evaluation</span>
+        <span class="n">turn_rate</span><span class="p">[</span><span class="n">turn_rate</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+        <span class="n">dAngle</span> <span class="o">=</span> <span class="n">turn_rate</span> <span class="o">*</span> <span class="n">time_interval_sec</span>
+        <span class="n">cos_dAngle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dAngle</span><span class="p">)</span>
+        <span class="n">sin_dAngle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dAngle</span><span class="p">)</span>
+        <span class="n">sv2</span> <span class="o">=</span> <span class="n">StateVectors</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">sv1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">sin_dAngle</span><span class="o">/</span><span class="n">turn_rate</span> <span class="o">*</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">turn_rate</span> <span class="o">*</span>
+             <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">cos_dAngle</span><span class="p">),</span>
+             <span class="n">sv1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">cos_dAngle</span> <span class="o">-</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">sin_dAngle</span><span class="p">,</span>
+             <span class="n">sv1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">turn_rate</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">cos_dAngle</span><span class="p">)</span> <span class="o">+</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">sin_dAngle</span>
+             <span class="o">/</span> <span class="n">turn_rate</span><span class="p">,</span>
+             <span class="n">sv1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">sin_dAngle</span> <span class="o">+</span> <span class="n">sv1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">cos_dAngle</span><span class="p">,</span>
+             <span class="n">turn_rate</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="n">noise</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">noise</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">sv2</span> <span class="o">+</span> <span class="n">noise</span></div>
+
+<div class="viewcode-block" id="ConstantTurn.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurn.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transition model noise covariance matrix.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`smartfusion.types.state.CovarianceMatrix` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The process noise covariance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q_x</span><span class="p">,</span> <span class="n">q_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_noise_coeffs</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn_noise_coeff</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dt</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mf">3.</span><span class="p">,</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">],</span>
+                      <span class="p">[</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">dt</span><span class="p">]])</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">block_diag</span><span class="p">(</span><span class="n">Q</span><span class="o">*</span><span class="n">q_x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">Q</span><span class="o">*</span><span class="n">q_y</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">q</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">C</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ConstantTurnSandwich"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurnSandwich">[docs]</a><span class="k">class</span> <span class="nc">ConstantTurnSandwich</span><span class="p">(</span><span class="n">ConstantTurn</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a class implementation of a time-variant 2D Constant Turn</span>
+<span class="sd">    Model. This model is used, as opposed to the normal :class:`~.ConstantTurn`</span>
+<span class="sd">    model, when the turn occurs in 2 dimensions that are not adjacent in the</span>
+<span class="sd">    state vector, eg if the turn occurs in the x-z plane but the state vector</span>
+<span class="sd">    is of the form :math:`(x,y,z)`. The list of transition models are to be</span>
+<span class="sd">    applied to any state variables that lie in between, eg if for the above</span>
+<span class="sd">    example you wanted the y component to move with constant velocity, you</span>
+<span class="sd">    would put a :class:`~.ConstantVelocity` model in the list.</span>
+
+<span class="sd">    The target is assumed to move with (nearly) constant velocity and also</span>
+<span class="sd">    unknown (nearly) constant turn rate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_list</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">GaussianTransitionModel</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;List of Transition Models.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;ndim_state getter method</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`int`</span>
+<span class="sd">            The number of combined model state dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">ndim_state</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span>
+
+<div class="viewcode-block" id="ConstantTurnSandwich.function"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurnSandwich.function">[docs]</a>    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StateVector</span><span class="p">:</span>
+        <span class="n">state_tmp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">sv_in</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span>
+        <span class="n">sv1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">sv_in</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:],</span> <span class="n">sv_in</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:]))</span>
+        <span class="n">state_tmp</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">sv1</span>
+        <span class="c1"># Calculate state vector for CT model</span>
+        <span class="n">sv_ct</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">state_tmp</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Calculate state vector for model list</span>
+        <span class="n">idx1</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">sv_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">sv_ct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:]]</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">:</span>
+            <span class="n">idx2</span> <span class="o">=</span> <span class="n">idx1</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">ndim</span>
+            <span class="n">state_tmp</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">=</span> <span class="n">sv_in</span><span class="p">[</span><span class="n">idx1</span><span class="p">:</span><span class="n">idx2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:]</span>
+            <span class="n">sv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">state_tmp</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+            <span class="n">idx1</span> <span class="o">=</span> <span class="n">idx2</span>
+        <span class="n">sv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_ct</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:])</span>
+        <span class="n">sv_out</span> <span class="o">=</span> <span class="n">StateVectors</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">sv_list</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="n">noise</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">noise</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">noise</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">sv_out</span> <span class="o">+</span> <span class="n">noise</span></div>
+
+<div class="viewcode-block" id="ConstantTurnSandwich.covar"><a class="viewcode-back" href="../../../../smartfusion.models.transition.html#smartfusion.models.transition.nonlinear.ConstantTurnSandwich.covar">[docs]</a>    <span class="k">def</span> <span class="nf">covar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the transition model noise covariance matrix.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`smartfusion.types.state.CovarianceMatrix` of shape\</span>
+<span class="sd">        (:py:attr:`~ndim_state`, :py:attr:`~ndim_state`)</span>
+<span class="sd">            The process noise covariance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">C_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">])</span>
+        <span class="n">C_ct</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">covar_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">time_interval</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">]</span>
+
+        <span class="c1"># Assemble diag block components</span>
+        <span class="n">C_t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">block_diag</span><span class="p">(</span><span class="o">*</span><span class="n">covar_list</span><span class="p">)</span>
+        <span class="n">C_t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">C_ct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">C_t</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">C_ct</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="c1"># Reorder offdiagonal elements</span>
+        <span class="n">C_t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">:,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">C_ct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="n">C_t</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">C_ct</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">C_t</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

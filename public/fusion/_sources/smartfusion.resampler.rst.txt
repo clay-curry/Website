@@ -1,0 +1,14 @@
+Resampler
+==========
+
+.. automodule:: smartfusion.resampler
+    :no-members:
+
+.. automodule:: smartfusion.resampler.base
+    :show-inheritance:
+
+Particle
+--------
+
+.. automodule:: smartfusion.resampler.particle
+    :show-inheritance:

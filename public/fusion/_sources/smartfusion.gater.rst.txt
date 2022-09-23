@@ -1,0 +1,20 @@
+Gater
+=====
+
+.. automodule:: smartfusion.gater
+    :no-members:
+
+.. automodule:: smartfusion.gater.base
+    :show-inheritance:
+
+Distance
+--------
+
+.. automodule:: smartfusion.gater.distance
+   :show-inheritance:
+
+Filtered
+--------
+
+.. automodule:: smartfusion.gater.filtered
+   :show-inheritance:

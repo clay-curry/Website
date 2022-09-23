@@ -1,0 +1,11 @@
+Mixture Reducers
+================
+
+.. automodule:: smartfusion.mixturereducer
+    :no-members:
+
+.. automodule:: smartfusion.mixturereducer.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.mixturereducer.gaussianmixture
+    :show-inheritance:

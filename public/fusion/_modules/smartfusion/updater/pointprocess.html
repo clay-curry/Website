@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.updater.pointprocess &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.updater.pointprocess</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/updater/pointprocess" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.updater.pointprocess</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Base</span><span class="p">,</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">.kalman</span> <span class="kn">import</span> <span class="n">KalmanUpdater</span>
+<span class="kn">from</span> <span class="nn">..types.update</span> <span class="kn">import</span> <span class="n">GaussianMixtureUpdate</span>
+<span class="kn">from</span> <span class="nn">..types.state</span> <span class="kn">import</span> <span class="n">TaggedWeightedGaussianState</span>
+<span class="kn">from</span> <span class="nn">..types.numeric</span> <span class="kn">import</span> <span class="n">Probability</span>
+
+
+<div class="viewcode-block" id="PointProcessUpdater"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.pointprocess.PointProcessUpdater">[docs]</a><span class="k">class</span> <span class="nc">PointProcessUpdater</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base updater class for the implementation of any Gaussian Mixture (GM)</span>
+<span class="sd">    point process derived multi target filters such as the</span>
+<span class="sd">    Probability Hypothesis Density (PHD),</span>
+<span class="sd">    Cardinalised Probability Hypothesis Density (CPHD) or</span>
+<span class="sd">    Linear Complexity with Cumulants (LCC) filters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">updater</span><span class="p">:</span> <span class="n">KalmanUpdater</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Underlying updater used to perform the </span><span class="se">\</span>
+<span class="s2">             single target Kalman Update.&quot;</span><span class="p">)</span>
+    <span class="n">clutter_spatial_density</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">1e-26</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Spatial density of the clutter process uniformly</span><span class="se">\</span>
+<span class="s2">             distributed across the state space.&quot;</span><span class="p">)</span>
+    <span class="n">normalisation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Flag for normalisation&quot;</span><span class="p">)</span>
+    <span class="n">prob_detection</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability of a target being detected at the current timestep&quot;</span><span class="p">)</span>
+    <span class="n">prob_survival</span><span class="p">:</span> <span class="n">Probability</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability of a target surviving until the next timestep&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PointProcessUpdater.update"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.pointprocess.PointProcessUpdater.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the current components in a</span>
+<span class="sd">        :class:`GaussianMixture` by applying the underlying \</span>
+<span class="sd">        :class:`KalmanUpdater` updater to each component \</span>
+<span class="sd">        with the supplied measurements.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        hypotheses : list of :class:`MultipleHypothesis`</span>
+<span class="sd">            Measurements obtained at time :math:`k+1`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        =======</span>
+<span class="sd">        updated_components : :class:`GaussianMixtureUpdate`</span>
+<span class="sd">            GaussianMixtureMultiTargetTracker with updated \</span>
+<span class="sd">            components at time :math:`k+1`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">updated_components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">weight_sum_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="c1"># Loop over all measurements</span>
+        <span class="k">for</span> <span class="n">multi_hypothesis</span> <span class="ow">in</span> <span class="n">hypotheses</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">updated_measurement_components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="c1"># Initialise weight sum for measurement to clutter intensity</span>
+            <span class="n">weight_sum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># For every valid single hypothesis, update that component with</span>
+            <span class="c1"># measurements and calculate new weight</span>
+            <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">multi_hypothesis</span><span class="p">:</span>
+                <span class="n">measurement_prediction</span> <span class="o">=</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">predict_measurement</span><span class="p">(</span>
+                            <span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="p">,</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">measurement_model</span><span class="p">)</span>
+                <span class="n">measurement</span> <span class="o">=</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">measurement</span>
+                <span class="n">prediction</span> <span class="o">=</span> <span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span>
+                <span class="c1"># Calculate new weight and add to weight sum</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span>
+                    <span class="n">measurement</span><span class="o">.</span><span class="n">state_vector</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                    <span class="n">mean</span><span class="o">=</span><span class="n">measurement_prediction</span><span class="o">.</span><span class="n">mean</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                    <span class="n">cov</span><span class="o">=</span><span class="n">measurement_prediction</span><span class="o">.</span><span class="n">covar</span>
+                <span class="p">)</span>
+                <span class="n">new_weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_detection</span>\
+                    <span class="o">*</span> <span class="n">prediction</span><span class="o">.</span><span class="n">weight</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_survival</span>
+                <span class="n">weight_sum</span> <span class="o">+=</span> <span class="n">new_weight</span>
+                <span class="c1"># Perform single target Kalman Update</span>
+                <span class="n">temp_updated_component</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">hypothesis</span><span class="p">)</span>
+                <span class="n">updated_component</span> <span class="o">=</span> <span class="n">TaggedWeightedGaussianState</span><span class="p">(</span>
+                    <span class="n">tag</span><span class="o">=</span><span class="n">prediction</span><span class="o">.</span><span class="n">tag</span> <span class="k">if</span> <span class="n">prediction</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">&quot;birth&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">weight</span><span class="o">=</span><span class="n">new_weight</span><span class="p">,</span>
+                    <span class="n">state_vector</span><span class="o">=</span><span class="n">temp_updated_component</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+                    <span class="n">covar</span><span class="o">=</span><span class="n">temp_updated_component</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">temp_updated_component</span><span class="o">.</span><span class="n">timestamp</span>
+                <span class="p">)</span>
+                <span class="c1"># Add updated component to mixture</span>
+                <span class="n">updated_measurement_components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">updated_component</span><span class="p">)</span>
+            <span class="n">weight_sum_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_sum</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">updated_measurement_components</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalisation</span><span class="p">:</span>
+                    <span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="o">/=</span> \
+                        <span class="p">(</span><span class="n">weight_sum</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">clutter_spatial_density</span><span class="p">)</span>
+                <span class="n">updated_components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the correction terms</span>
+        <span class="n">l1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_update_terms</span><span class="p">(</span><span class="n">weight_sum_list</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">missed_detected_hypotheses</span> <span class="ow">in</span> <span class="n">hypotheses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="c1"># Add all active components except birth component back into</span>
+            <span class="c1"># mixture as miss detected components</span>
+            <span class="k">if</span> <span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">&quot;birth&quot;</span><span class="p">:</span>
+                <span class="n">component</span> <span class="o">=</span> <span class="n">TaggedWeightedGaussianState</span><span class="p">(</span>
+                    <span class="n">tag</span><span class="o">=</span><span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span>
+                    <span class="n">weight</span><span class="o">=</span><span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">weight</span>
+                    <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_detection</span><span class="p">)</span> <span class="o">*</span> <span class="n">l1</span><span class="p">,</span>
+                    <span class="n">state_vector</span><span class="o">=</span><span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+                    <span class="n">covar</span><span class="o">=</span><span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">,</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">missed_detected_hypotheses</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+                <span class="n">updated_components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+
+        <span class="c1"># Ensure that no component has a weight of 0. This avoids divide</span>
+        <span class="c1"># by 0 bugs in the GaussianMixtureReducer</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">updated_components</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">component</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+
+        <span class="c1"># Return updated components</span>
+        <span class="k">return</span> <span class="n">GaussianMixtureUpdate</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">=</span><span class="n">hypotheses</span><span class="p">,</span>
+                                     <span class="n">components</span><span class="o">=</span><span class="n">updated_components</span><span class="p">)</span></div>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_calculate_update_terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">updated_sum_list</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="PHDUpdater"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.pointprocess.PHDUpdater">[docs]</a><span class="k">class</span> <span class="nc">PHDUpdater</span><span class="p">(</span><span class="n">PointProcessUpdater</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A implementation of the Gaussian Mixture</span>
+<span class="sd">    Probability Hypothesis Density (GM-PHD) multi-target filter</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    [1] B.-N. Vo and W.-K. Ma, “The Gaussian Mixture Probability Hypothesis</span>
+<span class="sd">    Density Filter,” Signal Processing,IEEE Transactions on, vol. 54, no. 11,</span>
+<span class="sd">    pp. 4091–4104, 2006. https://ieeexplore.ieee.org/document/1710358.</span>
+
+<span class="sd">    [2] D. E. Clark, K. Panta and B. Vo, &quot;The GM-PHD Filter Multiple Target Tracker,&quot; 2006 9th</span>
+<span class="sd">    International Conference on Information Fusion, 2006, pp. 1-8, doi: 10.1109/ICIF.2006.301809.</span>
+<span class="sd">    https://ieeexplore.ieee.org/document/4086095.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_calculate_update_terms</span><span class="p">(</span><span class="n">updated_sum_list</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="LCCUpdater"><a class="viewcode-back" href="../../../smartfusion.updater.html#smartfusion.updater.pointprocess.LCCUpdater">[docs]</a><span class="k">class</span> <span class="nc">LCCUpdater</span><span class="p">(</span><span class="n">PointProcessUpdater</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A implementation of the Gaussian Mixture</span>
+<span class="sd">    Linear Complexity with Cumulants (GM-LCC) multi-target filter</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    [1] D. E. Clark and F. De Melo. “A Linear-Complexity Second-Order</span>
+<span class="sd">        Multi-Object Filter via Factorial Cumulants”.</span>
+<span class="sd">        In: 2018 21st International Conference on</span>
+<span class="sd">        Information Fusion (FUSION). 2018. DOI: 10.</span>
+<span class="sd">        23919/ICIF.2018.8455331. https://ieeexplore.ieee.org/document/8455331..</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean_number_of_false_alarms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Mean number of false alarms (clutter) expected per timestep&quot;</span><span class="p">)</span>
+    <span class="n">variance_of_false_alarms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Variance on the number of false alarms (clutter) expected per timestep&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_order_cumulant</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_update_terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">updated_sum_list</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the higher order terms used in the LCC Filter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the predicted weight sum</span>
+        <span class="n">predicted_weight_sum</span> <span class="o">=</span>\
+            <span class="n">Probability</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span><span class="o">.</span><span class="n">weight</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span>
+                            <span class="n">hypotheses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_survival</span>
+        <span class="c1"># Second order predicted cumulant c(2)</span>
+        <span class="n">predicted_c2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_order_cumulant</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_survival</span><span class="o">**</span><span class="mi">2</span>
+        <span class="c1"># Detected predicted weight mu_d</span>
+        <span class="n">detected_weight_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_detection</span><span class="o">*</span><span class="n">predicted_weight_sum</span>
+        <span class="c1"># Detected predicted weight mu_phi</span>
+        <span class="n">misdetected_weight_sum</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_detection</span><span class="p">)</span><span class="o">*</span><span class="n">predicted_weight_sum</span>
+        <span class="c1"># Calculate the alpha of the predicted Panjer process</span>
+        <span class="n">alpha_pred</span> <span class="o">=</span> <span class="p">((</span><span class="n">predicted_weight_sum</span> <span class="o">+</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">mean_number_of_false_alarms</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>\
+            <span class="o">/</span> <span class="p">(</span><span class="n">predicted_c2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">second_order_false_alarm_cumulant</span><span class="o">+</span><span class="mf">1e-26</span><span class="p">)</span>
+        <span class="c1"># Calculate l1 and l2 correction factors</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">alpha_pred</span> <span class="o">+</span> <span class="n">detected_weight_sum</span> \
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_number_of_false_alarms</span>
+        <span class="n">number_of_measurements</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="n">alpha_pred</span> <span class="o">+</span> <span class="n">number_of_measurements</span>
+        <span class="n">l1</span> <span class="o">=</span> <span class="n">numerator</span><span class="o">/</span><span class="n">denominator</span>
+        <span class="n">l2</span> <span class="o">=</span> <span class="n">numerator</span><span class="o">/</span><span class="p">(</span><span class="n">denominator</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Calculate updated c(2)</span>
+        <span class="n">detected_c2</span> <span class="o">=</span> \
+            <span class="n">Probability</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">weight_sum</span><span class="o">/</span><span class="p">((</span><span class="n">weight_sum</span> <span class="o">+</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">clutter_spatial_density</span><span class="p">)</span>
+                             <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">weight_sum</span> <span class="ow">in</span> <span class="n">updated_sum_list</span><span class="p">])</span>
+        <span class="n">misdetected_c2</span> <span class="o">=</span> <span class="p">(</span><span class="n">misdetected_weight_sum</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">l2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_order_cumulant</span> <span class="o">=</span> <span class="n">misdetected_c2</span> <span class="o">-</span> <span class="n">detected_c2</span>
+        <span class="c1"># Return the l1 correction factor for miss detected weight update</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_order_false_alarm_cumulant</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance_of_false_alarms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_number_of_false_alarms</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

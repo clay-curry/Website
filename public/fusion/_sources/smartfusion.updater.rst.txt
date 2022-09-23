@@ -1,0 +1,68 @@
+Updaters
+========
+
+.. automodule:: smartfusion.updater
+    :no-members:
+
+.. automodule:: smartfusion.updater.base
+    :show-inheritance:
+
+Kalman
+------
+
+.. automodule:: smartfusion.updater.kalman
+    :show-inheritance:
+
+Particle
+--------
+
+.. automodule:: smartfusion.updater.particle
+    :show-inheritance:
+
+Ensemble
+--------
+
+.. automodule:: smartfusion.updater.ensemble
+    :show-inheritance:
+
+Information
+-----------
+
+.. automodule:: smartfusion.updater.information
+    :show-inheritance:
+
+Point Process
+-------------
+
+.. automodule:: smartfusion.updater.pointprocess
+    :show-inheritance:
+
+AlphaBeta
+---------
+
+.. automodule:: smartfusion.updater.alphabeta
+    :show-inheritance:
+
+Sliding Innovation Filter
+-------------------------
+
+.. automodule:: smartfusion.updater.slidinginnovation
+    :show-inheritance:
+
+Categorical
+-----------
+
+.. automodule:: smartfusion.updater.categorical
+    :show-inheritance:
+
+Composite
+-----------
+
+.. automodule:: smartfusion.updater.composite
+    :show-inheritance:
+
+Chernoff
+--------
+
+.. automodule:: smartfusion.updater.chernoff
+    :show-inheritance:

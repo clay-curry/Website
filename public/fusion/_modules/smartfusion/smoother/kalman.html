@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.smoother.kalman &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.smoother.kalman</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/smoother/kalman" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.smoother.kalman</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Smoother</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+<span class="kn">from</span> <span class="nn">..types.multihypothesis</span> <span class="kn">import</span> <span class="n">MultipleHypothesis</span>
+<span class="kn">from</span> <span class="nn">..types.prediction</span> <span class="kn">import</span> <span class="n">Prediction</span><span class="p">,</span> <span class="n">GaussianStatePrediction</span>
+<span class="kn">from</span> <span class="nn">..types.update</span> <span class="kn">import</span> <span class="n">Update</span><span class="p">,</span> <span class="n">GaussianStateUpdate</span>
+<span class="kn">from</span> <span class="nn">..models.base</span> <span class="kn">import</span> <span class="n">LinearModel</span>
+<span class="kn">from</span> <span class="nn">..models.transition.base</span> <span class="kn">import</span> <span class="n">TransitionModel</span>
+<span class="kn">from</span> <span class="nn">..models.transition.linear</span> <span class="kn">import</span> <span class="n">LinearGaussianTransitionModel</span>
+<span class="kn">from</span> <span class="nn">..functions</span> <span class="kn">import</span> <span class="n">gauss2sigma</span><span class="p">,</span> <span class="n">unscented_transform</span>
+
+
+<div class="viewcode-block" id="KalmanSmoother"><a class="viewcode-back" href="../../../smartfusion.smoother.html#smartfusion.smoother.kalman.KalmanSmoother">[docs]</a><span class="k">class</span> <span class="nc">KalmanSmoother</span><span class="p">(</span><span class="n">Smoother</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The linear-Gaussian or Rauch-Tung-Striebel smoother, colloquially the Kalman smoother [1]_. The</span>
+<span class="sd">    transition model is therefore linear-Gaussian. No control model is currently implemented.</span>
+
+<span class="sd">    TODO: Include a control model</span>
+
+<span class="sd">    The smooth function undertakes the backward algorithm on a :class:`~.Track()` object. This is</span>
+<span class="sd">    done by starting at the final index in the track, :math:`K` and proceeding from</span>
+<span class="sd">    :math:`K \rightarrow 1` via:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \mathbf{x}_{k|k-1} &amp;= F_{k} \mathbf{x}_{k-1}</span>
+
+<span class="sd">        P_{k|k-1} &amp;= F_{k} P_{k-1} F_{k}^T + Q_{k}</span>
+
+<span class="sd">        G_k &amp;= P_{k-1} F_{k}^T P_{k|k-1}^{-1}</span>
+
+<span class="sd">        \mathbf{x}_{k-1}^s &amp;= \mathbf{x}_{k-1} + G_k (\mathbf{x}_{k}^s - \mathbf{x}_{k|k-1})</span>
+
+<span class="sd">        P_{k-1}^s &amp;= P_{k-1} + G_k (P_{k}^s - P_{k|k-1}) G_k^T</span>
+
+<span class="sd">    where :math:`\mathbf{x}_{K}^s = \mathbf{x}_{K}` and :math:`P_K^s = P_K`.</span>
+
+<span class="sd">    The predicted state vector and covariance are retrieved from the Track via predicted state or</span>
+<span class="sd">    updated state via the links therein. Note that this means that the first two equations are not</span>
+<span class="sd">    calculated, the results merely retrieved. This smoother is therefore strictly Kalman only in</span>
+<span class="sd">    the backward portion. The prediction might have come by any number of means. If present, the</span>
+<span class="sd">    transition model (providing :math:`F` and :math:`Q`) in the prediction is used. This allows for</span>
+<span class="sd">    a dynamic transition model (i.e. one that changes with :math:`k`). Otherwise, the (static)</span>
+<span class="sd">    transition model is used, defined on smoother initialisation.</span>
+
+<span class="sd">    References</span>
+
+<span class="sd">    .. [1] Särkä S. 2013, Bayesian filtering and smoothing, Cambridge University Press</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">transition_model</span><span class="p">:</span> <span class="n">LinearGaussianTransitionModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The transition model. The :meth:`smooth` function will initially look for a &quot;</span>
+            <span class="s2">&quot;transition model in the prediction. If that is not found then this one is used.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return the predicted state, either from the prediction directly, or from the attached</span>
+<span class="sd">        hypothesis if the queried state is an Update. If not a :class:`~.GaussianStatePrediction`</span>
+<span class="sd">        or :class:`~.GaussianStateUpdate` a :class:`~.TypeError` is thrown.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.GaussianStatePrediction` or :class:`~.GaussianStateUpdate`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : :class:`~.GaussianStatePrediction`</span>
+<span class="sd">            The prediction associated with the prediction (i.e. itself), or the prediction from the</span>
+<span class="sd">            hypothesis used to generate an update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">GaussianStatePrediction</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">state</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">GaussianStateUpdate</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">hypothesis</span><span class="p">,</span> <span class="n">MultipleHypothesis</span><span class="p">):</span>
+                <span class="n">predictions</span> <span class="o">=</span> <span class="p">{</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span> <span class="k">for</span> <span class="n">hypothesis</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">hypothesis</span><span class="p">}</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># One predictions, this is fine to use.</span>
+                    <span class="k">return</span> <span class="n">predictions</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Multiple predictions, so can&#39;t process this.</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Track has MultipleHypothesis updates with multiple predictions.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">hypothesis</span><span class="o">.</span><span class="n">prediction</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;States must be GaussianStatePredictions or GaussianStateUpdates.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_transition_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; If it exists, return the transition model from the prediction associated with input</span>
+<span class="sd">        state. If that doesn&#39;t exist then use the (static) transition model defined by the</span>
+<span class="sd">        smoother.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.GaussianStatePrediction` or :class:`~.GaussianStateUpdate`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : :class:`~.TransitionModel`</span>
+<span class="sd">            The transition model to be associated with state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Is there a transition model linked to the prediction?</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prediction</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="s2">&quot;transition_model&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">transition_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">transition_model</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># No? Return the class attribute</span>
+            <span class="n">transition_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transition_model</span>
+
+        <span class="k">return</span> <span class="n">transition_model</span>
+
+    <span class="k">def</span> <span class="nf">_transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return the transition matrix</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            The input state (to check for a linked prediction)</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            These are passed to the :meth:`matrix()` function</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : :class:`numpy.ndarray`</span>
+<span class="sd">            The transition matrix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transition_model</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_smooth_gain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the smoothing gain</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            The input state</span>
+<span class="sd">        prediction : :class:`~.GaussianStatePrediction`</span>
+<span class="sd">            The prediction (from the subsequent state)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : Matrix</span>
+<span class="sd">            The smoothing gain</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">covar</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transition_matrix</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+            <span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KalmanSmoother.smooth"><a class="viewcode-back" href="../../../smartfusion.smoother.html#smartfusion.smoother.kalman.KalmanSmoother.smooth">[docs]</a>    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform the backward recursion to smooth the track.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track : :class:`~.Track`</span>
+<span class="sd">            The input track.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : :class:`~.Track`</span>
+<span class="sd">            Smoothed track</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">subsq_state</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">smoothed_states</span> <span class="o">=</span> <span class="p">[</span><span class="n">subsq_state</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">track</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+
+            <span class="c1"># Delta t</span>
+            <span class="n">time_interval</span> <span class="o">=</span> <span class="n">subsq_state</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">timestamp</span>
+
+            <span class="c1"># Retrieve the prediction from the subsequent (k+1th) timestep accessed previously</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction</span><span class="p">(</span><span class="n">subsq_state</span><span class="p">)</span>
+            <span class="c1"># The smoothing gain, mean and covariance</span>
+            <span class="n">ksmooth_gain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smooth_gain</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">time_interval</span><span class="o">=</span><span class="n">time_interval</span><span class="p">)</span>
+            <span class="n">smooth_mean</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">+</span> <span class="n">ksmooth_gain</span> <span class="o">@</span> <span class="p">(</span><span class="n">subsq_state</span><span class="o">.</span><span class="n">state_vector</span> <span class="o">-</span>
+                                                               <span class="n">prediction</span><span class="o">.</span><span class="n">state_vector</span><span class="p">)</span>
+            <span class="n">smooth_covar</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">covar</span> <span class="o">+</span> \
+                <span class="n">ksmooth_gain</span> <span class="o">@</span> <span class="p">(</span><span class="n">subsq_state</span><span class="o">.</span><span class="n">covar</span> <span class="o">-</span> <span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span> <span class="o">@</span> <span class="n">ksmooth_gain</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="c1"># Create a new type called SmoothedState?</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">Update</span><span class="p">):</span>
+                <span class="n">subsq_state</span> <span class="o">=</span> <span class="n">Update</span><span class="o">.</span><span class="n">from_state</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">smooth_mean</span><span class="p">,</span> <span class="n">smooth_covar</span><span class="p">,</span>
+                                                <span class="n">timestamp</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                                                <span class="n">hypothesis</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">hypothesis</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">Prediction</span><span class="p">):</span>
+                <span class="n">subsq_state</span> <span class="o">=</span> <span class="n">Prediction</span><span class="o">.</span><span class="n">from_state</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">smooth_mean</span><span class="p">,</span> <span class="n">smooth_covar</span><span class="p">,</span>
+                                                    <span class="n">timestamp</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+
+            <span class="n">smoothed_states</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">subsq_state</span><span class="p">)</span>
+
+        <span class="c1"># Deep copy existing track, but avoid copying original states, as this would be super</span>
+        <span class="c1"># expensive. This works by informing deepcopy that the smoothed states are the</span>
+        <span class="c1"># replacement object for the original track states.</span>
+        <span class="n">smoothed_track</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">states</span><span class="p">):</span> <span class="n">smoothed_states</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">smoothed_track</span></div></div>
+
+
+<div class="viewcode-block" id="ExtendedKalmanSmoother"><a class="viewcode-back" href="../../../smartfusion.smoother.html#smartfusion.smoother.kalman.ExtendedKalmanSmoother">[docs]</a><span class="k">class</span> <span class="nc">ExtendedKalmanSmoother</span><span class="p">(</span><span class="n">KalmanSmoother</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot; The extended version of the Kalman smoother. The equations are modified slightly,</span>
+<span class="sd">    analogously to the extended Kalman filter,</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \mathbf{x}_{k|k-1} &amp;= f_{k} (\mathbf{x}_{k-1})</span>
+
+<span class="sd">        F_k &amp;\approx J_f (\mathbf{x}_{k-1})</span>
+
+<span class="sd">    where :math:`J_f (\mathbf{x}_{k-1})` is the Jacobian matrix evaluated at</span>
+<span class="sd">    :math:`\mathbf{x}_{k-1}`. The rest of the calculation proceeds as with the Kalman smoother.</span>
+
+<span class="sd">    In fact the first equation isn&#39;t calculated -- it&#39;s presumed to have been undertaken by a</span>
+<span class="sd">    filter when building the track; similarly for the predicted covariance. In practice, the only</span>
+<span class="sd">    difference between this and the Kalman smoother is in the use of the linearised transition</span>
+<span class="sd">    matrix to calculate the smoothing gain.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transition_model</span><span class="p">:</span> <span class="n">TransitionModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The transition model to be used.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the transition matrix, a matrix if the model is linear, or</span>
+<span class="sd">        approximated as Jacobian otherwise.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            :math:`\mathbf{x}_{k-1}`</span>
+<span class="sd">        **kwargs : various, optional</span>
+<span class="sd">            These are passed to :meth:`~.TransitionModel.matrix` or</span>
+<span class="sd">            :meth:`~.TransitionModel.jacobian`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        : :class:`numpy.ndarray`</span>
+<span class="sd">            The transition matrix, :math:`F_k`, if linear (i.e.</span>
+<span class="sd">            :meth:`TransitionModel.matrix` exists, or</span>
+<span class="sd">            :meth:`~.TransitionModel.jacobian` if not)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transition_model</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="n">LinearModel</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transition_model</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transition_model</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnscentedKalmanSmoother"><a class="viewcode-back" href="../../../smartfusion.smoother.html#smartfusion.smoother.kalman.UnscentedKalmanSmoother">[docs]</a><span class="k">class</span> <span class="nc">UnscentedKalmanSmoother</span><span class="p">(</span><span class="n">KalmanSmoother</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The unscented version of the Kalman filter. As with the parent version of the Kalman</span>
+<span class="sd">    smoother, the mean and covariance of the prediction are retrieved from the track. The</span>
+<span class="sd">    unscented transform is used to calculate the smoothing gain.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transition_model</span><span class="p">:</span> <span class="n">TransitionModel</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;The transition model to be used.&quot;</span><span class="p">)</span>
+
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Primary sigma point spread scaling parameter. Default is 0.5.&quot;</span><span class="p">)</span>
+    <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Used to incorporate prior knowledge of the distribution. If the &quot;</span>
+            <span class="s2">&quot;true distribution is Gaussian, the value of 2 is optimal. &quot;</span>
+            <span class="s2">&quot;Default is 2&quot;</span><span class="p">)</span>
+    <span class="n">kappa</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Secondary spread scaling parameter. Default is calculated as &quot;</span>
+            <span class="s2">&quot;3-Ns&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_smooth_gain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the smoothing gain</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : :class:`~.State`</span>
+<span class="sd">            The input state</span>
+<span class="sd">        prediction : :class:`~.GaussianStatePrediction`</span>
+<span class="sd">            The prediction from the subsequent timestep</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">         : Matrix</span>
+<span class="sd">            The smoothing gain</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This ensures that the time interval is correctly applied.</span>
+        <span class="n">transition_function</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transition_model</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">function</span><span class="p">,</span>
+            <span class="n">time_interval</span><span class="o">=</span><span class="n">time_interval</span><span class="p">)</span>
+
+        <span class="c1"># Get the sigma points from the mean and covariance.</span>
+        <span class="n">sigma_point_states</span><span class="p">,</span> <span class="n">mean_weights</span><span class="p">,</span> <span class="n">covar_weights</span> <span class="o">=</span> <span class="n">gauss2sigma</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span><span class="p">)</span>
+
+        <span class="c1"># Use the unscented transform to return the cross-covariance</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">cross_covar</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">unscented_transform</span><span class="p">(</span>
+            <span class="n">sigma_point_states</span><span class="p">,</span> <span class="n">mean_weights</span><span class="p">,</span> <span class="n">covar_weights</span><span class="p">,</span>
+            <span class="n">transition_function</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cross_covar</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">prediction</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

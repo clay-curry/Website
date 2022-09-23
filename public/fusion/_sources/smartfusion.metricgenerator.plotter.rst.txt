@@ -1,0 +1,5 @@
+Plotter Metric
+==============
+
+.. automodule:: smartfusion.metricgenerator.plotter
+    :show-inheritance:

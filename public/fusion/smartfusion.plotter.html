@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plotter &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Plugins" href="smartfusion.plugins.html" />
+    <link rel="prev" title="Measures" href="smartfusion.measures.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+      <li>Plotter</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.plotter.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion.plotter">
+<span id="plotter"></span><h1>Plotter<a class="headerlink" href="#module-smartfusion.plotter" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.plotter.Dimension">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.plotter.</span></span><span class="sig-name descname"><span class="pre">Dimension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Dimension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Dimension" title="Permalink to this definition"></a></dt>
+<dd><p>Dimension Enum class for specifying plotting parameters in the Plotter class.
+Used to sanitize inputs for the dimension attribute of Plotter().</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Dimension.TWO">
+<span class="sig-name descname"><span class="pre">TWO</span></span><a class="headerlink" href="#smartfusion.plotter.Dimension.TWO" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies 2D plotting for Plotter object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Dimension.THREE">
+<span class="sig-name descname"><span class="pre">THREE</span></span><a class="headerlink" href="#smartfusion.plotter.Dimension.THREE" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies 3D plotting for Plotter object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.plotter.</span></span><span class="sig-name descname"><span class="pre">Plotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Dimension.TWO</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter" title="Permalink to this definition"></a></dt>
+<dd><p>Plotting class for building graphs of SMART FUSION simulations using matplotlib</p>
+<p>A plotting class which is used to simplify the process of plotting ground truths,
+measurements, clutter and tracks. Tracks can be plotted with uncertainty ellipses or
+particles if required. Legends are automatically generated with each plot.
+Three dimensional plots can be created using the optional dimension parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>enum 'Dimension'</em>) – Optional parameter to specify 2D or 3D plotting. Default is 2D plotting.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function. For example, figsize (Default is
+(10, 6)).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.fig">
+<span class="sig-name descname"><span class="pre">fig</span></span><a class="headerlink" href="#smartfusion.plotter.Plotter.fig" title="Permalink to this definition"></a></dt>
+<dd><p>Generated figure for graphs to be plotted on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.6.0)">matplotlib.figure.Figure</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.ax">
+<span class="sig-name descname"><span class="pre">ax</span></span><a class="headerlink" href="#smartfusion.plotter.Plotter.ax" title="Permalink to this definition"></a></dt>
+<dd><p>Generated axes for graphs to be plotted on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)">matplotlib.axes.Axes</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.legend_dict">
+<span class="sig-name descname"><span class="pre">legend_dict</span></span><a class="headerlink" href="#smartfusion.plotter.Plotter.legend_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of legend handles as <a class="reference external" href="https://matplotlib.org/stable/api/legend_handler_api.html#matplotlib.legend_handler.HandlerBase" title="(in Matplotlib v3.6.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.legend_handler.HandlerBase</span></code></a>
+and labels as str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.plot_ground_truths">
+<span class="sig-name descname"><span class="pre">plot_ground_truths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">truths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truths_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Ground</span> <span class="pre">Truth'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.plot_ground_truths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.plot_ground_truths" title="Permalink to this definition"></a></dt>
+<dd><p>Plots ground truth(s)</p>
+<p>Plots each ground truth path passed in to <code class="xref py py-attr docutils literal notranslate"><span class="pre">truths</span></code> and generates a legend
+automatically. Ground truths are plotted as dashed lines with default colors.</p>
+<p>Users can change linestyle, color and marker using keyword arguments. Any changes
+will apply to all ground truths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>truths</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a>) – Collection of  ground truths which will be plotted. If not a collection and instead a
+single <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> type, the argument is modified to be a set to allow
+for iteration.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position components of the state space.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function. Default is <code class="docutils literal notranslate"><span class="pre">linestyle=&quot;--&quot;</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.plot_measurements">
+<span class="sig-name descname"><span class="pre">plot_measurements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurements_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Measurements'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.plot_measurements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.plot_measurements" title="Permalink to this definition"></a></dt>
+<dd><p>Plots measurements</p>
+<p>Plots detections and clutter, generating a legend automatically. Detections are plotted as
+blue circles by default unless the detection type is clutter.
+If the detection type is <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Clutter" title="smartfusion.types.detection.Clutter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code></a> it is plotted as a yellow ‘tri-up’ marker.</p>
+<p>Users can change the color and marker of detections using keyword arguments but not for
+clutter detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurements</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections which will be plotted. If measurements is a set of lists it is flattened.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position components of the state space.</p></li>
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model" title="smartfusion.models.base.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a>, optional) – User-defined measurement model to be used in finding measurement state inverses if
+they cannot be found from the measurements themselves.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function for detections. Defaults are
+<code class="docutils literal notranslate"><span class="pre">marker='o'</span></code> and <code class="docutils literal notranslate"><span class="pre">color='b'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.plot_tracks">
+<span class="sig-name descname"><span class="pre">plot_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Tracks'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">err_freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.plot_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.plot_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Plots track(s)</p>
+<p>Plots each track generated, generating a legend automatically. If <code class="docutils literal notranslate"><span class="pre">uncertainty=True</span></code>
+and is being plotted in 2D, error ellipses are plotted. If being plotted in
+3D, uncertainty bars are plotted every <code class="xref py py-attr docutils literal notranslate"><span class="pre">err_freq</span></code> measurement, default
+plots uncertainty bars at every track step. Tracks are plotted as solid
+lines with point markers and default colors. Uncertainty bars are plotted
+with a default color which is the same for all tracks.</p>
+<p>Users can change linestyle, color and marker using keyword arguments. Uncertainty metrics
+will also be plotted with the user defined colour and any changes will apply to all tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Collection of tracks which will be plotted. If not a collection, and instead a single
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> type, the argument is modified to be a set to allow for iteration.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position
+components of the state space.</p></li>
+<li><p><strong>uncertainty</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, function plots uncertainty ellipses or bars.</p></li>
+<li><p><strong>particle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, function plots particles.</p></li>
+<li><p><strong>track_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Label to apply to all tracks for legend.</p></li>
+<li><p><strong>err_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Frequency of error bar plotting on tracks. Default value is 1, meaning
+error bars are plotted at every track step.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function. Defaults are <code class="docutils literal notranslate"><span class="pre">linestyle=&quot;-&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">marker='s'</span></code> for <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> and <code class="docutils literal notranslate"><span class="pre">marker='o'</span></code> for other states.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.plot_sensors">
+<span class="sig-name descname"><span class="pre">plot_sensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Sensors'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.plot_sensors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.plot_sensors" title="Permalink to this definition"></a></dt>
+<dd><p>Plots sensor(s)</p>
+<p>Plots sensors.  Users can change the color and marker of detections using keyword
+arguments. Default is a black ‘x’ marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (Collection of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>) – Sensors to plot</p></li>
+<li><p><strong>sensor_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Label to apply to all tracks for legend.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function for detections. Defaults are
+<code class="docutils literal notranslate"><span class="pre">marker='x'</span></code> and <code class="docutils literal notranslate"><span class="pre">color='black'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.set_equal_3daxis">
+<span class="sig-name descname"><span class="pre">set_equal_3daxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.set_equal_3daxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.set_equal_3daxis" title="Permalink to this definition"></a></dt>
+<dd><p>Plots minimum/maximum points with no linestyle to increase the plotting region to
+simulate <cite>.ax.axis(‘equal’)</cite> from matplotlib 2d plots which is not possible using 3d
+projection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of dimension index specifying the equal axes, equal x and y = [0,1].
+Default is x,y [0,1].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotter.ellipse_legend">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ellipse_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotter.ellipse_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotter.ellipse_legend" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an ellipse patch to the legend on the axes. One patch added for each item in
+<cite>label_list</cite> with the corresponding color from <cite>color_list</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)"><em>matplotlib.axes.Axes</em></a>) – Looks at the plot axes defined</p></li>
+<li><p><strong>label_list</strong> (<em>list of str</em>) – Takes in list of strings intended to label ellipses in legend</p></li>
+<li><p><strong>color_list</strong> (<em>list of str</em>) – Takes in list of colors corresponding to string/label
+Must be the same length as label_list</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to plot function. Default is <code class="docutils literal notranslate"><span class="pre">alpha=0.2</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartfusion.plotter.</span></span><span class="sig-name descname"><span class="pre">Plotterly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Dimension.TWO</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotterly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotterly" title="Permalink to this definition"></a></dt>
+<dd><p>Plotting class for building graphs of SMART FUSION simulations using plotly</p>
+<p>A plotting class which is used to simplify the process of plotting ground truths,
+measurements, clutter and tracks. Tracks can be plotted with uncertainty ellipses or
+particles if required. Legends are automatically generated with each plot.
+Three dimensional plots can be created using the optional dimension parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> (<em>enum 'Dimension'</em>) – Optional parameter to specify 2D or 3D plotting. Currently only 2D plotting is
+supported.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to Figure.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly.fig">
+<span class="sig-name descname"><span class="pre">fig</span></span><a class="headerlink" href="#smartfusion.plotter.Plotterly.fig" title="Permalink to this definition"></a></dt>
+<dd><p>Generated figure for graphs to be plotted on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>plotly.graph_objects.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly.plot_ground_truths">
+<span class="sig-name descname"><span class="pre">plot_ground_truths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">truths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truths_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Ground</span> <span class="pre">Truth'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotterly.plot_ground_truths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotterly.plot_ground_truths" title="Permalink to this definition"></a></dt>
+<dd><p>Plots ground truth(s)</p>
+<p>Plots each ground truth path passed in to <code class="xref py py-attr docutils literal notranslate"><span class="pre">truths</span></code> and generates a legend
+automatically. Ground truths are plotted as dashed lines with default colors.</p>
+<p>Users can change line style, color and marker using keyword arguments. Any changes
+will apply to all ground truths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>truths</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a>) – Collection of  ground truths which will be plotted. If not a collection,
+and instead a single <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthPath" title="smartfusion.types.groundtruth.GroundTruthPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthPath</span></code></a> type, the argument is modified to be a
+set to allow for iteration.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position components of the state space.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to scatter function. Default is
+<code class="docutils literal notranslate"><span class="pre">line=dict(dash=&quot;dash&quot;)</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly.plot_measurements">
+<span class="sig-name descname"><span class="pre">plot_measurements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurements_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Measurements'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotterly.plot_measurements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotterly.plot_measurements" title="Permalink to this definition"></a></dt>
+<dd><p>Plots measurements</p>
+<p>Plots detections and clutter, generating a legend automatically. Detections are plotted as
+blue circles by default unless the detection type is clutter.
+If the detection type is <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Clutter" title="smartfusion.types.detection.Clutter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clutter</span></code></a> it is plotted as a yellow ‘tri-up’ marker.</p>
+<p>Users can change the color and marker of detections using keyword arguments but not for
+clutter detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurements</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.detection.Detection" title="smartfusion.types.detection.Detection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Detection</span></code></a>) – Detections which will be plotted. If measurements is a set of lists it is flattened.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position components of the state space.</p></li>
+<li><p><strong>measurement_model</strong> (<a class="reference internal" href="smartfusion.models.html#smartfusion.models.base.Model" title="smartfusion.models.base.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a>, optional) – User-defined measurement model to be used in finding measurement state inverses if
+they cannot be found from the measurements themselves.</p></li>
+<li><p><strong>measurements_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Label for the measurements.  Default is “Measurements”.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to scatter function for detections. Defaults are
+<code class="docutils literal notranslate"><span class="pre">marker=dict(color=&quot;#636EFA&quot;)</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly.plot_tracks">
+<span class="sig-name descname"><span class="pre">plot_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Tracks'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ellipse_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotterly.plot_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotterly.plot_tracks" title="Permalink to this definition"></a></dt>
+<dd><p>Plots track(s)</p>
+<p>Plots each track generated, generating a legend automatically. If <code class="docutils literal notranslate"><span class="pre">uncertainty=True</span></code>
+error ellipses are plotted.
+Tracks are plotted as solid lines with point markers and default colors.</p>
+<p>Users can change line style, color and marker using keyword arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks</strong> (Collection of <a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>) – Collection of tracks which will be plotted. If not a collection, and instead a single
+<a class="reference internal" href="smartfusion.types.html#smartfusion.types.track.Track" title="smartfusion.types.track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a> type, the argument is modified to be a set to allow for iteration.</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of items specifying the mapping of the position
+components of the state space.</p></li>
+<li><p><strong>uncertainty</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, function plots uncertainty ellipses.</p></li>
+<li><p><strong>particle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, function plots particles.</p></li>
+<li><p><strong>track_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Label to apply to all tracks for legend.</p></li>
+<li><p><strong>ellipse_points</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of points for polygon approximating ellipse shape</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to scatter function. Defaults are
+<code class="docutils literal notranslate"><span class="pre">marker=dict(symbol='square')</span></code> for <a class="reference internal" href="smartfusion.types.html#smartfusion.types.update.Update" title="smartfusion.types.update.Update"><code class="xref py py-class docutils literal notranslate"><span class="pre">Update</span></code></a> and
+<code class="docutils literal notranslate"><span class="pre">marker=dict(symbol='circle')</span></code> for other states.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartfusion.plotter.Plotterly.plot_sensors">
+<span class="sig-name descname"><span class="pre">plot_sensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Sensors'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartfusion/plotter.html#Plotterly.plot_sensors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartfusion.plotter.Plotterly.plot_sensors" title="Permalink to this definition"></a></dt>
+<dd><p>Plots sensor(s)</p>
+<p>Plots sensors.  Users can change the color and marker of detections using keyword
+arguments. Default is a black ‘x’ marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensors</strong> (Collection of <a class="reference internal" href="smartfusion.sensor.html#smartfusion.sensor.sensor.Sensor" title="smartfusion.sensor.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a>) – Sensors to plot</p></li>
+<li><p><strong>sensor_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Label to apply to all tracks for legend.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Additional arguments to be passed to scatter function for detections. Defaults are
+<code class="docutils literal notranslate"><span class="pre">marker=dict(symbol='x',</span> <span class="pre">color='black')</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartfusion.measures.html" class="btn btn-neutral float-left" title="Measures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smartfusion.plugins.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

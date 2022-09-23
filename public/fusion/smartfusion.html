@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMART FUSION Framework &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Component Interfaces" href="interface.html" />
+    <link rel="prev" title="Framework Design" href="design.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SMART FUSION
+            <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SMART FUSION Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-components">Enabling Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.detector.html">Detectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.reader.html">Readers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.writer.html">Writers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm-components">Algorithm Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.gater.html">Gater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.updater.html">Updaters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-types">Data Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.types.html">Data Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>SMART FUSION Framework</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/smartfusion.rst" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartfusion">
+<span id="smart-fusion-framework"></span><h1>SMART FUSION Framework<a class="headerlink" href="#module-smartfusion" title="Permalink to this heading"></a></h1>
+<p>SMART FUSION framework: development and assessment of tracking algorithms.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">Component Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#enabling-components">Enabling Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#data-input">Data Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#data-output">Data Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#simulation">Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#algorithm-components">Algorithm Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#models">Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html#orbital-functions">Orbital functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+</ul>
+</div>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this heading"></a></h2>
+<p>SMART FUSION has a number of components which are used to build up a tracker.
+These included components are built upon the base <a class="reference internal" href="interface.html"><span class="doc">Component Interfaces</span></a>.</p>
+<section id="enabling-components">
+<h3>Enabling Components<a class="headerlink" href="#enabling-components" title="Permalink to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.detector.html">Detectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.detector.html#module-smartfusion.detector.tensorflow">TensorFlow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.detector.html#module-smartfusion.detector.tensornets">TensorNets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.feeder.html">Feeders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.filter">Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.geo">Geo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.multi">Multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.time">Time Based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.image">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.feeder.html#module-smartfusion.feeder.track">Track</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.metricgenerator.html">Metric Generators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.basicmetrics.html">Basic Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.tracktotruthmetrics.html">Track-to-truth metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.ospametric.html">Optimal Sub-Pattern Assignment (OSPA) Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.pcrbmetric.html">Posterior Cramér-Rao Bound (PCRB) Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.uncertaintymetric.html">Uncertainty Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.plotter.html">Plotter Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.metricgenerator.html#module-smartfusion.metricgenerator.manager">Metric Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.platform.html">Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.reader.html">Readers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.generic">Generic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.yaml">YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.aishub">AISHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.image">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.video">Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.reader.html#module-smartfusion.reader.opensky">OpenSky Network</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.sensor.html">Sensors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.radar.html">Radars</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.sensor.radar.html#module-smartfusion.sensor.radar.beam_pattern">Beam Patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.sensor.radar.html#module-smartfusion.sensor.radar.beam_shape">Beam Shapes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.action.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.html#module-smartfusion.sensor.passive">Passive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.html#module-smartfusion.sensor.categorical">Categorical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensor.html#module-smartfusion.sensor.actionable">Actionable</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.sensormanager.html">Sensor Managers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.sensormanager.html#module-smartfusion.sensormanager.reward">Reward Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.simulator.html">Simulators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.simulator.html#module-smartfusion.simulator.simple">Simple Simulators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.simulator.html#module-smartfusion.simulator.platform">Platform Simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.simulator.html#module-smartfusion.simulator.transition">Transition Simulator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.tracker.html">Trackers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.tracker.html#module-smartfusion.tracker.pointprocess">Point Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.writer.html">Writers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.writer.html#module-smartfusion.writer.yaml">YAML</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="algorithm-components">
+<h3>Algorithm Components<a class="headerlink" href="#algorithm-components" title="Permalink to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.dataassociator.html">Data Association</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.dataassociator.html#module-smartfusion.dataassociator.neighbour">Neighbour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.dataassociator.html#module-smartfusion.dataassociator.probability">Probability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.dataassociator.html#module-smartfusion.dataassociator.tracktotrack">Track-to-track Association</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.dataassociator.html#module-smartfusion.dataassociator.tree">Trees</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.deleter.html">Deleters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.deleter.html#module-smartfusion.deleter.error">Error Based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.deleter.html#module-smartfusion.deleter.time">Time Based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.deleter.html#module-smartfusion.deleter.multi">Multi</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.gater.html">Gater</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.gater.html#module-smartfusion.gater.distance">Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.gater.html#module-smartfusion.gater.filtered">Filtered</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.hypothesiser.html">Hypothesiser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.hypothesiser.html#module-smartfusion.hypothesiser.distance">Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.hypothesiser.html#module-smartfusion.hypothesiser.probability">Probability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.hypothesiser.html#module-smartfusion.hypothesiser.gaussianmixture">Gaussian Mixture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.hypothesiser.html#module-smartfusion.hypothesiser.categorical">Categorical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.hypothesiser.html#module-smartfusion.hypothesiser.composite">Composite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.initiator.html">Initiators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.initiator.html#module-smartfusion.initiator.wrapper">Wrappers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.initiator.html#module-smartfusion.initiator.categorical">Categorical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.initiator.html#module-smartfusion.initiator.composite">Composite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.mixturereducer.html">Mixture Reducers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.models.clutter.html">Clutter Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.models.control.html">Control Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.models.measurement.html">Measurement Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.measurement.html#module-smartfusion.models.measurement.linear">Linear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.measurement.html#module-smartfusion.models.measurement.nonlinear">NonLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.measurement.html#module-smartfusion.models.measurement.categorical">Categorical</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.models.transition.html">Transition Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.transition.html#module-smartfusion.models.transition.linear">Linear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.transition.html#module-smartfusion.models.transition.nonlinear">NonLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.models.transition.html#module-smartfusion.models.transition.categorical">Categorical</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.predictor.html">Predictors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.kalman">Kalman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.particle">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.ensemble">Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.categorical">Categorical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.composite">Composite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.predictor.html#module-smartfusion.predictor.information">Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.resampler.html">Resampler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.resampler.html#module-smartfusion.resampler.particle">Particle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.smoother.html">Smoothers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.smoother.html#module-smartfusion.smoother.kalman">Kalman</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.updater.html">Updaters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.kalman">Kalman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.particle">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.ensemble">Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.information">Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.pointprocess">Point Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.alphabeta">AlphaBeta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.slidinginnovation">Sliding Innovation Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.categorical">Categorical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.composite">Composite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.updater.html#module-smartfusion.updater.chernoff">Chernoff</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Permalink to this heading"></a></h2>
+<p>SMART FUSION has a number of data types used to pass data between components.
+These are built upon the <a class="reference internal" href="types.html"><span class="doc">Base Data Types</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.types.html">Data Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.base">Base Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.array">Array Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.angle">Angle Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.association">Association Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.detection">Detection Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.groundtruth">Ground Truth Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.hypothesis">Hypothesis Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.interval">Interval Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.metric">Metric Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.mixture">Mixture Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.numeric">Numeric Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.particle">Particle Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.prediction">Prediction Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.sensordata">Sensor Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.state">State Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.orbitalstate">OrbitalState Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.time">Time Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.track">Track Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.types.html#module-smartfusion.types.update">Update Types</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="design.html" class="btn btn-neutral float-left" title="Framework Design" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="interface.html" class="btn btn-neutral float-right" title="Component Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

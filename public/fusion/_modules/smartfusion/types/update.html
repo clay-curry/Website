@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartfusion.types.update &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../../copyright.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SMART FUSION
+            <img src="../../../_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1b11.dev2+gf88c3944.d20220921
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Framework Design </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../smartfusion.html">SMART FUSION Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_demos/index.html">Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../copyright.html">Copyright &amp; License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMART FUSION</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>smartfusion.types.update</li>
+  
+  <li class="wy-breadcrumbs-aside">
+    <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/_modules/smartfusion/types/update" class="fa fa-github"> Edit on GitHub</a>
+  </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartfusion.types.update</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">.hypothesis</span> <span class="kn">import</span> <span class="n">Hypothesis</span><span class="p">,</span> <span class="n">CompositeHypothesis</span>
+<span class="kn">from</span> <span class="nn">.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">CreatableFromState</span><span class="p">,</span> <span class="n">CompositeState</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">,</span> <span class="n">ParticleState</span><span class="p">,</span> <span class="n">EnsembleState</span><span class="p">,</span> \
+    <span class="n">SqrtGaussianState</span><span class="p">,</span> <span class="n">InformationState</span><span class="p">,</span> <span class="n">CategoricalState</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Property</span>
+
+
+<div class="viewcode-block" id="Update"><a class="viewcode-back" href="../../../types.html#smartfusion.types.update.Update">[docs]</a><span class="k">class</span> <span class="nc">Update</span><span class="p">(</span><span class="n">Type</span><span class="p">,</span> <span class="n">CreatableFromState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Update type</span>
+
+<span class="sd">    The base update class. Updates are returned by :class:&#39;~.Updater&#39; objects</span>
+<span class="sd">    and contain the information that was used to perform the updating&quot;&quot;&quot;</span>
+
+    <span class="n">hypothesis</span><span class="p">:</span> <span class="n">Hypothesis</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Hypothesis used for updating&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.StateUpdate">[docs]</a><span class="k">class</span> <span class="nc">StateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">State</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; StateUpdate type</span>
+
+<span class="sd">    Most simple state update type, where everything only has time</span>
+<span class="sd">    and a state vector. Requires a prior state that was updated,</span>
+<span class="sd">    and the hypothesis used to update the prior.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.GaussianStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">GaussianStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">GaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; GaussianStateUpdate type</span>
+
+<span class="sd">    This is a simple Gaussian state update object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SqrtGaussianStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.SqrtGaussianStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">SqrtGaussianStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">SqrtGaussianState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; SqrtGaussianStateUpdate type</span>
+
+<span class="sd">    This is equivalent to a Gaussian state update object, but with the</span>
+<span class="sd">    covariance of the Gaussian distribution stored in matrix square root</span>
+<span class="sd">    form.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="GaussianMixtureUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.GaussianMixtureUpdate">[docs]</a><span class="k">class</span> <span class="nc">GaussianMixtureUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">GaussianMixture</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; GaussianMixtureUpdate type</span>
+
+<span class="sd">    This is a Gaussian mixture update object, which, as the name</span>
+<span class="sd">    suggests, is described by a Gaussian mixture.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ParticleStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.ParticleStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">ParticleStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">ParticleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ParticleStateUpdate type</span>
+
+<span class="sd">    This is a simple Particle state update object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EnsembleStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.EnsembleStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">EnsembleStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">EnsembleState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;EnsembleStateUpdate type</span>
+
+<span class="sd">    This is a simple Ensemble state update object.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InformationStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.InformationStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">InformationStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">InformationState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; InformationUpdate type</span>
+
+<span class="sd">    This is a simple Information state update object, which, as the name</span>
+<span class="sd">    suggests, is described by a precision matrix and its corresponding state vector.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CategoricalStateUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.CategoricalStateUpdate">[docs]</a><span class="k">class</span> <span class="nc">CategoricalStateUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">CategoricalState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Categorical state prediction type&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CompositeUpdate"><a class="viewcode-back" href="../../../smartfusion.types.html#smartfusion.types.update.CompositeUpdate">[docs]</a><span class="k">class</span> <span class="nc">CompositeUpdate</span><span class="p">(</span><span class="n">Update</span><span class="p">,</span> <span class="n">CompositeState</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Composite update type</span>
+
+<span class="sd">    Composition of :class:`~.Update`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sub_states</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Update</span><span class="p">]</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Sequence of sub-updates comprising the composite update. All sub-updates must have &quot;</span>
+            <span class="s2">&quot;matching timestamp. Must not be empty.&quot;</span><span class="p">)</span>
+    <span class="n">hypothesis</span><span class="p">:</span> <span class="n">CompositeHypothesis</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Hypothesis used for updating&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; <a href="../../../copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+Declarative Base
+================
+
+.. automodule:: smartfusion.base
+    :no-members:
+
+.. autoclass:: smartfusion.base.Property
+    :no-members:
+.. autoclass:: smartfusion.base.BaseMeta
+.. autoclass:: smartfusion.base.Base
+
+

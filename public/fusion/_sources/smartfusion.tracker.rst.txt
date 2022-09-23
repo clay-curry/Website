@@ -1,0 +1,17 @@
+Trackers
+========
+
+.. automodule:: smartfusion.tracker
+    :no-members:
+
+.. automodule:: smartfusion.tracker.base
+    :show-inheritance:
+
+.. automodule:: smartfusion.tracker.simple
+    :show-inheritance:
+
+Point Process
+-------------
+
+.. automodule:: smartfusion.tracker.pointprocess
+    :show-inheritance:

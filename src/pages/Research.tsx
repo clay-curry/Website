@@ -13,16 +13,14 @@ function Research() {
       <Statement />
       <hr />
       <Keywords />
-      <hr />
-      <Longer />
       <MoreComing />
     </PageContent>
     <Footer />
     </>);
 }
 const gdl="https://geometricdeeplearning.com/"
+const databook="http://databookuw.com"
 const risi="https://arxiv.org/abs/2203.06153"
-const mlst="https://youtu.be/bIZB1hIJ4u8"
 const pde="https://arxiv.org/abs/2209.04934"
 const brunton="https://www.youtube.com/watch?v=7n7xaviepKM"
 const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
@@ -35,13 +33,19 @@ function Statement() {
   
   
   return (<Fragment>
-      <h3>Interest Statement</h3>
       <p>
-        I take strong interest in all work at the intersection of <b><a href={gdl}>Geometric Deep Learning</a></b> and  <a href={risi}>Physics-Informed Machine Learning</a>, especially in contexts where variables of interest are uncertain, 
-        partially observable, difficult (or impossible) to model in closed-form, in too high-dimensional spaces for traditional learning methods to work efficiently. Topics in this area include using data to model (non-ideal) <a href={pde}>physical 
-        systems described (in the ideal) by some PDE</a> which lack known closed-form expressions, virtual screening of small-molecule <a href={architectures}>drugs by predicting their binding properties with target proteins</a>, 
-        learning <a href={brunton}>optimal control in dynamical systems</a> outperforming assumption-based closed-form solutions, learning <a href={object_representation}>object representations</a> from few training examples, tracking objects in heavy 
-        clutter (my current research), and <a href={follow_on}>much much more</a>.
+        I take strong interest in all work at the union of <a href={gdl}>Geometric Deep Learning</a> (GDL) and <a href={databook}>Physics-Informed Machine Learning</a>, 
+        with emphasis on dynamical systems and control engineering problems. Already, the union of GDL and Physics-Informed Machine Learning have proven to be a fertile area 
+        for interdisciplinary research. Some of my favorite papers at the union involve rapidly learning <a href={object_representation}>equivariant 
+        representations of objects</a> (related to my current research, also <a href={geoff}>Hinton approved</a>) in robotics, leveraging Clifford algebras to <a href={pde}>
+        model solutions of certain difficult PDEs</a> (e.g. Navier-Stokes), and using data <a href={brunton}>predict the discrepancies</a> of model-based (idealized)
+        solutions to optimal control problems.
+      </p>
+      <p>
+        In my view, both GDL and Physics-Informed Machine Learning can be thought of as two sides of the same coin. Precisely, GDL gives a common mathematical 
+        framework (notably, group theory and harmonic analysis) to study the most successful neural network architectures, such as CNNs, RNNs, GNNs, and Transformers, 
+        and provides principled constructive procedures to build future architectures yet to be invented. On the other hand, Physics-Informed Machine Learning encompases a number of 
+        frameworks for unifying emperical data with prior knowledge (e.g. governing equations, constraints, symmetries) of physical systems to synthesize data-driven models of physical systems.  
       </p>
       <br />
 
@@ -70,14 +74,14 @@ function Keywords() {
 function Longer(){
   return (<><h3>My Interests (longer version)</h3>
   <p>
-  I developed my interest in <a href={gdl}>GDL</a> in the semester following my first encounter with group theory (the mathematical
-  study of symmetry), through an assigned technical report on Cohen and Welling's, <i><a href={gcnn}>Group Equivariant Convolutional
+  I developed my interest in <a href={gdl}>Geometric Deep Learning</a> in the semester following my first encounter with group theory (the mathematical
+  study of symmetry), through an assigned technical report on Cohen & Welling's, <i><a href={gcnn}>Group Equivariant Convolutional
   Networks</a></i>. Since their publication, a number of follow-on works have pushed the deep learning community closer to the goal 
   of general (universally approximating) equivariant models capable of respecting arbitrary symmetries (e.g. <i>SO(3)</i>, <i>SE(3)</i>, 
   <i>E(n)</i>, and other Lie groups) of arbitrary data (multi-vector valued graphs) living in almost-arbitrary manifolds (e.g. vector 
   space of R^n, the n-dimensional sphere) called homogenous spaces. Equivariant networks which operate on data projected onto a harmonic 
   basis with symmetries of the data expressed in their irreducible representations are, in recent literature, called "Steerable Neural 
-  Networks". If these don't grab your interest, equivariant networks are also <a href={geoff}>Hinton approved</a>.
+  Networks". 
   </p>
   <br />
   </>);

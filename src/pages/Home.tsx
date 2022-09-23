@@ -20,8 +20,8 @@ function Home() {
 
         <p>
           My interests are in machine learning broadly, but I 
-          have taken interest in special topics described here on my website. Above all, my interests are in creating and sharing technologies that 
-          democratize knowledge/research, maximize research productivitiy, protect national security, and improve environmental quality. 
+          have taken interest in special topics described here on my website. Above all, my interests are in creating and contributing to existing
+          technologies that democratize knowledge/research, maximize research productivitiy, protect national security, and improve environmental quality. 
         </p>
         <p>
           I'm also seeking full-time opportunities starting in December (my expected graduation date), which are likely to be stepping stones into 

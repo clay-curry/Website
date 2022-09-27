@@ -1,6 +1,10 @@
 img.logo {
     height: 100px !important;
 }
+.wy-side-nav-search{
+    background: #980101;
+}
+
 .anim-state label {
     display: inline-block;
 }

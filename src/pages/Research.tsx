@@ -42,7 +42,7 @@ function Statement() {
         solutions to optimal control problems.
       </p>
       <p>
-        In my view, both GDL and Physics-Informed Machine Learning can be thought of as two sides of the same coin. Precisely, GDL gives a common mathematical 
+        In my view, GDL and Physics-Informed Machine Learning are two sides of the same coin. Precisely, GDL gives a common mathematical 
         framework (notably, group theory and harmonic analysis) to study the most successful neural network architectures, such as CNNs, RNNs, GNNs, and Transformers, 
         and provides principled constructive procedures to build future architectures yet to be invented. On the other hand, Physics-Informed Machine Learning encompases a number of 
         frameworks for unifying emperical data with prior knowledge (e.g. governing equations, constraints, symmetries) of physical systems to synthesize data-driven models of physical systems.  

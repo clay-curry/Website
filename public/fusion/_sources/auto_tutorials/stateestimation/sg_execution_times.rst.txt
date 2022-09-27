@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_auto_tutorials_stateestimation_sg_execution_times:
+
+Computation times
+=================
+**00:13.086** total execution time for **auto_tutorials_stateestimation** files:
+
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_tutorials_stateestimation_GMPHDTutorial.py` (``GMPHDTutorial.py``)                         | 00:13.006 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_tutorials_stateestimation_InformationFilterTutorial.py` (``InformationFilterTutorial.py``) | 00:00.080 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+

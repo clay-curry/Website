@@ -5,12 +5,12 @@
 
 Computation times
 =================
-**01:10.695** total execution time for **auto_tutorials_sensormanagement** files:
+**01:11.077** total execution time for **auto_tutorials_sensormanagement** files:
 
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_tutorials_sensormanagement_03_OptimisedSensorManagement.py` (``03_OptimisedSensorManagement.py``) | 00:38.382 | 0.0 MB |
+| :ref:`sphx_glr_auto_tutorials_sensormanagement_03_OptimisedSensorManagement.py` (``03_OptimisedSensorManagement.py``) | 00:38.775 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_tutorials_sensormanagement_02_MultiSensorManagement.py` (``02_MultiSensorManagement.py``)         | 00:18.593 | 0.0 MB |
+| :ref:`sphx_glr_auto_tutorials_sensormanagement_02_MultiSensorManagement.py` (``02_MultiSensorManagement.py``)         | 00:18.628 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_tutorials_sensormanagement_01_SingleSensorManagement.py` (``01_SingleSensorManagement.py``)       | 00:13.720 | 0.0 MB |
+| :ref:`sphx_glr_auto_tutorials_sensormanagement_01_SingleSensorManagement.py` (``01_SingleSensorManagement.py``)       | 00:13.674 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+

@@ -1,5 +1,5 @@
-SMART FUSION Framework
-======================
+Documentation
+==============
 
 .. automodule:: smartfusion
 

@@ -1,12 +1,12 @@
-Framework Design [#]_
+Framework [#]_
 =====================
 
-SMART FUSION is initially targeted at two different groups of users:
+SMART FUSION is targeted at two different groups of users:
 
+ - Users, owners and processors of real data, looking to identify the best approach for their
+   application, without the need for deep expertise required to implement many algorithms.
  - Academics conducting research into tracking and state estimation, looking to quickly develop
    algorithms, and compare against other algorithms assessed against metrics.
- - User, owners and processors of real data, looking to identify the best approach for their
-   application, without the need for deep expertise required to implement many algorithms.
 
 The central theme of the SMART FUSION design philosophy is interchangeability. The framework is
 designed with the idea that users can easily insert their own components into existing constructs,
@@ -104,11 +104,21 @@ instances, allowing models to be used for both target prediction (in case with
 .. |duck typing| replace:: *duck typing*
 .. _duck typing: https://en.wikipedia.org/wiki/Duck_typing
 
+.. toctree::
+    interface
+    types
+    smartfusion.base
+    smartfusion.config
+    smartfusion.functions
+    smartfusion.measures
+    smartfusion.plotter
+    smartfusion.plugins
+    smartfusion.serialise
 
 .. rubric:: Footnotes
 
 .. [#] *David Last, Paul Thomas, Steven Hiscocks, Jordi Barr, David Kirkland, Mamoon Rashid,
-   Sang Bin Li, and Lyudmil Vladimirov* **"SMART FUSION: announcement of beta release of an open-source
+   Sang Bin Li, and Lyudmil Vladimirov* **"Stone Soup: announcement of beta release of an open-source
    framework for tracking and state estimation"**, Proc. SPIE 11018, Signal Processing,
    Sensor/Information Fusion, and Target Recognition XXVIII, 1101807 (7 May 2019);
    https://doi.org/10.1117/12.2518514

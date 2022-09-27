@@ -34,8 +34,8 @@ function Statement() {
   
   return (<Fragment>
       <p>
-        I take strong interest in all work at the union of <a href={gdl}>Geometric Deep Learning</a> (GDL) and <a href={databook}>Physics-Informed Machine Learning</a>, 
-        with emphasis on dynamical systems and control engineering problems. Already, the union of GDL and Physics-Informed Machine Learning have proven to be a fertile area 
+        Through a graduate studies program, I would love to explore the intersection of <a href={gdl}>Geometric Deep Learning</a> (GDL) and <a href={databook}>Physics-Informed Machine Learning</a>, 
+        with emphasis on dynamical systems and higly-complex control engineering problems. Already, the union of GDL and Physics-Informed Machine Learning have proven to be a fertile area 
         for interdisciplinary research. Some of my favorite papers at the union involve rapidly learning <a href={object_representation}>equivariant 
         representations of objects</a> (related to my current research, also <a href={geoff}>Hinton approved</a>) in robotics, leveraging Clifford algebras to <a href={pde}>
         model solutions of certain difficult PDEs</a> (e.g. Navier-Stokes), and using data <a href={brunton}>predict the discrepancies</a> of model-based (idealized)

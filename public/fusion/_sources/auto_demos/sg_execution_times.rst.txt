@@ -5,14 +5,14 @@
 
 Computation times
 =================
-**05:08.136** total execution time for **auto_demos** files:
+**00:14.049** total execution time for **auto_demos** files:
 
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_demos_Video_Processing.py` (``Video_Processing.py``)     | 05:08.136 | 0.0 MB |
+| :ref:`sphx_glr_auto_demos_OpenSky_Demo.py` (``OpenSky_Demo.py``)             | 00:08.847 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_demos_AIS_Solent_Tracker.py` (``AIS_Solent_Tracker.py``) | 00:00.000 | 0.0 MB |
+| :ref:`sphx_glr_auto_demos_AIS_Solent_Tracker.py` (``AIS_Solent_Tracker.py``) | 00:04.393 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_demos_OpenSky_Demo.py` (``OpenSky_Demo.py``)             | 00:00.000 | 0.0 MB |
+| :ref:`sphx_glr_auto_demos_UAV_tutorial.py` (``UAV_tutorial.py``)             | 00:00.809 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_demos_UAV_tutorial.py` (``UAV_tutorial.py``)             | 00:00.000 | 0.0 MB |
+| :ref:`sphx_glr_auto_demos_Video_Processing.py` (``Video_Processing.py``)     | 00:00.000 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+

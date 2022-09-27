@@ -6,36 +6,29 @@ Welcome to SMART FUSION's documentation!
     :align: center
     :alt: SMART FUSION Logo
 
-SMART FUSION is a software research framework geared for supporting advances 
-in multisource-multitarget information fusion for multiple object tracking.
+SMART FUSION is a framework and pipeline intended to enhance the development, prototyping, and 
+evaluation of state-of-the-art (SOTA) object-detection/tracking algorithms.
 
-As SMART FUSION is focused on development and testing of algorithms, and such
-components may not be the most optimised implementations, instead focusing on
-being flexible. Its also intended to aid choice of component/algorithms
-to tackle real world problems.
+SMART FUSION is intended to be especially helpful for the following tasks:
 
-The mission of SMART FUSION is to enhance the development, prototyping, and 
-testing of algorithms by unifying reusable object oriented code together with 
-useful primary and secondary literature, state-of-the-art research, benchmarks, 
-and related conference proceedings. SMART FUSION is designed to be especially 
-helpful for the following tasks:
-* onboarding of new researchers to the vast science of multiple object tracking, 
-* designing rigorous testing environments for the assessment of object tracking algorithms,  
-* combing-over existing literature so that researchers can spend more time pushing 
-state-of-the-art forward (rather than catching up).
+- onboarding of new researchers to the vast science of object detection and tracking, 
+- designing rigorous testing environments for of object tracking algorithms,  
+- combing over primary and secondary literature so that incoming researchers can spend more time pushing SOTA forward (rather than catching up),
+- maintaining a catalog of SOTA multisource-multitarget information fusion algorithms and
+- providing objective tests intended to aid the assessment and choice of algorithms
 
-SMART FUSION is currently in *beta* and under continuing development, where
-feedback and contributions are welcomed to improve the component interface
-design and grow the number components available.
+SMART FUSION is currently in *beta* and heavily inspired by the `Stone-Soup library`_. Feedback 
+and contributions are welcomed to improve the component interface design and grow the number 
+components available.
 
 Please see the SMART FUSION :ref:`auto_tutorials/index:Tutorials` for learning
-about tracking and using SMART FUSION, :ref:`auto_examples/index:Examples` for
+about tracking and using SMART FUSION, :ref:`auto_tutorials/index:Tutorials` for
 examples of SMART FUSION features, and :ref:`auto_demos/index:Demonstrations`
 for demonstrations of using SMART FUSION.
 
 Installation
 ------------
-SMART FUSION is currently in *beta* and heavily inspired by the `Stone-Soup library`_.
+
 
 .. code::
 
@@ -60,12 +53,11 @@ Contents
 ========
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     design
-    smartfusion
     auto_tutorials/index
-    auto_examples/index
+    smartfusion
     auto_demos/index
     contributing
     copyright

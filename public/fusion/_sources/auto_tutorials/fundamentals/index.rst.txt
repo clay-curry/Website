@@ -1,0 +1,205 @@
+
+
+.. _sphx_glr_auto_tutorials_fundamentals:
+
+Fundamentals
+------------
+This section covers the fundamental problems encountered in object tracking algorithms. Practicioners should
+know and understand (preferrably able to derive) the following algorithms from first principles.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="1 - An introduction to SMART FUSION: using the Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_01_KalmanFilterTutorial_thumb.png
+    :alt: 1 - An introduction to SMART FUSION: using the Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_01_KalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1 - An introduction to SMART FUSION: using the Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="2 - Non-linear models: extended Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_02_ExtendedKalmanFilterTutorial_thumb.png
+    :alt: 2 - Non-linear models: extended Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_02_ExtendedKalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">2 - Non-linear models: extended Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="3 - Non-linear models: unscented Kalman filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_03_UnscentedKalmanFilterTutorial_thumb.png
+    :alt: 3 - Non-linear models: unscented Kalman filter
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_03_UnscentedKalmanFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3 - Non-linear models: unscented Kalman filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="4 - Sampling methods: particle filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_04_ParticleFilter_thumb.png
+    :alt: 4 - Sampling methods: particle filter
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_04_ParticleFilter.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">4 - Sampling methods: particle filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="5 - Data association - clutter tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_05_DataAssociation-Clutter_thumb.png
+    :alt: 5 - Data association - clutter tutorial
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_05_DataAssociation-Clutter.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">5 - Data association - clutter tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="6 - Data association - multi-target tracking tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_06_DataAssociation-MultiTargetTutorial_thumb.png
+    :alt: 6 - Data association - multi-target tracking tutorial
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_06_DataAssociation-MultiTargetTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6 - Data association - multi-target tracking tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="7 - Probabilistic data association tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_07_PDATutorial_thumb.png
+    :alt: 7 - Probabilistic data association tutorial
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_07_PDATutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">7 - Probabilistic data association tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="8 - Joint probabilistic data association tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_08_JPDATutorial_thumb.png
+    :alt: 8 - Joint probabilistic data association tutorial
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_08_JPDATutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">8 - Joint probabilistic data association tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9 - Initiators &amp; Deleters">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_09_Initiators_&_Deleters_thumb.png
+    :alt: 9 - Initiators & Deleters
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_09_Initiators_&_Deleters.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9 - Initiators & Deleters</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="10 - Tracking in simulation: bringing all components together">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_10_Simulation_&_Tracking_Components_thumb.png
+    :alt: 10 - Tracking in simulation: bringing all components together
+
+  :ref:`sphx_glr_auto_tutorials_fundamentals_10_Simulation_&_Tracking_Components.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">10 - Tracking in simulation: bringing all components together</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/fundamentals/01_KalmanFilterTutorial
+   /auto_tutorials/fundamentals/02_ExtendedKalmanFilterTutorial
+   /auto_tutorials/fundamentals/03_UnscentedKalmanFilterTutorial
+   /auto_tutorials/fundamentals/04_ParticleFilter
+   /auto_tutorials/fundamentals/05_DataAssociation-Clutter
+   /auto_tutorials/fundamentals/06_DataAssociation-MultiTargetTutorial
+   /auto_tutorials/fundamentals/07_PDATutorial
+   /auto_tutorials/fundamentals/08_JPDATutorial
+   /auto_tutorials/fundamentals/09_Initiators_&_Deleters
+   /auto_tutorials/fundamentals/10_Simulation_&_Tracking_Components
+

@@ -3,8 +3,21 @@
 Tutorials
 =========
 
-Here are some tutorials on using SMART FUSION that also introduce some topics
-of state estimation and tracking.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    </div>
+
+Fundamentals
+------------
+This section covers the fundamental problems encountered in object tracking algorithms. Practicioners should
+know and understand (preferrably able to derive) the following algorithms from first principles.
 
 
 
@@ -19,10 +32,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_01_KalmanFilterTutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_01_KalmanFilterTutorial_thumb.png
     :alt: 1 - An introduction to SMART FUSION: using the Kalman filter
 
-  :ref:`sphx_glr_auto_tutorials_01_KalmanFilterTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_01_KalmanFilterTutorial.py`
 
 .. raw:: html
 
@@ -36,10 +49,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_02_ExtendedKalmanFilterTutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_02_ExtendedKalmanFilterTutorial_thumb.png
     :alt: 2 - Non-linear models: extended Kalman filter
 
-  :ref:`sphx_glr_auto_tutorials_02_ExtendedKalmanFilterTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_02_ExtendedKalmanFilterTutorial.py`
 
 .. raw:: html
 
@@ -53,10 +66,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_03_UnscentedKalmanFilterTutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_03_UnscentedKalmanFilterTutorial_thumb.png
     :alt: 3 - Non-linear models: unscented Kalman filter
 
-  :ref:`sphx_glr_auto_tutorials_03_UnscentedKalmanFilterTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_03_UnscentedKalmanFilterTutorial.py`
 
 .. raw:: html
 
@@ -70,10 +83,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_04_ParticleFilter_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_04_ParticleFilter_thumb.png
     :alt: 4 - Sampling methods: particle filter
 
-  :ref:`sphx_glr_auto_tutorials_04_ParticleFilter.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_04_ParticleFilter.py`
 
 .. raw:: html
 
@@ -87,10 +100,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_05_DataAssociation-Clutter_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_05_DataAssociation-Clutter_thumb.png
     :alt: 5 - Data association - clutter tutorial
 
-  :ref:`sphx_glr_auto_tutorials_05_DataAssociation-Clutter.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_05_DataAssociation-Clutter.py`
 
 .. raw:: html
 
@@ -104,10 +117,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_06_DataAssociation-MultiTargetTutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_06_DataAssociation-MultiTargetTutorial_thumb.png
     :alt: 6 - Data association - multi-target tracking tutorial
 
-  :ref:`sphx_glr_auto_tutorials_06_DataAssociation-MultiTargetTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_06_DataAssociation-MultiTargetTutorial.py`
 
 .. raw:: html
 
@@ -121,10 +134,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_07_PDATutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_07_PDATutorial_thumb.png
     :alt: 7 - Probabilistic data association tutorial
 
-  :ref:`sphx_glr_auto_tutorials_07_PDATutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_07_PDATutorial.py`
 
 .. raw:: html
 
@@ -138,10 +151,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_08_JPDATutorial_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_08_JPDATutorial_thumb.png
     :alt: 8 - Joint probabilistic data association tutorial
 
-  :ref:`sphx_glr_auto_tutorials_08_JPDATutorial.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_08_JPDATutorial.py`
 
 .. raw:: html
 
@@ -155,10 +168,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_09_Initiators_&_Deleters_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_09_Initiators_&_Deleters_thumb.png
     :alt: 9 - Initiators & Deleters
 
-  :ref:`sphx_glr_auto_tutorials_09_Initiators_&_Deleters.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_09_Initiators_&_Deleters.py`
 
 .. raw:: html
 
@@ -172,10 +185,10 @@ of state estimation and tracking.
 
 .. only:: html
 
-  .. image:: /auto_tutorials/images/thumb/sphx_glr_10_Simulation_&_Tracking_Components_thumb.png
+  .. image:: /auto_tutorials/fundamentals/images/thumb/sphx_glr_10_Simulation_&_Tracking_Components_thumb.png
     :alt: 10 - Tracking in simulation: bringing all components together
 
-  :ref:`sphx_glr_auto_tutorials_10_Simulation_&_Tracking_Components.py`
+  :ref:`sphx_glr_auto_tutorials_fundamentals_10_Simulation_&_Tracking_Components.py`
 
 .. raw:: html
 
@@ -187,24 +200,10 @@ of state estimation and tracking.
 
     </div>
 
+More Examples
+-------------
 
-.. toctree::
-   :hidden:
-
-   /auto_tutorials/01_KalmanFilterTutorial
-   /auto_tutorials/02_ExtendedKalmanFilterTutorial
-   /auto_tutorials/03_UnscentedKalmanFilterTutorial
-   /auto_tutorials/04_ParticleFilter
-   /auto_tutorials/05_DataAssociation-Clutter
-   /auto_tutorials/06_DataAssociation-MultiTargetTutorial
-   /auto_tutorials/07_PDATutorial
-   /auto_tutorials/08_JPDATutorial
-   /auto_tutorials/09_Initiators_&_Deleters
-   /auto_tutorials/10_Simulation_&_Tracking_Components
-
-Filters
--------
-Here are some tutorials which cover additional filtering techniques.
+Here are a selection of examples of SMART FUSION features.
 
 
 
@@ -215,35 +214,188 @@ Here are some tutorials which cover additional filtering techniques.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Gaussian mixture PHD tutorial">
+    <div class="sphx-glr-thumbcontainer" tooltip="We will attempt to classify 3 targets in an undefined region.">
 
 .. only:: html
 
-  .. image:: /auto_tutorials/filters/images/thumb/sphx_glr_GMPHDTutorial_thumb.png
-    :alt: Gaussian mixture PHD tutorial
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Classifying_Using_HMM_thumb.png
+    :alt: Classification Using Hidden Markov Model
 
-  :ref:`sphx_glr_auto_tutorials_filters_GMPHDTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Classifying_Using_HMM.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Gaussian mixture PHD tutorial</div>
+      <div class="sphx-glr-thumbnail-title">Classification Using Hidden Markov Model</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Information filter tutorial">
+    <div class="sphx-glr-thumbcontainer" tooltip="Creating an Actionable Sensor Example">
 
 .. only:: html
 
-  .. image:: /auto_tutorials/filters/images/thumb/sphx_glr_InformationFilterTutorial_thumb.png
-    :alt: Information filter tutorial
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Creating_Actionable_Sensor_thumb.png
+    :alt: Creating an Actionable Sensor Example
 
-  :ref:`sphx_glr_auto_tutorials_filters_InformationFilterTutorial.py`
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Creating_Actionable_Sensor.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Information filter tutorial</div>
+      <div class="sphx-glr-thumbnail-title">Creating an Actionable Sensor Example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Disjoint Tracking and Classification">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Disjoint_Tracking_Classification_thumb.png
+    :alt: Disjoint Tracking and Classification
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Disjoint_Tracking_Classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Disjoint Tracking and Classification</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multi-Target Tracking in 3D Using Platform Simulation">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_MTT_3D_Platform_thumb.png
+    :alt: Multi-Target Tracking in 3D Using Platform Simulation
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_MTT_3D_Platform.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-Target Tracking in 3D Using Platform Simulation</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Metrics Example">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Metrics_thumb.png
+    :alt: Metrics Example
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Metrics.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Metrics Example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multi-Sensor Moving Platform Simulation Example">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Moving_Platform_Simulation_thumb.gif
+    :alt: Multi-Sensor Moving Platform Simulation Example
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Moving_Platform_Simulation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-Sensor Moving Platform Simulation Example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Gromov Particle Flow Filter">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_ParticleFlow_thumb.png
+    :alt: Gromov Particle Flow Filter
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_ParticleFlow.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gromov Particle Flow Filter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sensor Platform Simulation Example">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Sensor_Platform_Simulation_thumb.png
+    :alt: Sensor Platform Simulation Example
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Sensor_Platform_Simulation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Sensor Platform Simulation Example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Creating Smooth Transitions Between Coordinates">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Smooth_Platform_Coordinate_Transitions_thumb.png
+    :alt: Creating Smooth Transitions Between Coordinates
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Smooth_Platform_Coordinate_Transitions.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Creating Smooth Transitions Between Coordinates</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multi-Sensor Fusion: Covariance Intersection Using Tracks as Measurements">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_Track2Track_Fusion_Example_thumb.png
+    :alt: Multi-Sensor Fusion: Covariance Intersection Using Tracks as Measurements
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_Track2Track_Fusion_Example.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-Sensor Fusion: Covariance Intersection Using Tracks as Measurements</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the RangeRangeRateBinning measurement model, showing the effect of bi...">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/moreexamples/images/thumb/sphx_glr_range_range_rate_binning_thumb.png
+    :alt: RangeRangeRateBinning measurement model example
+
+  :ref:`sphx_glr_auto_tutorials_moreexamples_range_range_rate_binning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">RangeRangeRateBinning measurement model example</div>
     </div>
 
 
@@ -316,13 +468,64 @@ Here are some tutorials that introduce sensor management using SMART FUSION clas
 
     </div>
 
+State Estimation
+-----------------
+Here are some tutorials which cover more advanced filtering techniques for object state estimation.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Gaussian mixture PHD tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/stateestimation/images/thumb/sphx_glr_GMPHDTutorial_thumb.png
+    :alt: Gaussian mixture PHD tutorial
+
+  :ref:`sphx_glr_auto_tutorials_stateestimation_GMPHDTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gaussian mixture PHD tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Information filter tutorial">
+
+.. only:: html
+
+  .. image:: /auto_tutorials/stateestimation/images/thumb/sphx_glr_InformationFilterTutorial_thumb.png
+    :alt: Information filter tutorial
+
+  :ref:`sphx_glr_auto_tutorials_stateestimation_InformationFilterTutorial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Information filter tutorial</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
 
 .. toctree::
    :hidden:
    :includehidden:
 
-   /auto_tutorials/filters/index.rst
+   /auto_tutorials/fundamentals/index.rst
+   /auto_tutorials/moreexamples/index.rst
    /auto_tutorials/sensormanagement/index.rst
+   /auto_tutorials/stateestimation/index.rst
 
 
 .. only:: html

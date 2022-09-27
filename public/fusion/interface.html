@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Component Interfaces &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+  <title>Component Interfaces &mdash; SMART FUSION 0.1b11.dev6+g9121db30.d20220926 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
@@ -27,7 +27,7 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="copyright" title="Copyright" href="copyright.html" />
     <link rel="next" title="Base Data Types" href="types.html" />
-    <link rel="prev" title="SMART FUSION Framework" href="smartfusion.html" /> 
+    <link rel="prev" title="Framework" href="design.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,7 +39,7 @@
             <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.1b11.dev2+gf88c3944.d20220921
+                0.1b11.dev6+g9121db30.d20220926
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,35 +50,28 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="design.html">Framework Design </a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Component Interfaces</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#enabling-components">Enabling Components</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#data-input">Data Input</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-output">Data Output</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#simulation">Simulation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="design.html">Framework </a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="design.html#components">Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="design.html#enabling-components">Enabling Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design.html#algorithm-components">Algorithm Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="design.html#data-types">Data Types</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Component Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#algorithm-components">Algorithm Components</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#models">Models</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="types.html">Base Data Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#components">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartfusion.html#data-types">Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
@@ -98,7 +91,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="smartfusion.html">SMART FUSION Framework</a> &raquo;</li>
+          <li><a href="design.html">Framework </a> &raquo;</li>
       <li>Component Interfaces</li>
   
   <li class="wy-breadcrumbs-aside">
@@ -1299,14 +1292,14 @@ distribution.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="smartfusion.html" class="btn btn-neutral float-left" title="SMART FUSION Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="design.html" class="btn btn-neutral float-left" title="Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="types.html" class="btn btn-neutral float-right" title="Base Data Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+    <p>&#169; <a href="copyright.html">Copyright</a> 2022 University of Oklahoma.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

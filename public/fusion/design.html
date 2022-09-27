@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Framework Design &mdash; SMART FUSION 0.1b11.dev2+gf88c3944.d20220921 documentation</title>
+  <title>Framework &mdash; SMART FUSION 0.1b11.dev6+g9121db30.d20220926 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="copyright" title="Copyright" href="copyright.html" />
-    <link rel="next" title="SMART FUSION Framework" href="smartfusion.html" />
+    <link rel="next" title="Component Interfaces" href="interface.html" />
     <link rel="prev" title="Welcome to SMART FUSION’s documentation!" href="index.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
             <img src="_static/smart_fusion_logo.jpeg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.1b11.dev2+gf88c3944.d20220921
+                0.1b11.dev6+g9121db30.d20220926
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,18 +49,28 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Framework Design </a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Framework </a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#enabling-components">Enabling Components</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#algorithm-components">Algorithm Components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-types">Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-types">Data Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interface.html">Component Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.functions.html">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="smartfusion.html">SMART FUSION Framework</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="auto_tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_demos/index.html">Demonstrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="copyright.html">Copyright &amp; License</a></li>
@@ -80,7 +90,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Framework Design </li>
+      <li>Framework </li>
   
   <li class="wy-breadcrumbs-aside">
     <a href="https://github.com/claycurry34/Smart-Fusion/blob/main/docs/source/design.rst" class="fa fa-github"> Edit on GitHub</a>
@@ -92,15 +102,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="framework-design">
-<h1>Framework Design <a class="footnote-reference brackets" href="#id2" id="id1">1</a><a class="headerlink" href="#framework-design" title="Permalink to this heading"></a></h1>
-<p>SMART FUSION is initially targeted at two different groups of users:</p>
+  <section id="framework">
+<h1>Framework <a class="footnote-reference brackets" href="#id2" id="id1">1</a><a class="headerlink" href="#framework" title="Permalink to this heading"></a></h1>
+<p>SMART FUSION is targeted at two different groups of users:</p>
 <blockquote>
 <div><ul class="simple">
+<li><p>Users, owners and processors of real data, looking to identify the best approach for their
+application, without the need for deep expertise required to implement many algorithms.</p></li>
 <li><p>Academics conducting research into tracking and state estimation, looking to quickly develop
 algorithms, and compare against other algorithms assessed against metrics.</p></li>
-<li><p>User, owners and processors of real data, looking to identify the best approach for their
-application, without the need for deep expertise required to implement many algorithms.</p></li>
 </ul>
 </div></blockquote>
 <p>The central theme of the SMART FUSION design philosophy is interchangeability. The framework is
@@ -187,11 +197,39 @@ vector and timestamp (in case of <a class="reference internal" href="smartfusion
 <a class="reference internal" href="smartfusion.types.html#smartfusion.types.groundtruth.GroundTruthState" title="smartfusion.types.groundtruth.GroundTruthState"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroundTruthState</span></code></a>). They therefore can both be used with <a class="reference internal" href="smartfusion.models.transition.html#smartfusion.models.transition.base.TransitionModel" title="smartfusion.models.transition.base.TransitionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionModel</span></code></a>
 instances, allowing models to be used for both target prediction (in case with
 <a class="reference internal" href="smartfusion.predictor.html#smartfusion.predictor.base.Predictor" title="smartfusion.predictor.base.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a>) and in simulating targets (in case with <a class="reference internal" href="smartfusion.platform.html#smartfusion.platform.base.Platform" title="smartfusion.platform.base.Platform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Platform</span></code></a>).</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">Component Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#enabling-components">Enabling Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#data-input">Data Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#data-output">Data Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#simulation">Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#algorithm-components">Algorithm Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface.html#models">Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Base Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.base.html">Declarative Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartfusion.functions.html#orbital-functions">Orbital functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.plotter.html">Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartfusion.serialise.html">Serialisation</a></li>
+</ul>
+</div>
 <p class="rubric">Footnotes</p>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><em>David Last, Paul Thomas, Steven Hiscocks, Jordi Barr, David Kirkland, Mamoon Rashid,
-Sang Bin Li, and Lyudmil Vladimirov</em> <strong>“SMART FUSION: announcement of beta release of an open-source
+Sang Bin Li, and Lyudmil Vladimirov</em> <strong>“Stone Soup: announcement of beta release of an open-source
 framework for tracking and state estimation”</strong>, Proc. SPIE 11018, Signal Processing,
 Sensor/Information Fusion, and Target Recognition XXVIII, 1101807 (7 May 2019);
 <a class="reference external" href="https://doi.org/10.1117/12.2518514">https://doi.org/10.1117/12.2518514</a></p>
@@ -206,13 +244,13 @@ Sensor/Information Fusion, and Target Recognition XXVIII, 1101807 (7 May 2019);
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to SMART FUSION’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="smartfusion.html" class="btn btn-neutral float-right" title="SMART FUSION Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="interface.html" class="btn btn-neutral float-right" title="Component Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; <a href="copyright.html">Copyright</a> 2017-2022 SMART FUSION contributors.</p>
+    <p>&#169; <a href="copyright.html">Copyright</a> 2022 University of Oklahoma.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

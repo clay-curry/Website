@@ -34,18 +34,18 @@ function Statement() {
   
   return (<Fragment>
       <p>
-        Through a graduate studies program, I would love to explore the intersection of <a href={gdl}>Geometric Deep Learning</a> (GDL) and <a href={databook}>Physics-Informed Machine Learning</a>, 
-        with emphasis on dynamical systems and higly-complex control engineering problems. Already, the union of GDL and Physics-Informed Machine Learning have proven to be a fertile area 
-        for interdisciplinary research. Some of my favorite papers at the union involve rapidly learning <a href={object_representation}>equivariant 
-        representations of objects</a> (related to my current research, also <a href={geoff}>Hinton approved</a>) in robotics, leveraging Clifford algebras to <a href={pde}>
-        model solutions of certain difficult PDEs</a> (e.g. Navier-Stokes), and using data <a href={brunton}>predict the discrepancies</a> of model-based (idealized)
-        solutions to optimal control problems.
+        In a Masters or Ph.D. setting, I would love to deepen my understanding of <a href={gdl}>Geometric Deep Learning</a> and <a href={databook}>Physics-Informed 
+        Machine Learning</a> and develop their applications in higly-complex control engineering problems.   
+      </p>
+      <p>At a high level, Geometric Deep Learning gives a common mathematical framework to study the most successful neural network architectures, such as CNNs, 
+        RNNs, Graph Neural Networks, and Transformers, ultimately providing a flexible understanding for building future architectures yet to be invented. On the 
+        other hand, Physics-Informed Machine Learning involves using prior knowledge (e.g. governing equations, constraints, symmetries) and observations (e.g. 
+        measured, simulated) to better model dynamical systems and generate novel solutions to difficult control problems.
       </p>
       <p>
-        In my view, GDL and Physics-Informed Machine Learning are two sides of the same coin. Precisely, GDL gives a common mathematical 
-        framework (notably, group theory and harmonic analysis) to study the most successful neural network architectures, such as CNNs, RNNs, GNNs, and Transformers, 
-        and provides principled constructive procedures to build future architectures yet to be invented. On the other hand, Physics-Informed Machine Learning encompases a number of 
-        frameworks for unifying emperical data with prior knowledge (e.g. governing equations, constraints, symmetries) of physical systems to synthesize data-driven models of physical systems.  
+        Some of my favorite papers in this area include learning <a href={object_representation}>equivariant representations of objects</a> in data-sparse tasks 
+        (<a href={geoff}>Hinton approved</a>), leveraging Clifford algebras to <a href={pde}>model solutions of certain difficult PDEs</a> (e.g. Navier-Stokes), and 
+        using data <a href={brunton}>model the discrepancies</a> of physics-based (idealized) solutions to optimal control problems.
       </p>
       <br />
 
@@ -63,8 +63,6 @@ function Keywords() {
       <div>Physics Informed ML</div>
       <div>Data Efficient ML</div>
       <div>Dynamical Systems and Optimal Control</div>
-      <div>Robotics</div>
-      <div>Graph Neural Networks</div>
       </div>
       
   </Fragment>)

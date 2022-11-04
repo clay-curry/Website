@@ -5,10 +5,13 @@ import '../styles/component.css'
 
 import { Footer, MoreComing, NavBar, PageContent } from '../components';
 
+var Latex = require('react-latex');
+
 function Research() {
   return (<>
     <NavBar/>
     <PageContent>
+      <link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet"/>
       <h2>Research</h2>
       <Statement />
       <hr />
@@ -31,21 +34,23 @@ const object_representation="https://yilundu.github.io/ndf/"
   
 function Statement() {
   
-  
+  const e3 = `$E(3) = SO(3) \\ltimes \\mathbb{R}^3$`
   return (<Fragment>
       <p>
-        In a Masters or Ph.D. setting, I would love to deepen my understanding of <a href={gdl}>Geometric Deep Learning</a> and <a href={databook}>Physics-Informed 
-        Machine Learning</a> and develop their applications in higly-complex control engineering problems.   
+        In a Masters or Ph.D. setting, I would love to deepen my understanding of <a href={gdl}>geometric deep learning</a> in the context of <a href={databook}>data-driven simulations</a> of 
+        physical systems, with cross-disciplinary applications in meterology, organic chemistry, materials science, and/or robotics. It would not be wrong to say my 
+        interests are in machine learning for physics and <i>the physics of machine learning</i> (i.e. geometric deep learning).
       </p>
-      <p>At a high level, Geometric Deep Learning gives a common mathematical framework to study the most successful neural network architectures, such as CNNs, 
-        RNNs, Graph Neural Networks, and Transformers, ultimately providing a flexible understanding for building future architectures yet to be invented. On the 
-        other hand, Physics-Informed Machine Learning involves using prior knowledge (e.g. governing equations, constraints, symmetries) and observations (e.g. 
-        measured, simulated) to better model dynamical systems and generate novel solutions to difficult control problems.
+      <p>At a high level, geometric deep learning gives a mathematical framework to study the most successful neural network architectures, by considering each architecture from the view of its symmetries. 
+        For instance, convolutional neural networks can be thought of as universally-approximating translation equivariant maps, RNNs learn time-shift equivariant maps, transformers have permutation 
+        equivariance, and graph neural networks can be made to model <Latex>{e3}</Latex> equivariant systems. Much like the physical sciences, symmetry is a general principle from which future architectures may be constructed. 
+        On the  other hand, Physics-Informed Machine Learning involves using prior knowledge (e.g. governing equations, constraints, symmetries) and observations (e.g. measured, simulated) to better model dynamical 
+        systems and generate novel solutions to difficult control problems.
       </p>
       <p>
-        Some of my favorite papers in this area include learning <a href={object_representation}>equivariant representations of objects</a> in data-sparse tasks 
-        (<a href={geoff}>Hinton approved</a>), leveraging Clifford algebras to <a href={pde}>model solutions of certain difficult PDEs</a> (e.g. Navier-Stokes), and 
-        using data <a href={brunton}>model the discrepancies</a> of physics-based (idealized) solutions to optimal control problems.
+        Some of my favorite papers in this area include learning <a href={object_representation}>equivariant representations of objects</a> for robot-object manipulation 
+        (<a href={geoff}>Hinton approved</a>), leveraging Clifford algebras to <a href={pde}>improve models of certain difficult initial value problems</a>, and learning to predict 
+        the discrepancies of first-principle models of partially observable dynamical system <a href={brunton}>for data-driven optimal control</a>.
       </p>
       <br />
 

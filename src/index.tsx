@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { 
+  BrowserRouter,
+  Route, 
+  Routes
+} from "react-router-dom";
+
 import { Home, Research, Projects, Contact } from './pages';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/research" element={<Research />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />        
+        <Route path="/contact"  element={<Contact />} />
+        <Route path="/resume" element={<Resume />}/> 
+              
       </Routes>
-    </Router>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+function Resume() {
+  window.location.replace("/resume.pdf");
+  return null;
+}

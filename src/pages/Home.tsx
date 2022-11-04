@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/style.css';
+import face from '../assets/face.jpg';
 import { NavBar, Footer, PageContent, ContactBtn, MoreComing } from '../components';
 
 function Home() {
   const react = "https://reactjs.org/";
   const conway = "https://en.wikipedia.org/wiki/John_Horton_Conway"
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
-  const partnership = "https://ou.edu/research-norman/news-events/2020/oc-alc-teams-up-with-ou-on-educational-partnership-agreement";
   return (
     <>
       <NavBar />
@@ -23,7 +23,8 @@ function Home() {
         </p>
 
         <p>
-          My interests are in applied machine learning, with emphasis in multidisciplinary research. Regarding my experience, several are listed here on my website (though this too is still in progress).
+          My interests are in applied machine learning, with emphasis in multidisciplinary research. Regarding my experience, several projects are listed here on 
+          my website (though that also is still in progress).
         </p>
         <p>
           I'm also seeking full-time opportunities starting in December (my expected graduation date), which are likely to be stepping stones into 
@@ -43,7 +44,7 @@ function Hero() {
   
   return (
     <div className='hero'>
-        <img src={require('../images/Clay_Face.JPG')} alt="Portrait of Clayton Curry" />
+        <img src={face} alt="Portrait of Clayton Curry" />
         <div className='text'>
         <div className='text'>Machine Learning ∪ Information Fusion ∪</div>
         <div className='text'>Data Visualization ∪ Software Engineering ∪</div>

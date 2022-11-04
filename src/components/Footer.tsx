@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { Container } from 'react-dom';
 import { loadFull } from "tsparticles";
 import { ISourceOptions } from "tsparticles-engine";
 import type { Engine } from "tsparticles-engine";

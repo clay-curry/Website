@@ -12,29 +12,25 @@ function Home() {
       <NavBar />
       <Hero />  
       <PageContent>
-        <h2>About Me</h2>
-        
         <p>
-          Hellooo, and welcome to my little internet world (hand built in <a href={react}>ReactJS</a>). My name is Clay and I am an undergraduate research 
-          assistant under the advisement of <a href={hougen}>Dr. Dean Hougen</a> at The University of Oklahoma. Our work addresses knowledge gaps at the 
-          intersection of machine learning, statistical information fusion, and object-tracking sensor networks. When I'm not doing that, you're guaranteed 
-          to find me either surfing through open-source projects, jogging with Mia (my good German Sheppard), or self-studying (currently, it's <a href={conway}>J. 
-          H. Conway's</a> <i>Point-Set Topology</i>).
+        Hellooo, and welcome to my little internet world (hand built in <a href={react}>ReactJS</a>). My name is Clay and I am an undergraduate research 
+        assistant under the advisement of <a href={hougen}>Dr. Dean Hougen</a> at The University of Oklahoma. Our work addresses knowledge gaps at the 
+        intersection of machine learning, statistical information fusion, and object-tracking sensor networks. When I'm not doing that, you're guaranteed 
+        to find me either surfing through open-source projects, jogging with Mia (my good German Sheppard), or self-studying (currently, it's <a href={conway}>J. 
+        H. Conway's</a> <i>Point-Set Topology</i>).
         </p>
 
         <p>
-          My interests are in applied machine learning, with emphasis in multidisciplinary research. Regarding my experience, several projects are listed here on 
-          my website (though that also is still in progress).
+        My interests are in applied machine learning, with emphasis in multidisciplinary research. Regarding my experience, several projects are listed here on 
+        my website (though that also is still in progress).
         </p>
         <p>
-          I'm also seeking full-time opportunities starting in December (my expected graduation date), which are likely to be stepping stones into 
-          graduate school (though I am perfectly fine with taking a gap semester, or several). If anything here looks interesting, <i>please</i> reach out to get in touch!
+        I'm also seeking full-time opportunities starting in December (my expected graduation date), which are likely to be stepping stones into 
+        graduate school (though I am perfectly fine with taking a gap semester, or several). If anything here looks interesting, <i>please</i> reach out to get in touch!
         </p>
-
-        <ContactBtn />
-        <MoreComing />
-        
-      </PageContent>  
+      <Buttons />
+      <MoreComing />     
+      </PageContent>
       <Footer />
     </>
   );
@@ -58,6 +54,14 @@ function Hero() {
         </div>
     </div>
   );
+}
+
+
+
+function Buttons(){
+  return (
+    <ContactBtn />
+  )
 }
 
 export default Home;

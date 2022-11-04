@@ -25,7 +25,6 @@ const gdl="https://geometricdeeplearning.com/"
 const databook="http://databookuw.com"
 const pde="https://arxiv.org/abs/2209.04934"
 const brunton="https://www.youtube.com/watch?v=7n7xaviepKM"
-const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
 const geoff="https://twitter.com/geoffreyhinton/status/1469842971721965568?s=20&t=6n-544KdFG1aKZRuWgN-lQ"
 const object_representation="https://yilundu.github.io/ndf/"
   
@@ -70,9 +69,9 @@ function Keywords() {
   </Fragment>)
 }
 
-
-function Longer(){
-  return (<><h3>My Interests (longer version)</h3>
+/*
+const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
+<h3>My Interests (longer version)</h3>
   <p>
   I developed my interest in <a href={gdl}>Geometric Deep Learning</a> in the semester following my first encounter with group theory (the mathematical
   study of symmetry), through an assigned technical report on Cohen & Welling's, <i><a href={gcnn}>Group Equivariant Convolutional
@@ -84,8 +83,6 @@ function Longer(){
   Networks". 
   </p>
   <br />
-  </>);
-}
-
+*/
 
 export default Research;

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import '../styles/style.css';
-import { Footer, MoreComing, NavBar, PageContent } from '../components';
+import { Footer, NavBar, PageContent } from '../components';
 
 function Contact() {
   return (<>

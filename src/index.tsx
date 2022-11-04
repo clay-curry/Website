@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from 'react-dom';
 
 import { 
@@ -8,8 +8,6 @@ import {
 } from "react-router-dom";
 
 import { Home, Research, Projects, Contact } from './pages';
-
-
 
 ReactDOM.render(
   <React.StrictMode>

@@ -12,10 +12,6 @@ function Footer() {
         await loadFull(engine);
     }, []);
 
-    const particlesLoaded = useCallback(async (container: Container | undefined) => {
-        await console.log(container);
-      }, []);
-
     return (
         <footer>
             <div className='footer-content'>
@@ -33,7 +29,7 @@ function Footer() {
 function LastUpdated(){
     return (
         <div className='site-info'>
-            <p>Last Updated: 9/13/2022</p>
+            <p>Last Updated: 11/04/2022</p>
             <p>© 2022. <a href="/LICENSE.md">MIT License</a></p>
         </div>
     );

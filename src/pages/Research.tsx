@@ -23,13 +23,10 @@ function Research() {
 }
 const gdl="https://geometricdeeplearning.com/"
 const databook="http://databookuw.com"
-const risi="https://arxiv.org/abs/2203.06153"
 const pde="https://arxiv.org/abs/2209.04934"
 const brunton="https://www.youtube.com/watch?v=7n7xaviepKM"
 const gcnn = "https://proceedings.mlr.press/v48/cohenc16.html"
-const follow_on="https://scholar.google.com/scholar?start=0&q=networks+equivariance,+OR+equivariant&hl=en&as_sdt=0,37"
 const geoff="https://twitter.com/geoffreyhinton/status/1469842971721965568?s=20&t=6n-544KdFG1aKZRuWgN-lQ"
-const architectures="https://arxiv.org/pdf/2203.06153.pdf"
 const object_representation="https://yilundu.github.io/ndf/"
   
 function Statement() {

@@ -25,7 +25,7 @@ function Work() {
       <hr />
       <h3>Work Experience</h3>
       <ul className='experience-item'>
-        <tr>Computer Scienc Undergrad Research Assistant with <a href={oadii}>SWEG-76</a></tr>
+        <tr>Computer Science Research Assistant with <a href={oadii}>SWEG-76</a></tr>
         <tr>NOV 2021 - Present</tr>
         <tr>
           <p>In this work, I helped research algorithms for classifying basic flight maneuvers in object-tracking sensor networks.</p>

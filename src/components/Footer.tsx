@@ -28,7 +28,7 @@ function Footer() {
 function LastUpdated(){
     return (
         <div className='site-info'>
-            <p>Last Updated: 11/04/2022</p>
+            <p>Revised: 11/15/2022</p>
             <p>© 2022. <a href="/LICENSE.md">MIT License</a></p>
         </div>
     );

@@ -21,26 +21,37 @@ function Projects() {
 function Work() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
-  const adsb = "https://globe.adsbexchange.com/"
-  const osn = "https://opensky-network.org/"
   return (<Fragment>
       <hr />
       <h3>Work Experience</h3>
       <ul className='experience-item'>
-        <tr>Undergraduate Research Assistant with <a href={oadii}>SWEG-76</a></tr>
-        <tr>Dec 2021 - Present</tr>
+        <tr>Computer Scienc Undergrad Research Assistant with <a href={oadii}>SWEG-76</a></tr>
+        <tr>NOV 2021 - Present</tr>
         <tr>
+          <p>In this work, I helped research algorithms for classifying basic flight maneuvers in object-tracking sensor networks.</p>
           <p>
-            Early on, I implemented a set of web-scraping tools for aggregating citizen-sourced transponder messages (<a href={adsb}>ADS-B</a>) on a global 
-            scale, intercepting more than 10,000,000 (ten-million) messages served by <a href={exch}>ADSB Exchange</a> within 72 hours, which I saved to my own 
-            SQL-like database. Achieving this feat required nothing more than translating client-facing Javascript code into equivalent Python requests and SQL 
-            transactions. I later realized that researchers at <a href={osn}>OpenSkyNet</a> have been collecting, storing, and sharing this type of data (and
-            more) for years, thus my efforts resulted in nothing more than a learning lesson.
+            <b>Key Achievement:</b> I scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 70,000,000 (seventy-million) messages 
+            in one weeked from all flights in the continental United States. 
             </p>
             <p>
-            More recently, I have been getting my feet wet in primary and secondary literature in the decades-old science of multiple object tracking. On a 
-            simultaneous front, I have been adapting open-source software projects, including state-of-the-art tracking algorithms such as the Gaussian-Mixture 
-            Probability Hypothesis Density filter.
+            <b>Key Achievement:</b> Developed two sequence-to-sequence machine learning algorithms capable of recognizing the occurence of basic flight 
+            maneuvers (takeoff, orbit, turning, landing) in simulated aircraft trajectories. I solved this problem twice using two highly different approaches: using a 3D convolutional neural network 
+            (similar to VoxelNet), and using an encoder-only transformer with bi-directional self-attention.
+            </p>
+        </tr>
+      </ul>
+      <ul className='experience-item'>
+        <tr>Red Hat Enterprise Linux System Administrator Assistant</tr>
+        <tr>FEB 2021 - FEB 2022</tr>
+        <tr>
+          <p>In this work, I gained hands-on experience fulfilling the research and web-communication needs of faculty in OU's Department of Physics.</p>
+          <p>
+            <b>Key Achievement:</b> Developed numerous Bash scripts for a variety of system administration tasks in the Red Hat Enterprise Linux (RHEL) operating system. This included remote 
+            inventory-taking (detecting axillary devices remotely), uptime monitoring and logging.
+            </p>
+            <p>
+            <b>Key Achievement:</b> Developed a recursive web crawler in Python for discovering broken website links, and flagging inconsistent information (phone numbers, office numbers) over 
+            100 department webpages
             </p>
         </tr>
       </ul>

@@ -4,8 +4,7 @@ import face from '../assets/face.jpg';
 import { NavBar, Footer, PageContent, ContactBtn, MoreComing } from '../components';
 
 function Home() {
-  const react = "https://reactjs.org/";
-  const conway = "https://en.wikipedia.org/wiki/John_Horton_Conway"
+  
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   return (
     <>
@@ -13,20 +12,15 @@ function Home() {
       <Hero />  
       <PageContent>
         <p>
-        Hellooo, and welcome to my little internet world (hand built in <a href={react}>ReactJS</a>). My name is Clay and I am an undergraduate research 
-        assistant under the advisement of <a href={hougen}>Dr. Dean Hougen</a> at The University of Oklahoma. Our work addresses knowledge gaps at the 
-        intersection of machine learning, statistical information fusion, and object-tracking sensor networks. When I'm not doing that, you're guaranteed 
-        to find me either surfing through open-source projects, jogging with Mia (my good German Sheppard), or self-studying (currently, it's <a href={conway}>J. 
-        H. Conway's</a> <i>Point-Set Topology</i>).
+        Hellooo, I am an undergraduate student in <b>Computer Science</b> under the advisement of <a href={hougen}>Director Dean Hougen</a> at <b>The University of Oklahoma</b>. 
+        My research is in the area of <b>interpretable machine learning</b> for <b>decision support systems</b> in spatio-temporal applications. I am also broadly 
+        interested in <b>computer security</b>, <b>ML robustness</b>, and <b>Geometric Deep Learning</b>. 
         </p>
 
         <p>
-        My interests are in applied machine learning, with emphasis in multidisciplinary research. Regarding my experience, several projects are listed here on 
-        my website (though that also is still in progress).
-        </p>
-        <p>
-        I'm also seeking full-time opportunities starting in December (my expected graduation date), which are likely to be stepping stones into 
-        graduate school (though I am perfectly fine with taking a gap semester, or several). If anything here looks interesting, <i>please</i> reach out to get in touch!
+        Outside of that, you're guaranteed to find me either self-studying, surfing through open-source projects, or jogging with Mia (my good German Sheppard).
+        I'm also seeking full-time opportunities starting in December (my expected graduation date), which might allow me to gain real-world experience and learn more
+        interesting problems. If anything here looks interesting, <i>please</i> reach out to get in touch!
         </p>
       <Buttons />
       <MoreComing />     
@@ -42,9 +36,9 @@ function Hero() {
     <div className='hero'>
         <img src={face} alt="Portrait of Clayton Curry" />
         <div className='text'>
-        <div className='text'>Machine Learning ∪ Information Fusion ∪</div>
-        <div className='text'>Data Visualization ∪ Software Engineering ∪</div>
-        <div className='text'>Object Tracking ∪ Artificial Intelligence</div>
+        <div className='text'><b>Clayton Curry</b></div>
+        <div className='text'>Computer Science</div>
+        <div className='text'>University of Oklahoma</div>
             <div className='text'></div>
             <div className='social'>
                 <a href="https://github.com/claycurry34"><svg id="gh" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>

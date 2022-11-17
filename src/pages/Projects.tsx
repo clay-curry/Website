@@ -44,9 +44,9 @@ function Work() {
         <tr>Red Hat Enterprise Linux System Administrator Assistant</tr>
         <tr>FEB 2021 - FEB 2022</tr>
         <tr>
-          <p>In this work, I gained hands-on experience fulfilling the research and web-communication needs of faculty in OU's Department of Physics.</p>
-          <p>
-            <b>Key Achievement:</b> Developed numerous Bash scripts for a variety of system administration tasks in the Red Hat Enterprise Linux (RHEL) operating system. This included remote 
+          <p>In this work, I gained hands-on experience fulfilling the research and web-communication needs of faculty at OU's Department of Physics.</p>
+            <p>
+            <b>Key Achievement:</b> Scripted for a variety of system administration tasks in the Red Hat Enterprise Linux (RHEL) operating system. This included remote 
             inventory-taking (detecting axillary devices remotely), uptime monitoring and logging.
             </p>
             <p>

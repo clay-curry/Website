@@ -18,7 +18,7 @@ function Home() {
         <i>please</i> reach out to get in touch!
         </p>
         <p>
-        I'm also seeking full-time industry opportunities starting in December 2022 (my expected graduation date), preferrably in a setting with many open-ended engineering problems.        
+        I'm also seeking full-time job / research opportunities starting in December 2022 (my expected graduation date), preferrably in a setting with many open-ended problems.        
         </p>
       <Buttons />
       <MoreComing />     

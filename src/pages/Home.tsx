@@ -17,8 +17,8 @@ function Home() {
         interested in <b>computer security</b>, <b>ML robustness</b>, and <b>Geometric Deep Learning</b>. If anything here looks interesting, <i>please</i> reach out to get in touch!
         </p>
         <p>
-        I'm also seeking full-time opportunities starting in December 2022 (my expected graduation date), which might allow me to gain real-world experience and learn more
-        interesting research questions to pursue on behalf of a company during graduate school.        
+        I'm also seeking full-time job/research opportunities starting in December 2022 (my expected graduation date), which might allow me to gain real-world experience and learn more
+        interesting research questions to pursue on behalf of an organization during graduate school.        
         </p>
       <Buttons />
       <MoreComing />     

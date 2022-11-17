@@ -14,13 +14,12 @@ function Home() {
         <p>
         Hellooo, I am an undergraduate student in <b>Computer Science</b> under the advisement of <a href={hougen}>Director Dean Hougen</a> at <b>The University of Oklahoma</b>. 
         My research is in the area of <b>interpretable machine learning</b> for <b>decision support systems</b> in spatio-temporal applications. I am also broadly 
-        interested in <b>computer security</b>, <b>ML robustness</b>, and <b>Geometric Deep Learning</b>. 
+        interested in <b>computer security</b>, <b>ML robustness</b>, and <b>Geometric Deep Learning</b>. If anything here looks interesting, <i>please</i> reach out to get in touch!
         </p>
 
         <p>
-        Outside of that, you're guaranteed to find me either self-studying, surfing through open-source projects, or jogging with Mia (my good German Sheppard).
-        I'm also seeking full-time opportunities starting in December (my expected graduation date), which might allow me to gain real-world experience and learn more
-        interesting problems. If anything here looks interesting, <i>please</i> reach out to get in touch!
+        I'm also seeking full-time opportunities starting in December 2022 (my expected graduation date), which might allow me to gain real-world experience and learn more
+        interesting problems.        
         </p>
       <Buttons />
       <MoreComing />     

@@ -30,7 +30,7 @@ function Work() {
         <tr>
           <p>In this work, I helped research algorithms for classifying basic flight maneuvers in object-tracking sensor networks.</p>
           <p>
-            <b>Key Achievement:</b> I scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 70,000,000 (seventy-million) messages 
+            <b>Key Achievement:</b> Scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 70,000,000 (seventy-million) messages 
             in one weeked from all flights in the continental United States. 
             </p>
             <p>

@@ -16,10 +16,9 @@ function Home() {
         My research is in the area of <b>interpretable machine learning</b> for <b>decision support systems</b> in spatio-temporal applications. I am also broadly 
         interested in <b>computer security</b>, <b>ML robustness</b>, and <b>Geometric Deep Learning</b>. If anything here looks interesting, <i>please</i> reach out to get in touch!
         </p>
-
         <p>
         I'm also seeking full-time opportunities starting in December 2022 (my expected graduation date), which might allow me to gain real-world experience and learn more
-        interesting problems.        
+        interesting research questions.        
         </p>
       <Buttons />
       <MoreComing />     

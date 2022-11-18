@@ -21,23 +21,27 @@ function Projects() {
 function Work() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
+  const hougen = "https://www.ou.edu/coe/cs/people/hougen";
+  
+  
   return (<Fragment>
       <hr />
       <h3>Work Experience</h3>
       <ul className='experience-item'>
-        <tr>Computer Science Research Assistant with <a href={oadii}>SWEG-76</a></tr>
+        <tr>Computer Science Research Assistant</tr>
         <tr>NOV 2021 - Present</tr>
         <tr>
-          <p>In this work, I helped research algorithms for classifying basic flight maneuvers in object-tracking sensor networks.</p>
+          <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>. Gained a fundamental understanding of 
+          algorithms and literature on multiple object tracking using Visual, Radar, and LiDAR systems.  </p>
+          <p>
+            <b>Key Achievement:</b> Tailored novel algorithms in Computer Vision and Natural Language Processing for classifying basic flight maneuvers.
+          </p>
+          <Colab />
           <p>
             <b>Key Achievement:</b> Scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 70,000,000 (seventy-million) messages 
             in one weeked from all flights in the continental United States. 
-            </p>
-            <p>
-            <b>Key Achievement:</b> Developed two sequence-to-sequence machine learning algorithms capable of recognizing the occurence of basic flight 
-            maneuvers (takeoff, orbit, turning, landing) in simulated aircraft trajectories. I solved this problem twice using two highly different approaches: using a 3D convolutional neural network 
-            (similar to VoxelNet), and using an encoder-only transformer with bi-directional self-attention.
-            </p>
+          </p>
+            
         </tr>
       </ul>
       <ul className='experience-item'>
@@ -58,5 +62,12 @@ function Work() {
   </Fragment>);
 }
 
+
+function Colab(){
+  const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
+  return (<a className='badge' href={colab_transformer}>
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>);
+}
 
 export default Projects;

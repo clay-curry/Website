@@ -1,0 +1,41 @@
+.buttons{
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    margin: 8vh;
+    width: fit-content;
+    width: min(800px, 90%);
+}
+
+.buttons > a {
+    -webkit-text-size-adjust: 100%;
+    padding: .5vh 1vh .5vh 1vh;
+    text-align: center;
+    max-width: 200px;
+    line-height: 35px;
+    border-radius: 11px;
+    opacity: 100%;
+    font-size: 16px;
+    letter-spacing: 4px;
+    font-family: "Open Sans",sans-serif;
+    text-align: center;
+    font-weight: 900;
+}
+
+a.red {
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, .35);
+    color: aliceblue;
+}
+
+a.blue {
+    border: 1px solid rgba(159, 139, 255, 0.957);
+    background-color: rgba(0, 38, 255, 0.35);
+    color: aliceblue;
+}
+
+a.yellow {
+    border: 1px solid rgba(227, 242, 96, 1);
+    background-color: rgba(255, 234, 0, 0.35);
+    color: aliceblue;
+}

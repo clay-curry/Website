@@ -1,28 +1,25 @@
 import React from 'react';
 import '../styles/style.css';
 import face from '../assets/face.jpg';
-import { NavBar, Footer, PageContent, ContactBtn, MoreComing } from '../components';
+import { NavBar, Footer, Btn, PageContent, MoreComing } from '../components';
 
 function Home() {
   
-  const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   return (
     <>
       <NavBar />
       <Hero />  
       <PageContent>
-        <p>
-        Hellooo, I am an undergraduate student in <b>Computer Science</b> under the advisement of <a href={hougen}>Director Dean Hougen</a> at <b>The University of Oklahoma</b>. 
-        My research is in the area of <b>interpretable machine learning</b> for <b>decision support systems</b> in spatio-temporal applications. I am also broadly 
-        interested in <b>ML robustness</b>, <b>computer security</b>, <b>national security</b>, and <b>Geometric Deep Learning</b>. If anything here looks interesting, 
-        <i>please</i> reach out to get in touch!
-        </p>
-        <p>
-        I'm also seeking full-time job / research opportunities starting in December 2022 (my expected graduation date), preferrably in a setting with many open-ended problems.        
-        </p>
-      <Buttons />
+          <p>
+            My name is Clay, and I am an undergraduate student in Computer Science at The University of Oklahoma. My research interests are
+            natural language understanding and human computer interaction, with broad interests in federated learning, interpretable machine 
+            learning for safety and consumer accessibily. I am seeking full-time job / research opportunities starting in December 2022 (my 
+            expected graduation date).
+          </p>
+      
       <MoreComing />     
       </PageContent>
+      <Buttons />
       <Footer />
     </>
   );
@@ -51,9 +48,11 @@ function Hero() {
 
 
 function Buttons(){
-  return (
-    <ContactBtn />
-  )
+  return (<div className='buttons'>
+    <Btn rel="contact" href="/contact/" className="red" text="Research" />
+    <Btn rel="contact" href="/contact/" className="yellow" text="Projects" />
+    <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
+    </div>)
 }
 
 export default Home;

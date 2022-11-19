@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 import '../styles/research.css';
-import { Footer, MoreComing, NavBar, PageContent } from '../components';
+import { Footer, MoreComing, NavBar, PageContent, Colab, GitHub } from '../components';
 
 function Projects() {
   return (
@@ -22,8 +22,8 @@ function Work() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
-  
-  
+  const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
+  const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
   return (<Fragment>
       <hr />
       <h3>Work Experience</h3>
@@ -34,12 +34,12 @@ function Work() {
           <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>. Gained a fundamental understanding of 
           algorithms and literature on multiple object tracking using Visual, Radar, and LiDAR systems.  </p>
           <p>
-            <b>Key Achievement:</b> Tailored novel algorithms in Computer Vision and Natural Language Processing for classifying basic flight maneuvers.
+            <b>Key Achievement:</b> Adapted algorithmic techniques commonly used in Natural Language Processing for classifying basic flight maneuvers. <Colab href={colab_transformer} />
           </p>
-          <Colab />
+          
           <p>
-            <b>Key Achievement:</b> Scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 70,000,000 (seventy-million) messages 
-            in one weeked from all flights in the continental United States. 
+            <b>Key Achievement:</b> Scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 50,000,000 (seventy-million) messages 
+            in one weeked from all flights in the continental United States. <GitHub href={github_transponder} />
           </p>
             
         </tr>
@@ -60,14 +60,6 @@ function Work() {
         </tr>
       </ul>
   </Fragment>);
-}
-
-
-function Colab(){
-  const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
-  return (<a className='badge' href={colab_transformer}>
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>);
 }
 
 export default Projects;

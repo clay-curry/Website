@@ -163,7 +163,7 @@ footer {
   bottom: 0px;
   width: 100vw;
   height: max(4vh, auto); 
-  
+  margin-top: 20vh;
   background: grey;
   padding-top: 15px;
   padding-bottom: 40px;

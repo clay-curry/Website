@@ -7,26 +7,7 @@ function Contact() {
     <NavBar/>
     <PageContent>
     <h2>Contact</h2>
-    <div className='contact-info'>
-      <div>
-        <h4>Location</h4>
-        <p>
-          Mailing Address:
-          <div>206 W Johnson St</div>
-          <div>Norman, OK 73069</div>     
-        </p>
-      </div>
-      <div>
-        <h4>Electronic</h4>
-        <p>
-          Email:
-          <div><a href="mailto:claycurry34@gmail.com">claycurry34@gmail.com</a></div>
-          Phone:
-          <div><a href="tel:405-301-1055">405-301-1055</a></div>
-        </p>
-      </div>
-
-    </div>
+    <iframe title="contactMe" src="https://docs.google.com/forms/d/e/1FAIpQLScN8BLSyHxDOxaM7RBrMjw4IVt8Jm0SQF6lmqP8-sHF7djqbg/viewform?embedded=true" >Loading…</iframe>
     </PageContent>
     <div className="gap"></div>
     <Footer />

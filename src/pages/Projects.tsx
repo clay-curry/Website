@@ -24,38 +24,42 @@ function Work() {
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
   const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
+  const rhel = "https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux"
+  const phyast = "https://ou.edu/cas/physics-astronomy"
+  const crawler = "https://github.com/claycurry34/Python-Web-Crawler"
   return (<Fragment>
       <hr />
       <h3>Work Experience</h3>
       <ul className='experience-item'>
-        <tr>Computer Science Research Assistant</tr>
-        <tr>NOV 2021 - Present</tr>
+        <tr><a href={oadii}>OADII</a> Partnership</tr>
+        <tr>Research Assistant | NOV 2021 - Present</tr>
         <tr>
-          <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>. Gained a fundamental understanding of 
-          algorithms and literature on multiple object tracking using Visual, Radar, and LiDAR systems.  </p>
+          <p>Gained a fundamental understanding of algorithms for object tracking in aerospace and automotive 
+          systems, including Bayesian methods and computer vision Visual, Radar, and LiDAR detections.
+          Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.</p>
           <p>
-            <b>Key Achievement:</b> Concieved a novel use-case of self-attention and autoregressive modeling to classify basic flight maneuvers. <Colab href={colab_transformer} />
+            <b>Key Achievement:</b> Applied neural-architecture-search principles to learn an ensemble of transformer networks for recognizing basic flight maneuvers <Colab href={colab_transformer} />
           </p>
           
           <p>
-            <b>Key Achievement:</b> Scraped a massive dataset of <a href={exch}>citizen-sourced transponder messages</a>, intercepting more than 50,000,000 (seventy-million) messages 
-            in one weeked from all flights in the continental United States. <GitHub href={github_transponder} />
+            <b>Key Achievement:</b> Scraped over 50,000,000 transponder messages (source: <a href={exch}>adsbexchange</a>) in one weekend, likely from every aircraft in the continental United States, then stored to a relational database. <GitHub href={github_transponder} />
           </p>
             
         </tr>
       </ul>
       <ul className='experience-item'>
-        <tr>Red Hat Enterprise Linux System Administrator Assistant</tr>
-        <tr>FEB 2021 - FEB 2022</tr>
+        <tr>OU <a href={phyast}>Physics and Astronomy</a></tr>
+        <tr>Sysadmin Assistant | FEB 2021 - FEB 2022</tr>
         <tr>
-          <p>In this work, I gained hands-on experience fulfilling the research and web-communication needs of faculty at OU's Department of Physics.</p>
+          <p>
+            Fostered relationships with researchers and staff members to understand their computational needs, assist with administering servers, services, infrastructure.
+          </p>
+          <p>
+            <b>Key Achievement:</b> Developed a recursive web crawler in Python for flagging broken website links, discovering inconsistent info (phone numbers, office numbers), and verifying alt-text on over 200 webpages. <GitHub href={crawler} />
+          </p>
             <p>
-            <b>Key Achievement:</b> Scripted for a variety of system administration tasks in the Red Hat Enterprise Linux (RHEL) operating system. This included remote 
-            inventory-taking (detecting axillary devices remotely), uptime monitoring and logging.
-            </p>
-            <p>
-            <b>Key Achievement:</b> Developed a recursive web crawler in Python for discovering broken website links, and flagging inconsistent information (phone numbers, office numbers) over 
-            100 department webpages
+            <b>Key Achievement:</b> Scripted a variety of sysadmin related tasks in the <a href={rhel}>Red Hat Enterprise Linux</a> operating system. This included remote 
+            inventory-taking (detecting axillary devices remotely), uptime monitoring, and event logging.
             </p>
         </tr>
       </ul>

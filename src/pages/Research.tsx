@@ -21,12 +21,12 @@ function Research() {
 
   
 function Statement() {
-  
+   
   return (<Fragment>
       <p>
-        My interests are in <b>AI for science</b>, <b>task-conditioned</b> machine learning, <b>interpretable</b> machine 
-        learning, <b>natural language processing</b>, <b>human computer interaction</b>, task <b>abstraction</b> and <b>flexibility</b> (i.e. 
-        general intelligence), and the <b>democratization</b> of "intelligent" software for promoting human health and performance.
+        My interests are in <b>task-conditioned</b> machine learning, task <b>abstraction</b> and <b>flexibility</b>, <b>AI
+        for science</b>,  human-computer <b>interaction</b>, natural language <b>processing</b>, <b>interpretable</b> machine 
+        learning, and the <b>democratization</b> of "intelligent" software in a variety of settings.
       </p>
       <br />
 

@@ -34,7 +34,7 @@ function Work() {
           <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>. Gained a fundamental understanding of 
           algorithms and literature on multiple object tracking using Visual, Radar, and LiDAR systems.  </p>
           <p>
-            <b>Key Achievement:</b> Adapted algorithmic techniques commonly used in Natural Language Processing for classifying basic flight maneuvers. <Colab href={colab_transformer} />
+            <b>Key Achievement:</b> Concieved a novel use-case of self-attention and autoregressive modeling to classify basic flight maneuvers. <Colab href={colab_transformer} />
           </p>
           
           <p>

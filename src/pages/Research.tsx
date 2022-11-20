@@ -9,7 +9,6 @@ function Research() {
   return (<>
     <NavBar/>
     <PageContent>
-      <link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet"/>
       <h2>Research</h2>
       <Statement />
       <hr />
@@ -25,11 +24,10 @@ function Statement() {
   
   return (<Fragment>
       <p>
-        In a Masters or Ph.D. setting, I would love to deepen my understanding of machine learning for modeling phenomena in
-        physical systems, with cross-disciplinary applications in meterology, guidance systems, aircraft and automotive control,
-        target tracking, and time-series estimation problems.
+        My interests are in <b>AI for science</b>, <b>task-conditioned</b> machine learning, <b>interpretable</b> machine 
+        learning, <b>natural language processing</b>, <b>human computer interaction</b>, task <b>abstraction</b> and <b>flexibility</b> (i.e. 
+        general intelligence), and the <b>democratization</b> of "intelligent" software for promoting human health and performance.
       </p>
-      
       <br />
 
   </Fragment>);
@@ -39,6 +37,7 @@ function Keywords() {
   return(<Fragment>
       <h3>Key Words</h3>
       <div className='keywords'>
+      <div>Geometric Deep Learning</div>
       <div>Geometry</div>
       <div>Symmetry</div>
       <div>Algebra</div>

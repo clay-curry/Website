@@ -2,24 +2,25 @@
     display: flex;
     gap: 20px;
     justify-content: space-around;
-    margin: 8vh;
+    margin: 5vh;
     width: fit-content;
     width: min(800px, 90%);
 }
 
 .buttons > a {
     -webkit-text-size-adjust: 100%;
-    padding: .5vh 1vh .5vh 1vh;
-    text-align: center;
+    padding: 1vh 1vh 1vh 1vh;
     max-width: 200px;
-    line-height: 35px;
     border-radius: 11px;
     opacity: 100%;
-    font-size: 16px;
+    font-size: 15px;
     letter-spacing: 4px;
     font-family: "Open Sans",sans-serif;
-    text-align: center;
+    vertical-align: middle;
     font-weight: 900;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 a.red {

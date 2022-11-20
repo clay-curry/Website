@@ -8,7 +8,7 @@ function Colab(props: { href: string }){
 
 function GitHub(props: { href: string }){
     return (<a href={props.href}>
-    <img src="https://img.shields.io/static/v1.svg?logo=github&label=Repo&message=View%20On%20Github&color=lightgrey" alt="Open In GitHub"/>
+    <img src="https://img.shields.io/static/v1.svg?logo=github&label=Repo&message=See%20Project&color=blueviolet" alt="Open In GitHub"/>
   </a>);
 }
 

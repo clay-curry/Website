@@ -11,13 +11,10 @@ function Home() {
       <Hero />  
       <PageContent>
           <p>
-            My name is Clay, and I am an undergraduate student in Computer Science at The University of Oklahoma. My research interests are
-            natural language understanding and human computer interaction, with broad interests in federated learning, interpretable machine 
-            learning for safety and consumer accessibily. I am seeking full-time job / research opportunities starting in December 2022 (my 
-            expected graduation date).
+            I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. 
+            I am actively seeking full-time work opportunities starting in December 2022 (my expected graduation date).
           </p>
-      
-      <MoreComing />     
+          <MoreComing />     
       </PageContent>
       <Buttons />
       <Footer />
@@ -49,9 +46,9 @@ function Hero() {
 
 function Buttons(){
   return (<div className='buttons'>
-    <Btn rel="contact" href="/contact/" className="red" text="Research" />
-    <Btn rel="contact" href="/contact/" className="yellow" text="Projects" />
-    <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
+        <Btn rel="contact" href="/research/" className="red" text="Research" />
+        <Btn rel="contact" href="/projects/" className="yellow" text="Projects" />
+        <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
     </div>)
 }
 

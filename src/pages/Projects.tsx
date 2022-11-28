@@ -24,19 +24,19 @@ function Work() {
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
   const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
-  const rhel = "https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux"
   const phyast = "https://ou.edu/cas/physics-astronomy"
   const crawler = "https://github.com/claycurry34/Python-Web-Crawler"
   return (<Fragment>
       <hr />
       <h3>Work Experience</h3>
       <ul className='experience-item'>
-        <tr><a href={oadii}>OADII</a> Partnership</tr>
-        <tr>Research Assistant | NOV 2021 - Present</tr>
+        
+      <tr>AI/ML Research Assistant</tr>
+        <tr>Partnership with OADII | NOV 2021 - Present</tr>
         <tr>
-          <p>Gained a fundamental understanding of algorithms for object tracking in aerospace and automotive 
-          systems, including Bayesian methods and computer vision Visual, Radar, and LiDAR detections.
-          Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.</p>
+          <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.
+          Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. 
+          </p>
           <p>
             <b>Key Achievement:</b> Applied neural-architecture-search principles to learn an ensemble of transformer networks for recognizing basic flight maneuvers <Colab href={colab_transformer} />
           </p>
@@ -48,19 +48,15 @@ function Work() {
         </tr>
       </ul>
       <ul className='experience-item'>
-        <tr>OU <a href={phyast}>Physics and Astronomy</a></tr>
-        <tr>Sysadmin Assistant | FEB 2021 - FEB 2022</tr>
+        <tr>Red Hat Enterprise Linux System Admin Assistant</tr>
+        <tr>OU Physics and Astronomy | FEB 2021 - FEB 2022</tr>
         <tr>
           <p>
-            Fostered relationships with researchers and staff members to understand their computational needs, assist with administering servers, services, infrastructure.
+            Provided assistance to the <a href={phyast}>Homer L. Dodge Department of Physics and Astronomy</a> on numerous technical infrastructure projects and gained expertise administering servers/services/infrastructure and resolving technical issues.
           </p>
           <p>
             <b>Key Achievement:</b> Developed a recursive web crawler in Python for flagging broken website links, discovering inconsistent info (phone numbers, office numbers), and verifying alt-text on over 200 webpages. <GitHub href={crawler} />
           </p>
-            <p>
-            <b>Key Achievement:</b> Scripted a variety of sysadmin related tasks in the <a href={rhel}>Red Hat Enterprise Linux</a> operating system. This included remote 
-            inventory-taking (detecting axillary devices remotely), uptime monitoring, and event logging.
-            </p>
         </tr>
       </ul>
   </Fragment>);

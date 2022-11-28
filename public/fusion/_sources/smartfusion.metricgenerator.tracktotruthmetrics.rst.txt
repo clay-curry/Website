@@ -1,5 +1,0 @@
-Track-to-truth metrics
-======================
-
-.. automodule:: smartfusion.metricgenerator.tracktotruthmetrics
-    :show-inheritance:

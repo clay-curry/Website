@@ -1,5 +1,0 @@
-Measures
-========
-
-.. automodule:: smartfusion.measures
-    :special-members:

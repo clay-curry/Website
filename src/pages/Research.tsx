@@ -24,9 +24,23 @@ function Statement() {
    
   return (<Fragment>
       <p>
-        My interests are in <b>task-conditioned</b> machine learning, task <b>abstraction</b> and <b>flexibility</b>, <b>AI
-        for science</b>,  human-computer <b>interaction</b>, natural language <b>processing</b>, <b>interpretable</b> machine 
-        learning, and the <b>democratization</b> of "intelligent" software in a variety of settings.
+      Transfer learning is a machine learning (ML) technique that enables a model to use knowledge gained from one task to solve a different but related task. This is 
+      valuable in situations (e.g. medicine, path-planning, logistics) where not enough data is available to train a ML model to solve a new problem from scratch. 
+      My goal is to develop new applications of transfer learning in a variety of settings, towards the goal of distilling the fundamental nature of task abstraction. 
+      I am also interested in algorithms that opportunize expert-knowledge (e.g. governing physical equations, problem constraints) as well as data to 
+      model relational and causal structures.
+      </p>
+      <p>
+
+    Broad research interests:
+    <table> 
+    <tr>- computer-assisted knowledge discovery</tr>
+    <tr>- formal verification of machine learning systems,</tr>
+    <tr>- inductive biases for object-centric representations,</tr>
+    <tr>- latent-variable based methods for generative modeling,</tr>
+    <tr>- applications of representation theory in machine learning, e.g. Geometric Deep Learning,</tr>
+    <tr>- ML-enhanced data collection, integration & outlier detection, </tr>
+    </table>
       </p>
       <br />
 

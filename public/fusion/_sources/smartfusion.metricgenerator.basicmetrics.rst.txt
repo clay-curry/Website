@@ -1,5 +1,0 @@
-Basic Metrics
-==============
-
-.. automodule:: smartfusion.metricgenerator.basicmetrics
-    :show-inheritance:

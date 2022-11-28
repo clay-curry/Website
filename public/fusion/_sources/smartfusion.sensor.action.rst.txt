@@ -1,8 +1,0 @@
-Actions
-=======
-
-.. automodule:: smartfusion.sensor.action
-    :show-inheritance:
-
-.. automodule:: smartfusion.sensor.action.dwell_action
-    :show-inheritance:

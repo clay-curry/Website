@@ -1,9 +1,0 @@
-Platforms
-=========
-
-.. automodule:: smartfusion.platform
-    :no-members:
-
-.. automodule:: smartfusion.platform.base
-    :show-inheritance:
-

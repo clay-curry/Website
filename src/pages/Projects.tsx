@@ -10,13 +10,29 @@ function Projects() {
     <NavBar/>
     <PageContent>
       <h2>Projects</h2>
-       <Work />  
+        <Blog />
+        <Software />
+        <Work />  
       <MoreComing />
     </PageContent>
     <Footer />
     </>);
 }
 
+
+function Blog() {
+  return (<Fragment>
+      <hr />
+      <h3>Blogs</h3>
+  </Fragment>);
+}
+
+function Software() {
+  return (<Fragment>
+      <hr />
+      <h3>Software</h3>
+  </Fragment>);
+}
 
 function Work() {
   const exch="https://globe.adsbexchange.com/"

@@ -40,3 +40,10 @@ a.yellow {
     background-color: rgba(255, 234, 0, 0.35);
     color: aliceblue;
 }
+
+a.green {
+    border: 1px solid rgb(96, 242, 125);
+    background-color: rgba(34, 255, 0, 0.35);
+    color: aliceblue;
+}
+

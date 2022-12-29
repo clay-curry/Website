@@ -12,9 +12,14 @@ function Home() {
       <PageContent>
           <p>
             I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. 
-            I am actively seeking full-time work opportunities starting in December 2022 (my expected graduation date).
+            My interest spans the intersection of abstract mathematics and gradient-based learning algorithms. 
+            In particular, my focus is on pushing the limit of understanding in symmetry-aware machine learning,
+            self-supervised learning, and neurosymbolic artificial intelligence. Have a look at some of my recent 
+            work soon at your nearest Aerospace conference!
           </p>
-          <MoreComing />     
+          <p>
+            Hire Me!
+          </p>
       </PageContent>
       <Buttons />
       <Footer />
@@ -48,6 +53,7 @@ function Buttons(){
   return (<div className='buttons'>
         <Btn rel="contact" href="/research/" className="red" text="Research" />
         <Btn rel="contact" href="/projects/" className="yellow" text="Projects" />
+        <Btn rel="contact" href="/contact/" className="green" text="Hire Me" />
         <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
     </div>)
 }

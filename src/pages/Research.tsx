@@ -24,11 +24,11 @@ function Statement() {
    
   return (<Fragment>
       <p>
-      Transfer learning is a machine learning (ML) technique that enables a model to use knowledge gained from one task to solve a different but related task. This is 
-      valuable in situations (e.g. medicine, path-planning, logistics) where not enough data is available to train a ML model to solve a new problem from scratch. 
-      My goal is to develop new applications of transfer learning in a variety of settings, towards the goal of distilling the fundamental nature of task abstraction. 
-      I am also interested in algorithms that opportunize expert-knowledge (e.g. governing physical equations, problem constraints) as well as data to 
-      model relational and causal structures.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
       <p>
 

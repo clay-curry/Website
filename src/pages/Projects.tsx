@@ -68,7 +68,14 @@ function Work() {
         <tr>OU Physics and Astronomy | FEB 2021 - FEB 2022</tr>
         <tr>
           <p>
-            Provided assistance to the <a href={phyast}>Homer L. Dodge Department of Physics and Astronomy</a> on numerous technical infrastructure projects and gained expertise administering servers/services/infrastructure and resolving technical issues.
+          As a Red Hat Enterprise Linux System Admin Asst. at the OU Department of Physics, 
+          I coordinated with OU IT to provide system-facing and people-facing services and 
+          software infrastructure for a research-driven department using Red Hat Enterprise 
+          Linux. Using SSH, I scripted numerous tasks such as external device detection, 
+          monitoring service uptime, diagnosing network issues, and installing, testing, and 
+          maintaining a broad range of scientific software using remote code execution, saving 
+          weeks of labor. I also had a major role in web communications, including implementing 
+          the entire department website in Adobe Experience Manager
           </p>
           <p>
             <b>Key Achievement:</b> Developed a recursive web crawler in Python for flagging broken website links, discovering inconsistent info (phone numbers, office numbers), and verifying alt-text on over 200 webpages. <GitHub href={crawler} />

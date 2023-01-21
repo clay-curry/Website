@@ -11,14 +11,10 @@ function Home() {
       <Hero />  
       <PageContent>
           <p>
-            I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. 
-            My interest spans the intersection of abstract mathematics and gradient-based learning algorithms. 
-            In particular, my focus is on pushing the limit of understanding in symmetry-aware machine learning,
-            self-supervised learning, and neurosymbolic artificial intelligence. Have a look at some of my recent 
-            work soon at your nearest Aerospace conference!
-          </p>
-          <p>
-            Hire Me!
+            I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. As an emerging software 
+            engineer and data scientist, I'm currently working on a number of sofware-related projects helping me gain practice on topics 
+            in software engineering (design patterns, architecture patterns, project management) and machine learning in a number of areas.
+            Have a look at some of my recent work soon at your nearest Aerospace conference!
           </p>
       </PageContent>
       <Buttons />

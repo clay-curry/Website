@@ -10,21 +10,11 @@ function Projects() {
     <NavBar/>
     <PageContent>
       <h2>Projects</h2>
-        <Blog />
-        <Software />
         <Work />  
       <MoreComing />
     </PageContent>
     <Footer />
     </>);
-}
-
-
-function Blog() {
-  return (<Fragment>
-      <hr />
-      <h3>Blogs</h3>
-  </Fragment>);
 }
 
 function Software() {

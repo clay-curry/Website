@@ -7,7 +7,11 @@ function Contact() {
     <NavBar/>
     <PageContent>
     <h2>Contact</h2>
-    <iframe title="contactMe" src="https://docs.google.com/forms/d/e/1FAIpQLScN8BLSyHxDOxaM7RBrMjw4IVt8Jm0SQF6lmqP8-sHF7djqbg/viewform?embedded=true" >Loading…</iframe>
+    
+    <p>I'm currently based in Norman, Oklahoma and open to full-time, part-time, and freelance work opportunities 
+      located both in the Norman area as well as remote work. You can reach out to me at <a href="mailto:claycurry34@gmail.com">claycurry34@gmail.com</a>.
+    </p>
+    
     </PageContent>
     <div className="gap"></div>
     <Footer />

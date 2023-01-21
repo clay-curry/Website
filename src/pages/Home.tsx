@@ -12,8 +12,12 @@ function Home() {
       <PageContent>
           <p>
             I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. As an emerging software 
-            engineer and data scientist, I'm currently working on a number of sofware-related projects helping me gain practice on topics 
-            in software engineering (design patterns, architecture patterns, project management) and machine learning in a number of areas.
+            engineer and data scientist, I take considerable interest in a (still growing) number of topics in software engineering 
+            (design patterns, architecture patterns, project management), as well as the role of machine learning (visual analytics, 
+            data mining, and data science) in delivering unprecedented tools for evidence-based mangement and software engineering 
+            itself.
+          </p>
+          <p>
             Have a look at some of my recent work soon at your nearest Aerospace conference!
           </p>
       </PageContent>
@@ -46,7 +50,7 @@ function Hero() {
 
 
 function Buttons(){
-  return (<div className='buttons'>
+  return (<div className='userbuttons'>
         <Btn rel="contact" href="/research/" className="red" text="Research" />
         <Btn rel="contact" href="/projects/" className="yellow" text="Projects" />
         <Btn rel="contact" href="/contact/" className="green" text="Hire Me" />

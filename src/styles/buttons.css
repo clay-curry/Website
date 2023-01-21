@@ -1,4 +1,4 @@
-.buttons{
+.userbuttons {
     display: flex;
     gap: 20px;
     justify-content: space-around;
@@ -7,7 +7,7 @@
     width: min(800px, 90%);
 }
 
-.buttons > a {
+.userbuttons > a {
     -webkit-text-size-adjust: 100%;
     padding: 1vh 1vh 1vh 1vh;
     max-width: 200px;
@@ -23,25 +23,25 @@
     align-items: center;
 }
 
-a.red {
+.userbuttons > .red {
     border: 1px solid red;
     background-color: rgba(255, 0, 0, .35);
     color: aliceblue;
 }
 
-a.blue {
+.userbuttons > .blue {
     border: 1px solid rgba(159, 139, 255, 0.957);
     background-color: rgba(0, 38, 255, 0.35);
     color: aliceblue;
 }
 
-a.yellow {
+.userbuttons > .yellow {
     border: 1px solid rgba(227, 242, 96, 1);
     background-color: rgba(255, 234, 0, 0.35);
     color: aliceblue;
 }
 
-a.green {
+.userbuttons > .green {
     border: 1px solid rgb(96, 242, 125);
     background-color: rgba(34, 255, 0, 0.35);
     color: aliceblue;

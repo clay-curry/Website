@@ -31,7 +31,7 @@ function Statement() {
       <p>
         My goal is to contribute intuition, applications, and mathematical theorems that instill rigor 
         and tools for systematically deriving gradient-based learning algorithms (i.e., neural networks) 
-        under a small unified set of axiomatizing postulates. I am particularly interested in the role 
+        under a small set of unifying postulates. I am particularly interested in the role 
         of <a href={symmetry}>symmetry</a> in deriving physically-motivated, data-efficient machine 
         learning algorithms from first principles. 
       </p>

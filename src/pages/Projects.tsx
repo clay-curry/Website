@@ -17,20 +17,12 @@ function Projects() {
     </>);
 }
 
-function Software() {
-  return (<Fragment>
-      <hr />
-      <h3>Software</h3>
-  </Fragment>);
-}
-
 function Work() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
   const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
-  const phyast = "https://ou.edu/cas/physics-astronomy"
   const crawler = "https://github.com/claycurry34/Python-Web-Crawler"
   return (<Fragment>
       <hr />

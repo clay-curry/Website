@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/style.css';
 import face from '../assets/face.jpg';
-import { NavBar, Footer, Btn, PageContent, MoreComing } from '../components';
+import { NavBar, Footer, Btn, PageContent } from '../components';
 
 function Home() {
   

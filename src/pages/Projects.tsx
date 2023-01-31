@@ -33,14 +33,15 @@ function Work() {
         <tr>Partnership with OADII | NOV 2021 - Present</tr>
         <tr>
           <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.
-          Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. 
+          Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. Designed and implementing data 
+          scraping tools and scientific plots/animations, as well as synthesizing novel learning algorithms for flight maneuver identification.
           </p>
           <p>
             <b>Key Achievement:</b> Applied neural-architecture-search principles to learn an ensemble of transformer networks for recognizing basic flight maneuvers <Colab href={colab_transformer} />
           </p>
           
           <p>
-            <b>Key Achievement:</b> Scraped over 50,000,000 transponder messages (source: <a href={exch}>adsbexchange</a>) in one weekend, likely from every aircraft in the continental United States, then stored to a relational database. <GitHub href={github_transponder} />
+            <b>Key Achievement:</b> Scraped positional data in over 50 million aircraft transponder messages in one March weekend, likely from every aircraft in the continental United States. (source: <a href={exch}>adsbexchange</a>) Stored positional and aircraft data in a relational database. <GitHub href={github_transponder} />
           </p>
             
         </tr>

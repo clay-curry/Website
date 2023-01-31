@@ -10,7 +10,6 @@ function Research() {
     <NavBar/>
     <PageContent>
       <Statement />
-      <PreviousWork />
       <Keywords />
       <MoreComing />
     </PageContent>
@@ -38,18 +37,6 @@ function Statement() {
   </Fragment>);
 }
 
-function PreviousWork(){
-  
-  return(<Fragment>
-    <h3>Previous Work</h3>
-    <p>
-        My previous research experience as an undergraduate research assistant has included designing and implementing data 
-        scraping tools and scientific plots/animations, as well as synthesizing novel learning algorithms for flight maneuver 
-        npidentification.
-    </p>
-    <hr />
-    </Fragment>);
-}
 
 function Keywords() {
   return(<Fragment>

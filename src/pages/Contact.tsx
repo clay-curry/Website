@@ -8,8 +8,9 @@ function Contact() {
     <PageContent>
     <h2>Contact</h2>
     
-    <p>I'm currently based in Norman, Oklahoma and open to full-time, part-time, and freelance work opportunities 
-      located both in the Norman area as well as remote work. You can reach out to me at <a href="mailto:claycurry34@gmail.com">claycurry34@gmail.com</a>.
+    <p>
+      I'm currently based in Norman, Oklahoma, but I am open to potential opportunities anywhere on Earth. You can reach out to 
+      me at <a href="mailto:claycurry34@gmail.com">claycurry34@gmail.com</a>.
     </p>
     
     </PageContent>

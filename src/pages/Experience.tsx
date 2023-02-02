@@ -5,13 +5,13 @@ import logo from "../assets/C_512.png"
 import cube from "../assets/cube.png"
 import { Footer, MoreComing, NavBar, PageBody, JupyterBook, GitHub, ExperienceItem, BadgeRow } from '../components';
 
-function Projects() {
+function Experience() {
   return (
   
   <>
     <NavBar/>
     <PageBody>
-      <h2>Project Portfolio</h2>
+      <h2>Experience</h2>
         <PersonalProjects />
         <WorkExperience />
       <MoreComing />
@@ -98,4 +98,4 @@ function WorkExperience() {
   </Fragment>);
 }
 
-export default Projects;
+export default Experience;

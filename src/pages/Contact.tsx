@@ -9,6 +9,7 @@ function Contact() {
     <PageBody>
       <ContactInfo />
     </PageBody>
+    <div style={{height: '200px'}}>{/* Spacer */}</div>
     <Footer />
     </>);
 }
@@ -17,7 +18,7 @@ function Contact() {
 function ContactInfo() {
   return (<>
     <h2>Contact</h2>
-    <p> I'm currently based in Norman, Oklahoma, but I am open to potential opportunities anywhere on Earth. You can reach out to 
+    <p> I'm currently based in Norman, Oklahoma; however, I am a citizen of the blue planet and eager to discuss opportunities anywhere on Earth. You can reach out to 
       me at <a href="mailto:claycurry34@gmail.com">claycurry34@gmail.com</a>.</p>
     </>)
 }

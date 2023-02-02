@@ -7,7 +7,7 @@ import {
   Routes
 } from "react-router-dom";
 
-import { Home, Research, Projects, Contact } from './pages';
+import { Home, Research, Experience, Contact } from './pages';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/research" element={<Research />} />
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/experience" element={<Experience />} />
         <Route path="/contact"  element={<Contact />} />
         <Route path="/resume" element={<Resume />}/> 
               

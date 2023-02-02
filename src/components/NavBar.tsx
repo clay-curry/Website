@@ -15,7 +15,7 @@ function NavBar(){
                 </li>
 
                 <li className='button'>
-                    <NavLink to='/projects'>Projects</NavLink>
+                    <NavLink to='/experience'>Experience</NavLink>
                 </li>
 
                 <li className='button'>

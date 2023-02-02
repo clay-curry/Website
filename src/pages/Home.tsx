@@ -35,7 +35,7 @@ function Description(){
 function Buttons(){
   return (<div className='userbuttons'>
         <Btn rel="contact" href="/research/" className="red" text="Research" />
-        <Btn rel="contact" href="/projects/" className="yellow" text="Projects" />
+        <Btn rel="contact" href="/experience/" className="yellow" text="Experience" />
         <Btn rel="contact" href="/contact/" className="green" text="Hire Me" />
         <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
     </div>)

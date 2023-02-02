@@ -5,9 +5,6 @@ import type { Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 import particlesOptions from "./particles.json";
 
-import { SocialMedia } from '.';
-
-
 function Footer() {
     
     const particlesInit = useCallback(async (engine: Engine) => {

@@ -1,11 +1,39 @@
+.split {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.split ul{
+  max-width: max(200px, 30vw);
+}
+
 .experience-item {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.experience-item ul {
     display: flex;
     flex-direction: column;
     padding-left: 0.5%;  
     text-align: center;
     list-style: none;
     row-gap: 10px;
-    margin-bottom: 40px;
+    align-items: center;   
+}
+
+.experience-item > img {
+  max-width: 80px;
+  max-height: 80px;
+  border-color: black;
+  border-width: 3px;
+  border-radius: 10px;
+  border-style: solid;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 
 .experience-item li.heading {
@@ -16,20 +44,24 @@
 }
   
 .experience-item li.subheading {
-    padding-top: 3px;
+    line-height: 115%;
+    font-size: 15px;
   }
   
 .experience-item li.body {
     font-family: Arial, serif;
-    line-height: 155%;
+    line-height: 115%;
     font-size: 18px;
-    padding-left: 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 
 .badge-row {
   display: flex;
   flex-direction: row;
   column-gap: 20px;
+  padding-top: 15px;
   justify-content: space-evenly;
 }
 

@@ -1,7 +1,7 @@
 {
   "background": {
     "color": {
-      "value": "#1b1f29"
+      "value": "#191c1d"
     }
   },
   "fpsLimit": 120,
@@ -38,7 +38,7 @@
       "color": "#ffffff",
       "distance": 150,
       "enable": true,
-      "opacity": 0.5,
+      "opacity": 0.1,
       "width": 1
     },
     "collisions": {
@@ -49,7 +49,7 @@
       "enable": true,
       "outMode": "bounce",
       "random": false,
-      "speed": 0.6,
+      "speed": 0.3,
       "straight": false
     },
     "number": {
@@ -57,10 +57,10 @@
         "enable": true,
         "value_area": 800
       },
-      "value": 80
+      "value": 40
     },
     "opacity": {
-      "value": 0.5
+      "value": 0.05
     },
     "shape": {
       "type": "circle"

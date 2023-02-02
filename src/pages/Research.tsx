@@ -1,18 +1,17 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
-import '../styles/research.css'
 import '../styles/component.css'
 
-import { Footer, MoreComing, NavBar, PageContent } from '../components';
+import { Footer, MoreComing, NavBar, PageBody } from '../components';
 
 function Research() {
   return (<>
     <NavBar/>
-    <PageContent>
+    <PageBody>
       <Statement />
       <Keywords />
       <MoreComing />
-    </PageContent>
+    </PageBody>
     <Footer />
     </>);
 }
@@ -24,8 +23,8 @@ function Statement() {
     <h2>Research Statement</h2>
 
       <p>
-        My research goal is to help develop a unified theory of gradient-based learning algorithms, such as neural networks, 
-        by leveraging the power of symmetries in the underlying objective functions. I am particularly interested in the field 
+        My research goal is to help develop a unified theory of geometrically-inspired inductive-biases in the construction 
+        of neural networks by leveraging the symmetries of the objective functions. I am particularly interested in the field 
         of <a href={gdl}>Geometric Deep Learning</a> (GDL), where the underlying symmetries of the objective function can be 
         used to both define the most common and successful neural architectures and construct new architectures with 
         application-motivated inductive biaes. Towards this unifying goal, I have recently explored the application of these 

@@ -1,70 +1,86 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
-import '../styles/research.css';
-import { Footer, MoreComing, NavBar, PageContent, Colab, GitHub } from '../components';
+import '../styles/component.css';
+import { Footer, MoreComing, NavBar, PageBody, JupyterBook, BadgeRow, GitHub, ExperienceItem } from '../components';
 
 function Projects() {
   return (
   
   <>
     <NavBar/>
-    <PageContent>
+    <PageBody>
       <h2>Projects</h2>
-        <Work />  
+        <PersonalProjects />
+        <WorkExperience />
       <MoreComing />
-    </PageContent>
+    </PageBody>
     <Footer />
     </>);
 }
 
-function Work() {
+function PersonalProjects() {
+  const book_repo="https://github.com/claycurry34/Deep-Learning-Book"
+  const book_site="https://math.claycurry.com/"
+  const github_website="https://github.com/claycurry34/Website"
+  return (<>
+        <hr />
+        <h3>Personal Projects</h3>
+
+        <ExperienceItem 
+          heading="At the Interface of Fourier Analysis and Neural Networks"
+          subheading="Jupyter Book + Self Study | Oct 2022 - Current">
+            <BadgeRow>
+              <GitHub href={book_repo} />
+              <JupyterBook href={book_site} /> 
+            </BadgeRow>
+        </ExperienceItem>
+
+        <ExperienceItem 
+          heading="This Website"
+          subheading="React JS + Google Cloud Platform | Mar 2022 - Current">
+          <GitHub href={github_website} />
+        </ExperienceItem>
+        
+      </>);
+}
+
+function WorkExperience() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
-  const colab_transformer="https://colab.research.google.com/drive/19UY_igQUPTVfsVWNlHAQFl-WjoJ_VOwb?usp=sharing"
   const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
   const crawler = "https://github.com/claycurry34/Python-Web-Crawler"
   return (<Fragment>
       <hr />
-      <h3>Work Experience</h3>
-      <ul className='experience-item'>
-        
-      <tr>AI/ML Research Assistant</tr>
-        <tr>Partnership with OADII | NOV 2021 - Present</tr>
-        <tr>
-          <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.
-          Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. Designed and implementing data 
-          scraping tools and scientific plots/animations, as well as synthesizing novel learning algorithms for flight maneuver identification.
-          </p>
+      <h3>Professional Experience</h3>
+
+      <ExperienceItem
+        heading="AI/ML Research Assistant"
+        subheading={<div><a href={oadii}>OADII</a> Partnership | Nov 2021 - Dec 2022</div>}
+      >
+        <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.
+        Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. Designed and implementing data 
+        scraping tools and scientific plots/animations, as well as synthesizing novel learning algorithms for flight maneuver identification.
+        </p>
+        <p>
+          <b>Key Achievement:</b> Currently in the submisson process on a research paper (me as first author) that will be submitted to the 2022 International Conference on Harmonic Analysis and Applications. 
+        </p>
+        <p>
+          <b>Key Achievement:</b> Successfully deployed a Python-based web scraper that recorded over 70 million aircraft transponder messages in one March weekend, likely from every aircraft in the continental United States. (source: <a href={exch}>adsbexchange</a>) <GitHub href={github_transponder} />
+        </p>
+      </ExperienceItem>
+
+      <ExperienceItem
+        heading="Red Hat Enterprise Linux System Admin Assistant"
+        subheading="OU Physics and Astronomy | Feb 2021 - Feb 2022"
+        >
           <p>
-            <b>Key Achievement:</b> Applied neural-architecture-search principles to learn an ensemble of transformer networks for recognizing basic flight maneuvers <Colab href={colab_transformer} />
-          </p>
-          
-          <p>
-            <b>Key Achievement:</b> Scraped positional data in over 50 million aircraft transponder messages in one March weekend, likely from every aircraft in the continental United States. (source: <a href={exch}>adsbexchange</a>) Stored positional and aircraft data in a relational database. <GitHub href={github_transponder} />
-          </p>
-            
-        </tr>
-      </ul>
-      <ul className='experience-item'>
-        <tr>Red Hat Enterprise Linux System Admin Assistant</tr>
-        <tr>OU Physics and Astronomy | FEB 2021 - FEB 2022</tr>
-        <tr>
-          <p>
-          As a Red Hat Enterprise Linux System Admin Asst. at the OU Department of Physics, 
-          I coordinated with OU IT to provide system-facing and people-facing services and 
-          software infrastructure for a research-driven department using Red Hat Enterprise 
-          Linux. Using SSH, I scripted numerous tasks such as external device detection, 
-          monitoring service uptime, diagnosing network issues, and installing, testing, and 
-          maintaining a broad range of scientific software using remote code execution, saving 
-          weeks of labor. I also had a major role in web communications, including implementing 
-          the entire department website in Adobe Experience Manager
+            I helped in a broad range of tasks to fulfill various functional and nonfunctional requirements for a RHEL computer network. This involved providing system-facing and people-facing services, such as troubleshooting, scripting tasks, and maintaining documentation.
           </p>
           <p>
             <b>Key Achievement:</b> Developed a recursive web crawler in Python for flagging broken website links, discovering inconsistent info (phone numbers, office numbers), and verifying alt-text on over 200 webpages. <GitHub href={crawler} />
           </p>
-        </tr>
-      </ul>
+        </ExperienceItem>
   </Fragment>);
 }
 

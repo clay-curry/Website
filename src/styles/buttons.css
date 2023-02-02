@@ -1,7 +1,9 @@
 .userbuttons {
     display: flex;
-    gap: 20px;
-    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
     margin: 5vh;
     width: fit-content;
     width: min(800px, 90%);
@@ -9,7 +11,7 @@
 
 .userbuttons > * {
     -webkit-text-size-adjust: 100%;
-    padding: 1vh 1vh 1vh 1vh;
+    padding: 2vh 2vh 2vh 2vh;
     max-width: 200px;
     border-radius: 11px;
     opacity: 100%;

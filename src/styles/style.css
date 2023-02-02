@@ -44,7 +44,6 @@ svg {
   height: 40px;
   color: black;
   margin-left: 20px;
-  margin-right: 20px;
 }
 
 a svg{
@@ -73,8 +72,17 @@ iframe {
   border: 0;
 }
 
+
 ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+hr {
+  width: 90%;
+}
+
+ol {
+  margin: 0px;
 }

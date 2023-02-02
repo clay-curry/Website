@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
-import { NavBar, Footer, Btn, PageBody, Hero} from '../components';
+import { NavBar, Footer, PageBody, Hero} from '../components';
 
 function Home() {
   
@@ -11,7 +11,6 @@ function Home() {
       <PageBody>
           <Description />
       </PageBody>
-      <Buttons />
       <Footer />
     </>
   );
@@ -31,15 +30,6 @@ function Description(){
     </Fragment>)
 }
 
-
-function Buttons(){
-  return (<div className='userbuttons'>
-        <Btn rel="contact" href="/research/" className="red" text="Research" />
-        <Btn rel="contact" href="/experience/" className="yellow" text="Experience" />
-        <Btn rel="contact" href="/contact/" className="green" text="Hire Me" />
-        <Btn rel="contact" href="/contact/" className="blue" text="Contact Me" />
-    </div>)
-}
 
 
 export default Home;

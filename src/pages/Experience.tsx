@@ -1,19 +1,18 @@
 import React, { Fragment } from 'react';
 import '../styles/style.css';
 import '../styles/component.css';
-import logo from "../assets/C_512.png"
-import cube from "../assets/cube.png"
-import { Footer, MoreComing, NavBar, PageBody, JupyterBook, GitHub, ExperienceItem, BadgeRow } from '../components';
+import website_logo from "../assets/C_512.png"
+import book_logo from "../assets/cube.png"
+import oadii_logo from "../assets/oadii.png"
+import redhat_logo from "../assets/red_hat.png"
+import { Footer, MoreComing, NavBar, PageBody, JupyterBook, GitHub, ProjectItem, WorkExperience, BadgeRow } from '../components';
 
 function Experience() {
-  return (
-  
-  <>
+  return (<>
     <NavBar/>
     <PageBody>
-      <h2>Experience</h2>
         <PersonalProjects />
-        <WorkExperience />
+        <ProfessionalExperience />
       <MoreComing />
     </PageBody>
     <Footer />
@@ -26,75 +25,101 @@ function PersonalProjects() {
   const github_website="https://github.com/claycurry34/Website"
 
   return (<>
-      <hr />
         <h3>Personal Projects</h3>
-        <ul>
-        <li><ExperienceItem 
-          heading="This Website"
-          subheading="React JS + Google Cloud Platform | Mar 2022 - Current"
-          image={logo}
+        <hr />
+          <ProjectItem 
+          title="This Website"
+          subtitle="React JS + Google Cloud Platform | Mar 2022 - Current"
+          image={website_logo}
           alt="blackboard C">
             <BadgeRow>
               <GitHub href={github_website} />
             </BadgeRow>
-        </ExperienceItem></li>
-
-        <li><ExperienceItem 
-          heading="Equivariant Deep Learning: Theoretical Documentation"
-          subheading="Jupyter Book + Self Study | Oct 2022 - Current"
-          image={cube}
+        </ProjectItem>
+        <hr />
+        <ProjectItem 
+          title="Equivariant Deep Learning: Theoretical Documentation"
+          subtitle="Jupyter Book + Self Study | Oct 2022 - Current"
+          image={book_logo}
           alt="Rubik's Cube">
             <BadgeRow>
               <GitHub href={book_repo} />
               <JupyterBook href={book_site} /> 
               </BadgeRow>
-        </ExperienceItem></li>        
-        </ul>
+        </ProjectItem>
         
       </>);
 }
 
-function WorkExperience() {
+function ProfessionalExperience() {
   const exch="https://globe.adsbexchange.com/"
   const oadii="https://www.ou.edu/oadii"
   const hougen = "https://www.ou.edu/coe/cs/people/hougen";
   const github_transponder="https://github.com/claycurry34/Flight-Transponder-Dataset"
   const crawler = "https://github.com/claycurry34/Python-Web-Crawler"
+  const physics = "https://ou.edu/cas/physics-astronomy"
   return (<Fragment>
       <hr />
-      <h3>Professional Experience</h3>
       
-      <ExperienceItem
-        heading="AI/ML Research Assistant"
-        subheading={<div><a href={oadii}>OADII</a> Partnership | Nov 2021 - Dec 2022</div>}
-      >
+      <h3>Professional Experience</h3>
+      <WorkExperience
+        title="AI/ML Research Assistant"
+        daterange="Nov 2021 - Dec 2022"
+        organization="Oklahoma Aerospace Defense Innovation Institute"
+        image={oadii_logo}
+        alt="OADII Logo">
         <div>
-        <p>Partnership with <a href={oadii}>OK Air Defense Innovation Institute</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>.
-        Studied algorithms for object tracking, sensor fusion, and computer vision in aerospace and automotive systems. Designed and implementing data 
-        scraping tools and scientific plots/animations, as well as synthesizing novel learning algorithms for flight maneuver identification.
-        </p>
         <p>
-          <b>Key Achievement:</b> Currently in the submisson process on a research paper (me as first author) that will be submitted to the 2022 International Conference on Harmonic Analysis and Applications. 
+          Partnership with <a href={oadii}>OADII</a> under the advisement of Professor <a href={hougen}>Dean Hougen</a>. Studied tracking algorithms prevelant in aerospace surveillance systems, with emphasis on the problem of multi-source, multi-target information fusion.
         </p>
-        <p>
-          <b>Key Achievement:</b> Successfully deployed a Python-based web scraper that recorded over 70 million aircraft transponder messages in one March weekend, likely from every aircraft in the continental United States. (source: <a href={exch}>adsbexchange</a>) <GitHub href={github_transponder} />
-        </p>
-        </div>
-      </ExperienceItem>
+        
 
-      <ExperienceItem
-        heading="Red Hat Enterprise Linux System Admin Assistant"
-        subheading="OU Physics and Astronomy | Feb 2021 - Feb 2022"
+        <p className='achievements'><b>Key Achievements:</b></p>
+          <ol>
+
+            
+        <li><p>
+          Deployed a Python program that intercepted over 70 million aircraft transponder messages in one March weekend from the citizen-sourced transponder data stream hosted at <a href={exch}>adsbexchange</a>. <GitHub href={github_transponder} />
+        </p>
+        </li>
+        <li><p>
+          Currently in the submisson process on a research paper (me as first author) that will be submitted to the 2022 International Conference on Harmonic Analysis and Applications. (link soon)
+        </p></li>
+        </ol>
+        </div>
+      </WorkExperience>
+      <hr />
+      <WorkExperience
+        title="Red Hat Enterprise Linux Assistant System Admin"
+        daterange="Feb 2021 - Feb 2022"
+        organization="Homer L. Dodge Physics & Astronomy Deptartment"
+        image={redhat_logo}
+        alt="Red Hat Logo"
         >
           <div>
           <p>
-            I helped in a broad range of tasks to fulfill various functional and nonfunctional requirements for a RHEL computer network. This involved providing system-facing and people-facing services, such as troubleshooting, scripting tasks, and maintaining documentation.
+            Provided system-facing and people-facing services to deliver a broad range of functional and nonfunctional 
+            requirements for a research-driven computer network internally maintained by <a href={physics}>OU's departmtent of physics and astronomy</a>.
           </p>
-          <p>
-            <b>Key Achievement:</b> Developed a recursive web crawler in Python for flagging broken website links, discovering inconsistent info (phone numbers, office numbers), and verifying alt-text on over 200 webpages. <GitHub href={crawler} />
-          </p>
+          <div>
+            <p className='achievements'>
+            <b>Key Achievements:</b>
+            </p>
+            <ol>        
+              <li>
+                <p>
+                  Developed a web crawler in Python for flagging broken website links, discovering inconsistencies (phone numbers, office numbers), and verifying styling conventions on over 200 webpages. <GitHub href={crawler} />
+                </p>
+              </li>
+              <li>
+                <p>
+                  Upon departure, was offered a return position upon graduation.
+                </p>
+              </li>
+            </ol>
+            </div>
           </div>
-        </ExperienceItem>
+        </WorkExperience>
   </Fragment>);
 }
 

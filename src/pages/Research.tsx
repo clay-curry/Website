@@ -23,13 +23,13 @@ function Statement() {
     <h2>Research Statement</h2>
 
       <p>
-        My research goal is to help develop a unified theory of geometrically-inspired inductive-biases in the construction 
-        of neural networks by leveraging the symmetries of the objective functions. I am particularly interested in the field 
-        of <a href={gdl}>Geometric Deep Learning</a> (GDL), where the underlying symmetries of the objective function can be 
-        used to both define the most common and successful neural architectures and construct new architectures with 
-        application-motivated inductive biaes. Towards this unifying goal, I have recently explored the application of these 
-        principles in the aerospace industry, in which I have developed an algorithm for autonomous flight maneuver 
-        identification. 
+        My research goal is to help develop a unified theory of geometrically-inspired inductive-biases in the context of 
+        pattern recognition and neural network design. Naturally, this goal has fueled my interest in the lineage of research
+        often garnered as "<a href={gdl}>Geometric Deep Learning</a>"" (GDL), which attempts to leverage underlying symmetries 
+        of the objective function to define the most common and successful neural architectures from a set of first principles 
+        and construct new architectures with application-motivated inductive biaes. Towards this unifying goal, I have recently 
+        explored the application of these principles in the aerospace industry, in which I have developed an algorithm for 
+        autonomous flight maneuver identification. 
       </p>
       <hr />
 

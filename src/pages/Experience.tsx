@@ -40,7 +40,7 @@ function PersonalProjects() {
         </ExperienceItem></li>
 
         <li><ExperienceItem 
-          heading="At the Interface of Fourier Analysis and Neural Networks"
+          heading="Equivariant Deep Learning: Theoretical Documentation"
           subheading="Jupyter Book + Self Study | Oct 2022 - Current"
           image={cube}
           alt="Rubik's Cube">

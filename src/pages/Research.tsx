@@ -21,7 +21,13 @@ function Statement() {
   const gdl="https://geometricdeeplearning.com/"
   return (<Fragment>
     <h2>Research Statement</h2>
-
+      <p>
+      In machine learning, a delicate balance must be struck between two extremes of overfitting: blindness to underlying 
+      patterns in data and hallucination of non-existent patterns. Bias, the tendency to overlook patterns, and variance, 
+      the tendency to generate false patterns, play critical roles in this balance. The objective of a learning algorithm 
+      is to achieve a balance of bias and variance that accurately reflects the patterns present in data. The efficacy of 
+      the learning process is determined by the interplay between the quantity of data and the number of hypotheses considered. 
+      </p>
       <p>
         My research goal is to help develop a unified theory of geometrically-inspired inductive-biases in the context of 
         pattern recognition and neural network design. Naturally, this goal has fueled my interest in the lineage of research

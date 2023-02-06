@@ -25,7 +25,7 @@ function PersonalProjects() {
   const github_website="https://github.com/claycurry34/Website"
 
   return (<>
-        <h3>Personal Projects</h3>
+        <h3>Projects</h3>
         <hr />
           <ProjectItem 
           title="This Website"
@@ -38,7 +38,7 @@ function PersonalProjects() {
         </ProjectItem>
         <hr />
         <ProjectItem 
-          title="Equivariant Deep Learning: Theoretical Documentation"
+          title="Symmetry, Representations, and Neural Networks"
           subtitle="Jupyter Book + Self Study | Oct 2022 - Current"
           image={book_logo}
           alt="Rubik's Cube">
@@ -62,6 +62,7 @@ function ProfessionalExperience() {
       <hr />
       
       <h3>Professional Experience</h3>
+      <hr />
       <WorkExperience
         title="AI/ML Research Assistant"
         daterange="Nov 2021 - Dec 2022"

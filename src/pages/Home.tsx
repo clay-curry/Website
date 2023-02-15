@@ -19,13 +19,7 @@ function Home() {
 function Description(){
   return (<Fragment>
         <p>
-          I'm <b>Clay</b>, undergraduate in <b>Computer Science</b> at the <b>University of Oklahoma</b>. As an emerging software 
-          engineer and data scientist, I take considerable interest in a (still growing) number of topics in software engineering 
-          (design patterns, architecture patterns, project management), as well as the role of machine learning (visual analytics, 
-          data mining, and data science) in business and engineering applications.
-        </p>
-        <p>
-          Have a look at some of my recent work soon at your nearest Aerospace conference!
+        Hi, I'm Clay, avid Python programmer and open source contributor. I am deeply passionate for opportunities that enable me to remove barriers in learning algorithms research. I am actively seeking opportunities that will enable me to continue this passion.
         </p>
     </Fragment>)
 }
